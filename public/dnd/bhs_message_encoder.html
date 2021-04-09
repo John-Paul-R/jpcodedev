@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="A repository of development projects by John Paul Rutigliano.">
+
+    <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/core_style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+		#content_main > .flex {
+			width: 100%;
+			height: 100%;
+		}
+		#encoder_container {
+			border: 2px solid crimson;
+			padding: 12px;
+			border-radius: 8px;
+			background-color: var(--color-element-1);
+			width: 512px;
+		}
+		#encoder_container > div{
+			margin-bottom: 16px;
+		}
+		#input_container > * {
+		}
+		#output_container > * {
+		}
+		.searchField {
+			flex:1;
+			color: #353535;/*var(--color-text-inverse);*/
+			padding: 4px;
+		}
+		#encoder_output {
+			border: 1px solid grey;
+			padding: 4px;
+			flex:1;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			word-break: break-word;
+		}
+		#encoder_container > .button {
+			padding: 8px;
+			font-weight: 500;
+			margin-bottom: 0;
+		}
+	</style>
+	<script>
+		function encodeMessage(msgText) {
+			//let chars = msgText.split('|',-1)
+			const start = 65;
+			const key = [
+				"o-o-o",
+				"-o-o-",
+				"oo-oo",
+				"--o--",
+				"oo-o-",
+				"--o-o",
+				"o-oo-",
+				"o-ooo",
+				"o--oo",
+				"-o--o",
+				"-o---",
+				"-oo--",
+				"-----",
+				"ooooo",
+				"oooo-",
+				"----o",
+				"o----",
+				"-oooo",
+				"--ooo",
+				"oo---",
+				"--oo-",
+				"oo--o",
+				"---oo",
+				"ooo--",
+				"ooo-o",
+				"---o-",
+			]
+
+			let out = [];
+			msgText = msgText.toUpperCase()
+			msgText = msgText.replace(/\W/g, '');
+			for (let i=0; i<msgText.length; i++) {
+				out.push(key[msgText.charCodeAt(i)-start])
+			}
+			console.log(out);
+			let outText = "";
+
+			for (let i=0; i<out.length; i++) {
+				outText += out[i];
+				if (i < out.length-1)
+					outText += " | ";
+			}
+			return outText;
+		}
+		function encodeButtonClick(e) {
+			const outputElem = document.getElementById("encoder_output");
+			let msg = encodeMessage(document.getElementById("message_text").value);
+			console.log(msg);
+			outputElem.innerText = msg;
+		}
+	</script>
+    <title>JPCode.Dev</title>
+</head>
+
+<body>
+    <div id="page_container">
+        <header>
+            <div id="navbar" class="shadow">
+                <div id="title"><h4>
+                    <a id="homelink" href="https://jpcode.dev/dnd">
+                        <span style="color: crimson">D&D </span>Projects 
+                    </a>
+                    by <a href="https://github.com/John-Paul-R">JP</a></h4>
+				</div>
+                <div class="end flex row">
+                    <button class="swap_palette"><p>Theme</p><i class="material-icons">style</i></button>
+                    <script src="https://static.jpcode.dev/js/palette_light_dark.js"></script>                    
+                </div>
+            </div>
+        </header>
+        <!-- <div class="sidebar left"></div> -->
+        <div id="content_main" class="filled">
+            <div class="flex col aligncenter justifycenter">
+				<div id="encoder_container">
+					<div id="input_container" class="flex row spacechildh">
+						<label for="message_text">Message Text:</label>
+						<textarea type="text" name="message_text" id="message_text" class="searchField" placeholder="Type your message here." autofocus></textarea>
+					</div>
+					<div id="output_container" class="flex row spacechildh">
+						<label for="output">Encoded Text:</label>
+						<p id="encoder_output">Press 'Encode' to encode your message.</p>
+					</div>
+					<div class="button" onclick="encodeButtonClick()">Encode</div>
+				</div>
+
+
+			</div> 
+        </div>
+        <!-- <div class="sidebar right"></div> -->
+        <footer>
+            <div class="shadow">
+                <p class='small text aligncenter'>
+                    &#169; 2020 <a href="https://github.com/John-Paul-R"> John Paul R.</a>
+				</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+<div id="eof_scripts">
+
+</div>
+    
+</html>

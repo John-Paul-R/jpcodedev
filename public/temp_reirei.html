@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="A repository of development projects by John Paul Rutigliano.">
+
+    <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/core_style.css">
+    <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/projects-list.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Home - JPCode.Dev</title>
+</head>
+
+<body>
+    <div id="page_container">
+        <header>
+            <div id="navbar" class="shadow">
+                <div id="title"><h4>Projects by <a href="https://github.com/John-Paul-R">JP</a></h4></div>
+                <div class="end flex row">
+                    <button class="swap_palette"><p>Theme</p><i class="material-icons">style</i></button>
+                    <script src="https://static.jpcode.dev/js/palette_light_dark.js"></script>                    
+                </div>
+            </div>
+        </header>
+        
+        <div id="content_main" class="filled">
+            
+            
+        </div>
+        <script id="example_script">
+            const container = document.getElementById("content_main");
+            const linkElem = document.createElement('a');
+            linkElem.setAttribute('href', 'https://dev.poeatlas.net/');
+            linkElem.setAttribute('target', '_blank');
+            linkElem.innerText = "A link to dev.poeatlas.net";
+
+            const imgElem = document.createElement('img');
+            imgElem.setAttribute('src', 'https://as1.ftcdn.net/jpg/02/44/83/32/500_F_244833214_bBmRijbyEmtKrm7Q5zdcMc4ks3tpTmVu.jpg');
+
+            container.appendChild(linkElem);
+            container.appendChild(imgElem);
+        </script>
+        <footer>
+            <div class="shadow">
+                <p class='small text aligncenter'>
+                    &#169; 2020 <a href="https://github.com/John-Paul-R"> John Paul R.</a>
+				</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+<div id="eof_scripts">
+
+</div>
+    
+</html>
