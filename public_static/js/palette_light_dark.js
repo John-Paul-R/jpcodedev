@@ -89,7 +89,7 @@ var colorPalettes = [//Name     , base     , element-1, accent-1 , accent-2 , te
     new BasePalette('Color1'  , '#000000', '#14213d', '#fca311', '#e5e5e5', '#ffffff', '#000000'),
     new BasePalette('Color2'  , '#1a1a2e', '#16213e', '#e94560', '#0f3460', '#ffffff', '#000000'),
     new BasePalette('Color3'  , '#321f28', '#734046', '#e79e4f', '#a05344', '#ffffff', '#000000'),
-    new BasePalette('Color4'  , '#eeeeee', '#d0e0e6', '#19d3da', '#373a40', '#000000', '#ffffff'),
+    new BasePalette('Color4'  , '#eeeeee', '#d0e0e6', '#97cee2', '#373a40', '#000000', '#ffffff'),
     new BasePalette('Color6'  , '#382933', '#3b5249', '#e94560', '#0f3460', '#ffffff', '#000000'),
 
 ]; //todo load this from external file? or from online library of available palettes?
@@ -106,6 +106,7 @@ function bindPaletteSwapButtons(btnElements) {
 }
 bindPaletteSwapButtons();
 loadStoredPalette();
+initStyleSheet();
 var currentPalette;
 function loadStoredPalette() {
     let stored = window.localStorage.getItem(STORAGE_KEY);
@@ -163,6 +164,44 @@ function displayPalette(paletteID) {
     // for (let i=0; i<buttonElements.length; i++) {
     //     buttonElements[i].textContent = p.paletteName;
     // }
+    recolorImages(p);
     currentPalette = p;
     return p;
 }
+
+function createStyleSheet(id, media) {
+    var el   = document.createElement('style');
+    // WebKit hack
+    el.appendChild(document.createTextNode(''));
+    // el.type  = 'text/css';
+    el.rel   = 'stylesheet';
+    el.media = media || 'screen';
+    el.id    = id;
+    document.head.appendChild(el);
+    return el.sheet;
+}
+function initStyleSheet() {
+    const sheet = createStyleSheet('palette_light_dark');
+    sheet.insertRule(
+    `.invert::before {
+        filter: invert(100%);
+    }`);
+}
+/**
+ * 
+ * @param {ColorPalette} newPalette 
+ */
+function recolorImages(newPalette) {
+    const elems = document.getElementsByClassName('icon');
+    let operation;
+    if (brightness(newPalette.text[0]) >= 0.5) {
+        operation = (el) => el.classList.add('invert');
+    } else {
+        operation = (el) => el.classList.remove('invert');
+    }
+    for (let i = 0; i < elems.length; i++) {
+        operation(elems[i]);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {recolorImages(currentPalette);});
