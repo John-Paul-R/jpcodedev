@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            height: 100vh;
+            max-height: 100vh;
+            width: 100vw;
+        }
+        #overlay{
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #f0f0f0;
+            padding: 8px;
+            filter: opacity(80%);
+        }
+        #overlay *:not(:last-child) {
+            margin-bottom: 8px;
+        }
+        #results_table {
+            border-collapse: collapse;
+            border: 1px solid grey;
+        }
+        td {
+            border: 1px solid grey;
+            padding: 4px;
+        }
+    </style>
+    <base href="https://www.jpcode.dev/dnd/grid_aligner/index.html">
+    <title>TTRPG Grid Aligner | JPCode.Dev</title>
+</head>
+<body>
+    <!-- <img src="https://i.redd.it/jy43tx2esds61.jpg" alt="Battlemap Image" id="my-image"> -->
+    <div id="overlay">
+        <table id="results_table">
+            <tr>
+                <td>Height</td>
+                <td id="height"></td>
+            </tr>
+            <tr>
+                <td>Width</td>
+                <td id="width"></td>
+            </tr>
+            <tr>
+                <td>Cell Width</td>
+                <td id="cell_width"></td>
+            </tr>
+        </table>
+        <input type="file" id="file_input" multiple>
+    </div>
+
+    <script src="./main.js"></script>
+
+</body>
+</html>

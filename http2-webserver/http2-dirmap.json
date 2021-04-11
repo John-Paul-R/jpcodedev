@@ -2,8 +2,8 @@
   "css": {
     "core_style.css": {
       "headers": {
-        "content-length": 3488,
-        "last-modified": "Fri, 09 Apr 2021 13:06:03 GMT",
+        "content-length": 3132,
+        "last-modified": "Sat, 10 Apr 2021 17:59:12 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -26,8 +26,16 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 1455,
-        "last-modified": "Fri, 09 Apr 2021 13:26:01 GMT",
+        "content-length": 1494,
+        "last-modified": "Fri, 09 Apr 2021 20:04:14 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "widget_standalone.css": {
+      "headers": {
+        "content-length": 585,
+        "last-modified": "Sun, 11 Apr 2021 02:18:21 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -90,8 +98,8 @@
     },
     "palette_light_dark.js": {
       "headers": {
-        "content-length": 6937,
-        "last-modified": "Fri, 09 Apr 2021 18:28:11 GMT",
+        "content-length": 7993,
+        "last-modified": "Sat, 10 Apr 2021 17:54:27 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -119,6 +127,14 @@
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
+    },
+    "footer.js": {
+      "headers": {
+        "content-length": 565,
+        "last-modified": "Sun, 11 Apr 2021 02:08:17 GMT",
+        "content-type": "application/javascript",
+        "cache-control": "max-age=31536000"
+      }
     }
   },
   "LICENSE": {
@@ -131,8 +147,8 @@
   },
   "index.html": {
     "headers": {
-      "content-length": 5481,
-      "last-modified": "Fri, 09 Apr 2021 13:13:04 GMT",
+      "content-length": 5357,
+      "last-modified": "Sat, 10 Apr 2021 17:41:53 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -144,16 +160,16 @@
     "alias": "dnd/dnd.html",
     "bhs_message_encoder.html": {
       "headers": {
-        "content-length": 4175,
-        "last-modified": "Thu, 03 Dec 2020 19:53:55 GMT",
+        "content-length": 4031,
+        "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
     },
     "dnd.html": {
       "headers": {
-        "content-length": 2261,
-        "last-modified": "Fri, 09 Apr 2021 18:45:32 GMT",
+        "content-length": 2358,
+        "last-modified": "Sun, 11 Apr 2021 17:03:50 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -169,8 +185,8 @@
     "ian-oota": {
       "2020-4-4.html": {
         "headers": {
-          "content-length": 2056,
-          "last-modified": "Wed, 07 Apr 2021 11:01:06 GMT",
+          "content-length": 1918,
+          "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
           "content-type": "text/html",
           "cache-control": "max-age=0"
         }
@@ -563,16 +579,16 @@
           },
           "2021-4-4.html": {
             "headers": {
-              "content-length": 2056,
-              "last-modified": "Wed, 07 Apr 2021 13:47:51 GMT",
+              "content-length": 1918,
+              "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
               "content-type": "text/html",
               "cache-control": "max-age=0"
             }
           },
           "Skris.json": {
             "headers": {
-              "content-length": 56,
-              "last-modified": "Wed, 07 Apr 2021 14:06:01 GMT",
+              "content-length": 89,
+              "last-modified": "Sun, 11 Apr 2021 02:29:54 GMT",
               "content-type": "application/json",
               "cache-control": "max-age=31536000"
             }
@@ -589,8 +605,8 @@
         "templates": {
           "list.pug": {
             "headers": {
-              "content-length": 451,
-              "last-modified": "Wed, 07 Apr 2021 13:47:01 GMT",
+              "content-length": 441,
+              "last-modified": "Sun, 11 Apr 2021 02:28:01 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -605,8 +621,8 @@
           },
           "standalone-base.pug": {
             "headers": {
-              "content-length": 1011,
-              "last-modified": "Wed, 07 Apr 2021 14:00:45 GMT",
+              "content-length": 1090,
+              "last-modified": "Sun, 11 Apr 2021 02:08:40 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -631,18 +647,61 @@
       },
       "2021-4-4.html": {
         "headers": {
-          "content-length": 2056,
-          "last-modified": "Wed, 07 Apr 2021 14:14:31 GMT",
+          "content-length": 1918,
+          "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
           "content-type": "text/html",
           "cache-control": "max-age=0"
+        }
+      }
+    },
+    "grid_aligner": {
+      "alias": "dnd/grid_aligner/index.html",
+      "GKYoHhR.jpg": {
+        "headers": {
+          "content-length": 249455,
+          "last-modified": "Sun, 11 Apr 2021 16:50:04 GMT",
+          "content-type": "image/jpeg",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "index.html": {
+        "headers": {
+          "content-length": 1554,
+          "last-modified": "Sun, 11 Apr 2021 17:11:58 GMT",
+          "content-type": "text/html",
+          "cache-control": "max-age=0"
+        }
+      },
+      "jy43tx2esds61.jpg": {
+        "headers": {
+          "content-length": 1883621,
+          "last-modified": "Sun, 11 Apr 2021 16:50:04 GMT",
+          "content-type": "image/jpeg",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "main.js": {
+        "headers": {
+          "content-length": 10463,
+          "last-modified": "Sun, 11 Apr 2021 17:49:19 GMT",
+          "content-type": "application/javascript",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "qfkseui7qds61.jpg": {
+        "headers": {
+          "content-length": 1539800,
+          "last-modified": "Sun, 11 Apr 2021 16:50:05 GMT",
+          "content-type": "image/jpeg",
+          "cache-control": "max-age=31536000"
         }
       }
     }
   },
   "temp_reirei.html": {
     "headers": {
-      "content-length": 2090,
-      "last-modified": "Thu, 03 Dec 2020 19:53:55 GMT",
+      "content-length": 1952,
+      "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
