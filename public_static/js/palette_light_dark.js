@@ -183,7 +183,13 @@ function createStyleSheet(id, media) {
 function initStyleSheet() {
     const sheet = createStyleSheet('palette_light_dark');
     sheet.insertRule(
-    `.invert::before {
+    `.github.invert::before {
+        filter: invert(100%);
+    }`);
+    sheet.insertRule(`.github.invert {
+        filter: none;
+    }`);
+    sheet.insertRule(`.invert {
         filter: invert(100%);
     }`);
 }
@@ -192,15 +198,20 @@ function initStyleSheet() {
  * @param {ColorPalette} newPalette 
  */
 function recolorImages(newPalette) {
-    const elems = document.getElementsByClassName('icon');
+    const icon_after = document.getElementsByClassName('icon_after');
+    const icon = document.getElementsByClassName('icon');
+
     let operation;
     if (brightness(newPalette.text[0]) >= 0.5) {
         operation = (el) => el.classList.add('invert');
     } else {
         operation = (el) => el.classList.remove('invert');
     }
-    for (let i = 0; i < elems.length; i++) {
-        operation(elems[i]);
+    for (let i = 0; i < icon_after.length; i++) {
+        operation(icon_after[i]);
+    }
+    for (let i = 0; i < icon.length; i++) {
+        operation(icon[i]);
     }
 }
 
