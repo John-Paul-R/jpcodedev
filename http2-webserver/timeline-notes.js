@@ -42,7 +42,10 @@ function handleRequest(stream, headers) {
                 'content-type': 'text/html; charset=utf-8',
                 ':status': 200,
             })
-            stream.write(_templates['list']({"widgets": _widgets}));
+            stream.write(_templates['list']({
+                "widgets": _widgets,
+                "title": "Notes",
+            }));
             stream.end();
         } else if (pathFrags[2] === "ian-oota" && pathFrags[3] === "list-json") {
             stream.respond({

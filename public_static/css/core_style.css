@@ -51,10 +51,7 @@ button {
     padding: 3px;
     text-align: center;
 }
-button:hover {
-    filter: brightness(125%);
-    cursor: pointer;
-}
+
 button > p {
     margin-top: auto;
     margin-bottom: auto;
