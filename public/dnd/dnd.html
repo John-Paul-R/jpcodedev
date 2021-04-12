@@ -25,14 +25,15 @@
             border-color: var(--color-element-1-1);
             text-decoration: underline;
         }
-
+        .categories_container {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
         .categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 16px;
-            max-width: 80%;
-            margin-top: auto;
-            margin-bottom: auto;
+            max-width: 80vw;
         }
         .category {
             background-color: var(--color-base-2);
@@ -97,13 +98,14 @@
             </div>
         </header>
         <div id="content_main" class="filled flex col aligncenter">
-            <div class="categories">
+            <div class="flex row categories_container"><div class="categories">
                 <div class="category">
                     <h2 class="category_title">Homebrew <i class="dragon_icon icon"></i></h2>
                     <hr class="accent">
                     <div class="category_content">
                         <a href="https://www.gmbinder.com/share/-M8L8MFZWn_nMujJNgvT" class="project_item">Druid Subclass: Circle of the Wellspring</a>
                         <a href="https://www.gmbinder.com/share/-MAgXwj74c4Csqi6EBc1" class="project_item">Bracers of the Shadow Stalker</a>
+                        <a href="https://www.gmbinder.com/share/-MUQKTrAGI7WSMf0oCNw" class="project_item">Way of the Four Elements Monk (B&B Rework)</a>
                     </div>
                     <p class="smalltext right">Dragon icon by <a href="https://thenounproject.com/mckowncr">Cassie McKown</a>.</p>
                 </div>
@@ -142,14 +144,12 @@
                     </div>
                 </div>
 
-            </div>
+            </div></div>
         </div>
         <footer id="footer"><script src="https://static.jpcode.dev/js/footer.js"></script></footer>
     </div>
 </body>
 
-<div id="eof_scripts">
-
-</div>
+<div id="eof_scripts"></div>
     
 </html>
