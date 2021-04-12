@@ -50,61 +50,6 @@ function calcBrightness(c) {
     return (c[0] + c[1] + c[2]) /3 /255;
 }
 
-const baseOffset = 255;
-function getCellWidthFromImage(startWidth, endWidth, numRepeats) {
-    var img = document.getElementById('my-image');
-    var canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-    var ctx = canvas.getContext('2d');
-    img.parentElement.appendChild(canvas);
-    function getColorDiff(colorArr1, colorArr2) {
-        let diff = 0;
-        for (let i = 0; i < 3; i++) {
-            diff += colorArr2[i] - colorArr1[i];
-        }
-        return diff / 3
-    }
-    function testWidth(width, numRepeats) {
-        let prevPixelData;
-        let differenceRating = 0;
-        ctx.fillStyle = '#ffff00';
-        for (let i = 0; i < numRepeats; i++) {
-            let pixelData = ctx.getImageData(width*(i+1), baseOffset, 2, 2).data;
-            if (i > 0) {
-                differenceRating += getColorDiff(prevPixelData, pixelData);
-            }
-            prevPixelData = pixelData;
-        }
-        for (let i = 0; i < numRepeats; i++) {
-            let pixelData = ctx.getImageData(baseOffset, width*(i+1), 2, 2).data;
-            if (i > 0) {
-                differenceRating += getColorDiff(prevPixelData, pixelData);
-            }
-            prevPixelData = pixelData;
-        }
-        return Math.abs(differenceRating);
-    }
-    let bestDiffRating = Infinity;
-    let bestWidth;
-
-    for (let i = startWidth; i < endWidth; i++) {
-        let diffRating = testWidth(i, numRepeats);
-        console.log({diffRating, i});
-        if (diffRating < bestDiffRating) {
-            bestDiffRating = diffRating;
-            bestWidth = i;
-        }
-    }
-    for (let i = 0; i < numRepeats; i++) {
-        ctx.fillRect(baseOffset, 25*(i+1), 2, 2);
-
-        ctx.fillRect(baseOffset, 25*(i+1), 2, 2);
-    }
-    return { bestDiffRating, bestWidth };
-}
-
 class BrightnessSpike {
     constructor(position, brightnessOffset, brightness) {
         this.position = position;
@@ -113,43 +58,27 @@ class BrightnessSpike {
     }
 }
 var canvas = document.createElement('canvas');
-function getCellWidthFromImage2(img, startWidth, lengthRatio, spikeStorecount, numLines) {
+function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, numLines) {
     let lenX = lengthRatio * img.width;
     let lenY = lengthRatio * img.height;
     // var img = document.getElementById('my-image');
     canvas.width = img.width;
     canvas.height = img.height;
-    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
     var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.width, img.height);
     document.body.appendChild(canvas);
 
     const sortSpikes = (a, b) => Math.abs(b.brightnessOffset) - Math.abs(a.brightnessOffset);
-    function getLineBrightnessSpikesX(linePos, length, storeCount) {
+    function getLineBrightnessSpikes(imageStripData, storeCount) {
         let spikes = [];
-        let prevData = ctx.getImageData(linePos, startWidth, 1, 1).data;
+        let prevData = imageStripData.slice(0, 4);
         let prevBrightness = calcBrightness(prevData);
+        let length = imageStripData.length / 4;
         for (let i = 1; i < length; i++) {
-            let posOnLine = startWidth+i;
-            let pixelData = ctx.getImageData(linePos, posOnLine, 1, 1).data;
+            let pixelData = imageStripData.slice(i*4, i*4+4);
             let brightness = calcBrightness(pixelData);
             let brightnessDelta = brightness - prevBrightness;
-            spikes.push(new BrightnessSpike(posOnLine, brightnessDelta, brightness));
-            prevData = pixelData;
-            prevBrightness = brightness;
-        }
-
-        return spikes.sort(sortSpikes).slice(0, storeCount);
-    }
-    function getLineBrightnessSpikesY(linePos, length, storeCount) {
-        let spikes = [];
-        let prevData = ctx.getImageData(startWidth, linePos, 1, 1).data;
-        let prevBrightness = calcBrightness(prevData);
-        for (let i = 1; i < length; i++) {
-            let posOnLine = startWidth+i;
-            let pixelData = ctx.getImageData(posOnLine, linePos, 1, 1).data;
-            let brightness = calcBrightness(pixelData);
-            let brightnessDelta = brightness - prevBrightness;
-            spikes.push(new BrightnessSpike(posOnLine, brightnessDelta, brightness));
+            spikes.push(new BrightnessSpike(startWidth+i, brightnessDelta, brightness));
             prevData = pixelData;
             prevBrightness = brightness;
         }
@@ -173,14 +102,14 @@ function getCellWidthFromImage2(img, startWidth, lengthRatio, spikeStorecount, n
     let spikesList = [];
     for (let i = 0; i < numLines; i++) {
         let linePosX = startWidth+((img.width-startWidth)/numLines)*i;
-        let spikesX = getLineBrightnessSpikesX(linePosX, lenX, spikeStorecount);
+        let spikesX = getLineBrightnessSpikes(ctx.getImageData(linePosX, 0, 1, img.width).data, spikeStorecount);
         spikesList.push(spikesX);
         let linePosY = startWidth+((img.height-startWidth)/numLines)*i;
-        let spikesY = getLineBrightnessSpikesY(linePosY, lenY, spikeStorecount);
+        let spikesY = getLineBrightnessSpikes(ctx.getImageData(0, linePosY, img.width, 1).data, spikeStorecount);
         spikesList.push(spikesY);
+        
+        ctx.fillStyle = "#ff00ff";
         for (let i = 0; i < spikeStorecount; i++) {
-            ctx.fillStyle = "#ff00ff";
-
             ctx.fillRect(linePosX, spikesX[i].position, 2, 2);
             ctx.fillRect(spikesY[i].position, linePosY, 2, 2);
         }
@@ -248,26 +177,24 @@ function mode(obj, min, ignoreKey=null) {
  * @param {*} cellWidth 
  */
 function drawLines(img, ctx, cellWidth) {
-
     const linesX = img.width/cellWidth;
     const linesY = img.height/cellWidth;
     ctx.strokeStyle = "#ff00ff";
     ctx.globalAlpha = 0.6;
     ctx.lineWidth = 1;
-    for (let i = 1; i < linesX+1; i++) {
+    const drawLine = (x1, y1, x2, y2) => {
         ctx.beginPath();
-        ctx.moveTo(cellWidth*i, 0);
-        ctx.lineTo(cellWidth*i, img.height);
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
         ctx.stroke();
         ctx.closePath();
+    };
+    for (let i = 1; i < linesX+1; i++) {
+        drawLine(cellWidth*i, 0, cellWidth*i, img.height)
     }
 
     for (let i = 1; i < linesY+1; i++) {
-        ctx.beginPath();
-        ctx.moveTo(0, cellWidth*i);
-        ctx.lineTo(img.width, cellWidth*i);
-        ctx.stroke();
-        ctx.closePath();
+        drawLine(0, cellWidth*i, img.width, cellWidth*i)
     }
 
 }
@@ -277,13 +204,13 @@ function drawLines(img, ctx, cellWidth) {
 var img = new Image();
 
 const onload = () => { 
-    var result = getCellWidthFromImage2(img, 10, 1, 40, 45);
+    var result = getCellWidthFromImage(img, 10, 1, 40, 45);
     document.getElementById("height").textContent = result.height;
     document.getElementById("width").textContent = result.width;
     document.getElementById("cell_width").textContent = result.cellWidth;
  }
  img.onload = onload;
-img.src = "./jy43tx2esds61.jpg";
+img.src = "./GKYoHhR.jpg";
 
 
 const inputElement = document.getElementById("file_input");

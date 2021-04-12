@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            height: 100vh;
-            max-height: 100vh;
-            width: 100vw;
+            background-color: var(--color-base);
         }
         #overlay{
             position: fixed;
@@ -31,6 +29,7 @@
         }
     </style>
     <base href="https://www.jpcode.dev/dnd/grid_aligner/index.html">
+    <link rel="stylesheet" href="./drag-drop-files.css">
     <title>TTRPG Grid Aligner | JPCode.Dev</title>
 </head>
 <body>
@@ -50,10 +49,12 @@
                 <td id="cell_width"></td>
             </tr>
         </table>
-        <input type="file" id="file_input" multiple>
+        <!-- <input type="file" id="file_input" multiple> -->
+        <div id="drop_area"></div>
     </div>
 
+    <script src="./drag-drop-files.js"></script>
     <script src="./main.js"></script>
-
+    <script src="https://static.jpcode.dev/js/palette_light_dark.js"></script>
 </body>
 </html>
