@@ -160,16 +160,16 @@
     "alias": "dnd/dnd.html",
     "bhs_message_encoder.html": {
       "headers": {
-        "content-length": 4031,
-        "last-modified": "Fri, 09 Apr 2021 20:18:52 GMT",
+        "content-length": 4047,
+        "last-modified": "Sun, 11 Apr 2021 23:43:59 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
     },
     "dnd.html": {
       "headers": {
-        "content-length": 12227,
-        "last-modified": "Sun, 11 Apr 2021 23:21:00 GMT",
+        "content-length": 13957,
+        "last-modified": "Mon, 12 Apr 2021 00:30:51 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -791,6 +791,32 @@
         "last-modified": "Fri, 09 Apr 2021 13:08:25 GMT",
         "content-type": "application/zip",
         "cache-control": "max-age=31536000"
+      }
+    },
+    "my_art": {
+      "Orb-4096p1024s-DENOISE(4-B2.90).webp": {
+        "headers": {
+          "content-length": 641106,
+          "last-modified": "Sat, 01 Aug 2020 22:51:41 GMT",
+          "content-type": "image/webp",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).webp": {
+        "headers": {
+          "content-length": 595116,
+          "last-modified": "Sat, 01 Aug 2020 22:48:40 GMT",
+          "content-type": "image/webp",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "LanternFlameAnimated.mp4": {
+        "headers": {
+          "content-length": 2872600,
+          "last-modified": "Wed, 29 Jul 2020 07:27:49 GMT",
+          "content-type": "video/mp4",
+          "cache-control": "max-age=31536000"
+        }
       }
     }
   }
