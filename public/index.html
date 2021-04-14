@@ -6,7 +6,15 @@
     <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/core_style.css">
     <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/projects-list.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    
+    <style>
+        #content_main > hr {
+            transition: width 0.5s, opacity 0.5s;
+            width: 0;
+            margin: 0 auto;
+            opacity: 0;
+        }
+    </style>
     <title>Projects - JPCode.Dev</title>
 </head>
 
@@ -21,12 +29,12 @@
                 </div>
             </div>
         </header>
-        <!-- <div class="sidebar left"></div> -->
         <div id="content_main" class="filled">
             <div id="title_container" class="flex col aligncenter">
                 <h1>John Paul Rutigliano</h1>
                 <h2>Full-Stack Software Developer</h2>
             </div>
+            <hr>
             <div class="projects_container flex col aligncenter">
 				<div class="project_item">
                     <div class="info_container">
@@ -87,16 +95,20 @@
                         <a class="button github icon" href="https://github.com/John-Paul-R/opggdark">GitHub</a>
                     </div>
                 </div>
-				<!-- <div class="project_item">ToDo: research reusing already-sent html on pages on same domain, instead of resending. (ex: header/footer)</div> -->
 			</div> 
         </div>
-        <!-- <div class="sidebar right"></div> -->
         <footer id="footer"><script src="https://static.jpcode.dev/js/footer.js"></script></footer>
     </div>
 </body>
 
 <div id="eof_scripts">
-
+    <style>
+        div#content_main > hr {
+            width: 480px;
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    </style>
 </div>
-    
+
 </html>

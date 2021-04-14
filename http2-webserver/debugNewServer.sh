@@ -1,1 +1,1 @@
-node ./http2server2.1.js -p 8081 --debug --pubpath ../public --trueDebug --log verbose
+nodemon --inspect --watch ../public --watch ./ ./http2server2.1.js -p 8081 --debug --pubpath ../public --log simple --maxAge 0

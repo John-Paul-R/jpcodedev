@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="A repository of development projects by John Paul Rutigliano.">
+    <meta name="keywords" content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer">
+    <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/core_style.css">
+    <link rel="stylesheet" type="text/css" href="https://static.jpcode.dev/css/projects-list.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        #title h4 a:hover { color: var(--color-accent-1); }
+        .project_item {
+            transition: transform 0.5s, opacity 0.5s, border 0.25s;
+            opacity: 0;
+        }
+        .project_item:nth-child(odd) {
+            transform: translateX(-50vw);
+        }
+        .project_item:nth-child(even) {
+            transform: translateX(50vw);
+        }
+        #content_main > hr {
+            transition: width 0.5s 0.25s, opacity 0.5s 0.25s;
+            width: 0;
+            margin: 0 auto;
+            opacity: 0;
+        }
+        #canvas {
+            position: fixed;
+            top: 32px;
+            left:0;
+            width: inherit;
+            height: inherit;
+        }
+        #content_main * {
+            z-index: 1;
+        }
+    </style>
+    <title>Projects - JPCode.Dev</title>
+</head>
+
+<body>
+    <div id="page_container">
+        <header>
+            <div id="navbar" class="shadow">
+                <div id="title"><h4>Projects by <a href="https://github.com/John-Paul-R">JP</a></h4></div>
+                <div class="end flex row">
+                    <button class="swap_palette"><p>Theme</p><i class="material-icons">style</i></a>
+                    <script src="https://static.jpcode.dev/js/palette_light_dark.js"></script>
+                </div>
+            </div>
+        </header>
+        <div id="canvas_container">
+
+            <div id="content_main" class="filled">
+                <div id="title_container" class="flex col aligncenter">
+                    <h1>John Paul Rutigliano</h1>
+                    <h2 style="color: var(--color-text-1);">Full-Stack Software Developer</h2>
+                </div>
+                <hr>
+                <div class="projects_container flex col aligncenter">
+                    <div class="project_item">
+                        <div class="info_container">
+                            <h3 class="project_title"><a href="https://www.poeatlas.net/">PoE Atlas</a></h3>
+                            <p class="project_desc">An online tool for navigating Path of Exile's Atlas of Worlds.</p>
+                        </div>
+                        <ul class="tags_container">
+                            <li>Web</li>
+                            <li>Interactable</li>
+                            <li>2d Rendering</li>
+                        </ul>
+                        <div class="actions_container">
+                            <a class="button" href="https://www.poeatlas.net/">Website</a>
+                            <a class="button github icon" href="https://github.com/John-Paul-R/PoE-Atlas-Website">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project_item">
+                        <div class="info_container">
+                            <h3 class="project_title"><a href="https://www.fibermc.com/">FiberMC</a></h3>
+                            <p class="project_desc">A searchable and filterable list of all Fabric mods.</p>
+                        </div>
+                        <ul class="tags_container">
+                            <li>Web</li>
+                            <li>API</li>
+                            <li>Dynamically Generated</li>
+                        </ul>
+                        <div class="actions_container">
+                            <a class="button" href="https://www.fibermc.com/">Website</a>
+                            <a class="button github icon" href="https://github.com/John-Paul-R/FabricMC-Mod-List-Website">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project_item">
+                        <div class="info_container">
+                            <h3 class="project_title"><a href="https://greasyfork.org/en/scripts/424610-beyond-dark">Beyond Dark</a></h3>
+                            <p class="project_desc">A dark mode <a href="https://https://www.tampermonkey.net/">Tampermonkey</a> script for for <a href="https://www.dndbeyond.com/">DnDBeyond</a>.</p>
+                        </div>
+                        <ul class="tags_container">
+                            <li>Theme</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                        </ul>
+                        <div class="actions_container">
+                            <a class="button" href="https://greasyfork.org/en/scripts/424610-beyond-dark">Website</a>
+                            <a class="button github icon" href="https://github.com/John-Paul-R/ddbdark">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project_item">
+                        <div class="info_container">
+                            <h3 class="project_title"><a href="https://github.com/John-Paul-R/opggdark">opggdark</a></h3>
+                            <p class="project_desc">A dark theme for <a href="https://op.gg/">OP.GG</a>. Used with any UserCSS extension (e.g. <a href="https://github.com/openstyles/stylus">Stylus</a>).</p>
+                        </div>
+                        <ul class="tags_container">
+                            <li>Theme</li>
+                            <li>CSS</li>
+                        </ul>
+                        <div class="actions_container">
+                            <a class="button disabled">Website</a>
+                            <a class="button github icon" href="https://github.com/John-Paul-R/opggdark">GitHub</a>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <footer id="footer"><script src="https://static.jpcode.dev/js/footer.js"></script></footer>
+    </div>
+</body>
+
+<div id="eof_scripts"> 
+    <style>
+        .projects_container > div.project_item { 
+            transform: translateX(0px);
+            opacity: 1;
+        }
+        div#content_main > hr {
+            width: 33%;
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    </style>
+    <script src="./js/animation_showcase.js"></script>
+</div>
+    
+</html>

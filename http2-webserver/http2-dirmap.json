@@ -143,6 +143,14 @@
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
+    },
+    "animation_showcase.js": {
+      "headers": {
+        "content-length": 823,
+        "last-modified": "Wed, 14 Apr 2021 23:12:26 GMT",
+        "content-type": "application/javascript",
+        "cache-control": "max-age=31536000"
+      }
     }
   },
   "LICENSE": {
@@ -155,8 +163,8 @@
   },
   "index.html": {
     "headers": {
-      "content-length": 5357,
-      "last-modified": "Sat, 10 Apr 2021 17:41:53 GMT",
+      "content-length": 5598,
+      "last-modified": "Wed, 14 Apr 2021 23:15:28 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -866,6 +874,14 @@
           "cache-control": "max-age=31536000"
         }
       }
+    }
+  },
+  "animation_showcase.html": {
+    "headers": {
+      "content-length": 6807,
+      "last-modified": "Wed, 14 Apr 2021 23:08:26 GMT",
+      "content-type": "text/html",
+      "cache-control": "max-age=0"
     }
   }
 }
