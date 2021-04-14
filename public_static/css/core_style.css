@@ -63,14 +63,14 @@ button > p {
 header * {
     z-index: 100 !important;
 }
-header button {
+header .button {
     display: flex;
     padding: 0;
     padding-left: 8px;
     padding-right: 8px;
     /* border-radius:4px; */
 }
-header button * {
+header .button * {
     margin-right:2px;
     margin-left:2px;
 }
