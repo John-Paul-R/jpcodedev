@@ -2,6 +2,7 @@
 doctype html
 html(lang='en')
  head
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="https://static.jpcode.dev/css/core_style.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     script(src="https://static.jpcode.dev/js/palette_light_dark.js")
@@ -11,15 +12,8 @@ html(lang='en')
     header
         #navbar.shadow
             #title
-                h4 
-                    a(id="homelink" href="https://www.jpcode.dev/dnd")
-                        span(style="color:crimson") D&D
-                        |
-                        | Projects
-                    | 
-                    | by 
-                    | 
-                    a(href="https://github.com/John-Paul-R") JP
+                include mixins/dnd_head_title.mixin.pug
+                +title()
             .end.flex.row
                 button.swap_palette.button
                     p Theme

@@ -168,3 +168,7 @@ header > #navbar > .end {
 #homelink:hover {
 	text-decoration: underline;
 }
+
+#content_main {
+    overflow-y: auto;
+}

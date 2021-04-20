@@ -2,8 +2,8 @@
   "css": {
     "core_style.css": {
       "headers": {
-        "content-length": 3134,
-        "last-modified": "Wed, 14 Apr 2021 23:24:40 GMT",
+        "content-length": 3175,
+        "last-modified": "Tue, 20 Apr 2021 23:42:03 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -34,8 +34,8 @@
     },
     "widget_standalone.css": {
       "headers": {
-        "content-length": 8143,
-        "last-modified": "Tue, 20 Apr 2021 22:14:39 GMT",
+        "content-length": 8173,
+        "last-modified": "Tue, 20 Apr 2021 23:15:31 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -50,8 +50,8 @@
     },
     "widget_standalone.css.map": {
       "headers": {
-        "content-length": 1583,
-        "last-modified": "Tue, 20 Apr 2021 22:14:39 GMT",
+        "content-length": 1588,
+        "last-modified": "Tue, 20 Apr 2021 23:15:31 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
@@ -195,8 +195,8 @@
   },
   "index.html": {
     "headers": {
-      "content-length": 5605,
-      "last-modified": "Wed, 14 Apr 2021 23:25:57 GMT",
+      "content-length": 5685,
+      "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -208,16 +208,16 @@
     "alias": "dnd/dnd.html",
     "bhs_message_encoder.html": {
       "headers": {
-        "content-length": 4054,
-        "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+        "content-length": 4134,
+        "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
     },
     "dnd.html": {
       "headers": {
-        "content-length": 14207,
-        "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+        "content-length": 14367,
+        "last-modified": "Tue, 20 Apr 2021 23:42:41 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -233,8 +233,8 @@
     "ian-oota": {
       "2020-4-4.html": {
         "headers": {
-          "content-length": 1925,
-          "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+          "content-length": 2004,
+          "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
           "content-type": "text/html",
           "cache-control": "max-age=0"
         }
@@ -627,8 +627,8 @@
           },
           "2021-4-4.html": {
             "headers": {
-              "content-length": 1925,
-              "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+              "content-length": 2004,
+              "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
               "content-type": "text/html",
               "cache-control": "max-age=0"
             }
@@ -669,8 +669,8 @@
           },
           "standalone-base.pug": {
             "headers": {
-              "content-length": 1021,
-              "last-modified": "Tue, 20 Apr 2021 20:53:32 GMT",
+              "content-length": 833,
+              "last-modified": "Tue, 20 Apr 2021 23:45:04 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -690,21 +690,31 @@
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
+          },
+          "mixins": {
+            "dnd_head_title.mixin.pug": {
+              "headers": {
+                "content-length": 247,
+                "last-modified": "Tue, 20 Apr 2021 23:31:53 GMT",
+                "content-type": null,
+                "cache-control": "max-age=31536000"
+              }
+            }
           }
         }
       },
       "2021-4-4.html": {
         "headers": {
-          "content-length": 1925,
-          "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+          "content-length": 2004,
+          "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
           "content-type": "text/html",
           "cache-control": "max-age=0"
         }
       },
       "template structure.md": {
         "headers": {
-          "content-length": 347,
-          "last-modified": "Tue, 20 Apr 2021 22:08:46 GMT",
+          "content-length": 346,
+          "last-modified": "Tue, 20 Apr 2021 22:19:26 GMT",
           "content-type": "text/markdown",
           "cache-control": "max-age=31536000"
         }
@@ -780,8 +790,8 @@
   },
   "temp_reirei.html": {
     "headers": {
-      "content-length": 1959,
-      "last-modified": "Wed, 14 Apr 2021 23:25:52 GMT",
+      "content-length": 2038,
+      "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -918,8 +928,8 @@
   },
   "animation_showcase.html": {
     "headers": {
-      "content-length": 7259,
-      "last-modified": "Thu, 15 Apr 2021 21:21:35 GMT",
+      "content-length": 7339,
+      "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
