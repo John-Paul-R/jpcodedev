@@ -37,52 +37,56 @@ function handleRequest(stream, headers) {
     if (pathFrags[1] !== "dnd")
         return -1;
     if (pathFrags[1] === "dnd" && pathFrags.length > 2) {
-        if (pathFrags[2] === "ian-oota" && (pathFrags.length < 4 || pathFrags[3] === "list")) {
-            stream.respond({
-                'content-type': 'text/html; charset=utf-8',
-                ':status': 200,
-            })
-            stream.write(_templates['list']({
-                "widgets": _widgets,
-                "title": "Notes",
-            }));
-            stream.end();
-        } else if (pathFrags[2] === "ian-oota" && pathFrags[3] === "list-json") {
-            stream.respond({
-                'content-type': 'text/html; charset=utf-8',
-                ':status': 200,
-            })
-            stream.write(JSON.stringify(Object.keys(_widgets)));//sortFromConfig(_widgets, _config['_order'])
-            stream.end();
-        } else if (pathFrags[2] === "ian-oota") {
-            let widgetContents = getWidget(pathFrags.slice(3));
-            // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
-            if (widgetContents) {
+        if (pathFrags[2] === "ian-oota") {
+            if ((pathFrags.length < 4 || pathFrags[3] === "list")) {
                 stream.respond({
                     'content-type': 'text/html; charset=utf-8',
                     ':status': 200,
                 })
-                // stream.write(widgetContents);
-                stream.write(_templates['dnd_summary_note']({
-                    "widgetContents": widgetContents,
-                    "title": "Note...",
+                stream.write(_templates['list']({
+                    "widgets": _widgets,
+                    "title": "Notes",
                 }));
                 stream.end();
+            } else if (pathFrags[3] === "list-json") {
+                stream.respond({
+                    'content-type': 'text/html; charset=utf-8',
+                    ':status': 200,
+                })
+                stream.write(JSON.stringify(Object.keys(_widgets)));//sortFromConfig(_widgets, _config['_order'])
+                stream.end();
             } else {
-                return -2;
+                let widgetContents = getWidget(pathFrags.slice(3));
+                // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                if (widgetContents) {
+                    stream.respond({
+                        'content-type': 'text/html; charset=utf-8',
+                        ':status': 200,
+                    })
+                    // stream.write(widgetContents);
+                    stream.write(_templates['dnd_summary_note']({
+                        "widgetContents": widgetContents,
+                        "title": "Note...",
+                    }));
+                    stream.end();
+                } else {
+                    return -2;
+                }
             }
+        } else if (pathFrags[2] === "debug-widgets") {
+            stream.respond({
+                'content-type': 'application/json; charset=utf-8',
+                ':status': 200,
+            })
+            stream.write(JSON.stringify({
+                "templates": Object.keys(_templates).sort(),
+                "widgets": Object.keys(_widgets).sort(),
+                "markdown": Object.keys(_markdown).sort(),
+            }, null, 4));
+            stream.end();
+        } else {
+            return -1;
         }
-    } else if (pathFrags.length === 2) {
-        stream.respond({
-            'content-type': 'application/json; charset=utf-8',
-            ':status': 200,
-        })
-        stream.write(JSON.stringify({
-            "templates": Object.keys(_templates).sort(),
-            "widgets": Object.keys(_widgets).sort(),
-            "markdown": Object.keys(_markdown).sort(),
-        }, null, 4));
-        stream.end();
     } else {
         return -1;
     }
