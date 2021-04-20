@@ -1,29 +1,353 @@
+/* source: https://gist.github.com/andyferra/2554919 */
 #content_main {
-    max-height: calc(100vh - 32px);
-    background-color: var(--color-base-2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center
+  max-height: calc(100vh - 48px);
+  background-color: var(--color-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  overflow-y: auto;
 }
 
 .widget_container {
-    width: 80%;
-    height: 80%;
-    max-height: 80vh;
-    border-radius: 6px;
-    background-color: var(--color-base);
-    box-shadow: 0 0 8px -4px var(--color-text-1);
-    padding: 16px;
-    box-sizing: border-box;
-    overflow-y: auto
+  /* width: 80%;
+  height: 80%;
+  max-height: 80vh; */
+  margin: 32px 0;
+  width: clamp(256px, 1024px, 100vw);
+  border-radius: 6px;
+  background-color: var(--color-base-2);
+  border: 1px solid var(--color-base-1);
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: none;
 }
 
 .widget_container > h1,
 .widget_container > a {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .widget_container > hr {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
+
+.widget_container > p {
+  color: var(--color-text-1);
+}
+
+.widget_content {
+  /* a {
+    color: #4183C4; }
+  a.absent {
+    color: #cc0000; } */
+  /* h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+    background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+    text-decoration: none; } */
+}
+.widget_content .widget_content {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+  /* background-color: white; */
+  /* padding: 30px; */
+}
+.widget_content .widget_content > *:first-child {
+  margin-top: 0 !important;
+}
+.widget_content .widget_content > *:last-child {
+  margin-bottom: 0 !important;
+}
+.widget_content a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.widget_content h1, .widget_content h2, .widget_content h3, .widget_content h4, .widget_content h5, .widget_content h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+.widget_content h1 tt, .widget_content h1 code {
+  font-size: inherit;
+}
+.widget_content h2 tt, .widget_content h2 code {
+  font-size: inherit;
+}
+.widget_content h3 tt, .widget_content h3 code {
+  font-size: inherit;
+}
+.widget_content h4 tt, .widget_content h4 code {
+  font-size: inherit;
+}
+.widget_content h5 tt, .widget_content h5 code {
+  font-size: inherit;
+}
+.widget_content h6 tt, .widget_content h6 code {
+  font-size: inherit;
+}
+.widget_content h1 {
+  font-size: 28px;
+  border-bottom: 1px solid var(--color-accent-1);
+  color: var(--color-text);
+}
+.widget_content h2 {
+  font-size: 24px;
+  border-bottom: 1px solid var(--color-text-1);
+  color: var(--color-text);
+}
+.widget_content h3 {
+  font-size: 18px;
+}
+.widget_content h4 {
+  font-size: 16px;
+}
+.widget_content h5 {
+  font-size: 14px;
+}
+.widget_content h6 {
+  color: #777777;
+  font-size: 14px;
+}
+.widget_content p, .widget_content blockquote, .widget_content ul, .widget_content ol, .widget_content dl, .widget_content li, .widget_content table, .widget_content pre {
+  margin: 0.5em 0;
+}
+.widget_content hr {
+  /* background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0; */
+  /* border-bottom: 1px solid var(--color-text-1); */
+  color: var(--color-text-1);
+  /* height: 4px; */
+  padding: 0;
+}
+.widget_content .widget_content > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+.widget_content .widget_content > h1:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+.widget_content .widget_content > h1:first-child + h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+.widget_content .widget_content > h3:first-child, .widget_content .widget_content > h4:first-child, .widget_content .widget_content > h5:first-child, .widget_content .widget_content > h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+.widget_content a:first-child h1, .widget_content a:first-child h2, .widget_content a:first-child h3, .widget_content a:first-child h4, .widget_content a:first-child h5, .widget_content a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+.widget_content h1 p, .widget_content h2 p, .widget_content h3 p, .widget_content h4 p, .widget_content h5 p, .widget_content h6 p {
+  margin-top: 0;
+}
+.widget_content li p.first {
+  display: inline-block;
+}
+.widget_content ul, .widget_content ol {
+  padding-left: 30px;
+}
+.widget_content ul :first-child, .widget_content ol :first-child {
+  margin-top: 0;
+}
+.widget_content ul :last-child, .widget_content ol :last-child {
+  margin-bottom: 0;
+}
+.widget_content dl {
+  padding: 0;
+}
+.widget_content dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+.widget_content dl dt:first-child {
+  padding: 0;
+}
+.widget_content dl dt > :first-child {
+  margin-top: 0;
+}
+.widget_content dl dt > :last-child {
+  margin-bottom: 0;
+}
+.widget_content dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+.widget_content dl dd > :first-child {
+  margin-top: 0;
+}
+.widget_content dl dd > :last-child {
+  margin-bottom: 0;
+}
+.widget_content blockquote {
+  border-left: 4px solid var(--color-text-1);
+  padding: 0 15px;
+  color: var(--color-text-1);
+}
+.widget_content blockquote > :first-child {
+  margin-top: 0;
+}
+.widget_content blockquote > :last-child {
+  margin-bottom: 0;
+}
+.widget_content table {
+  padding: 0;
+}
+.widget_content table tr {
+  border-top: 1px solid #cccccc;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+.widget_content table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+.widget_content table tr th {
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+.widget_content table tr td {
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+.widget_content table tr th :first-child, .widget_content table tr td :first-child {
+  margin-top: 0;
+}
+.widget_content table tr th :last-child, .widget_content table tr td :last-child {
+  margin-bottom: 0;
+}
+.widget_content img {
+  max-width: 100%;
+}
+.widget_content span.frame {
+  display: block;
+  overflow: hidden;
+}
+.widget_content span.frame > span {
+  border: 1px solid #dddddd;
+  display: block;
+  float: left;
+  overflow: hidden;
+  margin: 13px 0 0;
+  padding: 7px;
+  width: auto;
+}
+.widget_content span.frame span img {
+  display: block;
+  float: left;
+}
+.widget_content span.frame span span {
+  clear: both;
+  color: #333333;
+  display: block;
+  padding: 5px 0 0;
+}
+.widget_content span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.widget_content span.align-center > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: center;
+}
+.widget_content span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+.widget_content span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.widget_content span.align-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px 0 0;
+  text-align: right;
+}
+.widget_content span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+.widget_content span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left;
+}
+.widget_content span.float-left span {
+  margin: 13px 0 0;
+}
+.widget_content span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right;
+}
+.widget_content span.float-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: right;
+}
+.widget_content code, .widget_content tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+.widget_content pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+.widget_content .highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+.widget_content pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+.widget_content pre code, .widget_content pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+/*# sourceMappingURL=widget_standalone.css.map */

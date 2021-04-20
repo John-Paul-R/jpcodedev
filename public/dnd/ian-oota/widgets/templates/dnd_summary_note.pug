@@ -1,18 +1,15 @@
 extends standalone-base.pug
 
 block head
-    link(rel="stylesheet", href="https://www.poeatlas.net/css/widget_standalone.css")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
     style a.button {margin: 8px;}
             
-        
-    
     title #{title}!
 
 block body
     .widget_container
-        h1 #{title}
         div.widget_content
-            p !{content}
-        each widget, key in widgets
-            a.button(href=`https://www.jpcode.dev/dnd/ian-oota/${key}`) #{widget.title}
-            br
+            p !{widgetContents}
+        //- each widget, key in widgets
+        //-     a.button(href=`https://www.jpcode.dev/dnd/ian-oota/${key}`) #{widget.title}
+        //-     br

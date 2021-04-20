@@ -1,0 +1,41 @@
+@import 'github_md';
+
+#content_main {
+    max-height: calc(100vh - 48px);
+    background-color: var(--color-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    overflow-y: auto;
+}
+
+.widget_container {
+    /* width: 80%;
+    height: 80%;
+    max-height: 80vh; */
+    margin: 32px 0;
+    width: clamp(256px, 1024px, 100vw);
+    border-radius: 6px;
+    background-color: var(--color-base-2);
+    border: 1px solid var(--color-base-1);
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-y: none;
+}
+
+.widget_container > h1,
+.widget_container > a {
+    margin-bottom: 8px;
+}
+
+.widget_container > hr {
+    margin-bottom: 12px;
+}
+.widget_container > p {
+    color: var(--color-text-1);
+}
+
+.widget_content {
+    @include widget_md;
+}

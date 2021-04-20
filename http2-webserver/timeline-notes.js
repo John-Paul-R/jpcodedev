@@ -62,7 +62,11 @@ function handleRequest(stream, headers) {
                     'content-type': 'text/html; charset=utf-8',
                     ':status': 200,
                 })
-                stream.write(widgetContents);
+                // stream.write(widgetContents);
+                stream.write(_templates['dnd_summary_note']({
+                    "widgetContents": widgetContents,
+                    "title": "Note...",
+                }));
                 stream.end();
             } else {
                 return -2;
