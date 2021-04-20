@@ -120,6 +120,7 @@
   font-size: 14px;
 }
 .widget_content p, .widget_content blockquote, .widget_content ul, .widget_content ol, .widget_content dl, .widget_content li, .widget_content table, .widget_content pre {
+  color: var(--color-text-1);
   margin: 0.5em 0;
 }
 .widget_content hr {
