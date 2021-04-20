@@ -18,6 +18,9 @@
         .project_item:nth-child(even) {
             transform: translateX(50vw);
         }
+        #canvas_container {
+            position: relative;
+        }
         #content_main > hr {
             transition: width 0.5s 0.25s, opacity 0.5s 0.25s;
             width: 0;
@@ -33,6 +36,14 @@
         }
         #content_main * {
             z-index: 1;
+        }
+        #animate_btn {
+            margin-top: 2rem;
+        }
+        .button.large {
+            font-size: 2rem;
+            padding: 1rem 2rem ;
+            border-radius: 0.5rem;
         }
     </style>
     <title>Projects - JPCode.Dev</title>
@@ -117,7 +128,8 @@
                             <a class="button github icon" href="https://github.com/John-Paul-R/opggdark">GitHub</a>
                         </div>
                     </div>
-                </div>   
+                    <button id="animate_btn" class="button large">Let's Start!</button>
+                </div>
             </div>
         </div>
         <footer id="footer"><script src="https://static.jpcode.dev/js/footer.js"></script></footer>
@@ -136,7 +148,8 @@
             transform: translateX(0px);
         }
     </style>
-    <script src="./js/animation_showcase.js"></script>
+    <script src="https://static.jpcode.dev/js/pixi.min.js"></script>
+    <script src="./js/animation_showcase.js" type="module"></script>
 </div>
     
 </html>
