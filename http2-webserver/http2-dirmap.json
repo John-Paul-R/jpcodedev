@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 1513,
-        "last-modified": "Wed, 21 Apr 2021 00:00:14 GMT",
+        "content-length": 1710,
+        "last-modified": "Fri, 23 Apr 2021 18:12:37 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -115,7 +115,7 @@
     "palette_light_dark.js": {
       "headers": {
         "content-length": 8299,
-        "last-modified": "Sun, 11 Apr 2021 23:28:56 GMT",
+        "last-modified": "Fri, 23 Apr 2021 18:20:31 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -932,6 +932,24 @@
       "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
+    }
+  },
+  "files": {
+    "Beyond20-2021-4-20-.zip": {
+      "headers": {
+        "content-length": 17444439,
+        "last-modified": "Wed, 21 Apr 2021 03:18:51 GMT",
+        "content-type": "application/zip",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "Beyond20-2021-4-20.zip": {
+      "headers": {
+        "content-length": 17444439,
+        "last-modified": "Wed, 21 Apr 2021 03:18:51 GMT",
+        "content-type": "application/zip",
+        "cache-control": "max-age=31536000"
+      }
     }
   }
 }

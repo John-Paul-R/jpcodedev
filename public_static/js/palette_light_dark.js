@@ -86,11 +86,11 @@ var colorPalettes = [//Name     , base     , element-1, accent-1 , accent-2 , te
     //  new ColorPalette('Light'   , '#fafafa', '#e0e0e0', '#aaaaaa', '#888888', '#353535', '#d0d0d0')
     new BasePalette('LYellow' , '#f6f4e6', '#f1eacb', '#f5d232', '#41444b', '#000000', '#ffffff'),
     new BasePalette('Dark'    , '#252525', '#353637', '#a50d0d', '#888888', '#f0f0f0', '#414141'),
-    new BasePalette('Color1'  , '#000000', '#14213d', '#fca311', '#e5e5e5', '#ffffff', '#000000'),
-    new BasePalette('Color2'  , '#1a1a2e', '#16213e', '#e94560', '#0f3460', '#ffffff', '#000000'),
-    new BasePalette('Color3'  , '#321f28', '#734046', '#e79e4f', '#a05344', '#ffffff', '#000000'),
-    new BasePalette('Color4'  , '#eeeeee', '#d0e0e6', '#97cee2', '#373a40', '#000000', '#ffffff'),
-    new BasePalette('Color6'  , '#382933', '#3b5249', '#e94560', '#0f3460', '#ffffff', '#000000'),
+    new BasePalette('DarkBY'  , '#000000', '#14213d', '#fca311', '#e5e5e5', '#ffffff', '#000000'),
+    new BasePalette('DBPink'  , '#1a1a2e', '#16213e', '#e94560', '#0f3460', '#ffffff', '#000000'),
+    new BasePalette('DWarm'   , '#321f28', '#734046', '#e79e4f', '#a05344', '#ffffff', '#000000'),
+    new BasePalette('LBlue'   , '#eeeeee', '#d0e0e6', '#97cee2', '#373a40', '#000000', '#ffffff'),
+    new BasePalette('DPinkG'  , '#382933', '#3b5249', '#e94560', '#0f3460', '#ffffff', '#000000'),
 
 ]; //todo load this from external file? or from online library of available palettes?
 
@@ -115,7 +115,7 @@ function loadStoredPalette() {
     } else {
         let mql = window.matchMedia('(prefers-color-scheme: dark)');
         if (mql.matches){
-            paletteIndex = 1;
+            paletteIndex = 4;
         } else {
             paletteIndex = 0;
         }

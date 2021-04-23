@@ -66,6 +66,14 @@
 .actions_container .button {
 	height: 24px;
 }
+
+.actions_container .button:not(.disabled):hover,
+.actions_container .button:not(.disabled):focus {
+	background-color: var(--color-accent-1-2);
+	box-shadow: 0 0 6px 0 var(--color-accent-1-1);
+
+}
+
 .button.github {
 	display: flex;
 	flex-direction: row;
@@ -82,3 +90,4 @@
 #title_container {
 	margin: 32px 0;
 }
+
