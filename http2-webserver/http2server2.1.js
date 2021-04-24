@@ -127,22 +127,17 @@ function respond(stream, headers) {
     if (successCode === 0)
       return 0;
   }
-  // Handle 404
   if (!requestedFile) {
     try {
       let fpath = resolveReqPath(path);
       let fd = fs.openSync(fpath);
-      stream.respondWithFD(fd);
-      stream.on('close', () => fs.closeSync(fd));
-      return 0;
+      if (fs.fstatSync(fd).isFile()) {
+        stream.respondWithFD(fd);
+        stream.on('close', () => fs.closeSync(fd));
+        return 0;
+      }
     } catch (error) {
       console.warn(error);
-      stream.respond({
-        'content-type': 'text/html; charset=utf-8',
-        ':status': 404
-      });
-      stream.end('<h1>HTTP Error 404 - Requested file not found.</h1>');
-      return -1;
     }
   }
 
@@ -161,9 +156,20 @@ function respond(stream, headers) {
   } catch (err) {
     logger.error(err);
   }
+  // Handle 404
+  handle404(stream, headers);
   return -1;
 }
+function handle404(stream) {
+  stream.respond({
+    'content-type': 'text/html; charset=utf-8',
+    ':status': 404
+  });
+  stream.end(getFile("/404.html").data);
+  // stream.end('<h1>HTTP Error 404 - Requested file not found.</h1>');
+  return -1;
 
+}
 server.listen(port);
 logger.info(`'${FILENAME}' is listening on port ${port}`);
 
@@ -207,13 +213,13 @@ function loadFiles() {
       if (runOpts.debug) {
         fs.closeSync(fileDescriptor);
         const fileContents = fs.readFileSync(filePath, { flag: 'r' });
-        files.set(`/${relFilePath}`, {
+        files.set(`${relFilePath}`, {
           absPath: filePath,
           data: fileContents,
           fileName: relFilePath,
           headers: headers
         });
-        console.info(`File registered: /${relFilePath}`)
+        console.info(`File registered: ${relFilePath}`)
       } else {
 
         if (contentType != 'text/html') {
@@ -232,12 +238,12 @@ function loadFiles() {
         //     headers["content-encoding"] = "br";
         // }
 
-        files.set(`/${relFilePath}`, {
+        files.set(`${relFilePath}`, {
           fileName: relFilePath,
           fileDescriptor,
           headers: headers
         });
-        console.info(`File loaded: /${relFilePath}`)
+        console.info(`File loaded: ${relFilePath}`)
         // console.log(files.get(`/${fileName}`));
       }
 
@@ -281,22 +287,24 @@ function dirmapResolvePath(cDirObj, subdirs) {
   else return cDirObj;
 }
 
-function getFile(reqPath, path) {
+function getFile(reqPath) {
   let out;
   const adjustPath = (path) => {
-    return Path.relative(exec_path, path);
+    if (path !== '/')
+      path = path.slice(1)
+    return path;
   } 
-  let relPath = adjustPath(path);
-  console.log(reqPath, path, relPath);
-  let fileName = Path.basename(path)
+  reqPath = adjustPath(reqPath);
+  console.log(reqPath);
+  let fileName = Path.basename(reqPath)
   if (fileName === '' || fileName === exec_dirname)
     fileName = reqPath; //In theory this should only happen for '/'
-  let fileInfo = dirmapGet(relPath)[fileName];
+  let fileInfo = dirmapGet(reqPath)[fileName];
   let file;
 
   try {
     if (fileInfo.alias) {
-      file = files.get("/" + fileInfo.alias);
+      file = files.get(fileInfo.alias);
 
       fileInfo = dirmapGet(fileInfo.alias)[Path.basename(fileInfo.alias)]
     } else {
@@ -309,28 +317,31 @@ function getFile(reqPath, path) {
   if (!file) {
     try {
       if (Object.keys(fileInfo).includes("index.html")) {
-        const idxPath = `${reqPath.slice(1)}/index.html`;
+        const idxPath = `${reqPath}/index.html`;
         fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
-        file = files.get("/"+idxPath);
+        file = files.get(idxPath);
         console.log(`CATCH-GO: ${idxPath}`)
       }
     } catch (err) {
       logErr(err);
     }
   }
+  try {
+    out = {
+      headers: fileInfo.headers,
+      data: file.data//(runOpts['use-br-if-available'] && fileInfo['.br']) ? files.get('/' + fileInfo['.br']).data : 
+    }
+    if (runOpts.maxAge) {
+      out.headers[HTTP2_HEADER_CACHE_CONTROL] = `max-age=${runOpts.maxAge}`;
+    }
+  } catch (err) {
+    logErr(err);
+    out = null;
+  }
   function logErr(err) {
     console.error("Error retrieving file: " + reqPath)
     console.error(err)
   }
-  out = {
-    headers: fileInfo.headers,
-    data: file.data//(runOpts['use-br-if-available'] && fileInfo['.br']) ? files.get('/' + fileInfo['.br']).data : 
-  }
-  if (runOpts.maxAge) {
-    out.headers[HTTP2_HEADER_CACHE_CONTROL] = `max-age=${runOpts.maxAge}`;
-  }
-  console.log(out);
-
   return out;
 }
 

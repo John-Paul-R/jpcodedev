@@ -1113,5 +1113,13 @@
       "content-type": "application/pdf",
       "cache-control": "max-age=31536000"
     }
+  },
+  "404.html": {
+    "headers": {
+      "content-length": 1458,
+      "last-modified": "Sat, 24 Apr 2021 08:25:56 GMT",
+      "content-type": "text/html",
+      "cache-control": "max-age=0"
+    }
   }
 }
