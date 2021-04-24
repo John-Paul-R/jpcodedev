@@ -1,5 +1,8 @@
 
 // import * as PIXI from 'pixi.js';
+
+window.anim = (function() {
+
 const canvas_container = document.getElementById("canvas_container");
 const app = new PIXI.Application({
     width: canvas_container.clientWidth,
@@ -7,7 +10,8 @@ const app = new PIXI.Application({
     autoStart: false,
     resizeTo: canvas_container,
 });
-const canvas = app.view;
+// const canvas = app.view;
+const canvas = document.createElement('canvas');
 canvas.id = 'canvas';
 canvas_container.prepend(canvas);
 const stage = app.stage;
@@ -20,12 +24,24 @@ function draw(palette) {
 
 var sheet = createStyleSheet("animation-showcase");
 hookElements();
+
+canvas.width = canvas_container.clientWidth;
+canvas.height = canvas_container.clientHeight;
+linesPattern(canvas, currentPalette, Math.PI/4, 10, 10);
+linesPattern(canvas, currentPalette, -Math.PI/4, 10, 10);
+
 function hookElements() {
     // Palette Button
     let elems = document.getElementsByClassName('swap_palette');
     for (let i = 0; i < elems.length; i++) {
         elems[i].addEventListener('click', () => {
             draw(currentPalette);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = currentPalette.base[0];
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            linesPattern(canvas, currentPalette, Math.PI/4, 10);
+            linesPattern(canvas, currentPalette, -Math.PI/4, 10);
+
         });
     }
 
@@ -139,3 +155,51 @@ function addCSS(rulesText) {
             sheet.insertRule(rule);
     }
 }
+
+/**
+ * 
+ * @param {HTMLCanvasElement} canvas 
+ * @param {*} colors 
+ * @param {*} angle 
+ * @param {*} thickness1 
+ * @param {*} thickness2 
+ */
+function linesPattern(canvas, colors, angle, thickness1) {
+    const w = canvas.width;
+    const h = canvas.height;
+    const sp = Math.max(w, h)/10;
+    const base = colors.base;
+    const ctx = canvas.getContext('2d');
+    let count = 0;
+    const stopHeight = h*2*(w/h);
+    const ratio = Math.tan(angle);
+    let startX = 0;
+    if (ratio < 0) {
+        startX = w;
+    }
+    for (let i = 0; i < stopHeight; i += thickness1*2) {
+        drawLine(i);
+        count++;
+    }
+
+
+    function drawLine(i) {
+        ctx.beginPath()
+        ctx.lineWidth = thickness1;
+        if (count % 2 === 1)
+            ctx.strokeStyle = base[0];
+        else
+            ctx.strokeStyle = base[2];
+        ctx.moveTo(startX, i);
+
+        ctx.lineTo(startX+ratio*i, 0);
+        ctx.closePath();
+        ctx.stroke();
+
+    }
+}
+
+return {
+    drawLines: (angle, thickness) => linesPattern(canvas, currentPalette, angle, thickness)
+}
+})();
