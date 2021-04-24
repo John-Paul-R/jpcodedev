@@ -3,12 +3,9 @@
 const http2 = require('http2');
 const fs = require('fs');
 const Path = require('path');
-const Mime = require('mime');
-const dir = require('node-dir');
 const log4js = require('log4js');
 const widgets = require('./timeline-notes.js');
 const fm = require('./files-manager.js');
-const FILENAME = Path.basename(__filename)
 
 //  Load ArgV
 const optionDefinitions = [
@@ -27,10 +24,12 @@ const optionDefinitions = [
 const commandLineArgs = require('command-line-args');
 const runOpts = commandLineArgs(optionDefinitions)
 
+const FILENAME = Path.basename(__filename)
 const exec_path = runOpts.pubpath;
 const exec_dirname = Path.basename(exec_path);
 const execModeString = runOpts.debug ? 'DEBUG' : 'PRODUCTION';
 
+// Init logger
 const logger = log4js.getLogger();
 log4js.configure({
   appenders: {
@@ -42,12 +41,6 @@ log4js.configure({
   }
 });
 logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
-
-const port = runOpts.port || 8080;
-const serverOpts = {
-  allowHTTP1: runOpts.allowHTTP1
-}
-fm.init(runOpts, logger);
 
 // Set Logging Format based on runOpts
 var logStream;
@@ -71,25 +64,12 @@ if (runOpts.log === "simple") {
   logStream = () => { };
 }
 
+// Init file manager
+fm.init(runOpts, logger);
+var fmgr = fm.load(exec_path);
+
 // Initialize dnd/ian-oota Notes Widgets
 widgets.init({ widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"), preload_widgets: true, lazy_lead_allowed: true })
-
-// Whether or not to use HTTPS on webserver
-let useSecure = false;
-if (runOpts.key && runOpts.cert) {
-  serverOpts.key = fs.readFileSync(runOpts.key);
-  serverOpts.cert = fs.readFileSync(runOpts.cert);
-  useSecure = true;
-  logger.info("Key and Cert Loaded. Running server with encryption enabled.");
-} else if (runOpts.key || runOpts.cert) {
-  logger.warn(`CommandLineArguments Error: A ${runOpts.key ? "key" : "cert"} was specified, but a ${runOpts.key ? "cert" : "key"} was not. In order to enable SSL/TLS, both must be specified. Starting server without SSL/TLS.`);
-} else {
-  logger.info("Key and Cert Unspecified. Running server without encryption.");
-}
-
-// const files = fm.loadFiles(exec_path);
-// var dirmap = fm.loadDirMap(exec_path);
-var fmgr = fm.load(exec_path);
 
 const {
   HTTP2_HEADER_METHOD,
@@ -104,6 +84,24 @@ const {
   HTTP2_HEADER_CONTENT_ENCODING
 } = http2.constants;
 
+const port = runOpts.port || 8080;
+const serverOpts = {
+  allowHTTP1: runOpts.allowHTTP1
+}
+
+// Whether or not to use HTTPS on webserver
+let useSecure = false;
+if (runOpts.key && runOpts.cert) {
+  serverOpts.key = fs.readFileSync(runOpts.key);
+  serverOpts.cert = fs.readFileSync(runOpts.cert);
+  useSecure = true;
+  logger.info("Key and Cert Loaded. Running server with encryption enabled.");
+} else if (runOpts.key || runOpts.cert) {
+  logger.warn(`CommandLineArguments Error: A ${runOpts.key ? "key" : "cert"} was specified, but a ${runOpts.key ? "cert" : "key"} was not. In order to enable SSL/TLS, both must be specified. Starting server without SSL/TLS.`);
+} else {
+  logger.info("Key and Cert Unspecified. Running server without encryption.");
+}
+
 //  Create server
 const server = useSecure ? http2.createSecureServer(serverOpts) : http2.createServer(serverOpts);
 
@@ -115,10 +113,8 @@ server.on('error', (err) => logger.error(err));
 
 //  Handle streams (requests are streams)
 server.on('stream', (stream, headers) => {
-
   const successCode = respond(stream, headers);
   logStream(headers, stream.session.socket);
-
 });
 
 // Request Handler / Response Generator
