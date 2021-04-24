@@ -156,6 +156,7 @@ function respond(stream, headers) {
 
     stream.respond(resHeaders);
     stream.end(requestedFile.data);
+    console.log(path);
     return 0;
   } catch (err) {
     logger.error(err);
@@ -282,13 +283,18 @@ function dirmapResolvePath(cDirObj, subdirs) {
 
 function getFile(reqPath, path) {
   let out;
+  const adjustPath = (path) => {
+    return Path.relative(exec_path, path);
+  } 
+  let relPath = adjustPath(path);
+  console.log(reqPath, path, relPath);
+  let fileName = Path.basename(path)
+  if (fileName === '' || fileName === exec_dirname)
+    fileName = reqPath; //In theory this should only happen for '/'
+  let fileInfo = dirmapGet(relPath)[fileName];
+  let file;
+
   try {
-    let relPath = Path.relative(exec_path, path);
-    let fileName = Path.basename(path)
-    if (fileName === '' || fileName === exec_dirname)
-      fileName = reqPath; //In theory this should only happen for '/'
-    let fileInfo = dirmapGet(relPath)[fileName];
-    let file;
     if (fileInfo.alias) {
       file = files.get("/" + fileInfo.alias);
 
@@ -296,17 +302,35 @@ function getFile(reqPath, path) {
     } else {
       file = files.get(reqPath);
     }
-    out = {
-      headers: fileInfo.headers,
-      data: (runOpts['use-br-if-available'] && fileInfo['.br']) ? files.get('/' + fileInfo['.br']).data : file.data
-    }
-    if (runOpts.maxAge) {
-      out.headers[HTTP2_HEADER_CACHE_CONTROL] = `max-age=${runOpts.maxAge}`;
-    }
+
   } catch (err) {
+    logErr(err);
+  }
+  if (!file) {
+    try {
+      if (Object.keys(fileInfo).includes("index.html")) {
+        const idxPath = `${reqPath.slice(1)}/index.html`;
+        fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
+        file = files.get("/"+idxPath);
+        console.log(`CATCH-GO: ${idxPath}`)
+      }
+    } catch (err) {
+      logErr(err);
+    }
+  }
+  function logErr(err) {
     console.error("Error retrieving file: " + reqPath)
     console.error(err)
   }
+  out = {
+    headers: fileInfo.headers,
+    data: file.data//(runOpts['use-br-if-available'] && fileInfo['.br']) ? files.get('/' + fileInfo['.br']).data : 
+  }
+  if (runOpts.maxAge) {
+    out.headers[HTTP2_HEADER_CACHE_CONTROL] = `max-age=${runOpts.maxAge}`;
+  }
+  console.log(out);
+
   return out;
 }
 

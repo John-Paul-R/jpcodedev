@@ -1028,7 +1028,6 @@
   },
   "playground": {
     "circles_cursor_anim": {
-      "alias": "playground/circles_cursor_anim/index.html",
       "css": {
         "jpcode.css": {
           "headers": {
@@ -1100,7 +1099,7 @@
       "index.html": {
         "headers": {
           "content-length": 714,
-          "last-modified": "Sat, 24 Apr 2021 01:39:16 GMT",
+          "last-modified": "Sat, 24 Apr 2021 06:59:06 GMT",
           "content-type": "text/html",
           "cache-control": "max-age=0"
         }
