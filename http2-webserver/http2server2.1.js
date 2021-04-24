@@ -117,6 +117,11 @@ server.on('stream', (stream, headers) => {
   logStream(headers, stream.session.socket);
 });
 
+const getDirectoriesOrHtml = source =>
+  fs.readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
+    .map(dirent => dirent.name)
+
 // Request Handler / Response Generator
 function respond(stream, headers) {
   // stream is a Duplex
@@ -140,6 +145,17 @@ function respond(stream, headers) {
         stream.respondWithFD(fd);
         stream.on('close', () => fs.closeSync(fd));
         return 0;
+      } else if (fs.fstatSync(fd).isDirectory()) {
+        fs.closeSync(fd);
+        // DO directory index things
+        stream.respond({
+          'content-type': 'application/json; charset=utf-8',
+          ':status': 200,
+        })
+        stream.write(JSON.stringify(getDirectoriesOrHtml(fpath)));
+        stream.end();
+        return 0;
+
       }
     } catch (error) {
       console.warn(error);

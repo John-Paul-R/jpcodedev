@@ -44,68 +44,69 @@ function loadFiles(dir_path) {
 
     // Load files into memory
     function preloadFiles(filePath) {
-        if (!filePath.includes("git")) {
-            const relFilePath = Path.relative(dir_path, filePath).replace('\\', '/');
-            const fileDescriptor = fs.openSync(filePath, "r");
-            const stat = fs.fstatSync(fileDescriptor);
-            const contentType = Mime.getType(relFilePath);
-            const headers = {
-                "content-length": stat.size,
-                "last-modified": stat.mtime.toUTCString(),
-                "content-type": contentType,
-            };
-            if (runOpts['early-hints']) {
-                console.log(relFilePath);
-                if (pushList[relFilePath]) {
-                    pList = pushList[relFilePath]
-                    linkHeaders = [];
-                    // Add 'Link' headers for all files specified in dirmap json file.
-                    for (let i = 0; i < pList.length; i++) {
-                        linkHeaders.push(`<${pList[i].path}>; rel="${pList[i].rel}"${pList[i].as ? '; as="' + pList[i].as + '"' : ''}${pList[i].crossorigin ? '; crossorigin="anonymous"' : ''}`);
-                    }
-                    headers[HTTP2_HEADER_LINK] = linkHeaders;
+        if (filePath.includes("git"))
+            return;
+
+        const relFilePath = Path.relative(dir_path, filePath).replace('\\', '/');
+        const fileDescriptor = fs.openSync(filePath, "r");
+        const stat = fs.fstatSync(fileDescriptor);
+        const contentType = Mime.getType(relFilePath);
+        const headers = {
+            "content-length": stat.size,
+            "last-modified": stat.mtime.toUTCString(),
+            "content-type": contentType,
+        };
+        if (runOpts['early-hints']) {
+            console.log(relFilePath);
+            if (pushList[relFilePath]) {
+                pList = pushList[relFilePath]
+                linkHeaders = [];
+                // Add 'Link' headers for all files specified in dirmap json file.
+                for (let i = 0; i < pList.length; i++) {
+                    linkHeaders.push(`<${pList[i].path}>; rel="${pList[i].rel}"${pList[i].as ? '; as="' + pList[i].as + '"' : ''}${pList[i].crossorigin ? '; crossorigin="anonymous"' : ''}`);
                 }
+                headers[HTTP2_HEADER_LINK] = linkHeaders;
             }
-
-            // if (runOpts.debug) {
-            fs.closeSync(fileDescriptor);
-            const fileContents = fs.readFileSync(filePath, { flag: 'r' });
-            files.set(`${relFilePath}`, {
-                absPath: filePath,
-                data: fileContents,
-                fileName: relFilePath,
-                headers: headers
-            });
-            console.info(`File registered: ${relFilePath}`)
-            // } else {
-
-            //   if (contentType != 'text/html') {
-            //     headers["cache-control"] = `max-age=${86400 * 365}`;
-            //   }
-            //   //  Because these types of files are compressed with brotli...
-            //   //TODO - Implement this properly
-            //   //TODO ...(So that there is a compressed and uncompressed vers of each...
-            //   //TODO ...and it chooses which to use dynamically, based on the request's "AcceptEncoding" header)
-            //   // if (!useDebugPath && (
-            //   //     contentType === 'application/javascript' 
-            //   //     || contentType === 'text/javascript' 
-            //   //     || contentType === 'text/css' 
-            //   //     || contentType === 'text/html' 
-            //   //     || contentType === 'application/json')) {
-            //   //     headers["content-encoding"] = "br";
-            //   // }
-
-            //   files.set(`${relFilePath}`, {
-            //     fileName: relFilePath,
-            //     fileDescriptor,
-            //     headers: headers
-            //   });
-            //   console.info(`File loaded: ${relFilePath}`)
-            //   // console.log(files.get(`/${fileName}`));
-            // }
-
         }
+
+        // if (runOpts.debug) {
+        fs.closeSync(fileDescriptor);
+        const fileContents = fs.readFileSync(filePath, { flag: 'r' });
+        files.set(`${relFilePath}`, {
+            absPath: filePath,
+            data: fileContents,
+            fileName: relFilePath,
+            headers: headers
+        });
+        console.info(`File registered: ${relFilePath}`)
+        // } else {
+
+        //   if (contentType != 'text/html') {
+        //     headers["cache-control"] = `max-age=${86400 * 365}`;
+        //   }
+        //   //  Because these types of files are compressed with brotli...
+        //   //TODO - Implement this properly
+        //   //TODO ...(So that there is a compressed and uncompressed vers of each...
+        //   //TODO ...and it chooses which to use dynamically, based on the request's "AcceptEncoding" header)
+        //   // if (!useDebugPath && (
+        //   //     contentType === 'application/javascript' 
+        //   //     || contentType === 'text/javascript' 
+        //   //     || contentType === 'text/css' 
+        //   //     || contentType === 'text/html' 
+        //   //     || contentType === 'application/json')) {
+        //   //     headers["content-encoding"] = "br";
+        //   // }
+
+        //   files.set(`${relFilePath}`, {
+        //     fileName: relFilePath,
+        //     fileDescriptor,
+        //     headers: headers
+        //   });
+        //   console.info(`File loaded: ${relFilePath}`)
+        //   // console.log(files.get(`/${fileName}`));
+        // }        
     }
+
     return files;
 };
 
@@ -137,6 +138,13 @@ function dirmapResolvePath(cDirObj, subdirs) {
     else return cDirObj;
 }
 
+/**
+ * 
+ * @param {string} reqPath 
+ * @param {Map<string, object>} files 
+ * @param {object} dirmap 
+ * @returns 
+ */
 function getFile(reqPath, files, dirmap) {
     let out;
     const adjustPath = (path) => {
@@ -145,8 +153,8 @@ function getFile(reqPath, files, dirmap) {
         return path;
     }
     reqPath = adjustPath(reqPath);
-    console.log(reqPath);
-    let fileName = Path.basename(reqPath)
+
+    let fileName = Path.basename(reqPath);
     if (fileName === '' || fileName === exec_dirname)
         fileName = reqPath; //In theory this should only happen for '/'
     let fileInfo = dirmapGet(reqPath,)[fileName];
@@ -250,11 +258,13 @@ function updateDirMap(exec_path, existingDirMap = undefined) {
 
                         const contentType = Mime.getType(files[i]);
                         dir[name] = dir[name] || {};
-                        headers = dir[name]["headers"] || {};
+                        let headers = dir[name]["headers"] || {};
+                        dir[name]["headers"] = headers;
+
                         headers[HTTP2_HEADER_CONTENT_LENGTH] = stat.size;
                         headers[HTTP2_HEADER_LAST_MODIFIED] = stat.mtime.toUTCString();
                         headers[HTTP2_HEADER_CONTENT_TYPE] = headers[HTTP2_HEADER_CONTENT_TYPE] || contentType;
-                        dir[name]["headers"] = headers;
+                        
                         if (contentEncoding) {
                             headers[HTTP2_HEADER_CONTENT_ENCODING] = contentEncoding;
                         }
@@ -281,6 +291,11 @@ function filterIgnore(path) {
     return true;
 }
 
+/**
+ * 
+ * @param {string} root_dir The directory to index / load files from 
+ * 
+ */
 function load(root_dir) {
     const files = loadFiles(root_dir);
     const dirmap = loadDirMap(root_dir);
