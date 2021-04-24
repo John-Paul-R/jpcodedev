@@ -120,7 +120,7 @@ function respond(stream, headers) {
   const socket = stream.session.socket;
   const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
-  const requestedFile = getFile(path, resolveReqPath(path, encodings));
+  const requestedFile = getFile(path);
   //Try widget
   if (!requestedFile) {
     const successCode = widgets.handleRequest(stream, headers);
@@ -129,7 +129,7 @@ function respond(stream, headers) {
   }
   if (!requestedFile) {
     try {
-      let fpath = resolveReqPath(path);
+      let fpath = Path.join(exec_path, path)
       let fd = fs.openSync(fpath);
       if (fs.fstatSync(fd).isFile()) {
         stream.respondWithFD(fd);
@@ -210,7 +210,7 @@ function loadFiles() {
         }
       }
 
-      if (runOpts.debug) {
+      // if (runOpts.debug) {
         fs.closeSync(fileDescriptor);
         const fileContents = fs.readFileSync(filePath, { flag: 'r' });
         files.set(`${relFilePath}`, {
@@ -220,32 +220,32 @@ function loadFiles() {
           headers: headers
         });
         console.info(`File registered: ${relFilePath}`)
-      } else {
+      // } else {
 
-        if (contentType != 'text/html') {
-          headers["cache-control"] = `max-age=${86400 * 365}`;
-        }
-        //  Because these types of files are compressed with brotli...
-        //TODO - Implement this properly
-        //TODO ...(So that there is a compressed and uncompressed vers of each...
-        //TODO ...and it chooses which to use dynamically, based on the request's "AcceptEncoding" header)
-        // if (!useDebugPath && (
-        //     contentType === 'application/javascript' 
-        //     || contentType === 'text/javascript' 
-        //     || contentType === 'text/css' 
-        //     || contentType === 'text/html' 
-        //     || contentType === 'application/json')) {
-        //     headers["content-encoding"] = "br";
-        // }
+      //   if (contentType != 'text/html') {
+      //     headers["cache-control"] = `max-age=${86400 * 365}`;
+      //   }
+      //   //  Because these types of files are compressed with brotli...
+      //   //TODO - Implement this properly
+      //   //TODO ...(So that there is a compressed and uncompressed vers of each...
+      //   //TODO ...and it chooses which to use dynamically, based on the request's "AcceptEncoding" header)
+      //   // if (!useDebugPath && (
+      //   //     contentType === 'application/javascript' 
+      //   //     || contentType === 'text/javascript' 
+      //   //     || contentType === 'text/css' 
+      //   //     || contentType === 'text/html' 
+      //   //     || contentType === 'application/json')) {
+      //   //     headers["content-encoding"] = "br";
+      //   // }
 
-        files.set(`${relFilePath}`, {
-          fileName: relFilePath,
-          fileDescriptor,
-          headers: headers
-        });
-        console.info(`File loaded: ${relFilePath}`)
-        // console.log(files.get(`/${fileName}`));
-      }
+      //   files.set(`${relFilePath}`, {
+      //     fileName: relFilePath,
+      //     fileDescriptor,
+      //     headers: headers
+      //   });
+      //   console.info(`File loaded: ${relFilePath}`)
+      //   // console.log(files.get(`/${fileName}`));
+      // }
 
     }
   }
@@ -269,11 +269,6 @@ function loadDirMap() {
     logger.error(err);
   }
 };
-
-function resolveReqPath(path, encodings) {
-  // Raw Path Resolution:
-  return Path.join(exec_path, path);
-}
 
 function dirmapGet(path,) {
   let fdirs = Path.dirname(path).split(Path.sep)
