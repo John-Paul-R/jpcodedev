@@ -1,0 +1,14 @@
+extends standalone-base.pug
+
+block head
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    
+    title Directory Index: '#{dir}'
+
+block body
+    .widget_container
+        h1 Directory: '#{dir}'
+        hr
+        each page in widgets
+            a.button(href=page.link) #{page.name}
+            br

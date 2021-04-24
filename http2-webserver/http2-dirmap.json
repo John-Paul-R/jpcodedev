@@ -720,7 +720,7 @@
           "list.pug": {
             "headers": {
               "content-length": 441,
-              "last-modified": "Sun, 11 Apr 2021 02:28:01 GMT",
+              "last-modified": "Sat, 24 Apr 2021 23:17:15 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -752,7 +752,7 @@
           "dnd_summary_note.pug": {
             "headers": {
               "content-length": 437,
-              "last-modified": "Tue, 20 Apr 2021 22:09:33 GMT",
+              "last-modified": "Sat, 24 Apr 2021 23:17:22 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -765,6 +765,22 @@
                 "content-type": null,
                 "cache-control": "max-age=31536000"
               }
+            },
+            "main_head_title.mixin.pug": {
+              "headers": {
+                "content-length": 171,
+                "last-modified": "Sat, 24 Apr 2021 23:05:21 GMT",
+                "content-type": null,
+                "cache-control": "max-age=31536000"
+              }
+            }
+          },
+          "markdown.pug": {
+            "headers": {
+              "content-length": 437,
+              "last-modified": "Sat, 24 Apr 2021 23:06:04 GMT",
+              "content-type": null,
+              "cache-control": "max-age=31536000"
             }
           }
         }
@@ -781,6 +797,14 @@
         "headers": {
           "content-length": 346,
           "last-modified": "Tue, 20 Apr 2021 22:19:26 GMT",
+          "content-type": "text/markdown",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "(ign)template structure.md": {
+        "headers": {
+          "content-length": 346,
+          "last-modified": "Sat, 24 Apr 2021 20:15:01 GMT",
           "content-type": "text/markdown",
           "cache-control": "max-age=31536000"
         }
@@ -1091,6 +1115,14 @@
           "headers": {
             "content-length": 185,
             "last-modified": "Mon, 04 Jan 2021 17:35:49 GMT",
+            "content-type": "text/plain",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "(ign)todo.txt": {
+          "headers": {
+            "content-length": 185,
+            "last-modified": "Sat, 24 Apr 2021 20:14:46 GMT",
             "content-type": "text/plain",
             "cache-control": "max-age=31536000"
           }

@@ -4,6 +4,7 @@ const http2 = require('http2');
 const fs = require('fs');
 const Path = require('path');
 const log4js = require('log4js');
+const pug = require('pug');
 const widgets = require('./timeline-notes.js');
 const fm = require('./files-manager.js');
 
@@ -24,6 +25,7 @@ const optionDefinitions = [
 const commandLineArgs = require('command-line-args');
 const runOpts = commandLineArgs(optionDefinitions)
 
+const websiteRoot = `www.jpcode.dev`;
 const FILENAME = Path.basename(__filename)
 const exec_path = runOpts.pubpath;
 const exec_dirname = Path.basename(exec_path);
@@ -122,6 +124,10 @@ const getDirectoriesOrHtml = source =>
     .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
     .map(dirent => dirent.name)
 
+const pugFile = Path.join(__dirname, "templates", "list.pug");
+const dirIndexPug = pug.compile(
+  fs.readFileSync(pugFile), { filename: pugFile }
+)
 // Request Handler / Response Generator
 function respond(stream, headers) {
   // stream is a Duplex
@@ -148,11 +154,17 @@ function respond(stream, headers) {
       } else if (fs.fstatSync(fd).isDirectory()) {
         fs.closeSync(fd);
         // DO directory index things
+        const opts = {
+          dir: Path.basename(path),
+          widgets: getDirectoriesOrHtml(fpath)
+            .map(name =>  {return { name: name, link: "https://"+Path.join(websiteRoot, path, name) };})
+        }
+        console.log(opts);
         stream.respond({
-          'content-type': 'application/json; charset=utf-8',
+          'content-type': 'text/html; charset=utf-8',
           ':status': 200,
         })
-        stream.write(JSON.stringify(getDirectoriesOrHtml(fpath)));
+        stream.write(dirIndexPug(opts));
         stream.end();
         return 0;
 
