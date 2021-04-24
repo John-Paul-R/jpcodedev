@@ -1,0 +1,37 @@
+
+@mixin card {
+    background-color: var(--color-base-2);
+    border-radius: 8px;
+    border: 1px solid var(--color-base-1);
+    padding: 16px;
+    box-sizing: content-box;
+    
+}
+
+@mixin card_link_item {
+    &:first-child {
+        margin-top: 16px;
+    }
+    
+    background-color: var(--color-element-1);
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--color-element-1-2);
+    margin-bottom: 8px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    &:hover {
+        border-color: var(--color-element-1-1);
+        text-decoration: underline;
+    }
+    
+}
+
+@mixin card_content {
+    display: flex;
+    flex-direction: column;
+}
+
