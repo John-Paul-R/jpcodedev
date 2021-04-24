@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 1710,
-        "last-modified": "Fri, 23 Apr 2021 18:12:37 GMT",
+        "content-length": 2437,
+        "last-modified": "Fri, 23 Apr 2021 23:10:05 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -53,6 +53,72 @@
         "content-length": 1588,
         "last-modified": "Tue, 20 Apr 2021 23:15:31 GMT",
         "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "_dnd_float_msg.scss": {
+      "headers": {
+        "content-length": 341,
+        "last-modified": "Sat, 24 Apr 2021 00:42:06 GMT",
+        "content-type": "text/x-scss",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "projects-list.css.map": {
+      "headers": {
+        "content-length": 595,
+        "last-modified": "Fri, 23 Apr 2021 23:10:05 GMT",
+        "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "projects-list.scss": {
+      "headers": {
+        "content-length": 1678,
+        "last-modified": "Fri, 23 Apr 2021 22:56:29 GMT",
+        "content-type": "text/x-scss",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "_button_glow.scss": {
+      "headers": {
+        "content-length": 270,
+        "last-modified": "Fri, 23 Apr 2021 23:10:05 GMT",
+        "content-type": "text/x-scss",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "cards": {
+      "_link_list_card.scss": {
+        "headers": {
+          "content-length": 708,
+          "last-modified": "Fri, 23 Apr 2021 23:35:36 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      }
+    },
+    "dnd_index.css": {
+      "headers": {
+        "content-length": 8740,
+        "last-modified": "Sat, 24 Apr 2021 00:42:32 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "dnd_index.css.map": {
+      "headers": {
+        "content-length": 430,
+        "last-modified": "Sat, 24 Apr 2021 00:42:32 GMT",
+        "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "dnd_index.scss": {
+      "headers": {
+        "content-length": 8274,
+        "last-modified": "Sat, 24 Apr 2021 00:42:32 GMT",
+        "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
     }
@@ -162,8 +228,8 @@
     },
     "animation_showcase.js": {
       "headers": {
-        "content-length": 4232,
-        "last-modified": "Thu, 15 Apr 2021 22:31:49 GMT",
+        "content-length": 8008,
+        "last-modified": "Sat, 24 Apr 2021 01:17:31 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -195,8 +261,8 @@
   },
   "index.html": {
     "headers": {
-      "content-length": 5704,
-      "last-modified": "Wed, 21 Apr 2021 00:01:25 GMT",
+      "content-length": 6079,
+      "last-modified": "Sat, 24 Apr 2021 01:16:34 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -216,8 +282,8 @@
     },
     "dnd.html": {
       "headers": {
-        "content-length": 14287,
-        "last-modified": "Tue, 20 Apr 2021 23:47:37 GMT",
+        "content-length": 4927,
+        "last-modified": "Fri, 23 Apr 2021 23:12:36 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -928,8 +994,8 @@
   },
   "animation_showcase.html": {
     "headers": {
-      "content-length": 7339,
-      "last-modified": "Tue, 20 Apr 2021 23:42:40 GMT",
+      "content-length": 7811,
+      "last-modified": "Sat, 24 Apr 2021 01:16:39 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -950,6 +1016,103 @@
         "content-type": "application/zip",
         "cache-control": "max-age=31536000"
       }
+    },
+    "john-paul-r-resume-2020-4.pdf": {
+      "headers": {
+        "content-length": 48308,
+        "last-modified": "Thu, 25 Mar 2021 21:50:33 GMT",
+        "content-type": "application/pdf",
+        "cache-control": "max-age=31536000"
+      }
+    }
+  },
+  "playground": {
+    "circles_cursor_anim": {
+      "alias": "playground/circles_cursor_anim/index.html",
+      "css": {
+        "jpcode.css": {
+          "headers": {
+            "content-length": 595,
+            "last-modified": "Sun, 03 Jan 2021 22:46:17 GMT",
+            "content-type": "text/css",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "pg2.css": {
+          "headers": {
+            "content-length": 0,
+            "last-modified": "Mon, 04 Jan 2021 13:08:42 GMT",
+            "content-type": "text/css",
+            "cache-control": "max-age=31536000"
+          }
+        }
+      },
+      "js": {
+        "jpcode.js": {
+          "headers": {
+            "content-length": 12605,
+            "last-modified": "Sat, 24 Apr 2021 01:40:36 GMT",
+            "content-type": "application/javascript",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "pg2.js": {
+          "headers": {
+            "content-length": 0,
+            "last-modified": "Mon, 04 Jan 2021 13:08:31 GMT",
+            "content-type": "application/javascript",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "pixi-legacy.min.js": {
+          "headers": {
+            "content-length": 429804,
+            "last-modified": "Sun, 03 Jan 2021 18:05:54 GMT",
+            "content-type": "application/javascript",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "pixi-legacy.min.js.map": {
+          "headers": {
+            "content-length": 2194829,
+            "last-modified": "Sun, 03 Jan 2021 18:06:00 GMT",
+            "content-type": "application/json",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "pixi.js": {
+          "headers": {
+            "content-length": 1546534,
+            "last-modified": "Sun, 03 Jan 2021 19:12:51 GMT",
+            "content-type": "application/javascript",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "todo.txt": {
+          "headers": {
+            "content-length": 185,
+            "last-modified": "Mon, 04 Jan 2021 17:35:49 GMT",
+            "content-type": "text/plain",
+            "cache-control": "max-age=31536000"
+          }
+        }
+      },
+      "index.html": {
+        "headers": {
+          "content-length": 714,
+          "last-modified": "Sat, 24 Apr 2021 01:39:16 GMT",
+          "content-type": "text/html",
+          "cache-control": "max-age=0"
+        }
+      }
+    }
+  },
+  "john-paul-r-resume.pdf": {
+    "headers": {
+      "content-length": 48308,
+      "last-modified": "Thu, 25 Mar 2021 21:50:33 GMT",
+      "content-type": "application/pdf",
+      "cache-control": "max-age=31536000"
     }
   }
 }
