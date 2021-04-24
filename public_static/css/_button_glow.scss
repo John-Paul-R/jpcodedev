@@ -1,0 +1,17 @@
+
+
+@mixin button_glow {
+
+    transition: background-color 0.1s, box-shadow 0.1s;
+
+    &:hover,
+    &:focus {
+        background-color: var(--color-accent-1-2);
+        box-shadow: 0 0 6px 0 var(--color-accent-1-1);    
+    }
+
+}
+
+.button.glow {
+    @include button_glow;
+}
