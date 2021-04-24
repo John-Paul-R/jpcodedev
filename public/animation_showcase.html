@@ -46,6 +46,15 @@
             padding: 1rem 2rem ;
             border-radius: 0.5rem;
         }
+        #anim_control_panel {
+            z-index: 1;
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--color-base-1);
+            background-color: var(--color-base-2);
+        }
     </style>
     <title>Projects - JPCode.Dev</title>
 </head>
@@ -130,6 +139,10 @@
                         </div>
                     </div>
                     <button id="animate_btn" class="button large">Let's Start!</button>
+                </div>
+                <div id="anim_control_panel">
+                    <b>Animations Control Panel</b>
+                    <div id="anim_control_panel_items"></div>
                 </div>
             </div>
         </div>

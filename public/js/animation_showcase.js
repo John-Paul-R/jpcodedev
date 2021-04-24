@@ -198,8 +198,87 @@ function linesPattern(canvas, colors, angle, thickness1) {
 
     }
 }
+/**
+ * 
+ * @param {HTMLCanvasElement} canvas 
+ * @param {*} colors 
+ * @param {*} angle 
+ * @param {*} thickness 
+ * @param {*} thickness2 
+ */
+ function linesPattern2(canvas, colors, angle, thickness, fillBetween=false) {
+    const w = canvas.width;
+    const h = canvas.height;
+    const sp = Math.max(w, h)/10;
+    const base = colors.base;
+    const ctx = canvas.getContext('2d');
+    let count = 0;
+    const stopHeight = h*2*(w/h);
+    const ratio = Math.tan(angle);
+    let startX = -thickness;
+    if (ratio < 0) {
+        startX = w+thickness;
+    }
+    for (let i = 0; i < stopHeight; i += thickness*(w/h)) {
+        if (count % 2 === 1) {
+            if (fillBetween)
+                drawLine(i, base[0])
+        }
+            
+        else{
+            drawLine(i, base[2]);
+        }
+            
+        count++;
+    }
 
-return {
-    drawLines: (angle, thickness) => linesPattern(canvas, currentPalette, angle, thickness)
+    function drawLine(i, color) {
+        ctx.beginPath()
+        ctx.lineWidth = thickness;
+
+        ctx.strokeStyle = color;
+        ctx.moveTo(startX, i);
+
+        ctx.lineTo(startX+ratio*i, -thickness);
+        ctx.closePath();
+        ctx.stroke();
+
+    }
 }
+
+const outFuncs = {
+    bg: (color=currentPalette.base[0]) => {
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    },
+    drawLines: (angle, thickness) => linesPattern(canvas, currentPalette, angle, thickness),
+    drawLines2: (angle, thickness, fillBetween=false) => linesPattern2(canvas, currentPalette, angle, thickness, fillBetween),
+}
+
+buildControlPanel();
+function buildControlPanel() {
+    const panel = document.getElementById("anim_control_panel_items");
+
+    function buildButton(text, action) {
+        const btn = document.createElement('button');
+        btn.classList.add('button', 'glow');
+        btn.textContent = text;
+        
+        btn.addEventListener('click', action);
+
+        return btn;
+    }
+
+    // Clear Bg
+    panel.appendChild(buildButton("Fill Bg", () => outFuncs.bg()));
+
+    // drawLines
+    panel.appendChild(buildButton("lines1", () => outFuncs.drawLines(Math.PI/4, 20)));
+
+    // drawLines2
+    panel.appendChild(buildButton("lines2", () => outFuncs.drawLines2(Math.PI/4, 20, true)));
+}
+
+return outFuncs;
 })();
