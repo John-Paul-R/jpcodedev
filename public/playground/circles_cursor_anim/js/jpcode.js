@@ -125,6 +125,10 @@ function pointBrightnessByMouseProximity() {
                 Math.max(0.1, normalized_dist_thing), 
                 Math.max(0.15, normalized_dist_thing)
             ));
+            if (flashLightMode)
+                sprite.alpha = normalized_dist_thing*2;
+            else
+                sprite.alpha = 1;  
             sprite.scale.set(Math.max(0.5, Math.min(2, 10/Math.sqrt(dist))));
             sprite.rotation = Math.atan2(dy, dx);
         }
@@ -425,3 +429,14 @@ createDivider();
 function getCenter() {
     return new PIXI.Point((app.screen.width)/2, (app.screen.height)/2);
 }
+
+let flashLightMode = false;
+const flashLightModeToggle = document.body.appendChild(document.createElement('button'));
+flashLightModeToggle.addEventListener('click', () => {
+    flashLightMode = !flashLightMode;
+});
+flashLightModeToggle.style.position = "absolute";
+flashLightModeToggle.style.top = "1rem";
+flashLightModeToggle.style.right = "1rem";
+flashLightModeToggle.style.padding = "0.25em";
+flashLightModeToggle.textContent = "Toggle Flashlight Mode";
