@@ -2,8 +2,8 @@
   "css": {
     "core_style.css": {
       "headers": {
-        "content-length": 3175,
-        "last-modified": "Tue, 20 Apr 2021 23:42:03 GMT",
+        "content-length": 3202,
+        "last-modified": "Sun, 25 Apr 2021 00:24:41 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 2437,
-        "last-modified": "Fri, 23 Apr 2021 23:10:05 GMT",
+        "content-length": 3103,
+        "last-modified": "Sun, 25 Apr 2021 00:21:24 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -66,16 +66,16 @@
     },
     "projects-list.css.map": {
       "headers": {
-        "content-length": 595,
-        "last-modified": "Fri, 23 Apr 2021 23:10:05 GMT",
+        "content-length": 766,
+        "last-modified": "Sun, 25 Apr 2021 00:21:24 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.scss": {
       "headers": {
-        "content-length": 1678,
-        "last-modified": "Fri, 23 Apr 2021 22:56:29 GMT",
+        "content-length": 2401,
+        "last-modified": "Sun, 25 Apr 2021 00:21:24 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
@@ -261,8 +261,8 @@
   },
   "index.html": {
     "headers": {
-      "content-length": 6079,
-      "last-modified": "Sat, 24 Apr 2021 01:16:34 GMT",
+      "content-length": 6711,
+      "last-modified": "Sun, 25 Apr 2021 00:18:25 GMT",
       "content-type": "text/html",
       "cache-control": "max-age=0"
     }
@@ -1014,6 +1014,14 @@
           "cache-control": "max-age=31536000"
         }
       }
+    },
+    "chrome_9ZEIuumdPW.webp": {
+      "headers": {
+        "content-length": 17582,
+        "last-modified": "Sun, 25 Apr 2021 00:11:14 GMT",
+        "content-type": "image/webp",
+        "cache-control": "max-age=31536000"
+      }
     }
   },
   "animation_showcase.html": {
@@ -1073,8 +1081,8 @@
       "js": {
         "jpcode.js": {
           "headers": {
-            "content-length": 12605,
-            "last-modified": "Sat, 24 Apr 2021 01:40:36 GMT",
+            "content-length": 13204,
+            "last-modified": "Sun, 25 Apr 2021 00:51:10 GMT",
             "content-type": "application/javascript",
             "cache-control": "max-age=31536000"
           }

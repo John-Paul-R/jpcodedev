@@ -159,6 +159,7 @@ header > #navbar > .end {
 .button.disabled {
     background-color: var(--color-element-1-1);
     cursor: default;
+    filter: contrast(0.5);
     border: 1px solid var(--color-element-1-2);
 }
 
