@@ -12,6 +12,7 @@ const app = new PIXI.Application({
 });
 // const canvas = app.view;
 const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
 canvas.id = 'canvas';
 canvas_container.prepend(canvas);
 const stage = app.stage;
@@ -36,7 +37,6 @@ function hookElements() {
     for (let i = 0; i < elems.length; i++) {
         elems[i].addEventListener('click', () => {
             draw(currentPalette);
-            const ctx = canvas.getContext('2d');
             ctx.fillStyle = currentPalette.base[0];
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             linesPattern(canvas, currentPalette, Math.PI/4, 10);
@@ -83,6 +83,50 @@ function hexFix(hashtagHex) {
 // Button hover animations
 function hoverAnim(elem, graphics) {
 
+}
+
+/**
+ * 
+ * @param {*} pos 
+ * @param {CanvasRenderingContext2D} ctx 
+ */
+function circle(pos, ctx) {
+    const r = 5;
+    if (pos)
+        ctx.fillRect(pos.x-r, pos.y-r, 2*r, 2*r);
+}
+var paintBg;
+// Returns function that handles mouse event
+function cursorTrailFunc(shapeFunc, maxlen=16, mindist=10) {
+    let mousePosHistory = [];
+    let lastPos = {x: 0, y: 0};
+    /**
+     * @param {MouseEvent} e 
+     */
+    const outFunc = (e) =>  {
+        requestAnimationFrame(() => {
+            clearBg();
+            paintBg();
+            ctx.fillStyle = "#eeeeee33"
+            // e.y = e.y-32;
+            let pos = {x: e.x, y: e.y};
+            let dist = Math.sqrt((pos.x-lastPos.x)**2 + (pos.y-lastPos.y)**2);
+            // console.log(dist);
+            if (dist >= mindist || mousePosHistory.length < maxlen) {
+                mousePosHistory.push(pos);
+                lastPos = pos;
+                if (mousePosHistory.length > maxlen)
+                    mousePosHistory = mousePosHistory.slice(1);
+            }
+            for (const pos of mousePosHistory) {
+                shapeFunc(pos, ctx);
+            }
+            
+
+        });
+    };
+
+    return outFunc;
 }
 
 function clickAnim(elem, graphics) {
@@ -169,7 +213,6 @@ function linesPattern(canvas, colors, angle, thickness1) {
     const h = canvas.height;
     const sp = Math.max(w, h)/10;
     const base = colors.base;
-    const ctx = canvas.getContext('2d');
     let count = 0;
     const stopHeight = h*2*(w/h);
     const ratio = Math.tan(angle);
@@ -211,7 +254,6 @@ function linesPattern(canvas, colors, angle, thickness1) {
     const h = canvas.height;
     const sp = Math.max(w, h)/10;
     const base = colors.base;
-    const ctx = canvas.getContext('2d');
     let count = 0;
     const stopHeight = h*2*(w/h);
     const ratio = Math.tan(angle);
@@ -246,14 +288,17 @@ function linesPattern(canvas, colors, angle, thickness1) {
     }
 }
 
+function clearBg(color=currentPalette.base[0]) {
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 const outFuncs = {
-    bg: (color=currentPalette.base[0]) => {
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = color;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    },
+    bg: clearBg,
     drawLines: (angle, thickness) => linesPattern(canvas, currentPalette, angle, thickness),
     drawLines2: (angle, thickness, fillBetween=false) => linesPattern2(canvas, currentPalette, angle, thickness, fillBetween),
+    cursorTrail: (maxlen, mindist) => {
+        document.body.addEventListener("mousemove", cursorTrailFunc(circle, maxlen, mindist));
+    },
 }
 
 buildControlPanel();
@@ -271,14 +316,24 @@ function buildControlPanel() {
     }
 
     // Clear Bg
-    panel.appendChild(buildButton("Fill Bg", () => outFuncs.bg()));
+    panel.appendChild(buildButton("Fill Bg", () => {
+        paintBg = () => outFuncs.bg(currentPalette.base[0]);
+        paintBg();
+    }));
 
     // drawLines
-    panel.appendChild(buildButton("lines1", () => outFuncs.drawLines(Math.PI/4, 20)));
+    panel.appendChild(buildButton("lines1", () => {
+        paintBg = () => outFuncs.drawLines(Math.PI/4, 20);
+        paintBg();
+    }));
 
     // drawLines2
-    panel.appendChild(buildButton("lines2", () => outFuncs.drawLines2(Math.PI/4, 20, true)));
+    panel.appendChild(buildButton("lines2", () => {
+        paintBg = () => outFuncs.drawLines2(Math.PI/4, 20, true);
+        paintBg();
+    }));
 }
-
+paintBg = () => outFuncs.bg(currentPalette.base[0]);
+outFuncs.cursorTrail(16, 10);
 return outFuncs;
 })();
