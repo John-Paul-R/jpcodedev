@@ -4,12 +4,9 @@ block head
     link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
     style a.button {margin: 8px;}
             
-    title #{title}!
+    title #{title} - D&D Notes
 
 block body
     .widget_container
         div.widget_content
             p !{widgetContents}
-        //- each widget, key in widgets
-        //-     a.button(href=`https://www.jpcode.dev/dnd/ian-oota/${key}`) #{widget.title}
-        //-     br

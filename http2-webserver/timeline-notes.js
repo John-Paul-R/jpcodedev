@@ -56,7 +56,9 @@ function handleRequest(stream, headers) {
                 stream.write(JSON.stringify(Object.keys(_widgets)));//sortFromConfig(_widgets, _config['_order'])
                 stream.end();
             } else {
-                let widgetContents = getWidget(pathFrags.slice(3));
+                let frag = pathFrags.slice(3);
+                let widgetContents = getWidget(frag);
+                let widgetTitle = _widgets[frag].title;
                 // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                 if (widgetContents) {
                     stream.respond({
@@ -66,7 +68,7 @@ function handleRequest(stream, headers) {
                     // stream.write(widgetContents);
                     stream.write(_templates['dnd_summary_note']({
                         "widgetContents": widgetContents,
-                        "title": "Note...",
+                        "title": widgetTitle,
                     }));
                     stream.end();
                 } else {

@@ -351,4 +351,11 @@
   border: none;
 }
 
+.widget_content_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-start;
+}
+
 /*# sourceMappingURL=widget_standalone.css.map */

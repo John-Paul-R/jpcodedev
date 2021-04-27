@@ -2,15 +2,23 @@ extends standalone-base.pug
 
 block head
     link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
-    
+
     title #{title}!
 
 block body
     .widget_container
         h1 #{title}
         hr
-        div.widget_content
-            p !{content}
-        each widget, key in widgets
-            a.button(href=`https://www.jpcode.dev/dnd/ian-oota/${key}`) #{widget.title} (#{widget['session-date']})
-            br
+        div.widget_content_list#widget_content
+            table 
+                tr
+                    th Title
+                    th Session Date
+
+                each widget, key in widgets
+                    tr
+                        td 
+                            a.note(href=`https://www.jpcode.dev/dnd/ian-oota/${key}` data-session-date=widget["session-date"]) #{widget.title}
+                        td #{widget['session-date']}
+
+    script(src="https://www.jpcode.dev/dnd/ian-oota/widgets/list_sort.js") 
