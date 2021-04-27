@@ -20,3 +20,6 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 
   }
+  .resizer-right:hover {
+    background-color: var(--color-base-1);
+  }

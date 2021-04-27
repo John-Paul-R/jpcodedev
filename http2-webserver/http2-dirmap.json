@@ -124,8 +124,8 @@
     },
     "resizable.css": {
       "headers": {
-        "content-length": 615,
-        "last-modified": "Tue, 27 Apr 2021 14:27:39 GMT",
+        "content-length": 687,
+        "last-modified": "Tue, 27 Apr 2021 14:40:02 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -260,8 +260,8 @@
     },
     "resizable.js": {
       "headers": {
-        "content-length": 1590,
-        "last-modified": "Tue, 27 Apr 2021 14:32:27 GMT",
+        "content-length": 2411,
+        "last-modified": "Tue, 27 Apr 2021 14:59:21 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
