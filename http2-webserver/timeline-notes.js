@@ -44,7 +44,7 @@ function handleRequest(stream, headers) {
                     ':status': 200,
                 })
                 stream.write(_templates['list']({
-                    "widgets": _widgets,
+                    "widgets": _widgets_data,
                     "title": "Notes",
                 }));
                 stream.end();
@@ -53,12 +53,12 @@ function handleRequest(stream, headers) {
                     'content-type': 'text/html; charset=utf-8',
                     ':status': 200,
                 })
-                stream.write(JSON.stringify(Object.keys(_widgets)));//sortFromConfig(_widgets, _config['_order'])
+                stream.write(JSON.stringify(Object.keys(_widgets_data)));//sortFromConfig(_widgets, _config['_order'])
                 stream.end();
             } else {
                 let frag = pathFrags.slice(3);
                 let widgetContents = getWidget(frag);
-                let widgetTitle = _widgets[frag].title;
+                let widgetTitle = _widgets_data[frag].title;
                 // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                 if (widgetContents) {
                     stream.respond({
@@ -82,7 +82,7 @@ function handleRequest(stream, headers) {
             })
             stream.write(JSON.stringify({
                 "templates": Object.keys(_templates).sort(),
-                "widgets": Object.keys(_widgets).sort(),
+                "widgets": Object.keys(_widgets_data).sort(),
                 "markdown": Object.keys(_markdown).sort(),
             }, null, 4));
             stream.end();
@@ -104,7 +104,7 @@ function getWidget(pathFrags) {
     let pug_template = _templates[pathFrags[0]];
     let widget;
     try {
-        widget = _widgets[pathFrags[1]];
+        widget = _widgets_data[pathFrags[1]];
     } catch (err) {
 
     }
@@ -153,7 +153,7 @@ function getFilePathsRecursive(directory_path, dirent_arr=[]) {
     }
     return widget_dirents;
 }
-var _widgets;
+var _widgets_data;
 var _templates;
 var _markdown;
 var _confiig;
@@ -202,7 +202,7 @@ function init(options={
         }
     }
     _templates = templates;
-    _widgets = widgets;
+    _widgets_data = widgets;
     _markdown = markdown;
     _config = config;
     const widget_map_path = Path.join(__dirname, "widget-map.json");
