@@ -121,6 +121,14 @@
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
+    },
+    "resizable.css": {
+      "headers": {
+        "content-length": 615,
+        "last-modified": "Tue, 27 Apr 2021 14:27:39 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
     }
   },
   "fonts": {
@@ -247,6 +255,14 @@
         "content-length": 1128045,
         "last-modified": "Thu, 15 Apr 2021 19:39:18 GMT",
         "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "resizable.js": {
+      "headers": {
+        "content-length": 1590,
+        "last-modified": "Tue, 27 Apr 2021 14:32:27 GMT",
+        "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
     }
@@ -735,8 +751,8 @@
         "templates": {
           "list.pug": {
             "headers": {
-              "content-length": 756,
-              "last-modified": "Tue, 27 Apr 2021 13:37:10 GMT",
+              "content-length": 737,
+              "last-modified": "Tue, 27 Apr 2021 13:41:16 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -767,8 +783,8 @@
           },
           "dnd_summary_note.pug": {
             "headers": {
-              "content-length": 448,
-              "last-modified": "Tue, 27 Apr 2021 13:30:13 GMT",
+              "content-length": 447,
+              "last-modified": "Tue, 27 Apr 2021 14:28:18 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -805,6 +821,14 @@
             "content-length": 360,
             "last-modified": "Tue, 27 Apr 2021 13:09:50 GMT",
             "content-type": "application/javascript",
+            "cache-control": "max-age=31536000"
+          }
+        },
+        "resizable.css": {
+          "headers": {
+            "content-length": 615,
+            "last-modified": "Tue, 27 Apr 2021 14:21:48 GMT",
+            "content-type": "text/css",
             "cache-control": "max-age=31536000"
           }
         }
