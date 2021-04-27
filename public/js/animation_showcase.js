@@ -26,11 +26,19 @@ function draw(palette) {
 var sheet = createStyleSheet("animation-showcase");
 hookElements();
 
-canvas.width = canvas_container.clientWidth;
-canvas.height = canvas_container.clientHeight;
-linesPattern(canvas, currentPalette, Math.PI/4, 10, 10);
-linesPattern(canvas, currentPalette, -Math.PI/4, 10, 10);
+var canvasRect;
+initCanvas();
+function initialPattern() {
+    linesPattern(canvas, currentPalette, Math.PI/4, 10, 10);
+    linesPattern(canvas, currentPalette, -Math.PI/4, 10, 10);
 
+}
+function initCanvas() {
+    canvas.width = canvas_container.clientWidth;
+    canvas.height = canvas_container.clientHeight;
+    canvasRect = canvas.getBoundingClientRect();
+    initialPattern();
+}
 function hookElements() {
     // Palette Button
     let elems = document.getElementsByClassName('swap_palette');
@@ -97,37 +105,119 @@ function circle(pos, ctx) {
 }
 var paintBg;
 // Returns function that handles mouse event
+var animateCursorTrail;
 function cursorTrailFunc(shapeFunc, maxlen=16, mindist=10) {
     let mousePosHistory = [];
     let lastPos = {x: 0, y: 0};
+
+    animateCursorTrail = (frameStuff) => {
+        ctx.fillStyle = currentPalette.accent1[0];
+        
+        // e.y = e.y-32;
+        for (let i = 0; i < mousePosHistory.length; i++) {
+            ctx.globalAlpha = (i+1)/maxlen;
+            shapeFunc(mousePosHistory[i], ctx);
+        }
+        ctx.globalAlpha = 1;
+    };
     /**
      * @param {MouseEvent} e 
      */
     const outFunc = (e) =>  {
-        requestAnimationFrame(() => {
-            clearBg();
-            paintBg();
-            ctx.fillStyle = "#eeeeee33"
-            // e.y = e.y-32;
-            let pos = {x: e.x, y: e.y};
-            let dist = Math.sqrt((pos.x-lastPos.x)**2 + (pos.y-lastPos.y)**2);
-            // console.log(dist);
-            if (dist >= mindist || mousePosHistory.length < maxlen) {
-                mousePosHistory.push(pos);
-                lastPos = pos;
-                if (mousePosHistory.length > maxlen)
-                    mousePosHistory = mousePosHistory.slice(1);
-            }
-            for (const pos of mousePosHistory) {
-                shapeFunc(pos, ctx);
-            }
-            
+        let pos = pageCoordToRect(e.x, e.y);
+        let dist = Math.sqrt((pos.x-lastPos.x)**2 + (pos.y-lastPos.y)**2);
+        // console.log(dist);
+        if (dist >= mindist || mousePosHistory.length < maxlen) {
+            mousePosHistory.push(pos);
+            lastPos = pos;
+            if (mousePosHistory.length > maxlen)
+                mousePosHistory = mousePosHistory.slice(1);
+        }
 
-        });
     };
 
     return outFunc;
 }
+
+/**
+ * 
+ * @param {object} pos 
+ * @param {DOMRect} rect 
+ * @returns 
+ */
+function pageCoordToRect(x, y, rect=canvasRect) {
+    return {
+        x: x - rect.x,
+        y: y - rect.y,
+    };
+}
+
+window.addEventListener('resize', (e) => {
+    initCanvas();
+});
+
+/**
+ * @type {Array<ClickCircle>}
+ */
+var clickCircles = [];
+var circleGrowRate = 1;
+var circleMaxLifetime = 60;
+class ClickCircle {
+    constructor(position, color) {
+        this.pos = position;
+        this.color = color;
+        this.lifetime = 0;
+    }
+
+    /**
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    draw(ctx) {
+        this.lifetime++;
+        let rad = this.lifetime*circleGrowRate;
+        ctx.strokeStyle = this.color;
+        ctx.globalAlpha = Math.sqrt((circleMaxLifetime-this.lifetime)/circleMaxLifetime);
+        ctx.beginPath()
+        ctx.ellipse(this.pos.x, this.pos.y, rad, rad, 0, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.closePath()
+        ctx.globalAlpha = 1;
+    }
+}
+
+/**
+ * 
+ * @param {MouseEvent} e 
+ */
+function clickCircle(e) {
+    clickCircles.push(new ClickCircle(pageCoordToRect(e.x, e.y), currentPalette.element1[0]));
+}
+document.addEventListener('click', clickCircle)
+
+function animateClickCircles(frameStuff) {
+    for (let i = 0; i < clickCircles.length; i++) {
+        let circle = clickCircles[i];
+        circle.draw(ctx);
+        if (circle.lifetime >= circleMaxLifetime)
+            clickCircles.splice(i, 1);
+    }
+}
+
+
+    
+
+function animate(frameStuff) {
+    clearBg();
+    paintBg();
+
+    animateClickCircles(frameStuff);
+    animateCursorTrail(frameStuff);
+
+    requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
 
 function clickAnim(elem, graphics) {
 
@@ -214,7 +304,7 @@ function linesPattern(canvas, colors, angle, thickness1) {
     const sp = Math.max(w, h)/10;
     const base = colors.base;
     let count = 0;
-    const stopHeight = h*2*(w/h);
+    const stopHeight = h*2*Math.max(w/h, 1);
     const ratio = Math.tan(angle);
     let startX = 0;
     if (ratio < 0) {
@@ -252,10 +342,9 @@ function linesPattern(canvas, colors, angle, thickness1) {
  function linesPattern2(canvas, colors, angle, thickness, fillBetween=false) {
     const w = canvas.width;
     const h = canvas.height;
-    const sp = Math.max(w, h)/10;
     const base = colors.base;
     let count = 0;
-    const stopHeight = h*2*(w/h);
+    const stopHeight = h*2*Math.max(w/h, 1);
     const ratio = Math.tan(angle);
     let startX = -thickness;
     if (ratio < 0) {
@@ -332,8 +421,33 @@ function buildControlPanel() {
         paintBg = () => outFuncs.drawLines2(Math.PI/4, 20, true);
         paintBg();
     }));
+
+
+    // drawLines2
+    panel.appendChild(buildButton("diamonds", () => {
+        paintBg = () => {
+            outFuncs.drawLines2(Math.PI/4, 30, false);
+            outFuncs.drawLines2(-Math.PI/4, 30, false);
+        }
+        paintBg();
+    }));
+
+    // drawLines2
+    panel.appendChild(buildButton("dots", () => {
+        paintBg = () => {
+            outFuncs.drawLines2(Math.PI/4, 20, false);
+            outFuncs.drawLines2(-Math.PI/4, 20, false);
+        }
+        paintBg();
+    }));
+
+    // initial
+    panel.appendChild(buildButton("default", () => {
+        paintBg = initialPattern;
+        paintBg();
+    }));
 }
-paintBg = () => outFuncs.bg(currentPalette.base[0]);
+paintBg = initialPattern;
 outFuncs.cursorTrail(16, 10);
 return outFuncs;
 })();

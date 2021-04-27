@@ -55,6 +55,16 @@
             border: 1px solid var(--color-base-1);
             background-color: var(--color-base-2);
         }
+        #anim_control_panel hr {
+            margin: 0.5rem 0;
+        }
+        #anim_control_panel_items {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            max-width: 256px;
+        }
     </style>
     <title>Projects - JPCode.Dev</title>
 </head>
@@ -142,6 +152,7 @@
                 </div>
                 <div id="anim_control_panel">
                     <b>Animations Control Panel</b>
+                    <hr>
                     <div id="anim_control_panel_items"></div>
                 </div>
             </div>
