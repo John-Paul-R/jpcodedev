@@ -71,7 +71,19 @@ fm.init(runOpts, logger);
 var fmgr = fm.load(exec_path);
 
 // Initialize dnd/ian-oota Notes Widgets
-widgets.init({ widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"), preload_widgets: true, lazy_lead_allowed: true })
+widgets.init({
+  widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"),
+  preload_widgets: true,
+  lazy_lead_allowed: true,
+  web_root: "dnd/ian-oota"
+});
+// Initialize dnd/jay-waterdeep Notes Widgets
+widgets.init({
+  widget_directory: Path.join(runOpts.pubpath, "dnd/jay-waterdeep/widgets"),
+  preload_widgets: true,
+  lazy_lead_allowed: true,
+  web_root: "dnd/jay-waterdeep"
+});
 
 const {
   HTTP2_HEADER_METHOD,
