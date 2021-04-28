@@ -34,8 +34,8 @@
     },
     "widget_standalone.css": {
       "headers": {
-        "content-length": 8283,
-        "last-modified": "Tue, 27 Apr 2021 13:11:12 GMT",
+        "content-length": 9089,
+        "last-modified": "Wed, 28 Apr 2021 09:32:30 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -50,8 +50,8 @@
     },
     "widget_standalone.css.map": {
       "headers": {
-        "content-length": 1616,
-        "last-modified": "Tue, 27 Apr 2021 13:11:12 GMT",
+        "content-length": 1786,
+        "last-modified": "Wed, 28 Apr 2021 09:32:30 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
@@ -126,6 +126,22 @@
       "headers": {
         "content-length": 687,
         "last-modified": "Tue, 27 Apr 2021 14:40:02 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "table.css": {
+      "headers": {
+        "content-length": 0,
+        "last-modified": "Wed, 28 Apr 2021 08:07:25 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "note_table.css": {
+      "headers": {
+        "content-length": 0,
+        "last-modified": "Wed, 28 Apr 2021 08:07:31 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -260,8 +276,16 @@
     },
     "resizable.js": {
       "headers": {
-        "content-length": 2411,
-        "last-modified": "Tue, 27 Apr 2021 14:59:21 GMT",
+        "content-length": 2439,
+        "last-modified": "Wed, 28 Apr 2021 07:01:03 GMT",
+        "content-type": "application/javascript",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "list_sort.js": {
+      "headers": {
+        "content-length": 1718,
+        "last-modified": "Wed, 28 Apr 2021 08:20:03 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -298,8 +322,8 @@
     },
     "dnd.html": {
       "headers": {
-        "content-length": 4927,
-        "last-modified": "Fri, 23 Apr 2021 23:12:36 GMT",
+        "content-length": 5063,
+        "last-modified": "Wed, 28 Apr 2021 09:35:39 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -751,8 +775,8 @@
         "templates": {
           "list.pug": {
             "headers": {
-              "content-length": 737,
-              "last-modified": "Tue, 27 Apr 2021 13:41:16 GMT",
+              "content-length": 795,
+              "last-modified": "Wed, 28 Apr 2021 09:31:17 GMT",
               "content-type": null,
               "cache-control": "max-age=31536000"
             }
@@ -924,6 +948,45 @@
           "cache-control": "max-age=0"
         }
       }
+    },
+    "jay-waterdeep": {
+      "widgets": {
+        "content": {
+          "general_notes.json": {
+            "headers": {
+              "content-length": 102,
+              "last-modified": "Wed, 28 Apr 2021 09:07:38 GMT",
+              "content-type": "application/json",
+              "cache-control": "max-age=31536000"
+            }
+          },
+          "general_notes.md": {
+            "headers": {
+              "content-length": 695,
+              "last-modified": "Wed, 28 Apr 2021 09:05:05 GMT",
+              "content-type": "text/markdown",
+              "cache-control": "max-age=31536000"
+            }
+          },
+          "2021-4-27.json": {
+            "headers": {
+              "content-length": 121,
+              "last-modified": "Wed, 28 Apr 2021 09:18:32 GMT",
+              "content-type": "application/json",
+              "cache-control": "max-age=31536000"
+            }
+          },
+          "2021-4-27.md": {
+            "headers": {
+              "content-length": 2062,
+              "last-modified": "Wed, 28 Apr 2021 09:19:20 GMT",
+              "content-type": "text/markdown",
+              "cache-control": "max-age=31536000"
+            }
+          }
+        },
+        "templates": {}
+      }
     }
   },
   "temp_reirei.html": {
@@ -1075,6 +1138,30 @@
       "headers": {
         "content-length": 17582,
         "last-modified": "Sun, 25 Apr 2021 00:11:14 GMT",
+        "content-type": "image/webp",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "BaneSymbol.png": {
+      "headers": {
+        "content-length": 9627,
+        "last-modified": "Wed, 28 Apr 2021 09:10:06 GMT",
+        "content-type": "image/png",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "stone_of_galore.png": {
+      "headers": {
+        "content-length": 827729,
+        "last-modified": "Wed, 28 Apr 2021 09:16:49 GMT",
+        "content-type": "image/png",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "stone_of_galore.webp": {
+      "headers": {
+        "content-length": 19406,
+        "last-modified": "Wed, 28 Apr 2021 09:17:42 GMT",
         "content-type": "image/webp",
         "cache-control": "max-age=31536000"
       }
