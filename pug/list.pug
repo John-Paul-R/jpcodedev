@@ -5,6 +5,10 @@ block head
 
     title #{title}!
 
+block titlemixin 
+    include mixins/dnd_head_title.mixin.pug
+    +title()
+
 block body
     .widget_container
         h1 #{title}

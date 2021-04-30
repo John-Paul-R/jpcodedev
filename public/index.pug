@@ -1,0 +1,63 @@
+
+extends /standalone-base.pug
+
+block head
+    meta(name="description", content="A repository of development projects by John Paul Rutigliano.")
+    meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/projects-list.css")
+    style(type='text/css').
+        #content_main {
+            position: relative;
+        }
+        #content_main > hr {
+            transition: width 0.5s, opacity 0.5s;
+            width: 0;
+            margin: 0 auto;
+            opacity: 0;
+        }
+    title Projects - JPCode.Dev
+
+block titlemixin 
+    include /mixins/main_head_title.mixin.pug
+    +title()
+
+block body
+    #title_container.flex.col.aligncenter 
+        h1 John Paul Rutigliano 
+        h2 Full-Stack Software Developer 
+    hr
+    .projects_container.flex.col.aligncenter 
+        for project of projects 
+            .project_item 
+                .info_container 
+                    h3.project_title
+                        a(href=project.website) #{project.name} 
+                    p.project_desc #{project.desc} 
+                ul.tags_container 
+                    for tag of project.tags 
+                        li #{tag} 
+                .actions_container 
+                    a.button(href=project.website) Website 
+                    a.button.github.icon(href=project.github) GitHub 
+    hr
+    #mini_projects.flex.col.aligncenter 
+        h2 Mini-Projects 
+        #mini_projects_content 
+            for project of mini_projects 
+                .project_card.card 
+                    h3 #{project.name}
+                    img.preview(src=project.img, alt="Project Preview Image")
+                    a.button.glow(href=project.link) View Project 
+    #dnd
+        |<b>Looking for my <span style="color: crimson">D&D</span> projects?</b>
+        .content 
+            |<a href="https://www.jpcode.dev/dnd" class="button glow">Click Here</a> to view them.
+
+block eof
+    #eof_scripts 
+        style(type='text/css').
+            div#content_main > hr {
+                width: clamp(256px, 480px, 90%);
+                opacity: 1;
+                transform: translateX(0px);
+            }

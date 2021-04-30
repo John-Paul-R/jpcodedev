@@ -4,8 +4,8 @@
 
     transition: background-color 0.1s, box-shadow 0.1s;
 
-    &:hover,
-    &:focus {
+    &:hover[href],
+    &:focus[href] {
         background-color: var(--color-accent-1-2);
         box-shadow: 0 0 6px 0 var(--color-accent-1-1);    
     }

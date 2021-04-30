@@ -19,7 +19,7 @@
 .button.glow {
   transition: background-color 0.1s, box-shadow 0.1s;
 }
-.button.glow:hover, .button.glow:focus {
+.button.glow:hover[href], .button.glow:focus[href] {
   background-color: var(--color-accent-1-2);
   box-shadow: 0 0 6px 0 var(--color-accent-1-1);
 }
@@ -101,7 +101,7 @@
 .actions_container .button:not(.disabled) {
   transition: background-color 0.1s, box-shadow 0.1s;
 }
-.actions_container .button:not(.disabled):hover, .actions_container .button:not(.disabled):focus {
+.actions_container .button:not(.disabled):hover[href], .actions_container .button:not(.disabled):focus[href] {
   background-color: var(--color-accent-1-2);
   box-shadow: 0 0 6px 0 var(--color-accent-1-1);
 }

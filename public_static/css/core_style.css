@@ -156,7 +156,8 @@ header > #navbar > .end {
 .button:hover {
     background-color: var(--color-accent-1-1);
 }
-.button.disabled {
+.button.disabled,
+a.button:not([href]) {
     background-color: var(--color-element-1);
     cursor: default;
     filter: contrast(0.5);

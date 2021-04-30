@@ -234,6 +234,25 @@ function init(options={
 
 }
 
+function loadTemplates(dir) {
+    let templates = {};
+    let paths = getFilePathsRecursive(dir);
+    for (const file_path of paths) {
+        let file_name = Path.basename(file_path);
+        file_name = file_name.substr(0, file_name.lastIndexOf('.'));
+        let ext = Path.extname(file_path);
+        let data = fs.readFileSync(file_path, {encoding: 'utf-8'});
+        if (ext === '.pug') {
+            templates[file_name] = pug.compile(data, {
+                filename: file_path
+            });
+        } else {
+            console.warn(`Ignoring file, not a .pug widget or template: ${file_path}`);
+        }
+    }
+    Object.assign(_templates, templates);
+}
+
 function sortFromConfig(widgets, config) {
     return config.reduce((accumulator, current) => {
         accumulator[current] = widgets[current];
@@ -243,3 +262,5 @@ function sortFromConfig(widgets, config) {
 
 exports.init = init;
 exports.handleRequest = handleRequest;
+exports.loadTemplates = loadTemplates;
+exports.templates = _templates;

@@ -12,14 +12,14 @@ html(lang='en')
     header
         #navbar.shadow
             #title
-                include mixins/dnd_head_title.mixin.pug
-                +title()
+                block titlemixin
             .end.flex.row
                 button.swap_palette.button
                     p Theme
                     i.material-icons style
-            script bindPaletteSwapButtons();
     #content_main.filled
         block body
     footer#footer
         script(src="https://static.jpcode.dev/js/footer.js") 
+
+ block eof 

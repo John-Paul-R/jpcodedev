@@ -7,6 +7,10 @@ block head
     script(src="https://static.jpcode.dev/js/resizable.js")             
     title #{title} - D&D Notes
 
+block titlemixin 
+    include mixins/dnd_head_title.mixin.pug
+    +title()
+
 block body
     .widget_container.resizable
         div.widget_content

@@ -70,6 +70,16 @@ if (runOpts.log === "simple") {
 fm.init(runOpts, logger);
 var fmgr = fm.load(exec_path);
 
+// Load Pug Templates
+widgets.loadTemplates("../pug");
+var pugOptions = {
+  basedir: "../pug",
+  globals: [
+    {
+      linkify: (pathend) => `https://www.jpcode.dev/${pathend}`
+    },
+  ],
+}
 // Initialize dnd/ian-oota Notes Widgets
 widgets.init({
   widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"),
@@ -149,6 +159,27 @@ function respond(stream, headers) {
   const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
   const requestedFile = fmgr.getFile(path);
+  
+  if (requestedFile && path.endsWith('.pug')) {
+    try {
+      let opts = {...pugOptions};
+      let jsonText = fmgr.getFile(Path.join(Path.dirname(path), `${Path.basename(path, '.pug')}.json`))
+      let data = JSON.parse(jsonText.data);
+      // opts.filename = "../public/index.pug";
+      let temp = pug.compile(requestedFile.data, opts);
+      
+      let out = temp(data);
+      let resHeaders = {};
+      resHeaders[':status'] = 200;
+      resHeaders['content-type'] = 'text/html';
+
+      stream.respond(resHeaders);
+      stream.end(out);
+      return 0;
+    } catch (err) {
+      console.warn(err);
+    }
+  }
   //Try widget
   if (!requestedFile) {
     const successCode = widgets.handleRequest(stream, headers);
