@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["github_md.scss"],"names":[],"mappings":"AAAA","file":"github_md.css"}
+{"version":3,"sourceRoot":"","sources":["_github_table.scss","github_md.scss"],"names":[],"mappings":"AA8BA;EA5BI;EACA;;AACA;EACE;EACA;EACA;EACA;;AAEA;EACE;;AACF;EACE;EACA;EACA;EACA;EACA;;AACF;EACE;EACA;EACA;EACA;;AACF;EACE;;AACF;EACE;;;ACzBR","file":"github_md.css"}

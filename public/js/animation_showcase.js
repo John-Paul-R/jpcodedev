@@ -16,7 +16,7 @@ const ctx = canvas.getContext('2d');
 canvas.id = 'canvas';
 canvas_container.prepend(canvas);
 const stage = app.stage;
-draw(currentPalette);
+draw(mpal.currentPalette);
 function draw(palette) {
     app.renderer.backgroundColor = hexFix(palette.base[0]);
     console.log(stage);
@@ -29,8 +29,8 @@ hookElements();
 var canvasRect;
 initCanvas();
 function initialPattern() {
-    linesPattern(canvas, currentPalette, Math.PI/4, 10, 10);
-    linesPattern(canvas, currentPalette, -Math.PI/4, 10, 10);
+    linesPattern(canvas, mpal.currentPalette, Math.PI/4, 10, 10);
+    linesPattern(canvas, mpal.currentPalette, -Math.PI/4, 10, 10);
 
 }
 function initCanvas() {
@@ -44,11 +44,11 @@ function hookElements() {
     let elems = document.getElementsByClassName('swap_palette');
     for (let i = 0; i < elems.length; i++) {
         elems[i].addEventListener('click', () => {
-            draw(currentPalette);
-            ctx.fillStyle = currentPalette.base[0];
+            draw(mpal.currentPalette);
+            ctx.fillStyle = mpal.currentPalette.base[0];
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            linesPattern(canvas, currentPalette, Math.PI/4, 10);
-            linesPattern(canvas, currentPalette, -Math.PI/4, 10);
+            linesPattern(canvas, mpal.currentPalette, Math.PI/4, 10);
+            linesPattern(canvas, mpal.currentPalette, -Math.PI/4, 10);
 
         });
     }
@@ -111,7 +111,7 @@ function cursorTrailFunc(shapeFunc, maxlen=16, mindist=10) {
     let lastPos = {x: 0, y: 0};
 
     animateCursorTrail = (frameStuff) => {
-        ctx.fillStyle = currentPalette.accent1[0];
+        ctx.fillStyle = mpal.currentPalette.accent1[0];
         
         // e.y = e.y-32;
         for (let i = 0; i < mousePosHistory.length; i++) {
@@ -191,7 +191,7 @@ class ClickCircle {
  * @param {MouseEvent} e 
  */
 function clickCircle(e) {
-    clickCircles.push(new ClickCircle(pageCoordToRect(e.x, e.y), currentPalette.element1[0]));
+    clickCircles.push(new ClickCircle(pageCoordToRect(e.x, e.y), mpal.currentPalette.element1[0]));
 }
 document.addEventListener('click', clickCircle)
 
@@ -377,19 +377,19 @@ function linesPattern(canvas, colors, angle, thickness1) {
     }
 }
 
-function clearBg(color=currentPalette.base[0]) {
+function clearBg(color=mpal.currentPalette.base[0]) {
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 const outFuncs = {
     bg: clearBg,
-    drawLines: (angle, thickness) => linesPattern(canvas, currentPalette, angle, thickness),
-    drawLines2: (angle, thickness, fillBetween=false) => linesPattern2(canvas, currentPalette, angle, thickness, fillBetween),
+    drawLines: (angle, thickness) => linesPattern(canvas, mpal.currentPalette, angle, thickness),
+    drawLines2: (angle, thickness, fillBetween=false) => linesPattern2(canvas, mpal.currentPalette, angle, thickness, fillBetween),
     cursorTrail: (maxlen, mindist) => {
         document.body.addEventListener("mousemove", cursorTrailFunc(circle, maxlen, mindist));
     },
 }
-
+// TODO Specify line spacing, instead of number of lines, so that the generated pattern is consistent across aspet ratios & screen sizes.
 buildControlPanel();
 function buildControlPanel() {
     const panel = document.getElementById("anim_control_panel_items");
@@ -406,7 +406,7 @@ function buildControlPanel() {
 
     // Clear Bg
     panel.appendChild(buildButton("Fill Bg", () => {
-        paintBg = () => outFuncs.bg(currentPalette.base[0]);
+        paintBg = () => outFuncs.bg(mpal.currentPalette.base[0]);
         paintBg();
     }));
 

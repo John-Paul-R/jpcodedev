@@ -16,7 +16,7 @@ table.gh tr:nth-child(2n) {
 
 table.gh tr th {
   font-weight: bold;
-  border: 1px solid var(--color-element-1);
+  border: 1px solid var(--color-element);
   text-align: left;
   margin: 0;
   padding: 6px 13px;
@@ -259,7 +259,7 @@ table.gh tr th :last-child, table.gh tr td :last-child {
 }
 .widget_content table tr th {
   font-weight: bold;
-  border: 1px solid var(--color-element-1);
+  border: 1px solid var(--color-element);
   text-align: left;
   margin: 0;
   padding: 6px 13px;

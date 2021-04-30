@@ -18,13 +18,13 @@
 	width: clamp(256px, 640px, 95%);
 	height:96px;
 	border-radius: 4px;
-	border: 1px dotted var(--color-element-1-1);
+	border: 1px dotted var(--color-element-1);
 	margin-bottom: 12px;
 	padding: 8px;
 	box-sizing: border-box;
 	display: grid;
 	grid-template-columns: 4fr 1fr 1fr;
-	background-color: var(--color-element-1);
+	background-color: var(--color-element);
 
 }
 
