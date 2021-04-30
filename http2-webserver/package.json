@@ -26,5 +26,8 @@
     "pug": "^3.0.2",
     "showdown": "^1.9.1",
     "spdy": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
