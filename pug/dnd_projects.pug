@@ -1,0 +1,25 @@
+
+extends standalone-base.pug
+
+block head
+    meta(name="description", content="A repository of Dungeons and Dragons (D&D) projects by John Paul R.")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/dnd_index.css")
+    title D&D Projects - JPCode.Dev
+
+block titlemixin 
+    include mixins/dnd_head_title.mixin.pug
+    +title()
+
+block body
+    .flex.row.categories_container 
+        .categories 
+            for category of categories 
+                .category 
+                    h2.category_title #{category.title} !{category.icon_markup}
+                    hr.accent
+                    .category_content 
+                        for item of category.items 
+                            a.project_item(href=item.link) #{item.text}
+                    if category.smalltext 
+                        p.smalltext.right !{category.smalltext}

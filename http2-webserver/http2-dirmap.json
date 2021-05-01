@@ -329,7 +329,7 @@
     "alias": "index.pug.json"
   },
   "dnd": {
-    "alias": "dnd/dnd.html",
+    "alias": "dnd/index.pug.json",
     "bhs_message_encoder.html": {
       "headers": {
         "content-length": 4131,
@@ -341,7 +341,7 @@
     "dnd.html": {
       "headers": {
         "content-length": 4976,
-        "last-modified": "Fri, 30 Apr 2021 18:50:12 GMT",
+        "last-modified": "Sat, 01 May 2021 14:59:35 GMT",
         "content-type": "text/html",
         "cache-control": "max-age=0"
       }
@@ -1004,6 +1004,14 @@
           }
         },
         "templates": {}
+      }
+    },
+    "index.pug.json": {
+      "headers": {
+        "content-length": 3014,
+        "last-modified": "Sat, 01 May 2021 15:24:28 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "max-age=31536000"
       }
     }
   },

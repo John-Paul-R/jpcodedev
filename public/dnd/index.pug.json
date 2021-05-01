@@ -1,0 +1,71 @@
+{
+    "template": "dnd_projects",
+    "data": {
+        "categories": [
+            {
+                "title": "Homebrew",
+                "icon_markup": "<i class=\"dragon_icon icon\"></i>",
+                "items": [
+                    {
+                        "link": "https://www.gmbinder.com/share/-M8L8MFZWn_nMujJNgvT",
+                        "text": "Druid Subclass: Circle of the Wellspring"
+                    },{
+                        "link": "https://www.gmbinder.com/share/-MAgXwj74c4Csqi6EBc1",
+                        "text": "Bracers of the Shadow Stalker"
+                    },{
+                        "link": "https://www.gmbinder.com/share/-MUQKTrAGI7WSMf0oCNw",
+                        "text": "Way of the Four Elements Monk (B&B Rework)"
+                    }
+                ],
+                "smalltext": "Dragon icon by <a href=\"https://thenounproject.com/mckowncr\">Cassie McKown</a>."
+            },{
+                "title": "Campaigns",
+                "icon_markup": "<i class=\"material-icons\">public</i>",
+                "items": [
+                    {
+                        "link": "https://www.jpcode.dev/dnd/ian-oota",
+                        "text": "Out of the Abyss Campaign Notes (DM: Ian)"
+                    },
+                    {
+                        "link": "https://www.jpcode.dev/dnd/jay-waterdeep",
+                        "text": "Waterdeep Campaign Notes (DM: Jay)"
+                    },
+                    {
+                        "link": "dnd/bhs_message_encoder.html",
+                        "text": "[Torich Zeol] BHS Message Encoder"
+                    }
+                ]
+            },{
+                "title": "Tools",
+                "icon_markup": "<i class=\"material-icons\">construction</i>",
+                "items": [
+                    {
+                        "link": "https://greasyfork.org/en/scripts/424610-beyond-dark",
+                        "text": "DnDBeyond Dark Theme"
+                    },
+                    {
+                        "link": "https://www.jpcode.dev/dnd/grid_aligner",
+                        "text": "Battlemap Grid Aligner"
+                    }
+                ]
+            },{
+                "title": "Art",
+                "icon_markup": "<i class=\"material-icons\">palette</i>",
+                "items": [
+                    {
+                        "link": "https://static.jpcode.dev/img/my_art/Orb-4096p1024s-DENOISE(4-B2.90).webp",
+                        "text": "Orb"
+                    },
+                    {
+                        "link": "https://static.jpcode.dev/img/my_art/OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).webp",
+                        "text": "Orb, Scroll, Vials, and Flame"
+                    },
+                    {
+                        "link": "https://static.jpcode.dev/img/my_art/LanternFlameAnimated.mp4",
+                        "text": "Lantern Flame (Animated)"
+                    }
+                ]
+            }
+        ]
+    }
+}
