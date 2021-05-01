@@ -1,11 +1,11 @@
 
-extends /standalone-base.pug
+extends standalone-base.pug
 
 block head
     meta(name="description", content="A repository of development projects by John Paul Rutigliano.")
     meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer")
     link(rel="stylesheet", href="https://static.jpcode.dev/css/projects-list.css")
-    style(type='text/css').
+    style.
         #content_main {
             position: relative;
         }
@@ -18,7 +18,7 @@ block head
     title Projects - JPCode.Dev
 
 block titlemixin 
-    include /mixins/main_head_title.mixin.pug
+    include mixins/main_head_title.mixin.pug
     +title()
 
 block body
@@ -31,7 +31,7 @@ block body
             .project_item 
                 .info_container 
                     h3.project_title
-                        a(href=project.website) #{project.name} 
+                        a(href=project.website || project.github) #{project.name} 
                     p.project_desc #{project.desc} 
                 ul.tags_container 
                     for tag of project.tags 
@@ -55,7 +55,7 @@ block body
 
 block eof
     #eof_scripts 
-        style(type='text/css').
+        style.
             div#content_main > hr {
                 width: clamp(256px, 480px, 90%);
                 opacity: 1;

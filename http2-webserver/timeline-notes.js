@@ -8,7 +8,6 @@ const converter = new showdown.Converter({
     tables: true,
 });
 
-exports.testMsg = ()=>console.log("test message!");
 const { 
     HTTP2_HEADER_PATH,
   } = http2.constants;
@@ -222,9 +221,7 @@ function init(options={
     _widgets_data[options.web_root] = widgets;
     _markdown[options.web_root] = markdown;
     _config[options.web_root] = config;
-    const widget_map_path = Path.join(__dirname, "widget-map.json");
-    fs.ensureFileSync(widget_map_path);
-    fs.writeFileSync(widget_map_path, JSON.stringify(Object.keys(widgets), null, 4));
+
     console.log(typeof(widgets));
     for (const widget of Object.values(widgets)) {
         if (widget["content-file"]) {
@@ -264,3 +261,4 @@ exports.init = init;
 exports.handleRequest = handleRequest;
 exports.loadTemplates = loadTemplates;
 exports.templates = _templates;
+exports.getPugTemplate = (templateName) => _templates[templateName];

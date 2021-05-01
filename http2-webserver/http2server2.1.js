@@ -66,9 +66,6 @@ if (runOpts.log === "simple") {
   logStream = () => { };
 }
 
-// Init file manager
-fm.init(runOpts, logger);
-var fmgr = fm.load(exec_path);
 
 // Load Pug Templates
 widgets.loadTemplates("../pug");
@@ -94,6 +91,11 @@ widgets.init({
   lazy_lead_allowed: true,
   web_root: "dnd/jay-waterdeep"
 });
+
+// Init file manager
+fm.init(runOpts, widgets, logger);
+var fmgr = fm.load(exec_path);
+
 
 const {
   HTTP2_HEADER_METHOD,
@@ -159,27 +161,8 @@ function respond(stream, headers) {
   const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
   const requestedFile = fmgr.getFile(path);
-  
-  if (requestedFile && path.endsWith('.pug')) {
-    try {
-      let opts = {...pugOptions};
-      let jsonText = fmgr.getFile(Path.join(Path.dirname(path), `${Path.basename(path, '.pug')}.json`))
-      let data = JSON.parse(jsonText.data);
-      // opts.filename = "../public/index.pug";
-      let temp = pug.compile(requestedFile.data, opts);
-      
-      let out = temp(data);
-      let resHeaders = {};
-      resHeaders[':status'] = 200;
-      resHeaders['content-type'] = 'text/html';
-
-      stream.respond(resHeaders);
-      stream.end(out);
-      return 0;
-    } catch (err) {
-      console.warn(err);
-    }
-  }
+  if (requestedFile)
+    requestedFile.headers[HTTP2_HEADER_CONTENT_LENGTH] = Buffer.byteLength(requestedFile.data, 'utf8');
   //Try widget
   if (!requestedFile) {
     const successCode = widgets.handleRequest(stream, headers);
@@ -243,7 +226,29 @@ function handle404(stream) {
   return -1;
 
 }
+function handlePugRequest(requestedFile, path) {
+  if (requestedFile && path.endsWith('.pug')) {
+    try {
+      let opts = {...pugOptions};
+      let jsonText = fmgr.getFile(Path.join(Path.dirname(path), `${Path.basename(path, '.pug')}.json`))
+      let data = JSON.parse(jsonText.data);
+      // opts.filename = "../public/index.pug";
+      let temp = pug.compile(requestedFile.data, opts);
+      
+      let out = temp(data);
+      let resHeaders = {};
+      resHeaders[':status'] = 200;
+      resHeaders['content-type'] = 'text/html';
 
+      stream.respond(resHeaders);
+      stream.end(out);
+      return 0;
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+}
 // Start Server
 server.listen(port);
 logger.info(`'${FILENAME}' is listening on port ${port}`);

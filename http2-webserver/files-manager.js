@@ -21,10 +21,11 @@ const {
 let logger;
 let runOpts;
 let exec_dirname; 
-
-exports.init = (rOpts, lgr) => {
+var widgets;
+exports.init = (rOpts, wdg, lgr) => {
     runOpts = rOpts;
     logger = lgr;
+    widgets = wdg;
     exec_dirname = Path.basename(runOpts.pubpath);
 }
 
@@ -43,6 +44,10 @@ function loadFiles(dir_path) {
     });
 
     // Load files into memory
+    /**
+     * 
+     * @param {string} filePath 
+     */
     function preloadFiles(filePath) {
         if (filePath.includes("git"))
             return;
@@ -51,7 +56,7 @@ function loadFiles(dir_path) {
         const fileDescriptor = fs.openSync(filePath, "r");
         const stat = fs.fstatSync(fileDescriptor);
         const contentType = Mime.getType(relFilePath);
-        const headers = {
+        let headers = {
             "content-length": stat.size,
             "last-modified": stat.mtime.toUTCString(),
             "content-type": contentType,
@@ -71,7 +76,23 @@ function loadFiles(dir_path) {
 
         // if (runOpts.debug) {
         fs.closeSync(fileDescriptor);
-        const fileContents = fs.readFileSync(filePath, { flag: 'r' });
+        let fileContents = fs.readFileSync(filePath, { flag: 'r' });
+        if (filePath.endsWith(".pug.json")) {
+            let jsonContents = JSON.parse(fileContents);
+
+            function pugCompileJson(jsonContents) {
+                let template = widgets.getPugTemplate(jsonContents.template);
+                return template(jsonContents.data);
+            }
+
+            fileContents = pugCompileJson(jsonContents);
+            let tempHeaders = {};
+            tempHeaders["content-type"] = "text/html; charset=utf-8";
+            tempHeaders["last-modified"] = headers["last-modified"];
+            // tempHeaders[HTTP2_HEADER_CONTENT_ENCODING] = 
+            headers = tempHeaders;
+        }
+
         files.set(`${relFilePath}`, {
             absPath: filePath,
             data: fileContents,
@@ -174,9 +195,16 @@ function getFile(reqPath, files, dirmap) {
     }
     if (!file) {
         try {
-            if (Object.keys(fileInfo).includes("index.html")) {
-                const idxPath = `${reqPath}/index.html`;
+            const keyList = Object.keys(fileInfo);
+            if (keyList.includes("index.html")) {
+                const idxPath = Path.join(reqPath, "index.html");
                 fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
+                file = files.get(idxPath);
+                console.log(`CATCH-GO: ${idxPath}`)
+            } else if (keyList.includes("index.pug.json")) {
+                const idxPath = Path.join(reqPath, "index.pug.json");
+                fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
+
                 file = files.get(idxPath);
                 console.log(`CATCH-GO: ${idxPath}`)
             }
@@ -264,7 +292,9 @@ function updateDirMap(exec_path, existingDirMap = undefined) {
                         headers[HTTP2_HEADER_CONTENT_LENGTH] = stat.size;
                         headers[HTTP2_HEADER_LAST_MODIFIED] = stat.mtime.toUTCString();
                         headers[HTTP2_HEADER_CONTENT_TYPE] = headers[HTTP2_HEADER_CONTENT_TYPE] || contentType;
-                        
+                        if (name.endsWith(".pug.json")) {
+                            headers[HTTP2_HEADER_CONTENT_TYPE] = 'text/html; charset=utf-8';
+                        }
                         if (contentEncoding) {
                             headers[HTTP2_HEADER_CONTENT_ENCODING] = contentEncoding;
                         }
