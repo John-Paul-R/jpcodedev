@@ -32,7 +32,7 @@ block body
                 .info_container 
                     h3.project_title
                         a(href=project.website || project.github) #{project.name} 
-                    p.project_desc #{project.desc} 
+                    p.project_desc !{project.desc} 
                 ul.tags_container 
                     for tag of project.tags 
                         li #{tag} 

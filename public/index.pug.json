@@ -16,13 +16,13 @@
                 "tags": ["Web", "API", "Dynamically Generated"]
             },{
                 "name": "Beyond Dark",
-                "desc": "A dark mode Tampermonkey script for for DnDBeyond.",
+                "desc": "A dark mode <a href=\"https://https://www.tampermonkey.net/\">Tampermonkey</a> script for for <a href=\"https://www.dndbeyond.com/\">DnDBeyond</a>.",
                 "website": "https://greasyfork.org/en/scripts/424610-beyond-dark",
                 "github": "https://github.com/John-Paul-R/ddbdark",
                 "tags": ["Theme", "CSS", "JavaScript"]
             },{
                 "name": "opggdark",
-                "desc": "A dark theme for OP.GG. Used with any UserCSS extension (e.g. Stylus).",
+                "desc": "A dark theme for <a href=\"https://op.gg/\">OP.GG</a>. Used with any UserCSS extension (e.g. <a href=\"https://github.com/openstyles/stylus\">Stylus</a>).",
                 "website": null,
                 "github": "https://github.com/John-Paul-R/opggdark",
                 "tags": ["Theme", "CSS"]

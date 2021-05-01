@@ -1009,7 +1009,7 @@
     "index.pug.json": {
       "headers": {
         "content-length": 3014,
-        "last-modified": "Sat, 01 May 2021 15:24:28 GMT",
+        "last-modified": "Sat, 01 May 2021 16:08:37 GMT",
         "content-type": "text/html; charset=utf-8",
         "cache-control": "max-age=31536000"
       }
@@ -1397,8 +1397,8 @@
   },
   "index.pug.json": {
     "headers": {
-      "content-length": 1927,
-      "last-modified": "Sat, 01 May 2021 13:45:21 GMT",
+      "content-length": 2108,
+      "last-modified": "Sat, 01 May 2021 16:10:06 GMT",
       "content-type": "text/html; charset=utf-8",
       "cache-control": "max-age=31536000"
     }
