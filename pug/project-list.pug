@@ -21,6 +21,10 @@ block titlemixin
     include mixins/main_head_title.mixin.pug
     +title()
 
+block nav_end 
+    a#contact_btn.button(href="https://www.jpcode.dev/contact.pug") Contact #[span.material-icons email]
+
+
 block body
     #title_container.flex.col.aligncenter 
         h1 John Paul Rutigliano 
@@ -37,8 +41,10 @@ block body
                     for tag of project.tags 
                         li #{tag} 
                 .actions_container 
-                    a.button(href=project.website) Website 
-                    a.button.github.icon(href=project.github) GitHub 
+                    if (project.website)
+                        a.button(href=project.website) Website 
+                    if (project.github)
+                        a.button.github.icon(href=project.github) GitHub 
     hr
     #mini_projects.flex.col.aligncenter 
         h2 Mini-Projects 
@@ -50,7 +56,7 @@ block body
     #dnd
         |<b>Looking for my <span style="color: crimson">D&D</span> projects?</b>
         .content 
-            |<a href="https://www.jpcode.dev/dnd" class="button glow">Click Here</a> to view them.
+            |<a href="https://www.jpcode.dev/dnd" class="button glow" aria-label="Click here to view my D and D projects.">Click Here</a> to view them.
 
 block eof
     #eof_scripts 
