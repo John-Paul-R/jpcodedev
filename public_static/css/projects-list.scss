@@ -1,4 +1,5 @@
 @use 'cards/link_list_card';
+@use 'cards/link_card_hover';
 
 @import '_dnd_float_msg.scss';
 @import '_button_glow.scss';
@@ -102,7 +103,7 @@
 }
 
 #mini_projects {
-	margin: 1.5rem 0;
+	padding: 1.5rem 0;
 	gap: 1rem;
 }
 #mini_projects_content {
@@ -127,6 +128,10 @@
 	background-color: var(--color-base-1);
 }
 
+
+#mini_projects_content .card {
+	@include link_card_hover.hover_effect;
+}
 // .category_content {
 //     @include link_list_card.card_content;
 // }

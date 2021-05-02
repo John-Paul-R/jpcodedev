@@ -44,10 +44,9 @@ block body
         h2 Mini-Projects 
         #mini_projects_content 
             for project of mini_projects 
-                .project_card.card 
-                    h3 #{project.name}
-                    img.preview(src=project.img, alt="Project Preview Image")
-                    a.button.glow(href=project.link) View Project 
+                a.project_card.card(href=project.link)
+                        h3 #{project.name}
+                        img.preview(src=project.img, alt="View Project")
     #dnd
         |<b>Looking for my <span style="color: crimson">D&D</span> projects?</b>
         .content 
