@@ -1,0 +1,35 @@
+
+@import 'cards/link_list_card.scss';
+
+.cards_container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    max-width: 80vw;
+}
+.card {
+    @include card;
+}
+.card_content {
+    @include card_content;
+    align-items: center;
+}
+
+.smalltext {
+    font-size: 0.8em;
+    color: var(--color-text-1);
+}
+img.preview {
+    max-width: 256px;
+    max-height: 256px;
+    border-radius: 4px;
+    border: 1px solid var(--color-element-1);
+}
+hr.accent {
+    border-color: var(--color-accent-1);
+    margin-bottom: 1rem;
+}

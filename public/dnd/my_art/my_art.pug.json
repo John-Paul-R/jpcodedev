@@ -1,0 +1,17 @@
+{
+    "template": "dnd_art_browse",
+    "data": {
+        "cards": [
+            {
+                "title": "Orb",
+                "img": "https://static.jpcode.dev/img/my_art/Orb-4096p1024s-DENOISE(4-B2.90)-512p.webp"
+            },{
+                "title": "Orb, Scroll, Vials, and Flame",
+                "img": "https://static.jpcode.dev/img/my_art/OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-512.webp"
+            },{
+                "title": "Orb",
+                "img": ""
+            }
+        ]
+    }
+}
