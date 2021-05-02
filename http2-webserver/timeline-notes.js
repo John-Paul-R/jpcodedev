@@ -160,7 +160,7 @@ function getFilePathsRecursive(directory_path, dirent_arr=[]) {
         }
         lastDirent = dirent;
     } while (lastDirent !== null);
-    
+    dir.close();
     for (const subdir of subdir_dirents) {
         widget_dirents.concat(getFilePathsRecursive(subdir, dirent_arr));
     }
@@ -210,8 +210,7 @@ function init(options={
             } else {
                 console.warn("Ignoring file, not a .pug widget or a content .json: "+file_path);
             }
-            console.log("Loaded Widget: "+file_path);
-            console.log("Widget Name: "+file_name);
+            console.log("Loaded Widget: "+file_name);
 
             // console.log(`Contents of ${widget_name}:\n---Begin---\n${widgets[widget_name]}\n---End---\n`);
         }
@@ -222,7 +221,6 @@ function init(options={
     _markdown[options.web_root] = markdown;
     _config[options.web_root] = config;
 
-    console.log(typeof(widgets));
     for (const widget of Object.values(widgets)) {
         if (widget["content-file"]) {
             widget["content"] = _markdown[Path.basename(widget["content-file"], '.md')];

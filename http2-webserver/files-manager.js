@@ -182,7 +182,7 @@ function getFile(reqPath, files, dirmap) {
     let file;
 
     try {
-        if (fileInfo.alias) {
+        if (fileInfo && fileInfo.alias) {
             file = files.get(fileInfo.alias);
 
             fileInfo = dirmapGet(fileInfo.alias)[Path.basename(fileInfo.alias)]
@@ -193,20 +193,29 @@ function getFile(reqPath, files, dirmap) {
     } catch (err) {
         logErr(err);
     }
-    if (!file) {
+    // Try some default files for directories
+    if (!file && fileInfo) {
         try {
             const keyList = Object.keys(fileInfo);
-            if (keyList.includes("index.html")) {
-                const idxPath = Path.join(reqPath, "index.html");
-                fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
-                file = files.get(idxPath);
-                console.log(`CATCH-GO: ${idxPath}`)
-            } else if (keyList.includes("index.pug.json")) {
-                const idxPath = Path.join(reqPath, "index.pug.json");
-                fileInfo = dirmapGet(idxPath)[Path.basename(idxPath)];
-
-                file = files.get(idxPath);
-                console.log(`CATCH-GO: ${idxPath}`)
+            const file_names = [
+                'index', Path.basename(reqPath),
+            ]
+            const extensions = ['.html', '.pug.json']
+            for (let i = 0; i < file_names.length; i++) {
+                for (let j = 0; j < extensions.length; j++) {
+                    if (ifIncludes(file_names[i], extensions[j]))
+                        break;
+                }
+            }
+            function ifIncludes(f_name, ext="") {
+                let name = f_name+ext;
+                if (keyList.includes(name)) {
+                    const idxPath = Path.join(reqPath, name);
+                    fileInfo = dirmapGet(idxPath)[name];
+                    file = files.get(idxPath);
+                    return true;
+                }
+                return false;
             }
         } catch (err) {
             logErr(err);
@@ -221,12 +230,11 @@ function getFile(reqPath, files, dirmap) {
             out.headers[HTTP2_HEADER_CACHE_CONTROL] = `max-age=${runOpts.maxAge}`;
         }
     } catch (err) {
-        logErr(err);
         out = null;
     }
     function logErr(err) {
-        console.error("Error retrieving file: " + reqPath)
-        console.error(err)
+        logger.error("Error retrieving file: " + reqPath)
+        logger.error(err)
     }
     function dirmapGet(path,) {
         let fdirs = Path.dirname(path).split(Path.sep)

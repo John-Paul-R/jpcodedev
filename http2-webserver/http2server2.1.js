@@ -185,7 +185,6 @@ function respond(stream, headers) {
           widgets: getDirectoriesOrHtml(fpath)
             .map(name =>  {return { name: name, link: "https://"+Path.join(websiteRoot, path, name) };})
         }
-        console.log(opts);
         stream.respond({
           'content-type': 'text/html; charset=utf-8',
           ':status': 200,
@@ -196,7 +195,7 @@ function respond(stream, headers) {
 
       }
     } catch (error) {
-      console.warn(error);
+      // logger.warn(error);
     }
   }
 
@@ -207,12 +206,12 @@ function respond(stream, headers) {
 
     stream.respond(resHeaders);
     stream.end(requestedFile.data);
-    console.log(path);
     return 0;
   } catch (err) {
-    logger.error(err);
+    // logger.error(err);
   }
   // Handle 404
+  logger.warn(`404 Not Found: ${path}`)
   handle404(stream, headers);
   return -1;
 }
@@ -244,7 +243,7 @@ function handlePugRequest(requestedFile, path) {
       stream.end(out);
       return 0;
     } catch (err) {
-      console.warn(err);
+      logger.warn(err);
     }
   }
 

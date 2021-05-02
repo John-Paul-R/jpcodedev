@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 3159,
-        "last-modified": "Sat, 01 May 2021 14:04:22 GMT",
+        "content-length": 3414,
+        "last-modified": "Sun, 02 May 2021 13:51:07 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -35,7 +35,7 @@
     "widget_standalone.css": {
       "headers": {
         "content-length": 9085,
-        "last-modified": "Sat, 01 May 2021 14:04:22 GMT",
+        "last-modified": "Sun, 02 May 2021 13:51:06 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -51,7 +51,7 @@
     "widget_standalone.css.map": {
       "headers": {
         "content-length": 1786,
-        "last-modified": "Sat, 01 May 2021 14:04:22 GMT",
+        "last-modified": "Sun, 02 May 2021 13:51:06 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
@@ -66,16 +66,16 @@
     },
     "projects-list.css.map": {
       "headers": {
-        "content-length": 771,
-        "last-modified": "Sat, 01 May 2021 14:04:22 GMT",
+        "content-length": 845,
+        "last-modified": "Sun, 02 May 2021 13:51:07 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.scss": {
       "headers": {
-        "content-length": 2435,
-        "last-modified": "Sat, 01 May 2021 13:53:23 GMT",
+        "content-length": 2540,
+        "last-modified": "Sun, 02 May 2021 13:51:00 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
@@ -96,12 +96,20 @@
           "content-type": "text/x-scss",
           "cache-control": "max-age=31536000"
         }
+      },
+      "_link_card_hover.scss": {
+        "headers": {
+          "content-length": 266,
+          "last-modified": "Sun, 02 May 2021 13:39:50 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
       }
     },
     "dnd_index.css": {
       "headers": {
         "content-length": 8732,
-        "last-modified": "Sat, 01 May 2021 14:04:21 GMT",
+        "last-modified": "Sun, 02 May 2021 13:51:05 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -109,7 +117,7 @@
     "dnd_index.css.map": {
       "headers": {
         "content-length": 430,
-        "last-modified": "Sat, 01 May 2021 14:04:21 GMT",
+        "last-modified": "Sun, 02 May 2021 13:51:05 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
@@ -143,6 +151,30 @@
         "content-length": 0,
         "last-modified": "Wed, 28 Apr 2021 08:07:31 GMT",
         "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "dnd_art_browse.css": {
+      "headers": {
+        "content-length": 747,
+        "last-modified": "Sun, 02 May 2021 13:51:08 GMT",
+        "content-type": "text/css",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "dnd_art_browse.css.map": {
+      "headers": {
+        "content-length": 303,
+        "last-modified": "Sun, 02 May 2021 13:51:08 GMT",
+        "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "dnd_art_browse.scss": {
+      "headers": {
+        "content-length": 618,
+        "last-modified": "Sat, 01 May 2021 18:43:52 GMT",
+        "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
     }
@@ -1013,6 +1045,24 @@
         "content-type": "text/html; charset=utf-8",
         "cache-control": "max-age=31536000"
       }
+    },
+    "my_art.pug.json": {
+      "headers": {
+        "content-length": 519,
+        "last-modified": "Sat, 01 May 2021 18:39:26 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "my_art": {
+      "my_art.pug.json": {
+        "headers": {
+          "content-length": 519,
+          "last-modified": "Sat, 01 May 2021 19:11:15 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "max-age=31536000"
+        }
+      }
     }
   },
   "temp_reirei.html": {
@@ -1156,6 +1206,22 @@
           "content-length": 1676893,
           "last-modified": "Mon, 26 Apr 2021 04:05:18 GMT",
           "content-type": "image/jpeg",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "Orb-4096p1024s-DENOISE(4-B2.90)-512p.webp": {
+        "headers": {
+          "content-length": 15518,
+          "last-modified": "Sat, 01 May 2021 18:32:15 GMT",
+          "content-type": "image/webp",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-512.webp": {
+        "headers": {
+          "content-length": 10812,
+          "last-modified": "Sat, 01 May 2021 18:32:50 GMT",
+          "content-type": "image/webp",
           "cache-control": "max-age=31536000"
         }
       }
@@ -1398,8 +1464,21 @@
   "index.pug.json": {
     "headers": {
       "content-length": 2108,
-      "last-modified": "Sat, 01 May 2021 16:10:06 GMT",
+      "last-modified": "Sat, 01 May 2021 18:35:48 GMT",
       "content-type": "text/html; charset=utf-8",
+      "cache-control": "max-age=31536000",
+      "link": [
+        "<https://static.jpcode.dev/css/core_style.css>; rel=\"preload\"; as=\"style\"",
+        "<https://static.jpcode.dev/css/projects-list.css>; rel=\"preload\"; as=\"style\"",
+        "<https://static.jpcode.dev/js/multi-palette.min.js>; rel=\"preload\"; as=\"script\""
+      ]
+    }
+  },
+  "favicon.ico": {
+    "headers": {
+      "content-length": 24189,
+      "last-modified": "Sat, 01 May 2021 20:03:49 GMT",
+      "content-type": "image/vnd.microsoft.icon",
       "cache-control": "max-age=31536000"
     }
   }
