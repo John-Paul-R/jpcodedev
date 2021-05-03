@@ -10,17 +10,19 @@ html(lang='en')
  body
   #page_container
     header
-        #navbar.shadow
+        #navbar(role="menubar")
             #title
                 block titlemixin
             .end.flex.row
                 block nav_end
                 button.swap_palette.button
-                    p Theme
-                    i.material-icons style
+                    |Theme
+                    span.material-icons style
     #content_main.filled
         block body
     footer#footer
-        script(src="https://static.jpcode.dev/js/footer.js") 
+        div#copyright_text.small.text.aligncenter
+            script.
+                document.getElementById("copyright_text").innerHTML = `&#169; 2020-${new Date().getFullYear()} <a href="https://github.com/John-Paul-R"> John Paul R.</a>`;
 
  block eof 

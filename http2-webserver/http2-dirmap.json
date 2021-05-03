@@ -2,8 +2,8 @@
   "css": {
     "core_style.css": {
       "headers": {
-        "content-length": 3605,
-        "last-modified": "Sun, 02 May 2021 20:48:20 GMT",
+        "content-length": 4098,
+        "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 3470,
-        "last-modified": "Sun, 02 May 2021 16:22:54 GMT",
+        "content-length": 4337,
+        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -58,24 +58,24 @@
     },
     "_dnd_float_msg.scss": {
       "headers": {
-        "content-length": 338,
-        "last-modified": "Sun, 25 Apr 2021 00:59:28 GMT",
+        "content-length": 425,
+        "last-modified": "Mon, 03 May 2021 00:30:19 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.css.map": {
       "headers": {
-        "content-length": 851,
-        "last-modified": "Sun, 02 May 2021 16:22:54 GMT",
+        "content-length": 1008,
+        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.scss": {
       "headers": {
-        "content-length": 2540,
-        "last-modified": "Sun, 02 May 2021 13:51:00 GMT",
+        "content-length": 3353,
+        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
@@ -176,6 +176,64 @@
         "last-modified": "Sat, 01 May 2021 18:43:52 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
+      }
+    },
+    "core_style.css.map": {
+      "headers": {
+        "content-length": 1071,
+        "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
+        "content-type": "application/json",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "core_style.scss": {
+      "headers": {
+        "content-length": 1320,
+        "last-modified": "Mon, 03 May 2021 00:10:50 GMT",
+        "content-type": "text/x-scss",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "components": {
+      "header.scss": {
+        "headers": {
+          "content-length": 1211,
+          "last-modified": "Mon, 03 May 2021 00:00:15 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "_buttons_and_input.scss": {
+        "headers": {
+          "content-length": 1244,
+          "last-modified": "Mon, 03 May 2021 00:23:23 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "_header.scss": {
+        "headers": {
+          "content-length": 1309,
+          "last-modified": "Mon, 03 May 2021 00:34:28 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "_util.scss": {
+        "headers": {
+          "content-length": 414,
+          "last-modified": "Mon, 03 May 2021 00:04:40 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "_footer.scss": {
+        "headers": {
+          "content-length": 113,
+          "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
       }
     }
   },
@@ -336,6 +394,14 @@
       "headers": {
         "content-length": 5068,
         "last-modified": "Fri, 30 Apr 2021 20:07:40 GMT",
+        "content-type": "application/javascript",
+        "cache-control": "max-age=31536000"
+      }
+    },
+    "copyright_text.js": {
+      "headers": {
+        "content-length": 180,
+        "last-modified": "Mon, 03 May 2021 00:44:27 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -1463,8 +1529,8 @@
   },
   "index.pug.json": {
     "headers": {
-      "content-length": 2108,
-      "last-modified": "Sat, 01 May 2021 18:35:48 GMT",
+      "content-length": 2375,
+      "last-modified": "Mon, 03 May 2021 01:01:29 GMT",
       "content-type": "text/html; charset=utf-8",
       "cache-control": "max-age=31536000",
       "link": [

@@ -33,9 +33,13 @@ block body
     .projects_container.flex.col.aligncenter 
         for project of projects 
             .project_item 
+                if (project.icon)
+                    .icon_container
+                        img.project_icon(src=project.icon, alt="#{project.name} icon")
                 .info_container 
-                    h3.project_title
-                        a(href=project.website || project.github) #{project.name} 
+                    a(href=project.website || project.github) 
+                        h3.project_title #{project.name} 
+
                     p.project_desc !{project.desc} 
                 ul.tags_container 
                     for tag of project.tags 

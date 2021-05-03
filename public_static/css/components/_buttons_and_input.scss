@@ -1,0 +1,63 @@
+
+button {
+    background-color: var(--color-accent-1);
+    border-radius: 2px;
+    border: none;
+    padding: 3px;
+    text-align: center;
+}
+
+button > p {
+    margin-top: auto;
+    margin-bottom: auto;
+    line-height:24px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.button,
+input[type=submit] {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    
+    text-decoration: none;
+    text-align: center;
+
+    cursor: pointer;
+
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: var(--color-accent-1);
+    border: 1px solid var(--color-accent-1);
+    font-weight: 600;
+}
+.button:hover,
+input[type=submit]:hover {
+    background-color: var(--color-accent-1-1);
+}
+.button.disabled,
+a.button:not([href]) {
+    background-color: var(--color-element-1);
+    cursor: default;
+    filter: contrast(0.5);
+    border: 1px solid var(--color-element-2);
+}
+
+textarea,
+input[type=text],
+input[type=email]{
+  background-color: var(--color-base-2);
+  /* border: 1px solid var(--color-element); */
+    /* TODO Make --color-element usable here (increase contrast) */
+  border: 1px solid var(--color-base-1);
+  padding: 0.5em;
+  border-radius: 0.25rem;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}

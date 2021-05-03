@@ -4,12 +4,14 @@
         "projects": [
             {
                 "name": "PoE Atlas",
+                "icon": "https://www.poeatlas.net/favicon.ico",
                 "desc": "An online tool for navigating Path of Exile's Atlas of Worlds.",
                 "website": "https://www.poeatlas.net/",
                 "github": "https://github.com/John-Paul-R/PoE-Atlas-Website",
                 "tags": ["Web", "Interactable", "Render 2D"]
             },{
                 "name": "FiberMC",
+                "icon": "https://www.fibermc.com/favicon.ico",
                 "desc": "A searchable and filterable list of all Fabric mods.",
                 "website": "https://www.fibermc.com/",
                 "github": "https://github.com/John-Paul-R/FabricMC-Mod-List-Website",
@@ -32,11 +34,13 @@
             {
                 "name": "Colored Circles Interactive Animation",
                 "img": "https://static.jpcode.dev/img/chrome_9ZEIuumdPW.webp",
-                "link": "https://www.jpcode.dev/playground/circles_cursor_anim"
+                "link": "https://www.jpcode.dev/playground/circles_cursor_anim",
+                "desc": "CSS/JS color palette manager for websites."
             },{
                 "name": "multi-palette-js",
                 "img": "https://static.jpcode.dev/img/ColorPaletteCardImg-transparent-512p.webp",
-                "link": "https://github.com/John-Paul-R/multi-palette-js"
+                "link": "https://github.com/John-Paul-R/multi-palette-js",
+                "desc": "Some animations that react to your cursor."
             }
         ]
     }
