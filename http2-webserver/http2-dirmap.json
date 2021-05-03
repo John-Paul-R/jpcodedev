@@ -1556,6 +1556,9 @@
       "cache-control": "max-age=31536000"
     }
   },
+  "contact": {
+    "alias": "contact.pug"
+  },
   "contact.pug": {
     "headers": {
       "content-length": 1667,

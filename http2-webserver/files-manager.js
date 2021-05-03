@@ -4,6 +4,7 @@ const fs = require('fs');
 const Mime = require('mime');
 const dir = require('node-dir');
 const Path = require('path');
+const pug = require('pug');
 
 const {
     HTTP2_HEADER_METHOD,
@@ -22,10 +23,12 @@ let logger;
 let runOpts;
 let exec_dirname; 
 var widgets;
-exports.init = (rOpts, wdg, lgr) => {
+var pugOptions;
+exports.init = (rOpts, wdg, pugOpts, lgr) => {
     runOpts = rOpts;
     logger = lgr;
     widgets = wdg;
+    pugOptions = pugOpts
     exec_dirname = Path.basename(runOpts.pubpath);
 }
 
@@ -91,6 +94,18 @@ function loadFiles(dir_path) {
             tempHeaders["last-modified"] = headers["last-modified"];
             // tempHeaders[HTTP2_HEADER_CONTENT_ENCODING] = 
             headers = tempHeaders;
+        } else if (filePath.endsWith(".pug")) {
+            let opts = {...pugOptions};
+            // let jsonText = fmgr.getFile(Path.join(Path.dirname(path), `${Path.basename(path, '.pug')}.json`))
+            // let data = JSON.parse(jsonText.data);
+            // opts.filename = "../public/index.pug";
+            fileContents = pug.render(fileContents, opts);
+            
+            // let out = temp(data);
+            let resHeaders = {};
+            resHeaders['content-type'] = 'text/html; charset=utf8';
+            resHeaders["last-modified"] = headers["last-modified"];
+            headers = resHeaders;
         }
 
         files.set(`${relFilePath}`, {
@@ -200,7 +215,7 @@ function getFile(reqPath, files, dirmap) {
             const file_names = [
                 'index', Path.basename(reqPath),
             ]
-            const extensions = ['.html', '.pug.json']
+            const extensions = ['.html', '.pug.json', '.pug']
             for (let i = 0; i < file_names.length; i++) {
                 for (let j = 0; j < extensions.length; j++) {
                     if (ifIncludes(file_names[i], extensions[j]))

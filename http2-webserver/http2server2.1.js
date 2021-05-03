@@ -94,7 +94,7 @@ widgets.init({
 });
 
 // Init file manager
-fm.init(runOpts, widgets, logger);
+fm.init(runOpts, widgets, pugOptions, logger);
 var fmgr = fm.load(exec_path);
 
 
@@ -170,8 +170,6 @@ function respond(stream, headers) {
     if (successCode === 0)
       return 0;
   }
-  if (0 == handlePugRequest(requestedFile, path, stream))
-    return 0;
   if (!requestedFile) {
     try {
       let fpath = Path.join(exec_path, path)
@@ -237,30 +235,7 @@ function handle404(stream) {
   return -1;
 
 }
-function handlePugRequest(requestedFile, path, stream) {
-  if (requestedFile && path.endsWith('.pug')) {
-    try {
-      let opts = {...pugOptions};
-      // let jsonText = fmgr.getFile(Path.join(Path.dirname(path), `${Path.basename(path, '.pug')}.json`))
-      // let data = JSON.parse(jsonText.data);
-      // opts.filename = "../public/index.pug";
-      let temp = pug.render(requestedFile.data, opts);
-      
-      // let out = temp(data);
-      let resHeaders = {};
-      resHeaders[':status'] = 200;
-      resHeaders['content-type'] = 'text/html; charset=utf8';
 
-      stream.respond(resHeaders);
-      stream.end(temp);
-      return 0;
-    } catch (err) {
-      logger.warn(err);
-    }
-  }
-  return -1;
-
-}
 // Start Server
 server.listen(port);
 logger.info(`'${FILENAME}' is listening on port ${port}`);
