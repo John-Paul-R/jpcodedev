@@ -1563,7 +1563,7 @@
     "headers": {
       "content-length": 1667,
       "last-modified": "Mon, 03 May 2021 02:14:25 GMT",
-      "content-type": null,
+      "content-type": "text/html; charset=utf-8",
       "cache-control": "max-age=31536000"
     }
   },

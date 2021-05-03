@@ -103,7 +103,7 @@ function loadFiles(dir_path) {
             
             // let out = temp(data);
             let resHeaders = {};
-            resHeaders['content-type'] = 'text/html; charset=utf8';
+            resHeaders['content-type'] = 'text/html; charset=utf-8';
             resHeaders["last-modified"] = headers["last-modified"];
             headers = resHeaders;
         }
@@ -315,7 +315,7 @@ function updateDirMap(exec_path, existingDirMap = undefined) {
                         headers[HTTP2_HEADER_CONTENT_LENGTH] = stat.size;
                         headers[HTTP2_HEADER_LAST_MODIFIED] = stat.mtime.toUTCString();
                         headers[HTTP2_HEADER_CONTENT_TYPE] = headers[HTTP2_HEADER_CONTENT_TYPE] || contentType;
-                        if (name.endsWith(".pug.json")) {
+                        if (name.endsWith(".pug.json") || name.endsWith(".pug")) {
                             headers[HTTP2_HEADER_CONTENT_TYPE] = 'text/html; charset=utf-8';
                         }
                         if (contentEncoding) {
