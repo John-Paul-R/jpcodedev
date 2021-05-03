@@ -3,7 +3,7 @@
     "core_style.css": {
       "headers": {
         "content-length": 4098,
-        "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
+        "last-modified": "Mon, 03 May 2021 02:07:30 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -27,7 +27,7 @@
     "projects-list.css": {
       "headers": {
         "content-length": 4337,
-        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
+        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -67,15 +67,15 @@
     "projects-list.css.map": {
       "headers": {
         "content-length": 1008,
-        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
+        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.scss": {
       "headers": {
-        "content-length": 3353,
-        "last-modified": "Mon, 03 May 2021 01:36:52 GMT",
+        "content-length": 3303,
+        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
@@ -181,15 +181,15 @@
     "core_style.css.map": {
       "headers": {
         "content-length": 1071,
-        "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
+        "last-modified": "Mon, 03 May 2021 02:07:30 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "core_style.scss": {
       "headers": {
-        "content-length": 1320,
-        "last-modified": "Mon, 03 May 2021 00:10:50 GMT",
+        "content-length": 1355,
+        "last-modified": "Mon, 03 May 2021 02:00:22 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }
@@ -231,6 +231,14 @@
         "headers": {
           "content-length": 113,
           "last-modified": "Mon, 03 May 2021 00:40:29 GMT",
+          "content-type": "text/x-scss",
+          "cache-control": "max-age=31536000"
+        }
+      },
+      "_swap_palette.scss": {
+        "headers": {
+          "content-length": 278,
+          "last-modified": "Mon, 03 May 2021 02:07:30 GMT",
           "content-type": "text/x-scss",
           "cache-control": "max-age=31536000"
         }
@@ -1550,8 +1558,8 @@
   },
   "contact.pug": {
     "headers": {
-      "content-length": 1558,
-      "last-modified": "Sun, 02 May 2021 21:08:49 GMT",
+      "content-length": 1667,
+      "last-modified": "Mon, 03 May 2021 02:14:25 GMT",
       "content-type": null,
       "cache-control": "max-age=31536000"
     }

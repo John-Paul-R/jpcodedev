@@ -26,6 +26,12 @@ block head
             flex-direction: column;
             gap: 0.25em;
         }
+        #contact hr {
+            width: 15rem;
+            margin: 1rem 0;
+            border-color: var(--color-accent-1);
+            color: var(--color-accent-1);
+        }
 
     title Contact Me - JPCode.Dev
 
@@ -37,7 +43,7 @@ block body
     #contact.flex.col.aligncenter 
         h1 Contact Me 
         h2 at #[a(href="mailto:jp@jpcode.dev") jp@jpcode.dev]
-        hr(style="width: 15rem; margin: 1rem 0; color: var(--color-accent-1)")
+        hr
         form.contact_container(action="https://formspree.io/f/mleaglkn" method="POST" name="email-form")
             label Name: #[br]
                 input(type="text" size="19" name="cname")
