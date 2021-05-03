@@ -21,6 +21,7 @@ const optionDefinitions = [
   { name: 'log', type: String },
   { name: 'use-br-if-available', type: String, defaultValue: false },
   { name: 'maxAge', type: String },
+  { name: 'static', type: Boolean, defaultValue: false},
 ]
 const commandLineArgs = require('command-line-args');
 const runOpts = commandLineArgs(optionDefinitions)
@@ -218,11 +219,20 @@ function respond(stream, headers) {
   return -1;
 }
 function handle404(stream) {
-  stream.respond({
-    'content-type': 'text/html; charset=utf-8',
-    ':status': 404
-  });
-  stream.end(fmgr.getFile("/404.html").data);
+  
+  if (runOpts.static) {
+    stream.respond({
+      ':status': 404
+    });
+    stream.end();
+  } else {
+    stream.respond({
+      'content-type': 'text/html; charset=utf-8',
+      ':status': 404
+    });
+    stream.end(fmgr.getFile("/404.html").data);
+  }
+  
   // stream.end('<h1>HTTP Error 404 - Requested file not found.</h1>');
   return -1;
 
