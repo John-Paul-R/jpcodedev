@@ -26,8 +26,8 @@
     },
     "projects-list.css": {
       "headers": {
-        "content-length": 4337,
-        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
+        "content-length": 4538,
+        "last-modified": "Mon, 03 May 2021 13:43:16 GMT",
         "content-type": "text/css",
         "cache-control": "max-age=31536000"
       }
@@ -66,16 +66,16 @@
     },
     "projects-list.css.map": {
       "headers": {
-        "content-length": 1008,
-        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
+        "content-length": 1045,
+        "last-modified": "Mon, 03 May 2021 13:43:16 GMT",
         "content-type": "application/json",
         "cache-control": "max-age=31536000"
       }
     },
     "projects-list.scss": {
       "headers": {
-        "content-length": 3303,
-        "last-modified": "Mon, 03 May 2021 01:55:13 GMT",
+        "content-length": 3496,
+        "last-modified": "Mon, 03 May 2021 13:43:16 GMT",
         "content-type": "text/x-scss",
         "cache-control": "max-age=31536000"
       }

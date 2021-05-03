@@ -32,23 +32,24 @@ block body
     hr
     .projects_container.flex.col.aligncenter 
         for project of projects 
-            .project_item 
+            .project_item_wrapper
                 if (project.icon)
                     .icon_container
                         img.project_icon(src=project.icon, alt="#{project.name} icon")
-                .info_container 
-                    a(href=project.website || project.github) 
-                        h3.project_title #{project.name} 
+                .project_item 
+                    .info_container 
+                        a(href=project.website || project.github) 
+                            h3.project_title #{project.name} 
 
-                    p.project_desc !{project.desc} 
-                ul.tags_container 
-                    for tag of project.tags 
-                        li #{tag} 
-                .actions_container 
-                    if (project.website)
-                        a.button(href=project.website) Website 
-                    if (project.github)
-                        a.button.github.icon(href=project.github) GitHub 
+                        p.project_desc !{project.desc} 
+                    ul.tags_container 
+                        for tag of project.tags 
+                            li #{tag} 
+                    .actions_container 
+                        if (project.website)
+                            a.button(href=project.website) Website 
+                        if (project.github)
+                            a.button.github.icon(href=project.github) GitHub 
     hr
     #mini_projects.flex.col.aligncenter 
         h2 Mini-Projects 
