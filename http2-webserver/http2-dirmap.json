@@ -400,8 +400,8 @@
     },
     "multi-palette.min.js": {
       "headers": {
-        "content-length": 5068,
-        "last-modified": "Fri, 30 Apr 2021 20:07:40 GMT",
+        "content-length": 4823,
+        "last-modified": "Mon, 03 May 2021 23:52:45 GMT",
         "content-type": "application/javascript",
         "cache-control": "max-age=31536000"
       }
@@ -1438,8 +1438,8 @@
       "js": {
         "jpcode.js": {
           "headers": {
-            "content-length": 13204,
-            "last-modified": "Sun, 25 Apr 2021 00:51:10 GMT",
+            "content-length": 13288,
+            "last-modified": "Tue, 04 May 2021 11:31:31 GMT",
             "content-type": "application/javascript",
             "cache-control": "max-age=31536000"
           }
@@ -1562,7 +1562,7 @@
   "contact.pug": {
     "headers": {
       "content-length": 1667,
-      "last-modified": "Mon, 03 May 2021 02:14:25 GMT",
+      "last-modified": "Tue, 04 May 2021 11:39:34 GMT",
       "content-type": "text/html; charset=utf-8",
       "cache-control": "max-age=31536000"
     }
