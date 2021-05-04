@@ -95,7 +95,7 @@ widgets.init({
 
 // Init file manager
 fm.init(runOpts, widgets, pugOptions, logger);
-var fmgr = fm.load(exec_path);
+fm.load(exec_path);
 
 
 const {
@@ -161,7 +161,7 @@ function respond(stream, headers) {
   const socket = stream.session.socket;
   const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
-  const requestedFile = fmgr.getFile(path);
+  const requestedFile = fm.getFile(path);
   if (requestedFile)
     requestedFile.headers[HTTP2_HEADER_CONTENT_LENGTH] = Buffer.byteLength(requestedFile.data, 'utf8');
   //Try widget
@@ -228,7 +228,7 @@ function handle404(stream) {
       'content-type': 'text/html; charset=utf-8',
       ':status': 404
     });
-    stream.end(fmgr.getFile("/404.html").data);
+    stream.end(fm.getFile("/404.html").data);
   }
   
   // stream.end('<h1>HTTP Error 404 - Requested file not found.</h1>');

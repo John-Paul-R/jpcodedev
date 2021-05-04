@@ -1,0 +1,20 @@
+[
+    {
+        "urls": [
+            "/"
+        ],
+        "destination": "/index.pug.json"
+    },
+    {
+        "urls": [
+            "/contact"
+        ],
+        "destination": "/contact.pug"
+    },
+    {
+        "urls": [
+            "/"
+        ],
+        "destination": "/index.pug.json"
+    }
+]

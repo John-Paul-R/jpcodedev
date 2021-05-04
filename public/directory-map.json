@@ -65,9 +65,10 @@
   },
   "404.html": {},
   "LICENSE": {},
+  "aliases.json": {},
   "animation_showcase.html": {},
-  "contact.pug": {},
   "directory-map.json": {},
+  "contact.pug": {},
   "index.html": {},
   "index.pug.json": {
     "headers": {
