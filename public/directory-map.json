@@ -1,0 +1,82 @@
+{
+  "css": {},
+  "dnd": {
+    "grid_aligner": {
+      "GKYoHhR.jpg": {},
+      "drag-drop-files.css": {},
+      "drag-drop-files.js": {},
+      "index.html": {},
+      "jy43tx2esds61.jpg": {},
+      "main.js": {},
+      "qfkseui7qds61.jpg": {}
+    },
+    "ian-oota": {
+      "widgets": {
+        "content": {
+          "2021-4-11.json": {},
+          "2021-4-11.md": {},
+          "2021-4-4.html": {},
+          "2021-4-4.json": {},
+          "2021-4-4.md": {},
+          "Skris.json": {},
+          "Skris.md": {},
+          "_order.json": {}
+        }
+      },
+      "(ign)template structure.md": {},
+      "2020-4-4.html": {},
+      "2021-4-4.html": {}
+    },
+    "jay-waterdeep": {
+      "widgets": {
+        "content": {
+          "2021-4-27.json": {},
+          "2021-4-27.md": {},
+          "general_notes.json": {},
+          "general_notes.md": {}
+        },
+        "templates": {}
+      }
+    },
+    "my_art": {
+      "my_art.pug.json": {}
+    },
+    "bhs_message_encoder.html": {},
+    "dnd.html": {},
+    "ian-oota.html": {},
+    "index.pug.json": {}
+  },
+  "js": {
+    "animation_showcase.js": {},
+    "list_sort.js": {},
+    "project_list_generator.js": {}
+  },
+  "playground": {
+    "circles_cursor_anim": {
+      "css": {
+        "jpcode.css": {}
+      },
+      "js": {
+        "(ign)todo.txt": {},
+        "jpcode.js": {}
+      },
+      "index.html": {}
+    }
+  },
+  "404.html": {},
+  "LICENSE": {},
+  "animation_showcase.html": {},
+  "contact.pug": {},
+  "directory-map.json": {},
+  "index.html": {},
+  "index.pug.json": {
+    "headers": {
+      "link": [
+        "<https://static.jpcode.dev/css/core_style.css>; rel=\"preload\"; as=\"style\"",
+        "<https://static.jpcode.dev/css/projects-list.css>; rel=\"preload\"; as=\"style\"",
+        "<https://static.jpcode.dev/js/multi-palette.min.js>; rel=\"preload\"; as=\"script\""
+      ]
+    }
+  },
+  "temp_reirei.html": {}
+}

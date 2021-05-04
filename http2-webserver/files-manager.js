@@ -5,6 +5,7 @@ const Mime = require('mime');
 const dir = require('node-dir');
 const Path = require('path');
 const pug = require('pug');
+const { DirectoryMap } = require('./directory-map.js');
 
 const {
     HTTP2_HEADER_METHOD,
@@ -165,6 +166,13 @@ function loadDirMap(dir_path) {
     }
     return dirmap;
 };
+// "headers": {
+//     "link": [
+//       "<https://static.jpcode.dev/css/core_style.css>; rel=\"preload\"; as=\"style\"",
+//       "<https://static.jpcode.dev/css/projects-list.css>; rel=\"preload\"; as=\"style\"",
+//       "<https://static.jpcode.dev/js/multi-palette.min.js>; rel=\"preload\"; as=\"script\""
+//     ]
+//   }
 
 
 function dirmapResolvePath(cDirObj, subdirs) {
@@ -344,6 +352,7 @@ function filterIgnore(path) {
     return true;
 }
 
+var directory_map;
 /**
  * 
  * @param {string} root_dir The directory to index / load files from 
@@ -352,6 +361,9 @@ function filterIgnore(path) {
 function load(root_dir) {
     const files = loadFiles(root_dir);
     const dirmap = loadDirMap(root_dir);
+    directory_map = new DirectoryMap(root_dir, ["git", ".well-known"]);
+    directory_map.loadDirmap();
+    console.log(directory_map);
     return {
         files: files,
         dirmap: dirmap,
