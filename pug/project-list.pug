@@ -10,8 +10,9 @@ block head
             position: relative;
         }
         #content_main > hr {
-            transition: width 0.5s, opacity 0.5s;
-            width: 0;
+            width: clamp(256px, 480px, 90%);
+            transform: scale(0.001, 1);
+            transition: transform 1s, opacity 1s;
             margin: 0 auto;
             opacity: 0;
         }
@@ -67,7 +68,6 @@ block eof
     #eof_scripts 
         style.
             div#content_main > hr {
-                width: clamp(256px, 480px, 90%);
                 opacity: 1;
-                transform: translateX(0px);
+                transform: scale(1, 1) translateX(0px);
             }
