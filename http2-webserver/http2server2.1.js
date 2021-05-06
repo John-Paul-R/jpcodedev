@@ -140,7 +140,11 @@ server.on('error', (err) => logger.error(err));
 
 //  Handle streams (requests are streams)
 server.on('stream', (stream, headers) => {
-  const successCode = respond(stream, headers);
+  try {
+    const successCode = respond(stream, headers);
+  } catch (err) {
+    logger.error(err);
+  }
   logStream(headers, stream.session.socket);
 });
 

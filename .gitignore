@@ -7,3 +7,5 @@ credentials
 *.key
 *.pem
 .vscode
+
+public_static/temp

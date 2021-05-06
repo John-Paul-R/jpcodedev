@@ -107,6 +107,8 @@ class DirectoryMap {
     /**
      * 
      * @param {import('path').ParsedPath} requestPath 
+     * Gets the dirmap entry for the file specified by the provided path.
+     * If this entry cannot be found, it attempts to return the entry for its parent (not recursively).
      */
     get(requestPath) {
         try {

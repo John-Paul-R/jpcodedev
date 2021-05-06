@@ -98,6 +98,9 @@
     "pixi.min.js.map": {},
     "resizable.js": {}
   },
+  "temp": {
+    "cg_spring_2021_bronze_info.html": {}
+  },
   "aliases.json": {},
   "directory-map.json": {}
 }
