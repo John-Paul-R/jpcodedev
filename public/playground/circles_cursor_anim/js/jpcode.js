@@ -364,7 +364,7 @@ function radialGradient(from, to) {
 
     let container = new PIXI.Container();
     let button1 = createButton("Resumé", 0x3535ff);
-    button1.click = () => window.open("https://static.jpcode.dev/files/john-paul-r-resume-2020-4.pdf","_self");
+    button1.click = () => window.open("https://static.jpcode.dev/resume","_self");
     let button2 = createButton("Contact", 0x35ff35);
     button2.click = () => window.open("https://www.jpcode.dev/contact","_self");
 
