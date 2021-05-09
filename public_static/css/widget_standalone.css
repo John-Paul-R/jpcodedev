@@ -398,4 +398,14 @@ table.gh tr th :last-child, table.gh tr td :last-child {
   align-items: flex-start;
 }
 
+table.gh tr td > a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-decoration: none;
+}
+table.gh tr td > a:hover {
+  text-decoration: underline;
+}
+
 /*# sourceMappingURL=widget_standalone.css.map */

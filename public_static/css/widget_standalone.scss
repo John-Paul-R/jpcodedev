@@ -1,3 +1,5 @@
+@use 'components/table_link_cell';
+
 @import 'github_md';
 
 #content_main {
@@ -45,4 +47,8 @@
     flex-direction: column;
     gap: 0.5em;
     align-items: flex-start;
+}
+
+table.gh tr td {
+    @include table_link_cell.link_cell;
 }

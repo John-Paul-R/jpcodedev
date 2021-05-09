@@ -9,7 +9,8 @@
       "_footer.scss": {},
       "_header.scss": {},
       "_swap_palette.scss": {},
-      "_util.scss": {}
+      "_util.scss": {},
+      "_table_link_cell.scss": {}
     },
     "_button_glow.scss": {},
     "_dnd_float_msg.scss": {},
@@ -45,7 +46,8 @@
   },
   "files": {
     "Beyond20-2021-4-20.zip": {},
-    "john-paul-r-resume-2020-4.pdf": {}
+    "john-paul-r-resume-2020-4.pdf": {},
+    "john-paul-r-resume-2021-2-5.pdf": {}
   },
   "fonts": {
     "MaterialIcons-Regular.woff2": {},

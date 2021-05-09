@@ -21,7 +21,6 @@ function sortTable() {
       //start by saying: no switching is done:
       switching = false;
       rows = table.rows;
-      console.log(rows);
       /*Loop through all table rows (except the
       first, which contains table headers):*/
       for (i = 1; i < (rows.length - 1); i++) {
@@ -32,7 +31,6 @@ function sortTable() {
         x = rows[i];
         y = rows[i + 1];
         //check if the two rows should switch place:
-        console.log(x.orderNum)
         if (x.orderNum > y.orderNum) {
           //if so, mark as a switch and break the loop:
           shouldSwitch = true;
@@ -48,6 +46,5 @@ function sortTable() {
     }
   }
   sortTable();
-  console.log(sorted);
 })();
 

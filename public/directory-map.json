@@ -20,7 +20,9 @@
           "2021-4-4.md": {},
           "Skris.json": {},
           "Skris.md": {},
-          "_order.json": {}
+          "_order.json": {},
+          "2021-4-25.json": {},
+          "2021-4-25.md": {}
         }
       },
       "(ign)template structure.md": {},
@@ -67,8 +69,8 @@
   "LICENSE": {},
   "aliases.json": {},
   "animation_showcase.html": {},
-  "directory-map.json": {},
   "contact.pug": {},
+  "directory-map.json": {},
   "index.html": {},
   "index.pug.json": {
     "headers": {
