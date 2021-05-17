@@ -6,6 +6,7 @@ const pug = require('pug');
 const showdown = require('showdown');
 const converter = new showdown.Converter({
     tables: true,
+    strikethrough: true,
 });
 
 const { 
@@ -46,12 +47,17 @@ function handleRequest(stream, headers) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot)
             if ((pathFrags.length < 4 || pathFrags[3] === "list")) {
+                const dirConfig = _dir_config[webroot];
+                let dirTitle = `${Path.basename(webroot)} notes`;
+                if (dirConfig && dirConfig.dnd && dirConfig.dnd.campaign_title) {
+                    dirTitle = `Campaign Notes: ${Path.basename(dirConfig.dnd.campaign_title)}`;
+                }
                 return respond(
                     stream,
                      'text/html',
                      _templates['list']({
                         "widgets": _widgets_data[webroot],
-                        "title": "Notes",
+                        "title": dirTitle,
                         "webroot": webroot,
                     }),
                 ); 
@@ -62,22 +68,25 @@ function handleRequest(stream, headers) {
                     JSON.stringify(Object.keys(_widgets_data)),
                 );
             } else {
-                
-                let frag = pathFrags.slice(3);
-                let widgetContents = _markdown[webroot][frag];
-                let widgetTitle = _widgets_data[webroot][frag].title;
-                console.log(widgetTitle)
-                // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
-                if (widgetContents) {
-                    return respond(
-                        stream,
-                        'text/html',
-                        _templates['dnd_summary_note']({
-                            "widgetContents": widgetContents,
-                            "title": widgetTitle,
-                        })
-                    );
-                } else {
+                try {
+                    let frag = pathFrags.slice(3);
+                    let widgetContents = _markdown[webroot][frag];
+                    let widgetTitle = _widgets_data[webroot][frag].title;
+                    console.log(widgetTitle)
+                    // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                    if (widgetContents) {
+                        return respond(
+                            stream,
+                            'text/html',
+                            _templates['dnd_summary_note']({
+                                "widgetContents": widgetContents,
+                                "title": widgetTitle,
+                            })
+                        );
+                    } else {
+                        return -2;
+                    }
+                } catch (err) {
                     return -2;
                 }
             }
@@ -170,6 +179,7 @@ var _widgets_data = {};
 var _templates = {};
 var _markdown = {};
 var _config = {};
+var _dir_config = {};
 var webroots = [];
 /**
  * 
@@ -191,6 +201,13 @@ function init(options={
     let markdown = {};
     let config = {};
 
+    let dirConfig = {};
+    let dirConfigPath = Path.join(Path.normalize(options.widget_directory, "../"), "config.json");
+    console.log(dirConfigPath)
+    if (fs.existsSync(dirConfigPath)) {
+        dirConfig = JSON.parse(fs.readFileSync(dirConfigPath));
+    }
+
     if (options.preload_widgets) {
         for (const file_path of widget_paths) {
             let file_name = Path.basename(file_path);
@@ -204,6 +221,9 @@ function init(options={
                     filename: file_path
                 });
             } else if (ext === '.json') {
+                if (file_name == "config") {
+                    continue;
+                }
                 widgets[file_name] = JSON.parse(data);
             } else if (ext === '.md') {
                 markdown[file_name] = converter.makeHtml(data).replace(/<a\s*?href/gm, '<a noreferrer target="_blank" href');
@@ -220,6 +240,7 @@ function init(options={
     _widgets_data[options.web_root] = widgets;
     _markdown[options.web_root] = markdown;
     _config[options.web_root] = config;
+    _dir_config[options.web_root] = dirConfig;
 
     for (const widget of Object.values(widgets)) {
         if (widget["content-file"]) {

@@ -22,8 +22,13 @@
           "Skris.md": {},
           "_order.json": {},
           "2021-4-25.json": {},
-          "2021-4-25.md": {}
-        }
+          "2021-4-25.md": {},
+          "2021-5-10.json": {},
+          "2021-5-10.md": {},
+          "2021-5-17.json": {},
+          "2021-5-17.md": {}
+        },
+        "config.json": {}
       },
       "(ign)template structure.md": {},
       "2020-4-4.html": {},
@@ -35,9 +40,12 @@
           "2021-4-27.json": {},
           "2021-4-27.md": {},
           "general_notes.json": {},
-          "general_notes.md": {}
+          "general_notes.md": {},
+          "2021-5-12.json": {},
+          "2021-5-12.md": {}
         },
-        "templates": {}
+        "templates": {},
+        "config.json": {}
       }
     },
     "my_art": {
