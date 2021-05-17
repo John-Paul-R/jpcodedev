@@ -3,7 +3,7 @@ extends standalone-base.pug
 
 block head
     meta(name="description", content="A repository of development projects by John Paul Rutigliano.")
-    meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer")
+    meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer, dev")
     link(rel="stylesheet", href="https://static.jpcode.dev/css/projects-list.css")
     style.
         #content_main {
@@ -23,6 +23,7 @@ block titlemixin
     +title()
 
 block nav_end 
+    a#resume_btn.button(href="https://static.jpcode.dev/resume") Resumé #[span.material-icons description] 
     a#contact_btn.button(href="https://www.jpcode.dev/contact") Contact #[span.material-icons email]
 
 
