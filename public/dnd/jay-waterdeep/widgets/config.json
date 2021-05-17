@@ -1,6 +1,7 @@
 {
     "dnd": {
         "campaign_title": "Waterdeep: Dragon Heist",
-        "dungeon_master": "Jay"
+        "dungeon_master": "Jay",
+        "type": "notes"
     }
 }

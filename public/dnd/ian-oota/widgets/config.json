@@ -1,6 +1,7 @@
 {
     "dnd": {
         "campaign_title": "Out of the Abyss",
-        "dungeon_master": "Ian"
+        "dungeon_master": "Ian",
+        "type": "notes"
     }
 }

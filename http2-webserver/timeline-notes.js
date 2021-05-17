@@ -56,7 +56,7 @@ function handleRequest(stream, headers) {
                     stream,
                      'text/html',
                      _templates['list']({
-                        "widgets": _widgets_data[webroot],
+                        "widgets": _widgets_data[webroot].entries(),
                         "title": dirTitle,
                         "webroot": webroot,
                     }),
@@ -71,7 +71,7 @@ function handleRequest(stream, headers) {
                 try {
                     let frag = pathFrags.slice(3);
                     let widgetContents = _markdown[webroot][frag];
-                    let widgetTitle = _widgets_data[webroot][frag].title;
+                    let widgetTitle = _widgets_data[webroot].get(frag[0]).title;
                     console.log(widgetTitle)
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                     if (widgetContents) {
@@ -87,6 +87,7 @@ function handleRequest(stream, headers) {
                         return -2;
                     }
                 } catch (err) {
+                    console.warn(err);
                     return -2;
                 }
             }
@@ -235,13 +236,21 @@ function init(options={
             // console.log(`Contents of ${widget_name}:\n---Begin---\n${widgets[widget_name]}\n---End---\n`);
         }
     }
+
+
     webroots.push(options.web_root);
     Object.assign(_templates, templates);
     _widgets_data[options.web_root] = widgets;
     _markdown[options.web_root] = markdown;
     _config[options.web_root] = config;
     _dir_config[options.web_root] = dirConfig;
-
+    if (dirConfig && dirConfig.dnd && dirConfig.dnd.type == "notes") {
+        let n_widgets = new Map();
+        for (const [key, value] of Object.entries(widgets).sort((a, b) => new Date(b[1]["session-date"]).getTime() - new Date(a[1]["session-date"]).getTime())) {
+            n_widgets.set(key, value)
+        }
+        _widgets_data[options.web_root] = n_widgets;
+    }
     for (const widget of Object.values(widgets)) {
         if (widget["content-file"]) {
             widget["content"] = _markdown[Path.basename(widget["content-file"], '.md')];
