@@ -3,6 +3,7 @@
 @import 'components/util';
 @import 'components/footer';
 @import 'components/swap_palette';
+@import 'components/dropdown_self_contained';
 
 :root {   
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,10 +46,10 @@ footer {
     z-index: 1;
 }
 
-#homelink {
+#homelink, .homelink {
 	text-decoration: none;
 }
-#homelink:hover {
+#homelink:hover, .homelink:hover {
 	text-decoration: underline;
 }
 

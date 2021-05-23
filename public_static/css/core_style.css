@@ -125,6 +125,30 @@ select {
   font: inherit;
 }
 
+.reset_button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+  /* Remove excess padding and border in Firefox 4+ */
+}
+.reset_button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
 .flex {
   display: flex;
   justify-content: flex-start;
@@ -166,6 +190,46 @@ footer div.shadow {
   height: 100%;
   /* box-shadow: 0px 0px 8px 0px #222; */
   box-shadow: var(--bs-sm);
+}
+
+.dropdown_sc-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dropdown_sc-button {
+  cursor: pointer;
+}
+.dropdown_sc-button:hover, .dropdown_sc-button:active, .dropdown_sc-button.open {
+  background-color: var(--color-base-1);
+}
+
+.dropdown_sc-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.1rem;
+  display: none;
+  border: 1px solid var(--color-base-1);
+}
+.dropdown_sc-content > * {
+  font-weight: 600;
+  padding: 0.25rem;
+}
+.dropdown_sc-content > *:hover {
+  background-color: var(--color-base-1);
+}
+
+.dropdown_sc-wrapper.open .dropdown_sc-content {
+  display: flex;
+}
+.dropdown_sc-wrapper.open .dropdown_sc-button {
+  background-color: var(--color-base-1);
 }
 
 :root {
@@ -212,11 +276,11 @@ footer {
   z-index: 1;
 }
 
-#homelink {
+#homelink, .homelink {
   text-decoration: none;
 }
 
-#homelink:hover {
+#homelink:hover, .homelink:hover {
   text-decoration: underline;
 }
 

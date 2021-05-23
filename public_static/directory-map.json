@@ -10,7 +10,8 @@
       "_header.scss": {},
       "_swap_palette.scss": {},
       "_util.scss": {},
-      "_table_link_cell.scss": {}
+      "_table_link_cell.scss": {},
+      "_dropdown_self_contained.scss": {}
     },
     "_button_glow.scss": {},
     "_dnd_float_msg.scss": {},
@@ -48,7 +49,10 @@
     "Beyond20-2021-4-20.zip": {},
     "john-paul-r-resume-2020-4.pdf": {},
     "john-paul-r-resume-2021-2-5.pdf": {},
-    "john-paul-r-resume-2021-2-9.pdf": {}
+    "john-paul-r-resume-2021-2-9.pdf": {},
+    "john-paul-r-resume-2021-5-23.pdf": {},
+    "john-paul-r-resume-2021-5-4.pdf": {},
+    "john-paul-r-resume-2021-5-9.pdf": {}
   },
   "fonts": {
     "MaterialIcons-Regular.woff2": {},
@@ -99,7 +103,8 @@
     "palette_light_dark.js": {},
     "pixi.min.js": {},
     "pixi.min.js.map": {},
-    "resizable.js": {}
+    "resizable.js": {},
+    "dropdown_self_contained.js": {}
   },
   "temp": {
     "cg_spring_2021_bronze_info.html": {}

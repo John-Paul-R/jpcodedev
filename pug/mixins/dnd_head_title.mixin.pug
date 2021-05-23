@@ -1,5 +1,11 @@
 mixin title
-    h4 
-        a(id="homelink" href="https://www.jpcode.dev/dnd")
-            |#[span(style="color:crimson") D&D] Projects
-        |  by #[a(href="https://github.com/John-Paul-R") JP] 
+    .dropdown_sc-wrapper
+        span.material-icons.dropdown_sc-button.reset_button(role="button") arrow_drop_down
+        h4 
+            a(id="homelink" href="https://www.jpcode.dev/dnd")
+                |#[span(style="color:crimson") D&D] Projects
+            |  by #[a(href="https://github.com/John-Paul-R") JP] 
+        .dropdown_sc-content
+            a.homelink(href="https://www.jpcode.dev") Projects (Code)
+            a.homelink(href="https://www.jpcode.dev/dnd")
+                |#[span(style="color:crimson") D&D] Projects
