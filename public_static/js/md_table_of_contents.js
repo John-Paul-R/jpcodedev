@@ -1,20 +1,28 @@
 
-const md_containers = document.getElementsByClassName('markdown');
+(function() {
+    const md_containers = document.getElementsByClassName('markdown');
 
-for (const elem of md_containers) {
-    const sect_heads = elem.querySelectorAll('*[id]');
-
-    const toc_wrapper = document.createElement('div');
-    toc_wrapper.classList.add('md_table_of_contents-wrapper');
-    const table_of_contents = document.createElement('ol');
-    table_of_contents.classList.add("md_table_of_contents");
-    toc_wrapper.appendChild(table_of_contents);
-    for (const head_el of sect_heads) {
-        const sect_link = document.createElement('a');
-        sect_link.href = "#"+head_el.id;
-        sect_link.textContent = head_el.textContent;
-
-        table_of_contents.appendChild(sect_link);
+    for (const elem of md_containers) {
+        const sect_heads = elem.querySelectorAll('*[id]');
+    
+        const toc_wrapper = document.createElement('div');
+        toc_wrapper.classList.add('md_table_of_contents-wrapper');
+        const table_of_contents = document.createElement('ol');
+        table_of_contents.classList.add("md_table_of_contents");
+        toc_wrapper.appendChild(table_of_contents);
+    
+        for (const head_el of sect_heads) {
+            const sect_link = document.createElement('a');
+            sect_link.href = "#"+head_el.id;
+            sect_link.textContent = head_el.textContent;
+            sect_link.addEventListener('click', (e) =>  {
+                head_el.style.backgroundColor = mpal.currentPalette.base[1];
+                setTimeout(() =>  {
+                    head_el.style.backgroundColor = "";
+                }, 1000);
+            });
+            table_of_contents.appendChild(sect_link);
+        }
+        elem.parentElement.insertBefore(toc_wrapper, elem.parentElement.firstChild);
     }
-    elem.parentElement.insertBefore(toc_wrapper, elem.parentElement.firstChild);
-}
+})();

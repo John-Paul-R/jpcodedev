@@ -93,6 +93,10 @@ div.widget_container {
   border-bottom: 1px dotted var(--color-base-1);
 }
 
+.markdown *[id] {
+  transition: background-color 0.75s;
+}
+
 #content_main {
   max-height: calc(100vh - 48px);
   background-color: var(--color-base);
