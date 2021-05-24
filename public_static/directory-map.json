@@ -14,7 +14,8 @@
       "_dropdown_self_contained.scss": {},
       "_widget_top_float.scss": {},
       "_md_table_of_contents.scss": {},
-      "_hover_link.scss": {}
+      "_hover_link.scss": {},
+      "_scrollbars.scss": {}
     },
     "_button_glow.scss": {},
     "_dnd_float_msg.scss": {},
@@ -107,7 +108,11 @@
         "don+blue_dragonborn_lady.png": {},
         "don+blue_dragonborn_lady.webp": {}
       }
-    }
+    },
+    "circles_cursor_anim.png": {},
+    "circles_cursor_anim.webp": {},
+    "circles_cursor_anim-square.png": {},
+    "circles_cursor_anim-square.webp": {}
   },
   "js": {
     "(ign)palette_light_dark_OLD.js": {},
