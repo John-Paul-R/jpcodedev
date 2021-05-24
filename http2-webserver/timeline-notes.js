@@ -47,11 +47,7 @@ function handleRequest(stream, headers) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot)
             if ((pathFrags.length < 4 || pathFrags[3] === "list")) {
-                const dirConfig = _dir_config[webroot];
-                let dirTitle = `${Path.basename(webroot)} notes`;
-                if (dirConfig && dirConfig.dnd && dirConfig.dnd.campaign_title) {
-                    dirTitle = `Campaign Notes: ${Path.basename(dirConfig.dnd.campaign_title)}`;
-                }
+                const dirTitle = dndDirTitle(webroot);
                 return respond(
                     stream,
                      'text/html',
@@ -72,6 +68,9 @@ function handleRequest(stream, headers) {
                     let frag = pathFrags.slice(3);
                     let widgetContents = _markdown[webroot][frag];
                     let widgetTitle = _widgets_data[webroot].get(frag[0]).title;
+                    
+                    const dirTitle = dndDirTitle(webroot);
+                    
                     console.log(widgetTitle)
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                     if (widgetContents) {
@@ -81,6 +80,8 @@ function handleRequest(stream, headers) {
                             _templates['dnd_summary_note']({
                                 "widgetContents": widgetContents,
                                 "title": widgetTitle,
+                                "dirTitle": dirTitle,
+                                "webroot": webroot,
                             })
                         );
                     } else {
@@ -111,6 +112,16 @@ function handleRequest(stream, headers) {
         return -1;
     }
     return 0;
+}
+
+function dndDirTitle(webroot) {
+    const dirConfig = _dir_config[webroot];
+    let dirTitle = `${Path.basename(webroot)} notes`;
+    if (dirConfig && dirConfig.dnd && dirConfig.dnd.campaign_title) {
+        dirTitle = `Campaign Notes: ${Path.basename(dirConfig.dnd.campaign_title)}`;
+    }
+
+    return dirTitle;
 }
 
 /**

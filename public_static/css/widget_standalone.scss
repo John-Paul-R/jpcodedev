@@ -1,6 +1,7 @@
 @use 'components/table_link_cell';
 
 @import 'github_md';
+@import 'components/widget_top_float';
 
 #content_main {
     max-height: calc(100vh - 48px);
@@ -26,8 +27,7 @@
     overflow-y: none;
 }
 
-.widget_container > h1,
-.widget_container > a {
+.widget_container > h1:first-child {
     margin-bottom: 8px;
 }
 
