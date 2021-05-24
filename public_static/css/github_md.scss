@@ -160,7 +160,10 @@
   table { @include github_table.table; }
   
   img {
-    max-width: 100%; }
+    max-width: 100%;
+    border: 1px solid var(--color-base-1);
+    border-radius: 0.25rem;
+  }
   
   span.frame {
     display: block;

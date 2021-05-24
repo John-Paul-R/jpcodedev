@@ -1,0 +1,11 @@
+
+@mixin bg_underline {
+
+    text-decoration: none;
+    background-color: var(--color-base-2);
+    
+    &:hover {
+        text-decoration: underline;
+        background-color: var(--color-base-1);
+    }
+}

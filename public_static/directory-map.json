@@ -11,7 +11,10 @@
       "_swap_palette.scss": {},
       "_util.scss": {},
       "_table_link_cell.scss": {},
-      "_dropdown_self_contained.scss": {}
+      "_dropdown_self_contained.scss": {},
+      "_widget_top_float.scss": {},
+      "_md_table_of_contents.scss": {},
+      "_hover_link.scss": {}
     },
     "_button_glow.scss": {},
     "_dnd_float_msg.scss": {},
@@ -92,7 +95,19 @@
     "ColorPaletteCardImg.webp": {},
     "GitHub-Mark.zip": {},
     "chrome_9ZEIuumdPW.webp": {},
-    "stone_of_galore.webp": {}
+    "stone_of_galore.webp": {},
+    "dnd": {
+      "ian-oota": {
+        "atlan+red_mage.png": {},
+        "atlan+red_mage.webp": {},
+        "don-double-nat-1-fraz.png": {},
+        "don-double-nat-1-fraz.webp": {},
+        "a-wild-fraz-appears.png": {},
+        "a-wild-fraz-appears.webp": {},
+        "don+blue_dragonborn_lady.png": {},
+        "don+blue_dragonborn_lady.webp": {}
+      }
+    }
   },
   "js": {
     "(ign)palette_light_dark_OLD.js": {},
@@ -104,7 +119,8 @@
     "pixi.min.js": {},
     "pixi.min.js.map": {},
     "resizable.js": {},
-    "dropdown_self_contained.js": {}
+    "dropdown_self_contained.js": {},
+    "md_table_of_contents.js": {}
   },
   "temp": {
     "cg_spring_2021_bronze_info.html": {}

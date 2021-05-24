@@ -13,6 +13,7 @@ block titlemixin
 
 block body
     .widget_container.resizable
-        div.widget_content
+        div.widget_content.markdown
             p !{widgetContents}
         a.widget_top_float(href=`https://www.jpcode.dev/${webroot}`) #{dirTitle}
+    script(src="https://static.jpcode.dev/js/md_table_of_contents.js") 
