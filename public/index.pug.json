@@ -33,7 +33,7 @@
         "mini_projects": [
             {
                 "name": "Colored Circles Interactive Animation",
-                "img": "https://static.jpcode.dev/img/chrome_9ZEIuumdPW.webp",
+                "img": "https://static.jpcode.dev/img/circles_cursor_anim-square.webp",
                 "link": "https://www.jpcode.dev/playground/circles_cursor_anim",
                 "desc": "CSS/JS color palette manager for websites."
             },{

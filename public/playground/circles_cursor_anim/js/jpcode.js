@@ -399,31 +399,31 @@ createDivider();
 
 
 // Draw technology icon containers with Arcs
-(function(){
-    let arcContainer = new PIXI.Graphics();
-    let cx = 0, cy = 0, radius = 512, startAngle = Math.PI*(5/6), endAngle = Math.PI*(7/6);
-    let width = 128;
-    arcContainer.lineStyle({
-        width: 4,
-        color: 0xeeeeee
-    })
-    .beginFill(0x000000, 1)
-    .moveTo(radius*Math.cos(startAngle)+width, radius*Math.sin(startAngle))
-    .arc(cx, cy, radius, startAngle, endAngle)
-    .arc(width, cy, radius,endAngle, startAngle, true)
+// (function(){
+//     let arcContainer = new PIXI.Graphics();
+//     let cx = 0, cy = 0, radius = 512, startAngle = Math.PI*(5/6), endAngle = Math.PI*(7/6);
+//     let width = 128;
+//     arcContainer.lineStyle({
+//         width: 4,
+//         color: 0xeeeeee
+//     })
+//     .beginFill(0x000000, 1)
+//     .moveTo(radius*Math.cos(startAngle)+width, radius*Math.sin(startAngle))
+//     .arc(cx, cy, radius, startAngle, endAngle)
+//     .arc(width, cy, radius,endAngle, startAngle, true)
     
-    let arcLeft = arcContainer.clone(), arcRight = arcContainer.clone();
+//     let arcLeft = arcContainer.clone(), arcRight = arcContainer.clone();
     
-    let center = getCenter();
-    function finalize(sprite) {
-        app.stage.addChild(sprite);
-        sprite.position = center;
-        sprite.alpha = 0.88;
-    }
-    finalize(arcLeft);
-    finalize(arcRight);
-    arcRight.scale.x = -1;
-})();
+//     let center = getCenter();
+//     function finalize(sprite) {
+//         app.stage.addChild(sprite);
+//         sprite.position = center;
+//         sprite.alpha = 0.88;
+//     }
+//     finalize(arcLeft);
+//     finalize(arcRight);
+//     arcRight.scale.x = -1;
+// })();
 
 
 function getCenter() {
