@@ -20,7 +20,7 @@ function initResize() {
 
         var el = elems[i];
         if (storedWidth)
-            el.style.width = `clamp(50ch, ${storedWidth}px, 100vw)`;
+            el.style.width = `clamp(50ch, ${storedWidth}px, 100%)`;
 
         var right = document.createElement("div");
         right.className = "resizer-right";
