@@ -38,7 +38,7 @@ table.gh tr th :last-child, table.gh tr td :last-child {
 }
 
 /* source: https://gist.github.com/andyferra/2554919 */
-div.widget_container {
+div.widget_container.note {
   position: relative;
   border-radius: 0 6px 6px 6px;
   margin-top: calc(32px + 16px);
