@@ -63,6 +63,13 @@ header > #navbar > .end {
   height: 100%;
 }
 
+#homelink, .homelink {
+  text-decoration: none;
+}
+#homelink:hover, .homelink:hover {
+  text-decoration: underline;
+}
+
 button {
   background-color: var(--color-accent-1);
   border-radius: 2px;
@@ -299,14 +306,6 @@ footer {
   background-color: var(--color-base);
   position: relative;
   z-index: 1;
-}
-
-#homelink, .homelink {
-  text-decoration: none;
-}
-
-#homelink:hover, .homelink:hover {
-  text-decoration: underline;
 }
 
 #content_main {
