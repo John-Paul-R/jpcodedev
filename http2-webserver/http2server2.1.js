@@ -223,6 +223,8 @@ function respond(stream, headers) {
   handle404(stream, headers);
   return -1;
 }
+
+const pug404 = widgets.getPugTemplate('404')();
 function handle404(stream) {
   
   if (runOpts.static) {
@@ -235,10 +237,10 @@ function handle404(stream) {
       'content-type': 'text/html; charset=utf-8',
       ':status': 404
     });
-    stream.end(fm.getFile("/404.html").data);
+
+    stream.end(pug404);
   }
-  
-  // stream.end('<h1>HTTP Error 404 - Requested file not found.</h1>');
+
   return -1;
 
 }
