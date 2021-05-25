@@ -22,11 +22,12 @@ const optionDefinitions = [
   { name: 'use-br-if-available', type: String, defaultValue: false },
   { name: 'maxAge', type: String },
   { name: 'static', type: Boolean, defaultValue: false},
+  { name: 'host', type: String, multiple: false, defaultValue: "www.jpcode.dev" },
 ]
 const commandLineArgs = require('command-line-args');
 const runOpts = commandLineArgs(optionDefinitions)
 
-const websiteRoot = `www.jpcode.dev`;
+const websiteRoot = runOpts.host;
 const FILENAME = Path.basename(__filename)
 const exec_path = runOpts.pubpath;
 const exec_dirname = Path.basename(exec_path);
@@ -74,7 +75,7 @@ var pugOptions = {
   basedir: "../pug",
   globals: [
     {
-      linkify: (pathend) => `https://www.jpcode.dev/${pathend}`
+      linkify: (pathend) => `https://${websiteRoot}/${pathend}`
     },
   ],
 }
