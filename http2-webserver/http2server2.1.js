@@ -37,7 +37,13 @@ const execModeString = runOpts.debug ? 'DEBUG' : 'PRODUCTION';
 const logger = log4js.getLogger();
 log4js.configure({
   appenders: {
-    logfile: { type: 'file', filename: Path.join('log', `${FILENAME}-${Date.now()}-${execModeString}.log`) },
+    logfile: {
+      type: 'file',
+      filename: Path.join('log', `${websiteRoot}-${execModeString}.log`),//${Date.now()}
+      maxLogSize: 10485760,
+      backups: 10,
+      compress: true,
+    },
     console: { type: 'console' },
   },
   categories: {
