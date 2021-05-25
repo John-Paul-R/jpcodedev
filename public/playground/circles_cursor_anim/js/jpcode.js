@@ -81,9 +81,11 @@ function initPoints(spacing) {
     let hPoints = Math.floor(width/spacing);
     let vPoints = Math.floor(height/spacing);
     const numPoints = hPoints*vPoints;
+    const startx = (width - (hPoints * (spacing-1)))/2;
     for (let i = 0; i < hPoints; i++) {
         let row = [];
-        let xpos = hspace+spacing*i;
+        let xpos = startx+spacing*i;
+        console.log("STARTX")
         for (let j = 0; j < vPoints; j++) {
             let sprite = new PIXI.Sprite(bPoint);
             row.push(sprite);
@@ -102,10 +104,18 @@ stage.addChild(pointsContainer);
 // pointsContainer.position.set(temp.x-pointsContainer.width/2, temp.y-pointsContainer.height/2);
 
 window.addEventListener('resize', ()=>{
-    stage.removeChild(pointsContainer)
-    pointRows = [];
-    pointsContainer = initPoints(spacing);
-    stage.addChild(pointsContainer);
+    requestAnimationFrame(()=>{
+        stage.removeChild(pointsContainer)
+        pointRows = [];
+        pointsContainer = initPoints(spacing);
+        stage.addChildAt(pointsContainer, 0);
+    
+        const center = getCenter();
+        centerCircle.position = center;
+        divider.position = center;
+        btnContainer.position.set(center.x, center.y+76);
+
+    });
 });
 var frameCount = 0;
 function pointBrightnessByMouseProximity() {
@@ -214,9 +224,9 @@ app.ticker.add(pointBrightnessByMouseProximity);
 // app.ticker.add(circleWave)
 // app.ticker.add(clickCircleWave);
 
-document.addEventListener('click', ()=>{
-    timeSinceLastClick = 0;
-});
+// document.addEventListener('click', ()=>{
+//     timeSinceLastClick = 0;
+// });
 
 var centerCircle
 function buildCenterCircle() {
@@ -332,6 +342,7 @@ function radialGradient(from, to) {
 }
 
 // Create Buttons
+var btnContainer;
 (function(){
     function createButton(textContent, color, uniqueAction) {
         let button = new PIXI.Graphics();
@@ -378,6 +389,7 @@ function radialGradient(from, to) {
     button1.position.set(-xoffset, 0);
     button2.position.set(xoffset, 0);
 
+    btnContainer = container;
 })();
 
 // Create divider line
@@ -393,9 +405,9 @@ function createDivider() {
     .lineTo(halfWidth, 0)
     app.stage.addChild(line);
     line.position = getCenter();
-    
+    return line;
 }
-createDivider();
+var divider = createDivider();
 
 
 // Draw technology icon containers with Arcs
