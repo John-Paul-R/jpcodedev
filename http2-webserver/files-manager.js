@@ -53,7 +53,7 @@ function loadFiles(dir_path) {
      * @param {string} filePath 
      */
     function preloadFiles(filePath) {
-        if (filePath.includes("git"))
+        if (filePath.includes(".git"))
             return;
 
         const tempPath = Path.parse("/"+Path.relative(dir_path, filePath));
@@ -272,7 +272,7 @@ var _files;
  */
 function load(root_dir) {
     _files = loadFiles(root_dir);
-    directory_map = new DirectoryMap(root_dir, ["git", ".well-known"]);
+    directory_map = new DirectoryMap(root_dir, [".git", ".well-known"]);
     directory_map.loadDirmap();
     directory_map.load();
     console.log(directory_map);

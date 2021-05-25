@@ -15,7 +15,7 @@
                 "desc": "A searchable and filterable list of all Fabric mods.",
                 "website": "https://www.fibermc.com/",
                 "github": "https://github.com/John-Paul-R/FabricMC-Mod-List-Website",
-                "tags": ["Web", "API", "Dynamically Generated"]
+                "tags": ["Web", "API", "Database"]
             },{
                 "name": "Beyond Dark",
                 "desc": "A dark mode <a href=\"https://https://www.tampermonkey.net/\">Tampermonkey</a> script for for <a href=\"https://www.dndbeyond.com/\">DnDBeyond</a>.",
