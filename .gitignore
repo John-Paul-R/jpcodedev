@@ -13,3 +13,5 @@ public_static/temp
 public/**/widgets/content/*
 public_static/img/*
 public_static/files/*
+
+.*

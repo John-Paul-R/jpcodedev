@@ -207,7 +207,7 @@ function init(options={
 }) {
     fs.ensureDirSync(options.widget_directory);
     let widget_paths = getFilePathsRecursive(options.widget_directory);
-    console.log(widget_paths);
+
     let templates = {};
     let widgets = {};
     let markdown = {};
@@ -215,7 +215,7 @@ function init(options={
 
     let dirConfig = {};
     let dirConfigPath = Path.join(Path.normalize(options.widget_directory, "../"), "config.json");
-    console.log(dirConfigPath)
+
     if (fs.existsSync(dirConfigPath)) {
         dirConfig = JSON.parse(fs.readFileSync(dirConfigPath));
     }
@@ -242,9 +242,7 @@ function init(options={
             } else {
                 console.warn("Ignoring file, not a .pug widget or a content .json: "+file_path);
             }
-            console.log("Loaded Widget: "+file_name);
-
-            // console.log(`Contents of ${widget_name}:\n---Begin---\n${widgets[widget_name]}\n---End---\n`);
+            // console.log("Loaded Widget: "+file_name);
         }
     }
 

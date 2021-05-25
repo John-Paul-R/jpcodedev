@@ -62,8 +62,8 @@ function loadFiles(dir_path) {
         const fileDescriptor = fs.openSync(filePath, "r");
         const stat = fs.fstatSync(fileDescriptor);
         const contentType = Mime.getType(relFilePath);
-        
-        console.log(tempPath.base, contentType);
+        if (runOpts.log === "verbose")
+            console.log(tempPath.base, contentType);
         let headers = {
             "content-length": stat.size,
             "last-modified": stat.mtime.toUTCString(),
@@ -253,7 +253,7 @@ function loadFiles(dir_path) {
         }
     } catch (err) {
         out = null;
-        logErr(err)
+        // logErr(err)
     }
     function logErr(err) {
         logger.error("Error retrieving file: " + apath)

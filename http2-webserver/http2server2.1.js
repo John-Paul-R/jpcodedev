@@ -56,17 +56,13 @@ logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
 var logStream;
 if (runOpts.log === "simple") {
   logStream = function (headers, socket) {
-    setTimeout((headers, socket) => {
       logger.info(headers[HTTP2_HEADER_METHOD], headers[HTTP2_HEADER_PATH])
-    }, 0, headers, socket);
   };
 } else if (runOpts.log === "verbose") {
   logStream = (headers, socket) => {
-    setTimeout((headers, socket) => {
       logger.info(
         `${socket.remoteFamily}, ${socket.remoteAddress}, ${socket.remotePort}, ${headers[HTTP2_HEADER_METHOD]} '${headers[HTTP2_HEADER_PATH]}', ${headers[http2.constants.HTTP2_HEADER_REFERER]}, '${headers[http2.constants.HTTP2_HEADER_USER_AGENT]}'`
       );
-    }, 0, headers, socket);
   };
   // + headers[http2.constants.HTTP2_HEADER]
   // +` - pushList[reqPath]: ${pushList[reqPath]}`
@@ -147,12 +143,12 @@ server.on('error', (err) => logger.error(err));
 
 //  Handle streams (requests are streams)
 server.on('stream', (stream, headers) => {
+  logStream(headers, stream.session.socket);
   try {
     const successCode = respond(stream, headers);
   } catch (err) {
     logger.error(err);
   }
-  logStream(headers, stream.session.socket);
 });
 
 const getDirectoriesOrHtml = source =>
