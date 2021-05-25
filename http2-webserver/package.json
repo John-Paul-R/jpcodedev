@@ -9,7 +9,8 @@
   },
   "main": "http2server2.1.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently --kill-others \"nodemon --inspect --watch ../public --watch ./ ./http2server2.1.js -p 8081 --debug --pubpath ../public --log simple --maxAge 0 --host www.jpcode.dev\" \"nodemon --inspect --watch ../public_static --watch ./ ./http2server2.1.js -p 8084 --debug --pubpath ../public_static --maxAge 0 --log simple --host static.jpcode.dev\""
   },
   "author": {
     "name": "John Paul Rutigliano",
@@ -29,6 +30,7 @@
     "spdy": "^4.0.2"
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
     "nodemon": "^2.0.7"
   }
 }
