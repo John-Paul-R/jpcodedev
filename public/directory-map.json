@@ -1,89 +1,120 @@
 {
-  "css": {},
+  "404.html": {
+  },
+  "LICENSE": {
+  },
+  "aliases.json": {
+  },
+  "contact.pug": {
+  },
+  "css": {
+  },
+  "directory-map.json": {
+  },
   "dnd": {
+    "bhs_message_encoder.html": {
+    },
+    "dnd.html": {
+    },
     "grid_aligner": {
-      "GKYoHhR.jpg": {},
-      "drag-drop-files.css": {},
-      "drag-drop-files.js": {},
-      "index.html": {},
-      "jy43tx2esds61.jpg": {},
-      "main.js": {},
-      "qfkseui7qds61.jpg": {}
+      "GKYoHhR.jpg": {
+      },
+      "drag-drop-files.css": {
+      },
+      "drag-drop-files.js": {
+      },
+      "index.html": {
+      },
+      "jy43tx2esds61.jpg": {
+      },
+      "main.js": {
+      },
+      "qfkseui7qds61.jpg": {
+      }
     },
     "ian-oota": {
-      "widgets": {
-        "content": {
-          "2021-4-11.json": {},
-          "2021-4-11.md": {},
-          "2021-4-4.html": {},
-          "2021-4-4.json": {},
-          "2021-4-4.md": {},
-          "Skris.json": {},
-          "Skris.md": {},
-          "_order.json": {},
-          "2021-4-25.json": {},
-          "2021-4-25.md": {},
-          "2021-5-10.json": {},
-          "2021-5-10.md": {},
-          "2021-5-17.json": {},
-          "2021-5-17.md": {},
-          "2021-5-24.json": {},
-          "2021-5-24.md": {}
-        },
-        "config.json": {}
+      "(ign)template structure.md": {
       },
-      "(ign)template structure.md": {},
-      "2020-4-4.html": {},
-      "2021-4-4.html": {}
+      "2020-4-4.html": {
+      },
+      "2021-4-4.html": {
+      },
+      "widgets": {
+        "config.json": {
+        },
+        "content": {
+          "2021-4-11.json": {
+          },
+          "2021-4-11.md": {
+          },
+          "2021-4-25.json": {
+          },
+          "2021-4-25.md": {
+          },
+          "2021-4-4.html": {
+          },
+          "2021-4-4.json": {
+          },
+          "2021-4-4.md": {
+          },
+          "2021-5-10.json": {
+          },
+          "2021-5-10.md": {
+          },
+          "2021-5-17.json": {
+          },
+          "2021-5-17.md": {
+          },
+          "2021-5-24.json": {
+          },
+          "2021-5-24.md": {
+          },
+          "Skris.json": {
+          },
+          "Skris.md": {
+          },
+          "_order.json": {
+          }
+        }
+      }
+    },
+    "ian-oota.html": {
+    },
+    "index.pug.json": {
     },
     "jay-waterdeep": {
       "widgets": {
-        "content": {
-          "2021-4-27.json": {},
-          "2021-4-27.md": {},
-          "general_notes.json": {},
-          "general_notes.md": {},
-          "2021-5-12.json": {},
-          "2021-5-12.md": {},
-          "2021-5-19.json": {},
-          "2021-5-19.md": {}
+        "config.json": {
         },
-        "templates": {},
-        "config.json": {}
+        "content": {
+          "2021-4-27.json": {
+          },
+          "2021-4-27.md": {
+          },
+          "2021-5-12.json": {
+          },
+          "2021-5-12.md": {
+          },
+          "2021-5-19.json": {
+          },
+          "2021-5-19.md": {
+          },
+          "general_notes.json": {
+          },
+          "general_notes.md": {
+          }
+        },
+        "templates": {
+        }
       }
     },
     "my_art": {
-      "my_art.pug.json": {}
-    },
-    "bhs_message_encoder.html": {},
-    "dnd.html": {},
-    "ian-oota.html": {},
-    "index.pug.json": {}
-  },
-  "js": {
-    "animation_showcase.js": {},
-    "list_sort.js": {},
-    "project_list_generator.js": {}
-  },
-  "playground": {
-    "circles_cursor_anim": {
-      "css": {
-        "jpcode.css": {}
-      },
-      "js": {
-        "(ign)todo.txt": {},
-        "jpcode.js": {}
-      },
-      "index.html": {}
+      "my_art.pug.json": {
+      }
     }
   },
-  "404.html": {},
-  "LICENSE": {},
-  "aliases.json": {},
-  "animation_showcase.html": {},
-  "contact.pug": {},
-  "directory-map.json": {},
-  "index.html": {},
+  "index.html": {
+  },
   "index.pug.json": {
     "headers": {
       "link": [
@@ -93,5 +124,40 @@
       ]
     }
   },
-  "temp_reirei.html": {}
+  "js": {
+    "animation_showcase.js": {
+    },
+    "list_sort.js": {
+    },
+    "project_list_generator.js": {
+    }
+  },
+  "playground": {
+    "basic_animations": {
+      "basic_animations..html": {
+      },
+      "basic_animations.html": {
+      },
+      "js": {
+        "animation_showcase.js": {
+        }
+      }
+    },
+    "circles_cursor_anim": {
+      "css": {
+        "jpcode.css": {
+        }
+      },
+      "index.html": {
+      },
+      "js": {
+        "(ign)todo.txt": {
+        },
+        "jpcode.js": {
+        }
+      }
+    }
+  },
+  "temp_reirei.html": {
+  }
 }

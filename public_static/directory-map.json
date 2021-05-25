@@ -1,135 +1,252 @@
 {
+  "aliases.json": {
+  },
   "css": {
+    "_button_glow.scss": {
+    },
+    "_dnd_float_msg.scss": {
+    },
+    "_github_table.scss": {
+    },
     "cards": {
-      "_link_card_hover.scss": {},
-      "_link_list_card.scss": {}
+      "_link_card_hover.scss": {
+      },
+      "_link_list_card.scss": {
+      }
     },
     "components": {
-      "_buttons_and_input.scss": {},
-      "_footer.scss": {},
-      "_header.scss": {},
-      "_swap_palette.scss": {},
-      "_util.scss": {},
-      "_table_link_cell.scss": {},
-      "_dropdown_self_contained.scss": {},
-      "_widget_top_float.scss": {},
-      "_md_table_of_contents.scss": {},
-      "_hover_link.scss": {},
-      "_scrollbars.scss": {}
+      "_buttons_and_input.scss": {
+      },
+      "_dropdown_self_contained.scss": {
+      },
+      "_footer.scss": {
+      },
+      "_header.scss": {
+      },
+      "_hover_link.scss": {
+      },
+      "_jp-logo.scss": {
+      },
+      "_md_table_of_contents.scss": {
+      },
+      "_scrollbars.scss": {
+      },
+      "_swap_palette.scss": {
+      },
+      "_table_link_cell.scss": {
+      },
+      "_util.scss": {
+      },
+      "_widget_top_float.scss": {
+      }
     },
-    "_button_glow.scss": {},
-    "_dnd_float_msg.scss": {},
-    "_github_table.scss": {},
-    "core_style.css": {},
-    "core_style.css.map": {},
-    "core_style.scss": {},
-    "dnd_art_browse.css": {},
-    "dnd_art_browse.css.map": {},
-    "dnd_art_browse.scss": {},
-    "dnd_index.css": {},
-    "dnd_index.css.map": {},
-    "dnd_index.scss": {},
-    "flex-only.css": {},
-    "github_md.css": {},
-    "github_md.css.map": {},
-    "github_md.scss": {},
-    "projects-list.css": {},
-    "projects-list.css.map": {},
-    "projects-list.scss": {},
-    "resizable.css": {},
-    "widget_standalone.css": {},
-    "widget_standalone.css.map": {},
-    "widget_standalone.scss": {}
+    "core_style.css": {
+    },
+    "core_style.css.map": {
+    },
+    "core_style.scss": {
+    },
+    "dnd_art_browse.css": {
+    },
+    "dnd_art_browse.css.map": {
+    },
+    "dnd_art_browse.scss": {
+    },
+    "dnd_index.css": {
+    },
+    "dnd_index.css.map": {
+    },
+    "dnd_index.scss": {
+    },
+    "flex-only.css": {
+    },
+    "github_md.css": {
+    },
+    "github_md.css.map": {
+    },
+    "github_md.scss": {
+    },
+    "projects-list.css": {
+    },
+    "projects-list.css.map": {
+    },
+    "projects-list.scss": {
+    },
+    "resizable.css": {
+    },
+    "widget_standalone.css": {
+    },
+    "widget_standalone.css.map": {
+    },
+    "widget_standalone.scss": {
+    }
+  },
+  "directory-map.json": {
   },
   "dnd": {
     "ian-oota": {
-      "widgets": {}
+      "widgets": {
+      }
     },
     "jay-waterdeep": {
-      "widgets": {}
+      "widgets": {
+      }
     }
   },
   "files": {
-    "Beyond20-2021-4-20.zip": {},
-    "john-paul-r-resume-2020-4.pdf": {},
-    "john-paul-r-resume-2021-2-5.pdf": {},
-    "john-paul-r-resume-2021-2-9.pdf": {},
-    "john-paul-r-resume-2021-5-23.pdf": {},
-    "john-paul-r-resume-2021-5-4.pdf": {},
-    "john-paul-r-resume-2021-5-9.pdf": {}
+    "Beyond20-2021-4-20.zip": {
+    },
+    "john-paul-r-resume-2020-4.pdf": {
+    },
+    "john-paul-r-resume-2021-2-5.pdf": {
+    },
+    "john-paul-r-resume-2021-2-9.pdf": {
+    },
+    "john-paul-r-resume-2021-5-23.pdf": {
+    },
+    "john-paul-r-resume-2021-5-4.pdf": {
+    },
+    "john-paul-r-resume-2021-5-9.pdf": {
+    }
   },
   "fonts": {
-    "MaterialIcons-Regular.woff2": {},
-    "flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2": {}
+    "MaterialIcons-Regular.woff2": {
+    },
+    "flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2": {
+    }
   },
   "img": {
+    "BaneSymbol.png": {
+    },
+    "ColorPaletteCardImg-transparent-256p.webp": {
+    },
+    "ColorPaletteCardImg-transparent-512p.webp": {
+    },
+    "ColorPaletteCardImg-transparent.png": {
+    },
+    "ColorPaletteCardImg-transparent.webp": {
+    },
+    "ColorPaletteCardImg.png": {
+    },
+    "ColorPaletteCardImg.webp": {
+    },
     "GitHub-Mark": {
+      ".DS_Store": {
+      },
       "PNG": {
-        "GitHub-Mark-120px-plus.png": {},
-        "GitHub-Mark-32px.png": {},
-        "GitHub-Mark-64px.png": {},
-        "GitHub-Mark-Light-120px-plus.png": {},
-        "GitHub-Mark-Light-32px.png": {},
-        "GitHub-Mark-Light-64px.png": {}
+        "GitHub-Mark-120px-plus.png": {
+        },
+        "GitHub-Mark-32px.png": {
+        },
+        "GitHub-Mark-64px.png": {
+        },
+        "GitHub-Mark-Light-120px-plus.png": {
+        },
+        "GitHub-Mark-Light-32px.png": {
+        },
+        "GitHub-Mark-Light-64px.png": {
+        }
       },
       "Vector": {
-        "GitHub-Mark.ai": {},
-        "GitHub-Mark.eps": {}
-      },
-      ".DS_Store": {}
-    },
-    "my_art": {
-      "LanternFlameAnimated.mp4": {},
-      "Orb-4096p1024s-DENOISE(4-B2.90)-512p.webp": {},
-      "Orb-4096p1024s-DENOISE(4-B2.90).icon.webp": {},
-      "Orb-4096p1024s-DENOISE(4-B2.90).webp": {},
-      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-512.webp": {},
-      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).icon.webp": {},
-      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).webp": {}
-    },
-    "BaneSymbol.png": {},
-    "ColorPaletteCardImg-transparent-256p.webp": {},
-    "ColorPaletteCardImg-transparent-512p.webp": {},
-    "ColorPaletteCardImg-transparent.png": {},
-    "ColorPaletteCardImg-transparent.webp": {},
-    "ColorPaletteCardImg.png": {},
-    "ColorPaletteCardImg.webp": {},
-    "GitHub-Mark.zip": {},
-    "chrome_9ZEIuumdPW.webp": {},
-    "stone_of_galore.webp": {},
-    "dnd": {
-      "ian-oota": {
-        "atlan+red_mage.png": {},
-        "atlan+red_mage.webp": {},
-        "don-double-nat-1-fraz.png": {},
-        "don-double-nat-1-fraz.webp": {},
-        "a-wild-fraz-appears.png": {},
-        "a-wild-fraz-appears.webp": {},
-        "don+blue_dragonborn_lady.png": {},
-        "don+blue_dragonborn_lady.webp": {}
+        "GitHub-Mark.ai": {
+        },
+        "GitHub-Mark.eps": {
+        }
       }
     },
-    "circles_cursor_anim.png": {},
-    "circles_cursor_anim.webp": {},
-    "circles_cursor_anim-square.png": {},
-    "circles_cursor_anim-square.webp": {}
+    "GitHub-Mark.zip": {
+    },
+    "chrome_9ZEIuumdPW.webp": {
+    },
+    "circles_cursor_anim-square.png": {
+    },
+    "circles_cursor_anim-square.webp": {
+    },
+    "circles_cursor_anim.png": {
+    },
+    "circles_cursor_anim.webp": {
+    },
+    "dnd": {
+      "ian-oota": {
+        "a-wild-fraz-appears.png": {
+        },
+        "a-wild-fraz-appears.webp": {
+        },
+        "atlan+red_mage.png": {
+        },
+        "atlan+red_mage.webp": {
+        },
+        "don+blue_dragonborn_lady.png": {
+        },
+        "don+blue_dragonborn_lady.webp": {
+        },
+        "don-double-nat-1-fraz.png": {
+        },
+        "don-double-nat-1-fraz.webp": {
+        }
+      }
+    },
+    "icon": {
+      "github.svg": {
+      },
+      "jp-hex-2.svg": {
+      },
+      "jp-hex.svg": {
+      }
+    },
+    "jp-logo-hex-GradientOnBlackDarker.webp": {
+    },
+    "my_art": {
+      "LanternFlameAnimated.mp4": {
+      },
+      "Orb-4096p1024s-DENOISE(4-B2.90)-512p.webp": {
+      },
+      "Orb-4096p1024s-DENOISE(4-B2.90).icon.webp": {
+      },
+      "Orb-4096p1024s-DENOISE(4-B2.90).webp": {
+      },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-512.webp": {
+      },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).icon.webp": {
+      },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1).webp": {
+      }
+    },
+    "stone_of_galore.webp": {
+    }
   },
   "js": {
-    "(ign)palette_light_dark_OLD.js": {},
-    "copyright_text.js": {},
-    "drag-drop-file.js": {},
-    "footer.js": {},
-    "multi-palette.min.js": {},
-    "palette_light_dark.js": {},
-    "pixi.min.js": {},
-    "pixi.min.js.map": {},
-    "resizable.js": {},
-    "dropdown_self_contained.js": {},
-    "md_table_of_contents.js": {}
+    "(ign)palette_light_dark_OLD.js": {
+    },
+    "copyright_text.js": {
+    },
+    "drag-drop-file.js": {
+    },
+    "dropdown_self_contained.js": {
+    },
+    "footer.js": {
+    },
+    "md_table_of_contents.js": {
+    },
+    "multi-palette.min.js": {
+    },
+    "palette_light_dark.js": {
+    },
+    "pixi.min.js": {
+    },
+    "pixi.min.js.map": {
+    },
+    "resizable.js": {
+    }
   },
   "temp": {
-    "cg_spring_2021_bronze_info.html": {}
-  },
-  "aliases.json": {},
-  "directory-map.json": {}
+    "cg_spring_2021_bronze_info.html": {
+    },
+    "jp-logo-hex.eps": {
+    },
+    "jp-logo-hex.svg": {
+    },
+    "jp-logo-hex.webp": {
+    }
+  }
 }

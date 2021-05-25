@@ -2,6 +2,7 @@
 const fs = require('fs-extra');
 const Path = require('path').posix; 
 const dirUtil = require('node-dir');
+const stringify = require('json-stable-stringify');
 
 class DirectoryMap {
 
@@ -51,8 +52,7 @@ class DirectoryMap {
             console.warn('No dirmap file was found. Creating default based on supplied pubpath.');
             console.warn(err);
         }
-        // console.log("EXISTING")
-        // console.log(existingDirmap)
+
         const dirmap = {};
         dirUtil.files(this.map_path, 'all', (err, objPaths) => {
             console.info("--- LOAD DIRMAP START ---");
@@ -74,7 +74,7 @@ class DirectoryMap {
                     }
                 }
             }
-            // console.log(dirmap);
+
             const files = objPaths.files;
             for (const filePath of files) {
                 const relPath = Path.parse(Path.relative(this.map_path, filePath));
@@ -84,16 +84,17 @@ class DirectoryMap {
                 
                 // Add file to directory entry if not already there
                 let newDir = dirmapResolvePath(dirmap, dirPathFrags);
-                // console.log(dir, relPath.base, dir[relPath.base])
                 newDir[relPath.base] = dir[relPath.base] || {  };
                 
             }
-            // console.log(JSON.stringify(dirmap, null, 2));
+
             this._dirmap = dirmap;
             console.info(`Writing dirmap to ${dirmapFilePath}...`);
             fs.writeFileSync(
                 dirmapFilePath,
-                JSON.stringify(dirmap, null, 2), {
+                stringify(dirmap, {
+                    space: 2,
+                }), {
                     encoding: "utf8",
                     flag: 'w+'
                 }
