@@ -4,6 +4,7 @@ header {
 
 header #navbar {
   /* box-shadow: 0px 0px 8px 0px #222; */
+  border-bottom: 1px solid var(--color-base-1);
   box-shadow: var(--bs-sm);
 }
 
@@ -46,7 +47,7 @@ header > #navbar {
   /* background-color:var(--color-base); */
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin: 0;
   height: 100%;
@@ -58,7 +59,6 @@ header #title {
 }
 
 header > #navbar > .end {
-  margin-left: auto;
   margin-right: 0;
   height: 100%;
 }
@@ -70,6 +70,26 @@ header > #navbar > .end {
   text-decoration: underline;
 }
 
+header h4, .homelink {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6ch;
+}
+
+#title_link * {
+  color: var(--color-accent-1);
+}
+
+@media only screen and (max-width: 450px) {
+  #navbar .button span.text, #navbar button span.text {
+    display: none;
+  }
+}
+@media only screen and (max-width: 512px) {
+  #navbar .swap_palette span.text {
+    display: none;
+  }
+}
 button {
   background-color: var(--color-accent-1);
   border-radius: 2px;
@@ -262,6 +282,13 @@ footer div.shadow {
 * {
   scrollbar-width: initial;
   scrollbar-color: var(--color-base-1) var(--color-base-2);
+}
+
+.material-icons {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  display: inline-flex;
 }
 
 :root {

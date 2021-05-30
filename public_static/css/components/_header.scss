@@ -8,6 +8,7 @@ header {
 
 header #navbar {
     /* box-shadow: 0px 0px 8px 0px #222; */
+    border-bottom: 1px solid var(--color-base-1);
     box-shadow: var(--bs-sm);
 }
 
@@ -56,7 +57,7 @@ header > #navbar {
     /* background-color:var(--color-base); */
     display:flex;
     flex-direction: row;
-    justify-content:flex-start;
+    justify-content: space-between;
     align-items:center;
     margin: 0;
 
@@ -67,7 +68,7 @@ header #title {
     margin-left: 8px;
 }
 header > #navbar > .end {
-    margin-left:auto;
+    // margin-left:auto;
     margin-right:0;
     height:100%;
 
@@ -76,4 +77,37 @@ header > #navbar > .end {
 
 #homelink, .homelink {
 	@include hover_link.underline;
+}
+header h4, .homelink {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6ch;
+}
+#title_link * {
+    color: var(--color-accent-1);
+}
+
+@media only screen and (max-width: 450px) {
+    #navbar {
+        & .button,
+        & button {
+            span.text {
+                display: none;
+            }
+            // width: 24px;
+            & .material-icons {
+                
+                // visibility: visible;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 512px) {
+    #navbar {
+        & .swap_palette {
+            span.text {
+                display: none;
+            }
+        }
+    }
 }

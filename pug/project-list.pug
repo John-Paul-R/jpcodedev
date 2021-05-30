@@ -20,11 +20,11 @@ block head
 
 block titlemixin 
     include mixins/main_head_title.mixin.pug
-    +title()
+    
 
 block nav_end 
-    a#resume_btn.button(href="https://static.jpcode.dev/resume") Resumé #[span.material-icons description] 
-    a#contact_btn.button(href="https://www.jpcode.dev/contact") Contact #[span.material-icons email]
+    a#resume_btn.button(href="https://static.jpcode.dev/resume") #[span.text Resumé] #[span.material-icons description] 
+    a#contact_btn.button(href="https://www.jpcode.dev/contact") #[span.text Contact] #[span.material-icons email]
 
 
 block body
@@ -33,7 +33,8 @@ block body
         h1 John Paul Rutigliano 
         h2 Full-Stack Software Developer 
     hr
-    .projects_container.flex.col.aligncenter 
+    .projects_container.flex.col.aligncenter
+        h2 Projects
         for project of projects 
             .project_item_wrapper
                 if (project.icon)
