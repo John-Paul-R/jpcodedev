@@ -1,7 +1,7 @@
 @use 'cards/link_list_card';
 @use 'cards/link_card_hover';
+@use '_dnd_float_msg.scss';
 
-@import '_dnd_float_msg.scss';
 @import '_button_glow.scss';
 
 #content_main {
@@ -10,6 +10,24 @@
     align-items: center;
 }
 
+#content_center > :last-child{
+	margin-bottom: 1.5rem;
+}
+
+/* Element | https://www.jpcode.dev/ */
+
+#title_container > h1:nth-child(1) {
+	text-align: center;
+	color: var(--color-accent-1);
+}
+  
+/* Element | https://www.jpcode.dev/ */
+
+#title_container > h2:nth-child(2) {
+	text-align: center;
+	color: var(--color-text-1);
+}
+  
 .projects_container {
 	margin: 16px 0;
 	gap: 12px;
@@ -43,8 +61,12 @@
 
 }
 
-.project_item > .info_container h3 {
+.project_item > .info_container a {
 	color: var(--color-text);
+	text-decoration: none;
+	& * {
+		color: inherit;
+	}
 }
 
 .project_item_wrapper:hover .icon_container {
@@ -56,7 +78,7 @@
 	position: absolute;
 	left: calc(-1*var(--size));
 	top: 50%;
-	transform: translate(calc(var(--size) - 1rem), -50%);
+	transform: translate(calc(var(--size) - 2rem), -50%);
 
 	width: var(--size);
 	height: var(--size);
@@ -83,8 +105,7 @@
 	}
 }
 
-.project_item > .info_container > a:hover,
-.project_item > .info_container > a:hover h3 {
+.project_item > .info_container > a:hover {
 	color: var(--color-text-1);
 }
 .project_desc {
@@ -186,3 +207,8 @@
 // .project_item {
 //     @include link_list_card.card_link_item;
 // }
+
+// MOBILE
+@media only screen and (max-width: 512px) {
+    @include dnd_float_msg.mobile;
+}

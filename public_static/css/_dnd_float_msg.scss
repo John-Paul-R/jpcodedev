@@ -12,6 +12,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.6em;
+
+    z-index: 3;
 }
 
 #dnd .content {
@@ -21,4 +23,10 @@
     flex-direction: row;
     align-items: baseline;
     gap: 0.5ch;
+}
+
+@mixin mobile {
+    div#dnd {
+        position: initial;
+    }
 }
