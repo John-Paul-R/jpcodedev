@@ -19,12 +19,12 @@ html(lang='en')
  body
   #page_container
     header
-        #navbar(role="menubar")
+        nav#navbar(role="menubar", aria-label="jpcode.dev", aria-owns="title_link")
             #title
                 block titlemixin
             .end.flex.row
                 block nav_end
-                button.swap_palette.button
+                button.swap_palette.button(role="menuitem")
                     span.text Theme
                     span.material-icons style
     #content_main.filled

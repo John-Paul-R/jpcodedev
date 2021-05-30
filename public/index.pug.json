@@ -4,6 +4,7 @@
         "projects": [
             {
                 "name": "PoE Atlas",
+                "id": "poeatlas",
                 "icon": "https://www.poeatlas.net/favicon.ico",
                 "desc": "An online tool for navigating Path of Exile's Atlas of Worlds.",
                 "website": "https://www.poeatlas.net/",
@@ -11,6 +12,7 @@
                 "tags": ["Web", "Interactable", "Render 2D"]
             },{
                 "name": "FiberMC",
+                "id": "fibermc",
                 "icon": "https://www.fibermc.com/favicon.ico",
                 "desc": "A searchable and filterable list of all Fabric mods.",
                 "website": "https://www.fibermc.com/",
@@ -18,12 +20,14 @@
                 "tags": ["Web", "API", "Database"]
             },{
                 "name": "Beyond Dark",
+                "id": "beyonddark",
                 "desc": "A dark mode <a href=\"https://https://www.tampermonkey.net/\">Tampermonkey</a> script for for <a href=\"https://www.dndbeyond.com/\">DnDBeyond</a>.",
                 "website": "https://greasyfork.org/en/scripts/424610-beyond-dark",
                 "github": "https://github.com/John-Paul-R/ddbdark",
                 "tags": ["Theme", "CSS", "JavaScript"]
             },{
                 "name": "opggdark",
+                "id": "opggdark",
                 "desc": "A dark theme for <a href=\"https://op.gg/\">OP.GG</a>. Used with any UserCSS extension (e.g. <a href=\"https://github.com/openstyles/stylus\">Stylus</a>).",
                 "website": null,
                 "github": "https://github.com/John-Paul-R/opggdark",

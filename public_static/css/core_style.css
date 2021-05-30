@@ -56,6 +56,7 @@ header > #navbar {
 
 header #title {
   margin-left: 8px;
+  display: inline-flex;
 }
 
 header > #navbar > .end {
@@ -221,6 +222,7 @@ footer div.shadow {
 
 .dropdown_sc-wrapper {
   position: relative;
+  left: -24px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -237,18 +239,22 @@ footer div.shadow {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: max-content;
   flex-direction: column;
   align-items: stretch;
   gap: 0.1rem;
   display: none;
   background-color: var(--color-base);
   border: 1px solid var(--color-base-1);
+  list-style-type: none;
 }
 .dropdown_sc-content > * {
   font-weight: 600;
   background-color: inherit;
   padding: 0.25rem;
+}
+.dropdown_sc-content > * * {
+  font-weight: inherit;
 }
 .dropdown_sc-content > *:hover {
   background-color: var(--color-base-1);

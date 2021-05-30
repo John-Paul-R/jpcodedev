@@ -23,8 +23,8 @@ block titlemixin
     
 
 block nav_end 
-    a#resume_btn.button(href="https://static.jpcode.dev/resume") #[span.text Resumé] #[span.material-icons description] 
-    a#contact_btn.button(href="https://www.jpcode.dev/contact") #[span.text Contact] #[span.material-icons email]
+    a#resume_btn.button(href="https://static.jpcode.dev/resume", role="menuitem") #[span.text Resumé] #[span.material-icons description] 
+    a#contact_btn.button(href="https://www.jpcode.dev/contact", role="menuitem") #[span.text Contact] #[span.material-icons email]
 
 
 block body
@@ -40,9 +40,9 @@ block body
                 if (project.icon)
                     .icon_container
                         img.project_icon(src=project.icon, alt="#{project.name} icon")
-                .project_item 
+                .project_item(id=project.id)
                     .info_container 
-                        a(href=project.website || project.github) 
+                        a(href=`${project.website || project.github}`, id=`${project.id}-title`) 
                             h3.project_title #{project.name} 
 
                         p.project_desc !{project.desc} 
@@ -51,9 +51,9 @@ block body
                             li #{tag} 
                     .actions_container 
                         if (project.website)
-                            a.button(href=project.website) Website 
+                            a.button(href=project.website, aria-labelledby=`${project.id}-title`) Website 
                         if (project.github)
-                            a.button.github.icon(href=project.github) GitHub 
+                            a.button.github.icon(href=project.github, aria-labelledby=`${project.id}-title`) GitHub 
     hr
     #mini_projects.flex.col.aligncenter 
         h2 Mini-Projects 
