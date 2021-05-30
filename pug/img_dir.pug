@@ -1,0 +1,31 @@
+extends standalone-base.pug
+
+block head
+    meta(name="description", content="A repository of Dungeons and Dragons (D&D) projects by John Paul R.")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/dnd_art_browse.css")
+
+    style.
+        .card h2 {
+            word-wrap: break-word;
+        }
+
+
+    title 3d Projects - JPCode.Dev
+
+block titlemixin 
+    include mixins/3d_head_title.mixin.pug
+    
+
+block body
+    .flex.row.cards_container 
+        .cards 
+            for card of cards 
+                .card 
+                    h2 #{card.title}
+                    p #{card.dateString}
+                    hr.accent
+                    a(href=`${card.link}`).card_content
+                        img.preview(src=card.preview, loading="lazy", alt=`${card.title} (Preview)`)
+                    if card.smalltext 
+                        p.smalltext.right !{category.smalltext}

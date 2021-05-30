@@ -2,8 +2,8 @@
 @import 'cards/link_list_card.scss';
 
 .cards_container {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-top: min(1rem, 50%);
+    margin-bottom: min(1rem, 50%);
 }
 .cards {
     display: grid;
@@ -13,6 +13,7 @@
 }
 .card {
     @include card;
+    min-height: 256px;
 }
 .card_content {
     @include card_content;

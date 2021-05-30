@@ -160,3 +160,4 @@ function dirmapResolvePath(cDirObj, subdirs) {
     else return cDirObj;
 }
 exports.DirectoryMap = DirectoryMap;
+// TODO Purge files that no longer exist from dirmap on load.

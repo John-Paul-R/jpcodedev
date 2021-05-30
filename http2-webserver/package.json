@@ -20,6 +20,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "command-line-args": "^5.1.1",
+    "http-terminator": "^3.0.0",
     "json-stable-stringify": "^1.0.1",
     "log4js": "^6.3.0",
     "mime": "^2.4.6",
@@ -34,8 +35,17 @@
     "nodemon": "^2.0.7"
   },
   "nodemonConfig": {
-    "ignore": ["./log", "(ign)*"],
-    "watch": ["./", "../pug"],
-    "ext": "js,html,css,pug,pug.json"
+    "ignore": [
+      "./log",
+      "(ign)*"
+    ],
+    "watch": [
+      "./",
+      "../pug"
+    ],
+    "ext": "js,html,css,pug,pug.json",
+    "signal": "SIGHUP",
+    "delay": 0.5,
+    "autoAttachChildProcesses": true
   }
 }

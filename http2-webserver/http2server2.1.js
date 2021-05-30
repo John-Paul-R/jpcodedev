@@ -7,6 +7,8 @@ const log4js = require('log4js');
 const pug = require('pug');
 const widgets = require('./timeline-notes.js');
 const fm = require('./files-manager.js');
+const imgDir = require('./img_dir.js');
+const createHttpTerminator = require('http-terminator').createHttpTerminator;
 
 //  Load ArgV
 const optionDefinitions = [
@@ -32,6 +34,13 @@ const FILENAME = Path.basename(__filename)
 const exec_path = runOpts.pubpath;
 const exec_dirname = Path.basename(exec_path);
 const execModeString = runOpts.debug ? 'DEBUG' : 'PRODUCTION';
+const URL_ROOT = `https://${websiteRoot}`;
+
+const consts = {
+  exec_path,
+  websiteRoot,
+  URL_ROOT,
+}
 
 // Init logger
 const logger = log4js.getLogger();
@@ -96,10 +105,12 @@ widgets.init({
   web_root: "dnd/jay-waterdeep"
 });
 
+// Img Dir
+imgDir.init(widgets.getPugTemplate('img_dir'), consts);
+
 // Init file manager
 fm.init(runOpts, widgets, pugOptions, logger);
 fm.load(exec_path);
-
 
 const {
   HTTP2_HEADER_METHOD,
@@ -134,7 +145,7 @@ if (runOpts.key && runOpts.cert) {
 
 //  Create server
 const server = useSecure ? http2.createSecureServer(serverOpts) : http2.createServer(serverOpts);
-
+const httpTerminator = createHttpTerminator({server,});
 // server.on("request", ()=>{
 //   console.info("Request Received");
 // })
@@ -153,22 +164,26 @@ server.on('stream', (stream, headers) => {
 
 const getDirectoriesOrHtml = source =>
   fs.readdirSync(source, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
+    // .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
     .map(dirent => dirent.name)
 
 const pugFile = Path.join(__dirname, "templates", "list.pug");
 const dirIndexPug = pug.compile(
   fs.readFileSync(pugFile), { filename: pugFile }
 )
+
 // Request Handler / Response Generator
 function respond(stream, headers) {
   // stream is a Duplex
   const method = headers[HTTP2_HEADER_METHOD];
-  const path = headers[HTTP2_HEADER_PATH];
+  const reqUrl = new URL(headers[HTTP2_HEADER_PATH], URL_ROOT);
+  const path = decodeURIComponent(reqUrl.pathname);
+  const query = reqUrl.search;
   const socket = stream.session.socket;
   const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
   const requestedFile = fm.getFile(path);
+  // Set content length header, if requested file is found by file manager.
   if (requestedFile)
     requestedFile.headers[HTTP2_HEADER_CONTENT_LENGTH] = Buffer.byteLength(requestedFile.data, 'utf8');
   //Try widget
@@ -177,6 +192,17 @@ function respond(stream, headers) {
     if (successCode === 0)
       return 0;
   }
+  if (!requestedFile && path.startsWith("/3d/all")) {
+    try {
+      imgDir.handleRequest(stream, headers, path, query);
+
+    } catch (error) {
+      logger.error(error)
+    }
+    return 0;
+  }
+  // TODO Add watermark to all images in a certain dir automatically.
+  // @body atm I have local scripts to add them to files before uploading them to server.
   if (!requestedFile) {
     try {
       let fpath = Path.join(exec_path, path)
@@ -248,3 +274,11 @@ function handle404(stream) {
 // Start Server
 server.listen(port);
 logger.info(`'${FILENAME}' is listening on port ${port}`);
+process.on('SIGHUP', async () => { 
+  console.log(`Closing ${websiteRoot} (PID ${process.pid})webserver...`);
+  await httpTerminator.terminate();
+  console.log(`${websiteRoot} (PID ${process.pid}) closed.`);
+  process.exit();
+  console.log("this shouldn't run");
+});
+
