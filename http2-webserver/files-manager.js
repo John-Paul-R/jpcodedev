@@ -86,14 +86,19 @@ function loadFiles(dir_path) {
         fs.closeSync(fileDescriptor);
         let fileContents = fs.readFileSync(filePath, { flag: 'r' });
         if (filePath.endsWith(".pug.json")) {
-            let jsonContents = JSON.parse(fileContents);
-
             function pugCompileJson(jsonContents) {
                 let template = widgets.getPugTemplate(jsonContents.template);
                 return template(jsonContents.data);
             }
+            let jsonContents;
+            try {
+                jsonContents = JSON.parse(fileContents);
+                fileContents = pugCompileJson(jsonContents);
+            } catch (err) {
+                logger.error(err);
+            }
+            
 
-            fileContents = pugCompileJson(jsonContents);
             let tempHeaders = {};
             tempHeaders["content-type"] = "text/html; charset=utf-8";
             tempHeaders["last-modified"] = headers["last-modified"];
