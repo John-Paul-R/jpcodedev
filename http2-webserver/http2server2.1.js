@@ -105,12 +105,12 @@ widgets.init({
   web_root: "dnd/jay-waterdeep"
 });
 
-// Img Dir
-imgDir.init(widgets.getPugTemplate('img_dir'), consts);
-
 // Init file manager
 fm.init(runOpts, widgets, pugOptions, logger);
 fm.load(exec_path);
+
+// Img Dir
+imgDir.init(widgets.getPugTemplate('img_dir'), consts, fm, logger);
 
 const {
   HTTP2_HEADER_METHOD,
@@ -127,7 +127,8 @@ const {
 
 const port = runOpts.port || 8080;
 const serverOpts = {
-  allowHTTP1: runOpts.allowHTTP1
+  allowHTTP1: runOpts.allowHTTP1,
+  timeout: 3000,
 }
 
 // Whether or not to use HTTPS on webserver
@@ -192,14 +193,15 @@ function respond(stream, headers) {
     if (successCode === 0)
       return 0;
   }
-  if (!requestedFile && path.startsWith("/3d/all")) {
+  if (!requestedFile && path.startsWith("/3d")) {
     try {
-      imgDir.handleRequest(stream, headers, path, query);
+      const successCode = imgDir.handleRequest(stream, headers, path, query);
+      if (successCode === 0)
+       return 0;
 
     } catch (error) {
       logger.error(error)
     }
-    return 0;
   }
   // TODO Add watermark to all images in a certain dir automatically.
   // @body atm I have local scripts to add them to files before uploading them to server.

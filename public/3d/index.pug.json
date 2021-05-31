@@ -1,0 +1,82 @@
+{
+    "mode": "js",
+    "data": {
+        "cards": [
+        {
+            "basename": "icoSphere-v2-5",
+            "displayName": "icoSphere - Venom?"
+        },{
+            "basename": "icoSphere-v2-4",
+            "displayName": "icoSphere - Water"
+        },{
+            "basename": "icoSphere-v2-3",
+            "displayName": "icoSphere - Liquid Metal"
+        },{
+            "basename": "icoSphere-v2-2",
+            "displayName": "icoSphere - Metallic"
+        },{
+            "basename": "jp-logo-hex-GradientOnBlackDarkerColor",
+            "displayName": "JP Hex Logo"
+        },{
+            "basename": "BookshelfRoom_Table_BookImprove_LightingHQ",
+            "displayName": "Bookshelf Room"
+        },{
+            "basename": "ColorPaletteCardImg-transparent",
+            "displayName": "multi-palette-js logo"
+        },{
+            "basename": "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)",
+            "displayName": "Orb, Vials, Scroll, Flame"
+        },{
+            "basename": "Orb-1024p4096s-DENOISE(3-B2.90)",
+            "displayName": "Orb"
+        },{
+            "basename": "ContinualFlameCapsule2(Cycles)(2)",
+            "displayName": "Flame Capsule"
+        },{
+            "basename": "HiggsGraphOffCenterPOrthographic",
+            "displayName": "Field Graph"
+        },{
+            "basename": "HackJA_Monitor2",
+            "displayName": "HackJA Logo"
+        },{
+            "basename": "elixium1",
+            "displayName": "Elixium Logo"
+        },{
+            "basename": "icoSphere6",
+            "displayName": "icoSphere - RB Noisy"
+        },{
+            "basename": "icoSphere2",
+            "displayName": "icoSphere - RB Angular"
+        },{
+            "basename": "CardTest2",
+            "displayName": "Dev Card"
+        },{
+            "basename": "RGB SquareInCircle2",
+            "displayName": "RGB Cube in Circle"
+        },{
+            "basename": "magneticsparks3",
+            "displayName": "Particles, Fields"
+        },{
+            "basename": "LightBeams1(GimpEditOne)",
+            "displayName": "Volumetrics, Light Rays"
+        },{
+            "basename": "airBaloon1-1",
+            "displayName": "Hot Air Baloon"
+        },{
+            "basename": "MCA-Color-top-roof2",
+            "displayName": "Building: Front"
+        },{
+            "basename": "MCA-Color-top-roof1",
+            "displayName": "Building: Side"
+        },{
+            "basename": "MCA-Color-top-roof1",
+            "displayName": "Building: Side"
+        },{
+            "basename": "HoloDeskCenterView-Backlight",
+            "displayName": "Holo Desk: Center"
+        },{
+            "basename": "HoloDeskWoodFloor-1000Sample",
+            "displayName": "Holo Desk: Side"
+        }
+        ]
+}}

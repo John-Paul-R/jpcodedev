@@ -91,14 +91,16 @@ function loadFiles(dir_path) {
                 return template(jsonContents.data);
             }
             let jsonContents;
-            try {
-                jsonContents = JSON.parse(fileContents);
-                fileContents = pugCompileJson(jsonContents);
-            } catch (err) {
-                logger.error(err);
+            jsonContents = JSON.parse(fileContents);
+            if (jsonContents.mod != "js") {
+                try {
+                    fileContents = pugCompileJson(jsonContents);
+                } catch (err) {
+                    logger.error(err);
+                    return null;
+                }
             }
             
-
             let tempHeaders = {};
             tempHeaders["content-type"] = "text/html; charset=utf-8";
             tempHeaders["last-modified"] = headers["last-modified"];
