@@ -27,6 +27,7 @@ var consts;
 var fm;
 var logger;
 var IMG_DIR;
+var files;
 function init(pug, constants, file_manager, lgr) {
     imgDirPug = pug;
     consts = constants;
@@ -34,6 +35,14 @@ function init(pug, constants, file_manager, lgr) {
     console.log("IMG_DIR", IMG_DIR)
     fm = file_manager;
     logger = lgr;
+    
+    if (consts.websiteRoot.startsWith("www.")) {
+        const baseDir = Path.join(consts.exec_path, "3d");
+        files = {
+            stats: JSON.parse(fs.readFileSync(Path.join(baseDir, "_stats.json"))),
+            curatedConfig: JSON.parse(fs.readFileSync(Path.join(baseDir, "index.pug.json"))),
+        };
+    }
 }
 const stripTrailingSlash = (str) => {
     return str.endsWith('/') ?
@@ -76,10 +85,14 @@ function reverseProxy(stream, path) {
     method: "GET"
     }, (res) => {
         res.setEncoding('utf8');
-        stream.respond({
+        const headers = {
             'content-type': 'text/html; charset=utf-8',
             ':status': 200,
-        });
+        };
+        Object.assign(headers, consts.DEFAULT_HEADERS);
+        
+        stream.respond(headers);
+
         console.log(`STATUS: ${res.statusCode}`);
         res.on('data', (chunk) => {
             stream.write(chunk);
@@ -111,25 +124,21 @@ function viewAll(stream) {
     stream.end();
 }
 
+/**
+ * 
+ * @param {import('http2').Http2Stream} stream 
+ * @param {*} path 
+ */
 function viewSpecified(stream, path) {
     console.log("View Specified");
-    let configData;
-    let fileStats;
-    try {
-        const baseDir = Path.join(consts.exec_path, "3d");
-        fileStats = JSON.parse(fs.readFileSync(Path.join(baseDir, "_stats.json")));
-        const configFile = fs.readFileSync(Path.join(baseDir, "index.pug.json"));
-        configData = JSON.parse(configFile);
-    } catch (error) {
-        logger.error(error);
-    }
+    let configData = files.curatedConfig;
+    let fileStats = files.stats;
     const imgFileNames = configData.data.cards;
     let images = [];
     const staticURL = "https://static.jpcode.dev";
     for (const imgFileInfo of imgFileNames) {
         const base = Path.join('img/3d', imgFileInfo.basename);
         
-        console.log(fileStats[imgFileInfo.basename])
         const date = new Date(0);
         date.setUTCSeconds(fileStats[imgFileInfo.basename]);
         images.push({
@@ -139,9 +148,15 @@ function viewSpecified(stream, path) {
             title: imgFileInfo.displayName,
         })
     }
-    
-    stream.write(imgDirPug({cards: images}));
-    stream.end();
+    const data = imgDirPug({cards: images});
+    const headers = {
+        'content-type': 'text/html; charset=utf-8',
+        'content-length': Buffer.byteLength(data),
+        ':status': 200,
+    };
+    Object.assign(headers, consts.DEFAULT_HEADERS);
+    stream.respond(headers);
+    stream.end(data, (err) => logger.error(err));
 }
 
 exports.init = init;

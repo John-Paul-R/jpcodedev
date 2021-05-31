@@ -35,11 +35,17 @@ const exec_path = runOpts.pubpath;
 const exec_dirname = Path.basename(exec_path);
 const execModeString = runOpts.debug ? 'DEBUG' : 'PRODUCTION';
 const URL_ROOT = `https://${websiteRoot}`;
-
+const DEFAULT_HEADERS = {
+  "link": [
+    "<https://static.jpcode.dev/css/core_style.css>; rel=\"preload\"; as=\"style\"",
+    "<https://static.jpcode.dev/js/multi-palette.min.js>; rel=\"preload\"; as=\"script\""
+  ]
+}
 const consts = {
   exec_path,
   websiteRoot,
   URL_ROOT,
+  DEFAULT_HEADERS,
 }
 
 // Init logger
@@ -106,7 +112,7 @@ widgets.init({
 });
 
 // Init file manager
-fm.init(runOpts, widgets, pugOptions, logger);
+fm.init(runOpts, widgets, pugOptions, DEFAULT_HEADERS,  logger);
 fm.load(exec_path);
 
 // Img Dir

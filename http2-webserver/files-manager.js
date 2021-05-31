@@ -25,11 +25,13 @@ let runOpts;
 let exec_dirname; 
 var widgets;
 var pugOptions;
-exports.init = (rOpts, wdg, pugOpts, lgr) => {
+var defaultHeaders;
+exports.init = (rOpts, wdg, pugOpts, defHeaders, lgr) => {
     runOpts = rOpts;
     logger = lgr;
     widgets = wdg;
-    pugOptions = pugOpts
+    pugOptions = pugOpts;
+    defaultHeaders = defHeaders;
     exec_dirname = Path.basename(runOpts.pubpath);
 }
 
@@ -69,17 +71,8 @@ function loadFiles(dir_path) {
             "last-modified": stat.mtime.toUTCString(),
             "content-type": contentType,
         };
-        if (runOpts['early-hints']) {
-            console.log(relFilePath);
-            if (pushList[relFilePath]) {
-                pList = pushList[relFilePath]
-                linkHeaders = [];
-                // Add 'Link' headers for all files specified in dirmap json file.
-                for (let i = 0; i < pList.length; i++) {
-                    linkHeaders.push(`<${pList[i].path}>; rel="${pList[i].rel}"${pList[i].as ? '; as="' + pList[i].as + '"' : ''}${pList[i].crossorigin ? '; crossorigin="anonymous"' : ''}`);
-                }
-                headers[HTTP2_HEADER_LINK] = linkHeaders;
-            }
+        if (filePath.endsWith(".html")) {
+            Object.assign(headers, defaultHeaders);
         }
 
         // if (runOpts.debug) {
@@ -101,7 +94,7 @@ function loadFiles(dir_path) {
                 }
             }
             
-            let tempHeaders = {};
+            let tempHeaders = { ...defaultHeaders };
             tempHeaders["content-type"] = "text/html; charset=utf-8";
             tempHeaders["last-modified"] = headers["last-modified"];
             // tempHeaders[HTTP2_HEADER_CONTENT_ENCODING] = 
@@ -114,7 +107,7 @@ function loadFiles(dir_path) {
             fileContents = pug.render(fileContents, opts);
             
             // let out = temp(data);
-            let resHeaders = {};
+            let resHeaders = { ...defaultHeaders };
             resHeaders['content-type'] = 'text/html; charset=utf-8';
             resHeaders["last-modified"] = headers["last-modified"];
             headers = resHeaders;
