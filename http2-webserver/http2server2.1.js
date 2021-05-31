@@ -180,7 +180,16 @@ const dirIndexPug = pug.compile(
 )
 
 // Request Handler / Response Generator
-function respond(stream, headers) {
+/**
+ * 
+ * @param {import('node:http2').ServerHttp2Stream} stream 
+ * @param {import('node:http2').IncomingHttpHeaders} headers 
+ * @returns 
+ */
+ function respond(stream, headers) {
+  stream.setTimeout(3000, () => {
+    stream.destroy();
+  });
   // stream is a Duplex
   const method = headers[HTTP2_HEADER_METHOD];
   const reqUrl = new URL(headers[HTTP2_HEADER_PATH], URL_ROOT);
