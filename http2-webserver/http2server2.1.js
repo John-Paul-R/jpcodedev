@@ -71,7 +71,7 @@ logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
 var logStream;
 if (runOpts.log === "simple") {
   logStream = function (headers, socket) {
-      logger.info(headers[HTTP2_HEADER_METHOD], headers[HTTP2_HEADER_PATH])
+      logger.info("Req: " + JSON.stringify([headers[HTTP2_HEADER_METHOD], headers[HTTP2_HEADER_PATH], headers[http2.constants.HTTP2_HEADER_USER_AGENT]]))
   };
 } else if (runOpts.log === "verbose") {
   logStream = (headers, socket) => {
@@ -192,6 +192,11 @@ const dirIndexPug = pug.compile(
   });
   // stream is a Duplex
   const method = headers[HTTP2_HEADER_METHOD];
+  if (method != http2.constants.HTTP2_METHOD_GET){
+    stream.respond({status: 404});
+    stream.end();
+    return;
+  }
   const reqUrl = new URL(headers[HTTP2_HEADER_PATH], URL_ROOT);
   const path = decodeURIComponent(reqUrl.pathname);
   const query = reqUrl.search;
