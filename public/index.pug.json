@@ -16,7 +16,7 @@
                 "icon": "https://www.fibermc.com/favicon.ico",
                 "desc": "A searchable and filterable list of all Fabric mods.",
                 "website": "https://www.fibermc.com/",
-                "github": "https://github.com/John-Paul-R/FabricMC-Mod-List-Website",
+                "github": "https://github.com/John-Paul-R/fibermc",
                 "tags": ["Web", "API", "Database"]
             },{
                 "name": "Beyond Dark",
