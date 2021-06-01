@@ -13,9 +13,10 @@ html(lang='en')
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
-        gtag('config', 'G-46Y3Z774KR', { cookie_flags: 'SameSite=None; Secure'});
-
+        gtag('config', 'G-46Y3Z774KR', {
+            cookie_flags: 'SameSite=None; Secure',
+            cookie_domain: 'www.jpcode.dev',
+        });
     block head
  body
   #page_container
