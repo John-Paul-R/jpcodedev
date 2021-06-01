@@ -13,7 +13,9 @@ block head
             border-radius: 0.5rem;
             border: 1px solid var(--color-base-1);
             box-sizing: border-box;
-            width: clamp(10ch, 45ch, 100vw);
+            min-width: clamp(10ch, 45ch, 100vw);
+            max-width: 95vw;
+            max-height: 95vh;
         }
         .contact_container {
             display: flex;
@@ -32,6 +34,10 @@ block head
             margin: 1rem 0;
             border-color: var(--color-accent-1);
             color: var(--color-accent-1);
+        }
+        #contact textarea {
+            max-width: 90vw;
+            max-height: 50vh;
         }
 
     title Contact Me - JPCode.Dev
