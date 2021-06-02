@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+#content_center {
+	gap: 12px;
+}
+
 #content_center > :last-child{
 	margin-bottom: 1.5rem;
 }
@@ -29,7 +33,7 @@
 }
   
 .projects_container {
-	margin: 16px 0;
+	// margin: 16px 0;
 	gap: 12px;
 }
 
@@ -168,11 +172,11 @@
 }
 
 #title_container {
-	margin: 32px 0;
+	margin-top: 32px;
 }
 
 #mini_projects {
-	padding: 1.5rem 0;
+	padding: 0rem 0 1.5rem 0;
 	gap: 1rem;
 }
 #mini_projects_content {
@@ -212,4 +216,31 @@
 // MOBILE
 @media only screen and (max-width: 512px) {
     @include dnd_float_msg.mobile;
+}
+
+#links {
+	gap: 32px;
+	justify-content: space-evenly;
+	
+	a {
+		display: flex;
+		flex-direction: column;
+		width: 32px;
+		padding: 6px;
+		border-radius: 6px;
+		border: 1px solid transparent;
+		&:hover {
+			background-color: var(--color-base-1);
+		}
+		&:active {
+			
+			background-color: transparent;
+			border: 1px solid var(--color-base-1);
+		}
+
+		& .icon {
+
+		}
+	}
+	
 }

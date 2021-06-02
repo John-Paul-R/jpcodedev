@@ -32,6 +32,10 @@ block body
     #title_container.flex.col.aligncenter 
         h1 John Paul Rutigliano 
         h2 Full-Stack Software Developer 
+    #links.flex.row.aligncenter 
+        for linkIcon of link_icons 
+            a(href=`${linkIcon.link}`)
+                img.icon.base(src=`${linkIcon.icon}`, alt=`${linkIcon.name}`) 
     hr
     .projects_container.flex.col.aligncenter
         h2 Projects
