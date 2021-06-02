@@ -5,6 +5,9 @@ block head
     
     title Directory Index: '#{dir}'
 
+block titlemixin 
+    include mixins/main_head_title.mixin.pug
+    
 block body
     .widget_container
         h1 Directory: '#{dir}'

@@ -174,10 +174,8 @@ const getDirectoriesOrHtml = source =>
     // .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
     .map(dirent => dirent.name)
 
-const pugFile = Path.join(__dirname, "templates", "list.pug");
-const dirIndexPug = pug.compile(
-  fs.readFileSync(pugFile), { filename: pugFile }
-)
+// const pugFile = widgets.getPugTemplate('list');
+const dirIndexPug = widgets.getPugTemplate('dir_list');
 
 // Request Handler / Response Generator
 /**
@@ -226,6 +224,7 @@ const dirIndexPug = pug.compile(
   // TODO Add watermark to all images in a certain dir automatically.
   // @body atm I have local scripts to add them to files before uploading them to server.
   if (!requestedFile) {
+    
     try {
       let fpath = Path.join(exec_path, path)
       let fd = fs.openSync(fpath);
@@ -251,7 +250,7 @@ const dirIndexPug = pug.compile(
 
       }
     } catch (error) {
-      // logger.warn(error);
+      logger.warn(error);
     }
   }
 
