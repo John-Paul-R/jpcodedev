@@ -71,7 +71,7 @@ logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
 var logStream;
 if (runOpts.log === "simple") {
   logStream = function (headers, socket) {
-      logger.info("Req: " + JSON.stringify([headers[HTTP2_HEADER_METHOD], headers[HTTP2_HEADER_PATH], headers[http2.constants.HTTP2_HEADER_USER_AGENT]]))
+      logger.info("Req: " + JSON.stringify([headers[HTTP2_HEADER_METHOD], headers[HTTP2_HEADER_PATH], headers[http2.constants.HTTP2_HEADER_REFERER], headers[http2.constants.HTTP2_HEADER_USER_AGENT]]))
   };
 } else if (runOpts.log === "verbose") {
   logStream = (headers, socket) => {
