@@ -259,9 +259,11 @@
   padding: 6px;
   border-radius: 6px;
   border: 1px solid transparent;
+  transition: transform 0.25s;
 }
 #links a:hover {
   background-color: var(--color-base-1);
+  transform: scale(1.135);
 }
 #links a:active {
   background-color: transparent;

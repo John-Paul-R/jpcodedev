@@ -1,6 +1,21 @@
 {
     "template": "project-list",
     "data": {
+        "link_icons": [
+            {
+                "name": "GitHub",
+                "icon": "https://static.jpcode.dev/img/icon/github.svg",
+                "link": "https://github.com/John-Paul-R"
+            },{
+                "name": "Twitter",
+                "icon": "https://static.jpcode.dev/img/icon/twitter.svg",
+                "link": "https://twitter.com/john_paul_r"
+            },{
+                "name": "Discord",
+                "icon": "https://static.jpcode.dev/img/icon/discord.svg",
+                "link": "https://discord.gg/dwh9y7D"
+            }
+        ],
         "projects": [
             {
                 "name": "PoE Atlas",

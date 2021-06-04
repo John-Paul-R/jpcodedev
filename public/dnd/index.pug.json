@@ -4,7 +4,7 @@
         "categories": [
             {
                 "title": "Homebrew",
-                "icon_markup": "<i class=\"dragon_icon icon\"></i>",
+                "icon_markup": "<i class=\"dragon_icon icon base\"></i>",
                 "items": [
                     {
                         "link": "https://www.gmbinder.com/share/-M8L8MFZWn_nMujJNgvT",
