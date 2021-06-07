@@ -14,7 +14,7 @@
 	gap: 12px;
 }
 
-#content_center > :last-child{
+#content_center > :nth-last-child(2){
 	margin-bottom: 1.5rem;
 }
 
@@ -175,18 +175,27 @@
 	margin-top: 32px;
 }
 
-#mini_projects {
-	padding: 0rem 0 1.5rem 0;
+// #mini_projects {
+// 	padding: 0rem 0 1.5rem 0;
+// 	// gap: 1rem;
+// }
+.projects_wrapper {
 	gap: 1rem;
 }
+
 #mini_projects_content {
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+#assorted_certs_content {
+	grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+}
+.cards_container {
 	display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 16px;
     max-width: 80vw;
 }
 
-#mini_projects_content .card {
+.cards_container .card {
     @include link_list_card.card;
 	display: flex;
 	flex-direction: column;
