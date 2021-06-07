@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const Path = require('path');
 const pug = require('pug');
 const showdown = require('showdown');
+const { config } = require('process');
 const converter = new showdown.Converter({
     tables: true,
     strikethrough: true,
@@ -47,14 +48,15 @@ function handleRequest(stream, headers) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot)
             if ((pathFrags.length < 4 || pathFrags[3] === "list")) {
-                const dirTitle = dndDirTitle(webroot);
+                const dirConfig = dndDirConfig(webroot);
                 return respond(
                     stream,
                      'text/html',
                      _templates['list']({
                         "widgets": _widgets_data[webroot].entries(),
-                        "title": dirTitle,
+                        "title": dirConfig.title,
                         "webroot": webroot,
+                        ogPreview: dirConfig.ogPreview,
                     }),
                 ); 
             } else if (pathFrags[3] === "list-json") {
@@ -69,7 +71,7 @@ function handleRequest(stream, headers) {
                     let widgetContents = _markdown[webroot][frag];
                     let widgetTitle = _widgets_data[webroot].get(frag[0]).title;
                     
-                    const dirTitle = dndDirTitle(webroot);
+                    const dirConfig = dndDirConfig(webroot);
                     
                     console.log(widgetTitle)
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
@@ -80,7 +82,7 @@ function handleRequest(stream, headers) {
                             _templates['dnd_summary_note']({
                                 "widgetContents": widgetContents,
                                 "title": widgetTitle,
-                                "dirTitle": dirTitle,
+                                "dirTitle": dirConfig.title,
                                 "webroot": webroot,
                             })
                         );
@@ -114,14 +116,18 @@ function handleRequest(stream, headers) {
     return 0;
 }
 
-function dndDirTitle(webroot) {
+function dndDirConfig(webroot) {
     const dirConfig = _dir_config[webroot];
     let dirTitle = `${Path.basename(webroot)} notes`;
+    let ogPreview = null;
     if (dirConfig && dirConfig.dnd && dirConfig.dnd.campaign_title) {
         dirTitle = `Campaign Notes: ${Path.basename(dirConfig.dnd.campaign_title)}`;
+        ogPreview = dirConfig.dnd.ogPreview;
     }
-
-    return dirTitle;
+    return {
+        "title": dirTitle,
+        "ogPreview": ogPreview,
+    };
 }
 
 /**
