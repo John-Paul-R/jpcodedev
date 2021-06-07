@@ -1,0 +1,29 @@
+
+extends standalone-base.pug
+
+block head
+    meta(name="description", content="A repository of development projects by John Paul Rutigliano.")
+    meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer, dev")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/projects-list.css")
+
+    title Certifications - JPCode.Dev
+
+block titlemixin 
+    include mixins/main_head_title.mixin.pug
+    
+
+block nav_end 
+    a#resume_btn.button(href="https://static.jpcode.dev/resume", role="menuitem") #[span.text Resumé] #[span.material-icons description] 
+    a#contact_btn.button(href="https://www.jpcode.dev/contact", role="menuitem") #[span.text Contact] #[span.material-icons email]
+
+
+block body
+    hr
+    #assorted_certs.flex.col.aligncenter.projects_wrapper
+        h2 Certificates / Awards 
+        #assorted_certs_content.cards_container
+            .card
+                |<a href="https://www.testdome.com/cert/dddeee173623442bbbcfbb0e1c234879" class="testdome-certificate-stamp gold"><span class="testdome-certificate-name">John Paul Rutigliano</span><span class="testdome-certificate-test-name">Java </span><span class="testdome-certificate-card-logo">TestDome<br />Certificate</span></a><script>var stylesheet = "https://www.testdome.com/content/source/stylesheets/embed.css", link = document.createElement("link"); link.href = stylesheet, link.type = "text/css", link.rel = "stylesheet", link.media = "screen,print", document.getElementsByTagName("head")[0].appendChild(link);</script>
+            .card
+                |<a href="https://app.testdome.com/cert/4bf1feff0c304935aa4259a51a94047b" class="testdome-certificate-stamp gold"><span class="testdome-certificate-name">John Paul Rutigliano</span><span class="testdome-certificate-test-name">Python </span><span class="testdome-certificate-card-logo">TestDome<br />Certificate</span></a><script>var stylesheet = "https://app.testdome.com/content/source/stylesheets/embed.css", link = document.createElement("link"); link.href = stylesheet, link.type = "text/css", link.rel = "stylesheet", link.media = "screen,print", document.getElementsByTagName("head")[0].appendChild(link);</script>
+        span(style="font-size:10px;color:var(--color-text-1)") Listen, some companies wanted to see a cert, so I did a cert.

@@ -64,13 +64,15 @@ block body
                         if (project.github)
                             a.button.github.icon(href=project.github, aria-labelledby=`${project.id}-title`) GitHub 
     hr
-    #mini_projects.flex.col.aligncenter 
+    #mini_projects.flex.col.aligncenter.projects_wrapper
         h2 Mini-Projects 
-        #mini_projects_content 
+        #mini_projects_content.cards_container
             for project of mini_projects 
                 a.project_card.card(href=project.link)
                         h3 #{project.name}
                         img.preview(src=project.img, alt="View Project")
+    hr
+    a.button.glow(href="https://www.jpcode.dev/certs") View my certifications 
     #dnd
         |<b>Looking for my <span style="color: crimson">D&D</span> projects?</b>
         .content 
