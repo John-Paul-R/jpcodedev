@@ -97,6 +97,43 @@ div.widget_container.note {
   transition: background-color 0.75s;
 }
 
+.spell {
+  position: relative;
+  display: inline;
+}
+
+.markdown div.spell_desc {
+  transition: visibility 0.25s, opacity 0.25s;
+}
+
+.spell_desc {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  background-color: var(--color-base-2);
+  border: 1px solid var(--color-accent-1);
+  border-radius: 6px;
+  max-width: 512px;
+  padding: 0.5rem;
+  z-index: 10;
+  box-shadow: var(--bs-md);
+}
+.spell_desc.open {
+  visibility: visible;
+  opacity: 1;
+  z-index: 11;
+}
+.spell_desc .level::before {
+  font-weight: 600;
+  content: "Level: ";
+}
+.spell_desc .school::before {
+  font-weight: 600;
+  content: "School: ";
+}
+
 #content_main {
   max-height: calc(100vh - 48px);
   background-color: var(--color-base);
