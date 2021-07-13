@@ -1,0 +1,32 @@
+
+.spell {
+    position: relative;
+    display: inline;
+}
+
+.spell_desc {
+    display: none;
+    position: fixed;
+    background-color: var(--color-base-2);
+    border: 1px solid var(--color-base-1);
+    border-radius: 6px;
+    max-width: 512px;
+    padding: 0.5rem;
+    &.open {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .level {
+        &::before {
+            font-weight: 600;
+            content: "Level: ";
+        }
+    }
+    .school {
+        &::before {
+            font-weight: 600;
+            content: "School: ";
+        }
+    }
+}

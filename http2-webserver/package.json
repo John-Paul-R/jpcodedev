@@ -20,6 +20,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "command-line-args": "^5.1.1",
+    "dnd-api": "^1.4.2",
     "http-terminator": "^3.0.0",
     "json-stable-stringify": "^1.0.1",
     "log4js": "^6.3.0",

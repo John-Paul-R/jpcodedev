@@ -9,6 +9,7 @@ const converter = new showdown.Converter({
     tables: true,
     strikethrough: true,
 });
+const dndPlugin = require('./dnd-plugin.js')
 
 const { 
     HTTP2_HEADER_PATH,
@@ -210,6 +211,7 @@ function init(options={
     preload_widgets: true,
     lazy_load_allowed: true,
     web_root: "widgets",
+    plugins: []
 }) {
     fs.ensureDirSync(options.widget_directory);
     let widget_paths = getFilePathsRecursive(options.widget_directory);
@@ -244,8 +246,10 @@ function init(options={
                 }
                 widgets[file_name] = JSON.parse(data);
             } else if (ext === '.md') {
-                markdown[file_name] = converter.makeHtml(data).replace(/<a\s*?href/gm, '<a noreferrer target="_blank" href');
-            } else {
+                dndPlugin.insertSpellTooltips(
+                    converter.makeHtml(data).replace(/<a\s*?href/gm, '<a noreferrer target="_blank" href')
+                ).then(htmlStr => markdown[file_name] = htmlStr);
+                } else {
                 console.warn("Ignoring file, not a .pug widget or a content .json: "+file_path);
             }
             // console.log("Loaded Widget: "+file_name);

@@ -3,6 +3,7 @@
 @import 'github_md';
 @import 'components/widget_top_float';
 @import 'components/md_table_of_contents';
+@import 'components/dnd_spell_tooltip';
 
 #content_main {
     max-height: calc(100vh - 48px);

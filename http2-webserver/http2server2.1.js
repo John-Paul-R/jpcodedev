@@ -101,14 +101,20 @@ widgets.init({
   widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"),
   preload_widgets: true,
   lazy_lead_allowed: true,
-  web_root: "dnd/ian-oota"
+  web_root: "dnd/ian-oota",
+  plugins: [
+    "dnd-api"
+  ]
 });
 // Initialize dnd/jay-waterdeep Notes Widgets
 widgets.init({
   widget_directory: Path.join(runOpts.pubpath, "dnd/jay-waterdeep/widgets"),
   preload_widgets: true,
   lazy_lead_allowed: true,
-  web_root: "dnd/jay-waterdeep"
+  web_root: "dnd/jay-waterdeep",
+  plugins: [
+    "dnd-api"
+  ]
 });
 
 // Init file manager
