@@ -515,4 +515,9 @@ table.gh tr td > a:hover {
   text-decoration: underline;
 }
 
+.smalltext {
+  font-size: 0.8em;
+  color: var(--color-text-1);
+}
+
 /*# sourceMappingURL=widget_standalone.css.map */

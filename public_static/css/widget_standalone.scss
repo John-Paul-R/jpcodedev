@@ -55,3 +55,8 @@
 table.gh tr td {
     @include table_link_cell.link_cell;
 }
+
+.smalltext {
+    font-size: 0.8em;
+    color: var(--color-text-1);
+}
