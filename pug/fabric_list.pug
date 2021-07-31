@@ -1,0 +1,36 @@
+extends standalone-base.pug
+
+block head
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    if (ogPreview)
+        meta(property="og:title", content=`${ogPreview.title}`)
+        //- meta(property="og:description", content=`${ogPreview.description}`)
+        meta(property="og:url", content=`${ogPreview.url}`)
+        meta(property="og:image", content=`${ogPreview.image}`)
+
+    title #{title}
+
+block titlemixin 
+    include mixins/fabric_head_title.mixin.pug
+    
+
+block body
+    .widget_container
+        h1 #{title}
+        hr
+        div.widget_content_list#widget_content
+            table.gh
+                thead
+                    tr
+                        th Mod
+                        th GitHub
+                        th Modrinth
+                        th CurseForge
+                tbody
+                    each mod of mods
+                        tr
+                            td #{mod.name}
+                            td #[a(href=`${mod.github}`) #{mod.github ? "GitHub" : null}]
+                            td #[a(href=`${mod.modrinth}`) #{mod.modrinth ? "Modrinth" : null}]
+                            td #[a(href=`${mod.curseforge}`) #{mod.curseforge ? "CurseForge" : null}]
+                                //- a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}

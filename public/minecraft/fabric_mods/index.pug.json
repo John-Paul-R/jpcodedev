@@ -1,0 +1,32 @@
+{
+    "template": "fabric_list",
+    "data": {
+        "webroot": "minecraft/fabric_mods",
+        "mods": [
+            {
+                "name":         "Essential Commands",
+                "github":       "https://github.com/John-Paul-R/Essential-Commands",
+                "modrinth":     "https://modrinth.com/mod/essential-commands",
+                "curseforge":   "https://www.curseforge.com/minecraft/mc-mods/essential-commands"
+            },
+            {
+                "name":         "Kits",
+                "github":       "https://github.com/John-Paul-R/kits",
+                "modrinth":     "https://modrinth.com/mod/kits",
+                "curseforge":   "https://www.curseforge.com/minecraft/mc-mods/kits"
+            },
+            {
+                "name":         "Server Announce",
+                "github":       "https://github.com/John-Paul-R/server-announce",
+                "modrinth":     "",
+                "curseforge":   ""
+            },
+            {
+                "name":         "Whisper Roulette",
+                "github":       "https://github.com/John-Paul-R/whisper-roulette",
+                "modrinth":     "",
+                "curseforge":   ""
+            }
+        ]
+    }
+}
