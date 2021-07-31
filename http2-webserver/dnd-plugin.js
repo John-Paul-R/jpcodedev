@@ -43,17 +43,22 @@ async function createSpellTooltip(match) {
     let data = await spells.get(match);
     // console.log(data)
     // out = `<b class="spell">${match}</b>`
-    out = `<i class="spell" data-desc-id="${id+"-desc"}">${match}</i>`;
+    out = `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${data.name.replace(' ','-')}" class="spell" data-desc-id="${id+"-desc"}">
+    ${match}</a>`;
     
     return {
         replace: out,
         end: `<div id="${id+"-desc"}" class="spell_desc">
-        <span class="level">${data.level}</span>
-        <span class="school">${data.school.name}</span>
+        <b class="name">${data.name}</b>
+        <span class="spell_meta">Level ${data.level} ${data.school.name}</span> 
+        <span class="cast_time">${data.casting_time}</span>
         <p class="desc">${escapeHtmlArr(data.desc)}</p>
         </div>`, 
         id: id,
     };
+    // <span class="level">${data.level}</span>
+    // <span class="school">${data.school.name}</span>
+        
 }
 
 //TODO make the tooltip go towards the center of the screen

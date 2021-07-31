@@ -100,6 +100,11 @@ div.widget_container.note {
 .spell {
   position: relative;
   display: inline;
+  text-decoration: none;
+  font-style: italic;
+}
+.spell:hover {
+  text-decoration: underline;
 }
 
 .markdown div.spell_desc {
@@ -132,6 +137,10 @@ div.widget_container.note {
 .spell_desc .school::before {
   font-weight: 600;
   content: "School: ";
+}
+.spell_desc .cast_time::before {
+  font-weight: 600;
+  content: "Cast Time: ";
 }
 
 #content_main {

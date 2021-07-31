@@ -2,6 +2,12 @@
 .spell {
     position: relative;
     display: inline;
+
+    text-decoration: none;
+    font-style: italic;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .markdown div.spell_desc {
@@ -40,6 +46,12 @@
         &::before {
             font-weight: 600;
             content: "School: ";
+        }
+    }
+    .cast_time {
+        &::before {
+            font-weight: 600;
+            content: "Cast Time: ";
         }
     }
 }
