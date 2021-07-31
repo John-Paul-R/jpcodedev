@@ -239,6 +239,7 @@
 #mini_projects_content .card {
   will-change: box-shadow, transform;
   text-decoration: none;
+  transition: 0.11s;
 }
 #mini_projects_content .card h3 {
   border-bottom: 1px solid var(--color-accent-1);
@@ -246,7 +247,6 @@
 #mini_projects_content .card:hover {
   transform: translateY(-0.33rem);
   box-shadow: 0px 4px 8px -4px;
-  transition: 0.11s;
 }
 
 @media only screen and (max-width: 512px) {
