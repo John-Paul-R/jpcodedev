@@ -1,0 +1,39 @@
+
+extends standalone-base.pug
+
+block head
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/dnd_index.css")
+
+    if (ogPreview)
+        meta(property="og:title", content=`${ogPreview.title}`)
+        //- meta(property="og:description", content=`${ogPreview.description}`)
+        meta(property="og:url", content=`${ogPreview.url}`)
+        meta(property="og:image", content=`${ogPreview.image}`)
+
+    style.
+        a.project_item > :first-child {
+            margin-right: 1ch;
+        }
+    
+
+    title #{title}
+
+block titlemixin 
+    include mixins/main_head_title.mixin.pug
+    
+block body
+    .flex.row.categories_container 
+        .categories 
+            for category of categories 
+                .category 
+                    h2.category_title #{category.title} !{category.icon_markup}
+                    hr.accent
+                    .category_content 
+                        for item of category.items 
+                            a.project_item(href=item.link)
+                                if (item.icon)
+                                    img.icon.base.invert(src=`${item.icon}`, alt=`${item.name} icon`, style="width:1.5em;height:1.5em;")
+                                | #{item.name}
+                    if category.smalltext 
+                        p.smalltext.right !{category.smalltext}

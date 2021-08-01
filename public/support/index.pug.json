@@ -1,0 +1,38 @@
+{
+    "template": "link-tree",
+    "data": {
+        "title": "Support Me",
+        "webroot": "support",
+        "categories": [
+            {
+                "title": "Donation Links",
+                "items": [
+                    {
+                        "name": "Patreon",
+                        "link": "https://www.patreon.com/jpcode",
+                        "icon": "https://static.jpcode.dev/img/icon/patreon.svg"
+                    },
+                    {
+                        "name": "ko-fi",
+                        "link": "https://ko-fi.com/johnpaul",
+                        "icon": "https://static.jpcode.dev/img/icon/ko-fi.svg"
+                    },
+                    {
+                        "name": "GitHub Sponsor",
+                        "link": "https://github.com/sponsors/John-Paul-R",
+                        "icon": "https://static.jpcode.dev/img/icon/github.svg"
+                    },
+                    {
+                        "name": "Paypal Direct",
+                        "link": "https://www.paypal.com/donate?business=JKTX9WBJQLJRQ&no_recurring=0&currency_code=USD",
+                        "icon": "https://static.jpcode.dev/img/icon/paypal.svg"
+                    }
+                ]
+            }
+        ],
+        "ogPreview": {
+            "title": "Support Me - John-Paul-R",
+            "url": "https://www.jpcode.dev/support"
+        }
+    }
+}
