@@ -41,21 +41,33 @@ async function createSpellTooltip(match) {
     let out = match;
     let id = match.toLowerCase().trim();
     let data = await spells.get(match);
-    // console.log(data)
-    // out = `<b class="spell">${match}</b>`
-    out = `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${data.name.replace(' ','-')}" class="spell" data-desc-id="${id+"-desc"}">
-    ${match}</a>`;
     
-    return {
-        replace: out,
-        end: `<div id="${id+"-desc"}" class="spell_desc">
-        <b class="name">${data.name}</b>
-        <span class="spell_meta">Level ${data.level} ${data.school.name}</span> 
-        <span class="cast_time">${data.casting_time}</span>
-        <p class="desc">${escapeHtmlArr(data.desc)}</p>
-        </div>`, 
-        id: id,
-    };
+    let outData = null;
+    if (data.name) {
+        // console.log(data)
+        // out = `<b class="spell">${match}</b>`
+        out = `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${data.name.replace(' ','-')}" class="spell" data-desc-id="${id+"-desc"}">
+        ${match}</a>`;
+    
+        outData = {
+            replace: out,
+            end: `<div id="${id+"-desc"}" class="spell_desc">
+            <b class="name">${data.name}</b>
+            <span class="spell_meta">Level ${data.level} ${data.school.name}</span> 
+            <span class="cast_time">${data.casting_time}</span>
+            <p class="desc">${escapeHtmlArr(data.desc)}</p>
+            </div>`, 
+            id: id,
+        };
+    } else {
+        outData = {
+            replace: match,
+            end: `<div class="spell_desc">${match}</div>`,
+            id: id
+        };
+    }
+
+    return outData;
     // <span class="level">${data.level}</span>
     // <span class="school">${data.school.name}</span>
         
@@ -76,7 +88,7 @@ function escapeHtmlArr(unsafe) {
          
 }
 function escapeHtml(htmlStr) {
-    return htmlStr
+    return (htmlStr ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
