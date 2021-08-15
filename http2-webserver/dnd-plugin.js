@@ -1,5 +1,7 @@
 const spells = require("dnd-api").Spells;
+const ApiWrapper = require('./foreign-api-cache.js').ApiWrapper;
 
+const spellsWrapper = new ApiWrapper(spells, "dnd-api-spells");
 // const response = await spells.get("Cat");
 
 function replaceRange(s, start, end, substitute) {
@@ -19,7 +21,7 @@ async function insertSpellTooltips(htmlStr) {
         console.log(matchStr);
         let tooltip = await createSpellTooltip(matchStr);
         tooltips[tooltip.replace] = tooltip.end;
-        console.log(tooltip)
+        // console.log(tooltip)
         htmlStr = replaceRange(htmlStr, match.index, match.index+match[0].length, tooltip.replace);
         
         match = htmlStr.match(regex);
@@ -40,7 +42,7 @@ async function insertSpellTooltips(htmlStr) {
 async function createSpellTooltip(match) {
     let out = match;
     let id = match.toLowerCase().trim();
-    let data = await spells.get(match);
+    let data = await spellsWrapper.get(match);
     
     let outData = null;
     if (data.name) {
