@@ -67,7 +67,7 @@ function init(
         preload_widgets: true,
         lazy_load_allowed: true,
         web_root: "widgets",
-        plugins: [],
+        plugins: [] as string[],
     }
 ) {
     fs.ensureDirSync(options.widget_directory);

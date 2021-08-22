@@ -17,24 +17,11 @@
         "sourceType": "module",
         "project": "./http2-webserver/tsconfig.json"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "plugins": ["@typescript-eslint"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "warn",
-            "unix"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "no-unused-vars": [
-            "warn"
-        ]
+        "indent": ["error", 4],
+        "linebreak-style": ["warn", "unix"],
+        "semi": ["error", "always"],
+        "no-unused-vars": ["off"]
     }
 }

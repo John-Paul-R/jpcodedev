@@ -1,5 +1,4 @@
 import http2, {
-    Http2SecureServer,
     Http2Session,
     SecureServerOptions,
     ServerHttp2Stream,
@@ -12,7 +11,7 @@ import pug from "pug";
 
 import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
-import imgDir from "./img_dir";
+import * as imgDir from "./img_dir";
 import { IncomingHttpHeaders } from "http";
 
 //  Load ArgV
@@ -63,7 +62,6 @@ const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
 const { host: websiteRoot, pubpath: exec_path } = runOpts;
 
 const FILENAME = Path.basename(__filename);
-const exec_dirname = Path.basename(exec_path);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
 const URL_ROOT = `https://${websiteRoot}`;
 const DEFAULT_HEADERS = {
@@ -72,24 +70,34 @@ const DEFAULT_HEADERS = {
         '<https://static.jpcode.dev/js/multi-palette.min.js>; rel="preload"; as="script"',
     ],
 };
+
+export type JPServerConsts = {
+    exec_path: string;
+    websiteRoot: string;
+    URL_ROOT: string;
+    DEFAULT_HEADERS: {
+        link: string[];
+    };
+};
+
 const consts = {
     exec_path,
     websiteRoot,
     URL_ROOT,
     DEFAULT_HEADERS,
-};
+} as JPServerConsts;
 
 const {
     HTTP2_HEADER_METHOD,
     HTTP2_HEADER_PATH,
-    HTTP2_HEADER_STATUS,
-    HTTP2_HEADER_CONTENT_TYPE,
-    HTTP2_HEADER_LINK,
+    // HTTP2_HEADER_STATUS,
+    // HTTP2_HEADER_CONTENT_TYPE,
+    // HTTP2_HEADER_LINK,
     HTTP2_HEADER_ACCEPT_ENCODING,
     HTTP2_HEADER_CONTENT_LENGTH,
-    HTTP2_HEADER_LAST_MODIFIED,
-    HTTP2_HEADER_CACHE_CONTROL,
-    HTTP2_HEADER_CONTENT_ENCODING,
+    // HTTP2_HEADER_LAST_MODIFIED,
+    // HTTP2_HEADER_CACHE_CONTROL,
+    // HTTP2_HEADER_CONTENT_ENCODING,
 } = http2.constants;
 
 // Init logger
@@ -179,7 +187,7 @@ fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 fm.load(exec_path);
 
 // Img Dir
-imgDir.init(widgets.getPugTemplate("img_dir"), consts, fm, logger);
+imgDir.init(widgets.getPugTemplate("img_dir"), consts, logger);
 
 const port = runOpts.port || 8080;
 
