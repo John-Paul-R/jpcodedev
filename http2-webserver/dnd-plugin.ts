@@ -16,7 +16,7 @@ function replaceRange(
  *
  * @param {String} htmlStr
  */
-async function insertSpellTooltips(htmlStr: string) {
+export async function insertSpellTooltips(htmlStr: string) {
     const regex = /\{\{spell\:(.+?)\}\}/;
     let match = htmlStr.match(regex);
     const tooltips: { [key: string]: string } = {};
