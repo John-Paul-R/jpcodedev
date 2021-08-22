@@ -92,9 +92,9 @@ function loadFiles(dir_path: PathLike) {
 
         const fileDescriptor = fs.openSync(filePath, "r");
         const fileStats = fs.fstatSync(fileDescriptor);
-        let fileContents = fs
-            .readFileSync(fileDescriptor, { flag: "r" })
-            .toString();
+        let fileContents: Buffer | string = fs.readFileSync(fileDescriptor, {
+            flag: "r",
+        });
         fs.closeSync(fileDescriptor);
 
         const contentType = Mime.getType(relFilePath);
@@ -103,7 +103,7 @@ function loadFiles(dir_path: PathLike) {
         let headers = {
             [HTTP2_HEADER_CONTENT_LENGTH]: fileStats.size,
             [HTTP2_HEADER_LAST_MODIFIED]: fileStats.mtime.toUTCString(),
-            [HTTP2_HEADER_CONTENT_TYPE]: contentType ?? "text",
+            [HTTP2_HEADER_CONTENT_TYPE]: contentType ?? "text/raw",
         } as OutgoingHttpHeaders;
 
         function pugCompileJson(jsonContents: JpPugConfig) {

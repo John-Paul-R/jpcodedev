@@ -5,7 +5,7 @@ import http2, {
     ServerHttp2Stream,
 } from "http2";
 import fs, { PathLike } from "fs";
-import Path from "path/posix";
+import Path from "path";
 import log4js from "log4js";
 import commandLineArgs from "command-line-args";
 import pug from "pug";
@@ -117,10 +117,7 @@ let logStream: (
     socket: Http2Session["socket"]
 ) => void;
 if (runOpts.log === "simple") {
-    logStream = function (
-        headers: IncomingHttpHeaders,
-        socket: Http2Session["socket"]
-    ) {
+    logStream = (headers: IncomingHttpHeaders) => {
         logger.info(
             "Req: " +
                 JSON.stringify([

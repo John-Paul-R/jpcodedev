@@ -1,5 +1,5 @@
 import fs from "fs-extra";
-import Path, { ParsedPath } from "path/posix";
+import Path, { ParsedPath } from "path";
 import dirUtil from "node-dir";
 import stringify from "json-stable-stringify";
 import { FormatInputPathObject } from "path/win32";
