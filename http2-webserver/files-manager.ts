@@ -5,26 +5,25 @@ import dir from "node-dir";
 import Path from "path";
 import pug from "pug";
 import DirectoryMap from "./directory-map";
-import { JPServerOptions } from "./http2server";
-import widgets from "./timeline-notes";
+import { JPServerOptions } from "./http2server2.1";
+import * as widgets from "./timeline-notes";
 import { Logger } from "./node_modules/log4js/types/log4js";
 
 const {
-    HTTP2_HEADER_METHOD,
-    HTTP2_HEADER_PATH,
-    HTTP2_HEADER_STATUS,
+    // HTTP2_HEADER_METHOD,
+    // HTTP2_HEADER_PATH,
+    // HTTP2_HEADER_STATUS,
     HTTP2_HEADER_CONTENT_TYPE,
-    HTTP2_HEADER_LINK,
-    HTTP2_HEADER_ACCEPT_ENCODING,
+    // HTTP2_HEADER_LINK,
+    // HTTP2_HEADER_ACCEPT_ENCODING,
     HTTP2_HEADER_CONTENT_LENGTH,
     HTTP2_HEADER_LAST_MODIFIED,
     HTTP2_HEADER_CACHE_CONTROL,
-    HTTP2_HEADER_CONTENT_ENCODING,
+    // HTTP2_HEADER_CONTENT_ENCODING,
 } = http2.constants;
 
 let logger: Logger;
 let runOpts: JPServerOptions;
-let exec_dirname: PathLike;
 let pugOptions: pug.Options & pug.LocalsObject;
 let defaultHeaders: OutgoingHttpHeaders;
 let isLogVerbose = false;
@@ -38,22 +37,8 @@ const init = (
     logger = lgr;
     pugOptions = pugOpts;
     defaultHeaders = defHeaders;
-    exec_dirname = Path.basename(runOpts.pubpath);
     isLogVerbose = runOpts.log === "verbose";
 };
-
-async function runWith(
-    fileDescriptor: number,
-    func: (fileDescriptor: number) => void
-) {
-    try {
-        func(fileDescriptor);
-    } catch (e) {
-        logger.error(e);
-    } finally {
-        fs.close(fileDescriptor);
-    }
-}
 
 type JpPugConfig = {
     template: string;

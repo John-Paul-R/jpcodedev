@@ -10,7 +10,7 @@ import log4js from "log4js";
 import commandLineArgs from "command-line-args";
 import pug from "pug";
 
-import widgets from "./timeline-notes";
+import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
 import imgDir from "./img_dir";
 import { IncomingHttpHeaders } from "http";
