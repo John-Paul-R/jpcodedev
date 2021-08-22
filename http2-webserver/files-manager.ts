@@ -56,7 +56,7 @@ function loadFiles(dir_path: PathLike) {
     const files = new Map<string, FileInfo>();
     logger.info("Load Site Files..");
     const dirPath = dir_path.toString();
-    dir.files(dirPath.toString(), (err, arrFilePaths) => {
+    dir.files(dirPath.toString(), (err: any, arrFilePaths: string[]) => {
         if (arrFilePaths) {
             arrFilePaths.forEach(preloadFiles);
         } else {

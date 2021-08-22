@@ -1,14 +1,12 @@
-import { pathToFileURL } from "url";
 import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
 import fs from "fs-extra";
 import Path from "path";
 import pug from "pug";
-import showdown, { Converter as MdConverter } from "showdown";
-import { config } from "process";
+import { Converter as MdConverter } from "showdown";
 
 import * as dndPlugin from "./dnd-plugin";
 import { trimTrailingSlash } from "./utils.js";
-import { Dirent, PathLike } from "fs";
+import { Dirent } from "fs";
 
 type WidgetsDirectoryConfig = {
     dnd?: DndDirectoryOptions;
@@ -80,7 +78,7 @@ function init(
 
     let dirConfig: WidgetsDirectoryConfig = {};
     const dirConfigPath = Path.join(
-        Path.normalize(options.widget_directory, "../"),
+        Path.normalize(options.widget_directory),
         "config.json"
     );
 
@@ -178,9 +176,11 @@ function handleRequest(
     console.log(`reqPath: ${reqPath}`);
     const reqPathOnly = trimTrailingSlash(new URL(reqPath, baseUrl).pathname);
     const pathFrags = reqPathOnly.split("/");
+
     if (pathFrags[1] !== "dnd") return -1;
+
+    const rpath = reqPath.replace(/^\/+/, "");
     for (const webroot of webroots) {
-        const rpath = reqPath.replace(/^\/+/, "");
         if (rpath.startsWith(webroot)) {
             console.log(webroot);
             if (pathFrags.length < 4 || pathFrags[3] === "list") {
@@ -284,12 +284,8 @@ function getWidget(reqPath: string, pathFrags: string) {
     console.log("Web Root: " + web_root);
     const pug_template = _templates[pathFrags[0]];
     console.log(pathFrags);
-    let widget;
-    try {
-        widget = _widgets_data[web_root].get(pathFrags[1]);
-    } catch (err) {
-        console.error(err);
-    }
+    const widget = _widgets_data[web_root]?.get(pathFrags[1]);
+
     if (pug_template && widget) {
         // Template and JSON
         out = pug_template(widget);
@@ -308,13 +304,6 @@ function getWidget(reqPath: string, pathFrags: string) {
     return out;
 }
 
-/**
- *
- * @param {PathLike} directory_path
- * @param {Array<Dirent>} dirent_arr
- *
- * @returns {Array<String>}
- */
 function getFilePathsRecursive(
     directory_path: string,
     dirent_arr: string[] & Dirent[] = []

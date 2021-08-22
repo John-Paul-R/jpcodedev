@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { spellInfo, Spells as spells } from "dnd-api";
 import ApiWrapper from "./foreign-api-cache";
 
@@ -17,7 +18,7 @@ function replaceRange(
  * @param {String} htmlStr
  */
 export async function insertSpellTooltips(htmlStr: string) {
-    const regex = /\{\{spell\:(.+?)\}\}/;
+    const regex = /\{\{spell:(.+?)\}\}/;
     let match = htmlStr.match(regex);
     const tooltips: { [key: string]: string } = {};
     while (match && match.length > 0) {

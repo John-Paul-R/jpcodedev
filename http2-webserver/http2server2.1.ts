@@ -41,6 +41,7 @@ const optionDefinitions = [
         defaultValue: "www.jpcode.dev",
     },
 ];
+
 export type JPServerOptions = {
     key: string;
     cert: string;
