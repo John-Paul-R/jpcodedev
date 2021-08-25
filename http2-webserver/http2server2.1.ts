@@ -42,6 +42,9 @@ const optionDefinitions = [
     },
 ];
 
+// todo Config should be done in external, json file
+//   @body (ex: widgets should be defined in external config file that is then passed via start args to this js program)
+
 export type JPServerOptions = {
     key: string;
     cert: string;
@@ -180,6 +183,14 @@ widgets.init({
     preload_widgets: true,
     lazy_load_allowed: true,
     web_root: "dnd/jay-waterdeep",
+    plugins: ["dnd-api"],
+});
+// Initialize dnd/jp-icewind Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "dnd/jp-icewind/widgets"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "dnd/jp-icewind",
     plugins: ["dnd-api"],
 });
 
