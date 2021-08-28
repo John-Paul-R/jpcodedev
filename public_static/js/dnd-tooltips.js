@@ -2,7 +2,7 @@
 const spells = document.getElementsByClassName("spell");
 
 class DescElem {
-    constructor() {
+    constructor(parentElement) {
         this.root = document.createElement('div');
         this.root.id = "spell-desc-tooltip";
         this.root.classList.add('spell_desc');
@@ -18,7 +18,7 @@ class DescElem {
 
         this.desc = this.root.appendChild(document.createElement('p'));
         this.desc.classList.add('desc');
-        document.body.appendChild(this.root);
+        parentElement.appendChild(this.root);
     }
 
     /**
@@ -40,7 +40,7 @@ class DescElem {
 
 }
 
-const descObj = new DescElem();
+const descObj = new DescElem(document.querySelector(".widget_content.markdown"));
 const descElem = descObj.root;
 for (const spell of spells) {
     const id = spell.getAttribute("data-desc-id");

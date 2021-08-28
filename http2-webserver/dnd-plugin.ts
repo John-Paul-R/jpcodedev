@@ -23,16 +23,19 @@ type Replace = {
 type Replacer = {
     regex: RegExp;
     replace: (match: string) => Promise<Replace>;
+    outVarName: string;
 };
 
 const replacers: Replacer[] = [
     {
         regex: /\{\{spell:(.+?)\}\}/,
         replace: createSpellTooltip,
+        outVarName: "spell_desc_data",
     },
     {
         regex: /\{\{section:(.+?)\}\}/,
         replace: createSectionLink,
+        outVarName: "section_links",
     },
 ];
 
@@ -50,10 +53,10 @@ export async function insertSpellTooltips(htmlStr: string) {
             const matchStr = match[1];
             console.log(matchStr);
             const tooltip = await replacer.replace(matchStr);
-            // if (tooltip.end) {
-            tooltips[tooltip.id] = tooltip.end;
+            if (tooltip.end) {
+                tooltips[tooltip.id] = tooltip.end;
+            }
             rawData[tooltip.id] = tooltip.rawData ?? {};
-            // }
             if (match.index) {
                 htmlStr = replaceRange(
                     htmlStr,
@@ -68,7 +71,7 @@ export async function insertSpellTooltips(htmlStr: string) {
 
         htmlStr +=
             Object.keys(rawData).length > 0
-                ? `<script>var spell_desc_data = ${JSON.stringify(
+                ? `<script>var ${replacer.outVarName} = ${JSON.stringify(
                       rawData
                   )}</script>`
                 : "";
@@ -91,7 +94,7 @@ async function createSpellTooltip(match: string) {
     let out = match;
     const id = match.toLowerCase().trim();
     const data = (await spellsWrapper.get(match)) as spellInfo;
-
+    console.log(data.name);
     let outData = null;
     if (data.name) {
         // console.log(data)
