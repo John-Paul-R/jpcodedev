@@ -17,6 +17,7 @@ type Replace = {
     replace: string;
     end?: string;
     id: string;
+    rawData?: {};
 };
 
 type Replacer = {
@@ -35,9 +36,13 @@ const replacers: Replacer[] = [
     },
 ];
 
+/**
+ * @param htmlStr Page html in string form.
+ */
 export async function insertSpellTooltips(htmlStr: string) {
     const tooltips: { [key: string]: string | undefined } = {};
     for (const replacer of replacers) {
+        const rawData: { [key: string]: {} } = {};
         const regex = replacer.regex;
         let match = htmlStr.match(regex);
 
@@ -46,7 +51,8 @@ export async function insertSpellTooltips(htmlStr: string) {
             console.log(matchStr);
             const tooltip = await replacer.replace(matchStr);
             // if (tooltip.end) {
-            tooltips[tooltip.replace] = tooltip.end;
+            tooltips[tooltip.id] = tooltip.end;
+            rawData[tooltip.id] = tooltip.rawData ?? {};
             // }
             if (match.index) {
                 htmlStr = replaceRange(
@@ -59,6 +65,13 @@ export async function insertSpellTooltips(htmlStr: string) {
 
             match = htmlStr.match(regex);
         }
+
+        htmlStr +=
+            Object.keys(rawData).length > 0
+                ? `<script>var spell_desc_data = ${JSON.stringify(
+                      rawData
+                  )}</script>`
+                : "";
     }
 
     for (const elem of Object.values(tooltips)) {
@@ -83,23 +96,24 @@ async function createSpellTooltip(match: string) {
     if (data.name) {
         // console.log(data)
         // out = `<b class="spell">${match}</b>`
+        const descId = id; // + "-desc";
+
         out = `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${data.name.replace(
             " ",
             "-"
-        )}" class="spell" data-desc-id="${id + "-desc"}">
+        )}" class="spell" data-desc-id="${descId}">
         ${match}</a>`;
-
+        const rawData = {
+            name: data.name,
+            level: data.level,
+            school: data.school.name,
+            casting_time: data.casting_time,
+            desc: data.desc,
+        };
         outData = {
             replace: out,
-            end: `<div id="${id + "-desc"}" class="spell_desc">
-            <b class="name">${data.name}</b>
-            <span class="spell_meta">Level ${data.level} ${
-                data.school.name
-            }</span> 
-            <span class="cast_time">${data.casting_time}</span>
-            <p class="desc">${escapeHtmlArr(data.desc)}</p>
-            </div>`,
             id: id,
+            rawData,
         };
     } else {
         outData = {
