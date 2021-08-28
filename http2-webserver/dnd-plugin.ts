@@ -104,8 +104,7 @@ async function createSpellTooltip(match: string) {
         out = `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${data.name.replace(
             " ",
             "-"
-        )}" class="spell" data-desc-id="${descId}">
-        ${match}</a>`;
+        )}" class="spell" data-desc-id="${descId}">${match}</a>`;
         const rawData = {
             name: data.name,
             level: data.level,
