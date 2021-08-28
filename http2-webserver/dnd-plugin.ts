@@ -13,30 +13,52 @@ function replaceRange(
     return s.substring(0, start) + substitute + s.substring(end);
 }
 
-/**
- *
- * @param {String} htmlStr
- */
+type Replace = {
+    replace: string;
+    end?: string;
+    id: string;
+};
+
+type Replacer = {
+    regex: RegExp;
+    replace: (match: string) => Promise<Replace>;
+};
+
+const replacers: Replacer[] = [
+    {
+        regex: /\{\{spell:(.+?)\}\}/,
+        replace: createSpellTooltip,
+    },
+    {
+        regex: /\{\{section:(.+?)\}\}/,
+        replace: createSectionLink,
+    },
+];
+
 export async function insertSpellTooltips(htmlStr: string) {
-    const regex = /\{\{spell:(.+?)\}\}/;
-    let match = htmlStr.match(regex);
-    const tooltips: { [key: string]: string } = {};
-    while (match && match.length > 0) {
-        const matchStr = match[1];
-        console.log(matchStr);
-        const tooltip = await createSpellTooltip(matchStr);
-        tooltips[tooltip.replace] = tooltip.end;
+    const tooltips: { [key: string]: string | undefined } = {};
+    for (const replacer of replacers) {
+        const regex = replacer.regex;
+        let match = htmlStr.match(regex);
 
-        if (match.index) {
-            htmlStr = replaceRange(
-                htmlStr,
-                match.index,
-                match.index + match[0].length,
-                tooltip.replace
-            );
+        while (match && match.length > 0) {
+            const matchStr = match[1];
+            console.log(matchStr);
+            const tooltip = await replacer.replace(matchStr);
+            // if (tooltip.end) {
+            tooltips[tooltip.replace] = tooltip.end;
+            // }
+            if (match.index) {
+                htmlStr = replaceRange(
+                    htmlStr,
+                    match.index,
+                    match.index + match[0].length,
+                    tooltip.replace
+                );
+            }
+
+            match = htmlStr.match(regex);
         }
-
-        match = htmlStr.match(regex);
     }
 
     for (const elem of Object.values(tooltips)) {
@@ -92,7 +114,13 @@ async function createSpellTooltip(match: string) {
     // <span class="school">${data.school.name}</span>
 }
 
-//TODO make the tooltip go towards the center of the screen
+async function createSectionLink(sectionId: string) {
+    const formatted = sectionId.toLowerCase().trim();
+    return {
+        id: formatted,
+        replace: `<a href="#${formatted.replace(" ", "")}">${sectionId}</a>`,
+    };
+}
 
 function escapeHtmlArr(unsafe: string[]) {
     let out = "";
