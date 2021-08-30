@@ -259,9 +259,10 @@ footer div.shadow {
 .dropdown_sc-content > * {
   font-weight: 600;
   background-color: inherit;
-  padding: 0.25rem;
 }
 .dropdown_sc-content > * * {
+  padding: 0.25rem;
+  align-items: center;
   font-weight: inherit;
 }
 .dropdown_sc-content > *:hover {

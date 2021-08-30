@@ -35,8 +35,10 @@
     & > * {
         font-weight: 600;
         background-color: inherit;
-        padding: 0.25rem;
+        
         & * {
+            padding: 0.25rem;
+            align-items: center;
             font-weight: inherit;
         }
         
