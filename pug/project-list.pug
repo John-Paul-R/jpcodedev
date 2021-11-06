@@ -48,11 +48,10 @@ block body
             .project_item_wrapper
                 if (project.icon)
                     .icon_container
-                        img.project_icon(src=project.icon, alt="#{project.name} icon")
+                        img.project_icon(src=project.icon, alt=`${project.name} icon`)
                 .project_item(id=project.id)
                     .info_container 
-                        a(href=`${project.website || project.github}`, id=`${project.id}-title`) 
-                            h3.project_title #{project.name} 
+                        a(href=`${project.website || project.github}`, id=`${project.id}-title`).project_title #{project.name} 
 
                         p.project_desc !{project.desc} 
                     ul.tags_container 
