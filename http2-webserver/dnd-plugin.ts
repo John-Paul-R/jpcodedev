@@ -93,10 +93,11 @@ export async function insertSpellTooltips(htmlStr: string) {
 async function createSpellTooltip(match: string) {
     let out = match;
     const id = match.toLowerCase().trim();
-    const data = (await spellsWrapper.get(match)) as spellInfo;
-    console.log(data.name);
     let outData = null;
-    if (data.name) {
+
+    try {
+        const data = (await spellsWrapper.get(match)) as spellInfo;
+        console.log(data.name);
         // console.log(data)
         // out = `<b class="spell">${match}</b>`
         const descId = id; // + "-desc";
@@ -117,7 +118,7 @@ async function createSpellTooltip(match: string) {
             id: id,
             rawData,
         };
-    } else {
+    } catch (err) {
         outData = {
             replace: match,
             end: `<div class="spell_desc">${match}</div>`,

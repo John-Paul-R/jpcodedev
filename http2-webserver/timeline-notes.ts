@@ -289,11 +289,7 @@ function getWidget(reqPath: string, pathFrags: string) {
     if (pug_template && widget) {
         // Template and JSON
         out = pug_template(widget);
-    } else if (
-        pug_template &&
-        pathFrags[1] &&
-        _markdown[web_root][pathFrags[1]]
-    ) {
+    } else if (pathFrags[1] && _markdown[web_root][pathFrags[1]]) {
         // Template and Markdown
         out = pug_template({ content: _markdown[web_root][pathFrags[1]] });
     } else if (pathFrags[0] && _markdown[web_root][pathFrags[0]]) {
