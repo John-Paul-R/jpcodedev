@@ -69,7 +69,13 @@ block body
             for project of mini_projects 
                 a.project_card.card(href=project.link)
                         h3 #{project.name}
-                        img.preview(src=project.img, alt="View Project")
+                        if (project.img)
+                            img.preview(src=project.img, alt="View Project")
+                        if (project.id)
+                            div(id=project.id)
+                        if (project.scripts)
+                            each scr in project.scripts
+                                script(src=scr) 
     hr
     a.button.glow(href="https://www.jpcode.dev/certs") View my certifications 
     #dnd
