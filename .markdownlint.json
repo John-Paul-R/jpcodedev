@@ -1,4 +1,7 @@
 {
     "ul-indent": { "start_indented": true},
-    "line-length": false
+    "line-length": {
+        "heading_line_length": 48,
+        "code_block_line_length": 120
+    }    
 }

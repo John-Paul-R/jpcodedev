@@ -1,6 +1,7 @@
 
 node_modules
 *.log
+*.log.*.gz
 (ign)*
 credentials
 *.csr
@@ -13,5 +14,10 @@ public_static/temp
 public/**/widgets/content/*
 public_static/img/*
 public_static/files/*
+public_static/discord-themes/*
+public/debug/*
+public/dnd/grid_aligner/*.jpg
+
+http2-webserver/foreign-api-cache
 
 .ports

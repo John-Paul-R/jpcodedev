@@ -1,13 +1,57 @@
 {
-  "404.html": {
+  "3d": {
+    "_stats.json": {
+    },
+    "index.pug.json": {
+    }
   },
   "LICENSE": {
   },
+  "TODO.txt": {
+  },
   "aliases.json": {
+  },
+  "certs": {
+    "index.pug.json": {
+    }
   },
   "contact.pug": {
   },
   "css": {
+  },
+  "debug": {
+    "hue-rotate": {
+      "d3-color.min.js": {
+      },
+      "index.html": {
+      }
+    },
+    "palettes": {
+      "index.html": {
+      }
+    },
+    "particles": {
+      "particles1": {
+        "browserName.min.js": {
+        },
+        "index.html": {
+        }
+      },
+      "particles2": {
+        "browserName.min.js": {
+        },
+        "demo.html": {
+        },
+        "index.html": {
+        }
+      },
+      "particles3": {
+        "browserName.min.js": {
+        },
+        "index.html": {
+        }
+      }
+    }
   },
   "directory-map.json": {
   },
@@ -43,6 +87,10 @@
         "config.json": {
         },
         "content": {
+          "2021-10-10.json": {
+          },
+          "2021-10-10.md": {
+          },
           "2021-4-11.json": {
           },
           "2021-4-11.md": {
@@ -69,6 +117,50 @@
           },
           "2021-5-24.md": {
           },
+          "2021-6-14.json": {
+          },
+          "2021-6-14.md": {
+          },
+          "2021-6-27.json": {
+          },
+          "2021-6-27.md": {
+          },
+          "2021-6-6.json": {
+          },
+          "2021-6-6.md": {
+          },
+          "2021-7-12.json": {
+          },
+          "2021-7-12.md": {
+          },
+          "2021-7-19.json": {
+          },
+          "2021-7-19.md": {
+          },
+          "2021-8-15.json": {
+          },
+          "2021-8-15.md": {
+          },
+          "2021-8-8.json": {
+          },
+          "2021-8-8.md": {
+          },
+          "2021-9-12.json": {
+          },
+          "2021-9-12.md": {
+          },
+          "2021-9-19.json": {
+          },
+          "2021-9-19.md": {
+          },
+          "2021-9-26.json": {
+          },
+          "2021-9-26.md": {
+          },
+          "2021-9-5.json": {
+          },
+          "2021-9-5.md": {
+          },
           "Skris.json": {
           },
           "Skris.md": {
@@ -77,8 +169,6 @@
           }
         }
       }
-    },
-    "ian-oota.html": {
     },
     "index.pug.json": {
     },
@@ -102,9 +192,53 @@
           "general_notes.json": {
           },
           "general_notes.md": {
+          },
+          "oneshot-2021-6-1.json": {
+          },
+          "oneshot-2021-6-1.md": {
           }
+        }
+      }
+    },
+    "jp-icewind": {
+      "widgets": {
+        "config.json": {
         },
-        "templates": {
+        "content": {
+          "2021-4-27.json": {
+          },
+          "Background_Information.json": {
+          },
+          "Background_Information.md": {
+          },
+          "Introduction.md": {
+          },
+          "Starting_Items.json": {
+          },
+          "Starting_Items.md": {
+          },
+          "starter-info.json": {
+          },
+          "starter-info.md": {
+          }
+        }
+      }
+    },
+    "minecraft": {
+      "fabric_mods": {
+        "asdasindex.pugdas.json": {
+        },
+        "index.pug.json": {
+        },
+        "widgets": {
+          "config.json": {
+          },
+          "content": {
+            "2021-7-19.json": {
+            },
+            "2021-7-19.md": {
+            }
+          }
         }
       }
     },
@@ -113,29 +247,38 @@
       }
     }
   },
+  "essentialcommands": {
+    "latest_version": {
+    },
+    "supported_mc_versions.json": {
+    }
+  },
   "index.html": {
   },
   "index.pug.json": {
-    "headers": {
-      "link": [
-        "<https://static.jpcode.dev/css/core_style.css>; rel=\"preload\"; as=\"style\"",
-        "<https://static.jpcode.dev/css/projects-list.css>; rel=\"preload\"; as=\"style\"",
-        "<https://static.jpcode.dev/js/multi-palette.min.js>; rel=\"preload\"; as=\"script\""
-      ]
-    }
   },
   "js": {
-    "animation_showcase.js": {
-    },
     "list_sort.js": {
     },
     "project_list_generator.js": {
     }
   },
+  "kits": {
+    "supported_mc_versions.json": {
+    }
+  },
+  "minecraft": {
+    "fabric-mods": {
+      "widgets": {
+      }
+    },
+    "fabric_mods": {
+      "index.pug.json": {
+      }
+    }
+  },
   "playground": {
     "basic_animations": {
-      "basic_animations..html": {
-      },
       "basic_animations.html": {
       },
       "js": {
@@ -158,6 +301,28 @@
       }
     }
   },
+  "project_docs": {
+    "widgets": {
+      "config.json": {
+      }
+    }
+  },
+  "robots.txt": {
+  },
+  "serverannounce": {
+    "supported_mc_versions.json": {
+    }
+  },
+  "support": {
+    "index.pug.json": {
+    }
+  },
   "temp_reirei.html": {
+  },
+  "test.html": {
+  },
+  "whisperroulette": {
+    "supported_mc_versions.json": {
+    }
   }
 }

@@ -24,15 +24,15 @@
                 "items": [
                     {
                         "link": "https://www.jpcode.dev/dnd/ian-oota",
-                        "text": "Out of the Abyss Campaign Notes (DM: Ian)"
+                        "text": "Out of the Abyss (Ian)"
                     },
                     {
                         "link": "https://www.jpcode.dev/dnd/jay-waterdeep",
-                        "text": "Waterdeep Campaign Notes (DM: Jay)"
+                        "text": "Waterdeep (Jay)"
                     },
                     {
-                        "link": "dnd/bhs_message_encoder.html",
-                        "text": "[Torich Zeol] BHS Message Encoder"
+                        "link": "https://www.jpcode.dev/dnd/jp-icewind",
+                        "text": "Icewind Dale (JP)"
                     }
                 ]
             },{
@@ -46,6 +46,10 @@
                     {
                         "link": "https://www.jpcode.dev/dnd/grid_aligner",
                         "text": "Battlemap Grid Aligner"
+                    },
+                    {
+                        "link": "dnd/bhs_message_encoder.html",
+                        "text": "[Torich Zeol] BHS Message Encoder"
                     }
                 ]
             },{

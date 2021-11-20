@@ -2,6 +2,11 @@
     "dnd": {
         "campaign_title": "Out of the Abyss",
         "dungeon_master": "Ian",
-        "type": "notes"
+        "type": "notes",
+        "ogPreview": {
+            "title": "Campaign Notes: Out of the Abyss",
+            "image": "https://static.jpcode.dev/img/dnd/ian-oota/webpage_preview.webp",
+            "url": "https://www.jpcode.dev/dnd/ian-oota"
+        }
     }
 }

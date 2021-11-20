@@ -1,8 +1,10 @@
 # Group 1
 User-agent: Googlebot
 Disallow: /nocrawl/
+Disallow: /dnd/jp-icewind/
 
 # Group 2
 User-agent: *
 Allow: /
 Disallow: /nocrawl/
+Disallow: /dnd/jp-icewind/

@@ -1,6 +1,7 @@
 {
     "template": "fabric_list",
     "data": {
+        "title": "My Fabric Mods",
         "webroot": "minecraft/fabric_mods",
         "mods": [
             {

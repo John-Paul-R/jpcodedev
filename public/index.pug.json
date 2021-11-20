@@ -24,7 +24,9 @@
                 "desc": "An online tool for navigating Path of Exile's Atlas of Worlds.",
                 "website": "https://www.poeatlas.net/",
                 "github": "https://github.com/John-Paul-R/PoE-Atlas-Website",
-                "tags": ["Web", "Interactable", "Render 2D"]
+                "tags": ["Web", "Interactable", "Render 2D"],
+                "frontend": "Custom GUI created using PixiJS 2D graphics library.",
+                "backend":"Node.js webserver, routed via HAProxy. Static site content (spritesheets, data files) packaged and updated via Python scripts."
             },{
                 "name": "FiberMC",
                 "id": "fibermc",
@@ -32,7 +34,9 @@
                 "desc": "A searchable and filterable list of all Fabric mods.",
                 "website": "https://www.fibermc.com/",
                 "github": "https://github.com/John-Paul-R/fibermc",
-                "tags": ["Web", "API", "Database"]
+                "tags": ["Web", "API", "Database"],
+                "frontend": "Component-based searchable list generated from API data.",
+                "backend": "Node.js webserver, routed via HAProxy. PostgreSQL database managed & updated by service written in Python."
             },{
                 "name": "Beyond Dark",
                 "id": "beyonddark",

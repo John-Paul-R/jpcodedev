@@ -17,6 +17,8 @@
     "components": {
       "_buttons_and_input.scss": {
       },
+      "_dnd_spell_tooltip.scss": {
+      },
       "_dropdown_self_contained.scss": {
       },
       "_footer.scss": {
@@ -24,8 +26,6 @@
       "_header.scss": {
       },
       "_hover_link.scss": {
-      },
-      "_jp-logo.scss": {
       },
       "_material.scss": {
       },
@@ -85,6 +85,16 @@
   },
   "directory-map.json": {
   },
+  "discord-themes": {
+    "ClearVisionMain.css": {
+    },
+    "ClearVisionNoTransitions.css": {
+    },
+    "fimceaxcdxr01.jpg": {
+    },
+    "fox-bg.jpg": {
+    }
+  },
   "dnd": {
     "ian-oota": {
       "widgets": {
@@ -93,6 +103,19 @@
     "jay-waterdeep": {
       "widgets": {
       }
+    },
+    "jp-icewind": {
+      "widgets": {
+      }
+    }
+  },
+  "fibermc": {
+    "motd.json": {
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    "set_theme_green.js": {
     }
   },
   "files": {
@@ -100,15 +123,13 @@
     },
     "john-paul-r-resume-2020-4.pdf": {
     },
-    "john-paul-r-resume-2021-2-5.pdf": {
-    },
-    "john-paul-r-resume-2021-2-9.pdf": {
-    },
     "john-paul-r-resume-2021-5-23.pdf": {
     },
     "john-paul-r-resume-2021-5-4.pdf": {
     },
     "john-paul-r-resume-2021-5-9.pdf": {
+    },
+    "john-paul-r-resume-2021-6-4.pdf": {
     }
   },
   "fonts": {
@@ -125,10 +146,6 @@
       },
       ".webp": {
       },
-      "Blank World Experiment 1-75q.webp": {
-      },
-      "Blank World Experiment 1-preview.webp": {
-      },
       "Blank World Experiment 1-wm-75q.webp": {
       },
       "Blank World Experiment 1-wm-preview.webp": {
@@ -136,12 +153,6 @@
       "Blank World Experiment 1-wm-thumb.webp": {
       },
       "Blank World Experiment 1-wm.webp": {
-      },
-      "Blank World Experiment 1.webp": {
-      },
-      "BlankWorldWithGrid-75q.webp": {
-      },
-      "BlankWorldWithGrid-preview.webp": {
       },
       "BlankWorldWithGrid-wm-75q.webp": {
       },
@@ -151,12 +162,6 @@
       },
       "BlankWorldWithGrid-wm.webp": {
       },
-      "BlankWorldWithGrid.webp": {
-      },
-      "Blender2.8Experimentation-75q.webp": {
-      },
-      "Blender2.8Experimentation-preview.webp": {
-      },
       "Blender2.8Experimentation-wm-75q.webp": {
       },
       "Blender2.8Experimentation-wm-preview.webp": {
@@ -164,12 +169,6 @@
       "Blender2.8Experimentation-wm-thumb.webp": {
       },
       "Blender2.8Experimentation-wm.webp": {
-      },
-      "Blender2.8Experimentation.webp": {
-      },
-      "Blender2.8Experimentation4k-75q.webp": {
-      },
-      "Blender2.8Experimentation4k-preview.webp": {
       },
       "Blender2.8Experimentation4k-wm-75q.webp": {
       },
@@ -179,15 +178,9 @@
       },
       "Blender2.8Experimentation4k-wm.webp": {
       },
-      "Blender2.8Experimentation4k.webp": {
-      },
       "BlenderHouse1-wm-thumb.webp": {
       },
       "BlenderHouse1-wm.webp": {
-      },
-      "BookshelfLetterJ-75q.webp": {
-      },
-      "BookshelfLetterJ-preview.webp": {
       },
       "BookshelfLetterJ-wm-75q.webp": {
       },
@@ -197,12 +190,6 @@
       },
       "BookshelfLetterJ-wm.webp": {
       },
-      "BookshelfLetterJ.webp": {
-      },
-      "BookshelfParticlesColored-75q.webp": {
-      },
-      "BookshelfParticlesColored-preview.webp": {
-      },
       "BookshelfParticlesColored-wm-75q.webp": {
       },
       "BookshelfParticlesColored-wm-preview.webp": {
@@ -210,12 +197,6 @@
       "BookshelfParticlesColored-wm-thumb.webp": {
       },
       "BookshelfParticlesColored-wm.webp": {
-      },
-      "BookshelfParticlesColored.webp": {
-      },
-      "BookshelfParticlesColoredPagesLessIntersect-75q.webp": {
-      },
-      "BookshelfParticlesColoredPagesLessIntersect-preview.webp": {
       },
       "BookshelfParticlesColoredPagesLessIntersect-wm-75q.webp": {
       },
@@ -225,12 +206,6 @@
       },
       "BookshelfParticlesColoredPagesLessIntersect-wm.webp": {
       },
-      "BookshelfParticlesColoredPagesLessIntersect.webp": {
-      },
-      "BookshelfRoom-75q.webp": {
-      },
-      "BookshelfRoom-preview.webp": {
-      },
       "BookshelfRoom-wm-75q.webp": {
       },
       "BookshelfRoom-wm-preview.webp": {
@@ -238,12 +213,6 @@
       "BookshelfRoom-wm-thumb.webp": {
       },
       "BookshelfRoom-wm.webp": {
-      },
-      "BookshelfRoom.webp": {
-      },
-      "BookshelfRoom1-75q.webp": {
-      },
-      "BookshelfRoom1-preview.webp": {
       },
       "BookshelfRoom1-wm-75q.webp": {
       },
@@ -253,12 +222,6 @@
       },
       "BookshelfRoom1-wm.webp": {
       },
-      "BookshelfRoom1.webp": {
-      },
-      "BookshelfRoom_Table-75q.webp": {
-      },
-      "BookshelfRoom_Table-preview.webp": {
-      },
       "BookshelfRoom_Table-wm-75q.webp": {
       },
       "BookshelfRoom_Table-wm-preview.webp": {
@@ -266,12 +229,6 @@
       "BookshelfRoom_Table-wm-thumb.webp": {
       },
       "BookshelfRoom_Table-wm.webp": {
-      },
-      "BookshelfRoom_Table.webp": {
-      },
-      "BookshelfRoom_Table_BookImprove_Lighting-75q.webp": {
-      },
-      "BookshelfRoom_Table_BookImprove_Lighting-preview.webp": {
       },
       "BookshelfRoom_Table_BookImprove_Lighting-wm-75q.webp": {
       },
@@ -281,12 +238,6 @@
       },
       "BookshelfRoom_Table_BookImprove_Lighting-wm.webp": {
       },
-      "BookshelfRoom_Table_BookImprove_Lighting.webp": {
-      },
-      "BookshelfRoom_Table_BookImprove_LightingHQ-75q.webp": {
-      },
-      "BookshelfRoom_Table_BookImprove_LightingHQ-preview.webp": {
-      },
       "BookshelfRoom_Table_BookImprove_LightingHQ-wm-75q.webp": {
       },
       "BookshelfRoom_Table_BookImprove_LightingHQ-wm-preview.webp": {
@@ -294,12 +245,6 @@
       "BookshelfRoom_Table_BookImprove_LightingHQ-wm-thumb.webp": {
       },
       "BookshelfRoom_Table_BookImprove_LightingHQ-wm.webp": {
-      },
-      "BookshelfRoom_Table_BookImprove_LightingHQ.webp": {
-      },
-      "BrightLight1-75q.webp": {
-      },
-      "BrightLight1-preview.webp": {
       },
       "BrightLight1-wm-75q.webp": {
       },
@@ -309,12 +254,6 @@
       },
       "BrightLight1-wm.webp": {
       },
-      "BrightLight1.webp": {
-      },
-      "BrightLight2-75q.webp": {
-      },
-      "BrightLight2-preview.webp": {
-      },
       "BrightLight2-wm-75q.webp": {
       },
       "BrightLight2-wm-preview.webp": {
@@ -322,12 +261,6 @@
       "BrightLight2-wm-thumb.webp": {
       },
       "BrightLight2-wm.webp": {
-      },
-      "BrightLight2.webp": {
-      },
-      "BrightLight3-75q.webp": {
-      },
-      "BrightLight3-preview.webp": {
       },
       "BrightLight3-wm-75q.webp": {
       },
@@ -337,12 +270,6 @@
       },
       "BrightLight3-wm.webp": {
       },
-      "BrightLight3.webp": {
-      },
-      "BrightLightAlone-75q.webp": {
-      },
-      "BrightLightAlone-preview.webp": {
-      },
       "BrightLightAlone-wm-75q.webp": {
       },
       "BrightLightAlone-wm-preview.webp": {
@@ -350,12 +277,6 @@
       "BrightLightAlone-wm-thumb.webp": {
       },
       "BrightLightAlone-wm.webp": {
-      },
-      "BrightLightAlone.webp": {
-      },
-      "Building1(2) NoShips-75q.webp": {
-      },
-      "Building1(2) NoShips-preview.webp": {
       },
       "Building1(2) NoShips-wm-75q.webp": {
       },
@@ -365,12 +286,6 @@
       },
       "Building1(2) NoShips-wm.webp": {
       },
-      "Building1(2) NoShips.webp": {
-      },
-      "Building1(2)-75q.webp": {
-      },
-      "Building1(2)-preview.webp": {
-      },
       "Building1(2)-wm-75q.webp": {
       },
       "Building1(2)-wm-preview.webp": {
@@ -378,12 +293,6 @@
       "Building1(2)-wm-thumb.webp": {
       },
       "Building1(2)-wm.webp": {
-      },
-      "Building1(2).webp": {
-      },
-      "Building1-75q.webp": {
-      },
-      "Building1-preview.webp": {
       },
       "Building1-wm-75q.webp": {
       },
@@ -393,12 +302,6 @@
       },
       "Building1-wm.webp": {
       },
-      "Building1.webp": {
-      },
-      "CPUIcon-75q.webp": {
-      },
-      "CPUIcon-preview.webp": {
-      },
       "CPUIcon-wm-75q.webp": {
       },
       "CPUIcon-wm-preview.webp": {
@@ -406,12 +309,6 @@
       "CPUIcon-wm-thumb.webp": {
       },
       "CPUIcon-wm.webp": {
-      },
-      "CPUIcon.webp": {
-      },
-      "CRT Screen - Computer CLub(2)-75q.webp": {
-      },
-      "CRT Screen - Computer CLub(2)-preview.webp": {
       },
       "CRT Screen - Computer CLub(2)-wm-75q.webp": {
       },
@@ -421,12 +318,6 @@
       },
       "CRT Screen - Computer CLub(2)-wm.webp": {
       },
-      "CRT Screen - Computer CLub(2).webp": {
-      },
-      "CRT Screen - Computer CLub-75q.webp": {
-      },
-      "CRT Screen - Computer CLub-preview.webp": {
-      },
       "CRT Screen - Computer CLub-wm-75q.webp": {
       },
       "CRT Screen - Computer CLub-wm-preview.webp": {
@@ -434,12 +325,6 @@
       "CRT Screen - Computer CLub-wm-thumb.webp": {
       },
       "CRT Screen - Computer CLub-wm.webp": {
-      },
-      "CRT Screen - Computer CLub.webp": {
-      },
-      "Cabinets1-75q.webp": {
-      },
-      "Cabinets1-preview.webp": {
       },
       "Cabinets1-wm-75q.webp": {
       },
@@ -449,12 +334,6 @@
       },
       "Cabinets1-wm.webp": {
       },
-      "Cabinets1.webp": {
-      },
-      "CabinetsAndRoom-75q.webp": {
-      },
-      "CabinetsAndRoom-preview.webp": {
-      },
       "CabinetsAndRoom-wm-75q.webp": {
       },
       "CabinetsAndRoom-wm-preview.webp": {
@@ -462,12 +341,6 @@
       "CabinetsAndRoom-wm-thumb.webp": {
       },
       "CabinetsAndRoom-wm.webp": {
-      },
-      "CabinetsAndRoom.webp": {
-      },
-      "CardTest1-75q.webp": {
-      },
-      "CardTest1-preview.webp": {
       },
       "CardTest1-wm-75q.webp": {
       },
@@ -477,12 +350,6 @@
       },
       "CardTest1-wm.webp": {
       },
-      "CardTest1.webp": {
-      },
-      "CardTest2-75q.webp": {
-      },
-      "CardTest2-preview.webp": {
-      },
       "CardTest2-wm-75q.webp": {
       },
       "CardTest2-wm-preview.webp": {
@@ -490,12 +357,6 @@
       "CardTest2-wm-thumb.webp": {
       },
       "CardTest2-wm.webp": {
-      },
-      "CardTest2.webp": {
-      },
-      "CircleWtihFlagsLogo1-75q.webp": {
-      },
-      "CircleWtihFlagsLogo1-preview.webp": {
       },
       "CircleWtihFlagsLogo1-wm-75q.webp": {
       },
@@ -505,16 +366,6 @@
       },
       "CircleWtihFlagsLogo1-wm.webp": {
       },
-      "CircleWtihFlagsLogo1.webp": {
-      },
-      "ColorPaletteCardImg-75q.webp": {
-      },
-      "ColorPaletteCardImg-preview.webp": {
-      },
-      "ColorPaletteCardImg-transparent-75q.webp": {
-      },
-      "ColorPaletteCardImg-transparent-preview.webp": {
-      },
       "ColorPaletteCardImg-transparent-wm-75q.webp": {
       },
       "ColorPaletteCardImg-transparent-wm-preview.webp": {
@@ -522,8 +373,6 @@
       "ColorPaletteCardImg-transparent-wm-thumb.webp": {
       },
       "ColorPaletteCardImg-transparent-wm.webp": {
-      },
-      "ColorPaletteCardImg-transparent.webp": {
       },
       "ColorPaletteCardImg-wm-75q.webp": {
       },
@@ -533,12 +382,6 @@
       },
       "ColorPaletteCardImg-wm.webp": {
       },
-      "ColorPaletteCardImg.webp": {
-      },
-      "Computer Club Nametag-75q.webp": {
-      },
-      "Computer Club Nametag-preview.webp": {
-      },
       "Computer Club Nametag-wm-75q.webp": {
       },
       "Computer Club Nametag-wm-preview.webp": {
@@ -546,12 +389,6 @@
       "Computer Club Nametag-wm-thumb.webp": {
       },
       "Computer Club Nametag-wm.webp": {
-      },
-      "Computer Club Nametag.webp": {
-      },
-      "Computer2 Freestyle-75q.webp": {
-      },
-      "Computer2 Freestyle-preview.webp": {
       },
       "Computer2 Freestyle-wm-75q.webp": {
       },
@@ -561,12 +398,6 @@
       },
       "Computer2 Freestyle-wm.webp": {
       },
-      "Computer2 Freestyle.webp": {
-      },
-      "ComputerFreeestyle-75q.webp": {
-      },
-      "ComputerFreeestyle-preview.webp": {
-      },
       "ComputerFreeestyle-wm-75q.webp": {
       },
       "ComputerFreeestyle-wm-preview.webp": {
@@ -574,8 +405,6 @@
       "ComputerFreeestyle-wm-thumb.webp": {
       },
       "ComputerFreeestyle-wm.webp": {
-      },
-      "ComputerFreeestyle.webp": {
       },
       "ContinualFlameCapsule1(img2)-wm-thumb.webp": {
       },
@@ -597,10 +426,6 @@
       },
       "ContinualFlameCapsule2(Cycles)-wm.webp": {
       },
-      "Cool Lookin Particle thing1a-75q.webp": {
-      },
-      "Cool Lookin Particle thing1a-preview.webp": {
-      },
       "Cool Lookin Particle thing1a-wm-75q.webp": {
       },
       "Cool Lookin Particle thing1a-wm-preview.webp": {
@@ -608,12 +433,6 @@
       "Cool Lookin Particle thing1a-wm-thumb.webp": {
       },
       "Cool Lookin Particle thing1a-wm.webp": {
-      },
-      "Cool Lookin Particle thing1a.webp": {
-      },
-      "DefocusExperiment3-75q.webp": {
-      },
-      "DefocusExperiment3-preview.webp": {
       },
       "DefocusExperiment3-wm-75q.webp": {
       },
@@ -623,12 +442,6 @@
       },
       "DefocusExperiment3-wm.webp": {
       },
-      "DefocusExperiment3.webp": {
-      },
-      "DefocusExperiments-75q.webp": {
-      },
-      "DefocusExperiments-preview.webp": {
-      },
       "DefocusExperiments-wm-75q.webp": {
       },
       "DefocusExperiments-wm-preview.webp": {
@@ -636,12 +449,6 @@
       "DefocusExperiments-wm-thumb.webp": {
       },
       "DefocusExperiments-wm.webp": {
-      },
-      "DefocusExperiments.webp": {
-      },
-      "DefocusExperiments2-75q.webp": {
-      },
-      "DefocusExperiments2-preview.webp": {
       },
       "DefocusExperiments2-wm-75q.webp": {
       },
@@ -651,12 +458,6 @@
       },
       "DefocusExperiments2-wm.webp": {
       },
-      "DefocusExperiments2.webp": {
-      },
-      "Desktop Pc TOWER 1-75q.webp": {
-      },
-      "Desktop Pc TOWER 1-preview.webp": {
-      },
       "Desktop Pc TOWER 1-wm-75q.webp": {
       },
       "Desktop Pc TOWER 1-wm-preview.webp": {
@@ -664,12 +465,6 @@
       "Desktop Pc TOWER 1-wm-thumb.webp": {
       },
       "Desktop Pc TOWER 1-wm.webp": {
-      },
-      "Desktop Pc TOWER 1.webp": {
-      },
-      "DesktopPC+Internals-75q.webp": {
-      },
-      "DesktopPC+Internals-preview.webp": {
       },
       "DesktopPC+Internals-wm-75q.webp": {
       },
@@ -679,12 +474,6 @@
       },
       "DesktopPC+Internals-wm.webp": {
       },
-      "DesktopPC+Internals.webp": {
-      },
-      "DeveloperImage1-2-75q.webp": {
-      },
-      "DeveloperImage1-2-preview.webp": {
-      },
       "DeveloperImage1-2-wm-75q.webp": {
       },
       "DeveloperImage1-2-wm-preview.webp": {
@@ -692,12 +481,6 @@
       "DeveloperImage1-2-wm-thumb.webp": {
       },
       "DeveloperImage1-2-wm.webp": {
-      },
-      "DeveloperImage1-2.webp": {
-      },
-      "DeveloperImage1-75q.webp": {
-      },
-      "DeveloperImage1-preview.webp": {
       },
       "DeveloperImage1-wm-75q.webp": {
       },
@@ -707,12 +490,6 @@
       },
       "DeveloperImage1-wm.webp": {
       },
-      "DeveloperImage1.webp": {
-      },
-      "DeveloperImage2-75q.webp": {
-      },
-      "DeveloperImage2-preview.webp": {
-      },
       "DeveloperImage2-wm-75q.webp": {
       },
       "DeveloperImage2-wm-preview.webp": {
@@ -720,12 +497,6 @@
       "DeveloperImage2-wm-thumb.webp": {
       },
       "DeveloperImage2-wm.webp": {
-      },
-      "DeveloperImage2.webp": {
-      },
-      "DeveloperImage3-75q.webp": {
-      },
-      "DeveloperImage3-preview.webp": {
       },
       "DeveloperImage3-wm-75q.webp": {
       },
@@ -735,12 +506,6 @@
       },
       "DeveloperImage3-wm.webp": {
       },
-      "DeveloperImage3.webp": {
-      },
-      "DeveloperImage4-75q.webp": {
-      },
-      "DeveloperImage4-preview.webp": {
-      },
       "DeveloperImage4-wm-75q.webp": {
       },
       "DeveloperImage4-wm-preview.webp": {
@@ -748,12 +513,6 @@
       "DeveloperImage4-wm-thumb.webp": {
       },
       "DeveloperImage4-wm.webp": {
-      },
-      "DeveloperImage4.webp": {
-      },
-      "DeveloperImage5-75q.webp": {
-      },
-      "DeveloperImage5-preview.webp": {
       },
       "DeveloperImage5-wm-75q.webp": {
       },
@@ -763,16 +522,6 @@
       },
       "DeveloperImage5-wm.webp": {
       },
-      "DeveloperImage5.webp": {
-      },
-      "DeveloperImage6-75q.webp": {
-      },
-      "DeveloperImage6-preview.webp": {
-      },
-      "DeveloperImage6-resized-75q.webp": {
-      },
-      "DeveloperImage6-resized-preview.webp": {
-      },
       "DeveloperImage6-resized-wm-75q.webp": {
       },
       "DeveloperImage6-resized-wm-preview.webp": {
@@ -780,8 +529,6 @@
       "DeveloperImage6-resized-wm-thumb.webp": {
       },
       "DeveloperImage6-resized-wm.webp": {
-      },
-      "DeveloperImage6-resized.webp": {
       },
       "DeveloperImage6-wm-75q.webp": {
       },
@@ -791,12 +538,6 @@
       },
       "DeveloperImage6-wm.webp": {
       },
-      "DeveloperImage6.webp": {
-      },
-      "DeveloperImage7-75q.webp": {
-      },
-      "DeveloperImage7-preview.webp": {
-      },
       "DeveloperImage7-wm-75q.webp": {
       },
       "DeveloperImage7-wm-preview.webp": {
@@ -804,12 +545,6 @@
       "DeveloperImage7-wm-thumb.webp": {
       },
       "DeveloperImage7-wm.webp": {
-      },
-      "DeveloperImage7.webp": {
-      },
-      "DeveloperImage8-500x200-75q.webp": {
-      },
-      "DeveloperImage8-500x200-preview.webp": {
       },
       "DeveloperImage8-500x200-wm-75q.webp": {
       },
@@ -819,12 +554,6 @@
       },
       "DeveloperImage8-500x200-wm.webp": {
       },
-      "DeveloperImage8-500x200.webp": {
-      },
-      "DeveloperImage8-75q.webp": {
-      },
-      "DeveloperImage8-preview.webp": {
-      },
       "DeveloperImage8-wm-75q.webp": {
       },
       "DeveloperImage8-wm-preview.webp": {
@@ -832,12 +561,6 @@
       "DeveloperImage8-wm-thumb.webp": {
       },
       "DeveloperImage8-wm.webp": {
-      },
-      "DeveloperImage8.webp": {
-      },
-      "Devimg-75q.webp": {
-      },
-      "Devimg-preview.webp": {
       },
       "Devimg-wm-75q.webp": {
       },
@@ -847,8 +570,6 @@
       },
       "Devimg-wm.webp": {
       },
-      "Devimg.webp": {
-      },
       "DrStrangePortal - System1-wm-thumb.webp": {
       },
       "DrStrangePortal - System1-wm.webp": {
@@ -857,10 +578,6 @@
       },
       "DrStrangePortal2-wm.webp": {
       },
-      "FailedScepter1-75q.webp": {
-      },
-      "FailedScepter1-preview.webp": {
-      },
       "FailedScepter1-wm-75q.webp": {
       },
       "FailedScepter1-wm-preview.webp": {
@@ -868,8 +585,6 @@
       "FailedScepter1-wm-thumb.webp": {
       },
       "FailedScepter1-wm.webp": {
-      },
-      "FailedScepter1.webp": {
       },
       "FieldGraphOffCenterPersp-wm-thumb.webp": {
       },
@@ -883,10 +598,6 @@
       },
       "FieldGraphOnCenterPersp-wm.webp": {
       },
-      "Flipphone-Unfinished-75q.webp": {
-      },
-      "Flipphone-Unfinished-preview.webp": {
-      },
       "Flipphone-Unfinished-wm-75q.webp": {
       },
       "Flipphone-Unfinished-wm-preview.webp": {
@@ -894,12 +605,6 @@
       "Flipphone-Unfinished-wm-thumb.webp": {
       },
       "Flipphone-Unfinished-wm.webp": {
-      },
-      "Flipphone-Unfinished.webp": {
-      },
-      "Gemstone1-75q.webp": {
-      },
-      "Gemstone1-preview.webp": {
       },
       "Gemstone1-wm-75q.webp": {
       },
@@ -909,12 +614,6 @@
       },
       "Gemstone1-wm.webp": {
       },
-      "Gemstone1.webp": {
-      },
-      "Gemstone2-75q.webp": {
-      },
-      "Gemstone2-preview.webp": {
-      },
       "Gemstone2-wm-75q.webp": {
       },
       "Gemstone2-wm-preview.webp": {
@@ -922,12 +621,6 @@
       "Gemstone2-wm-thumb.webp": {
       },
       "Gemstone2-wm.webp": {
-      },
-      "Gemstone2.webp": {
-      },
-      "Gemstone3-75q.webp": {
-      },
-      "Gemstone3-preview.webp": {
       },
       "Gemstone3-wm-75q.webp": {
       },
@@ -937,12 +630,6 @@
       },
       "Gemstone3-wm.webp": {
       },
-      "Gemstone3.webp": {
-      },
-      "Gemstone4-75q.webp": {
-      },
-      "Gemstone4-preview.webp": {
-      },
       "Gemstone4-wm-75q.webp": {
       },
       "Gemstone4-wm-preview.webp": {
@@ -950,12 +637,6 @@
       "Gemstone4-wm-thumb.webp": {
       },
       "Gemstone4-wm.webp": {
-      },
-      "Gemstone4.webp": {
-      },
-      "Gemstone5-75q.webp": {
-      },
-      "Gemstone5-preview.webp": {
       },
       "Gemstone5-wm-75q.webp": {
       },
@@ -965,12 +646,6 @@
       },
       "Gemstone5-wm.webp": {
       },
-      "Gemstone5.webp": {
-      },
-      "Gemstone6-75q.webp": {
-      },
-      "Gemstone6-preview.webp": {
-      },
       "Gemstone6-wm-75q.webp": {
       },
       "Gemstone6-wm-preview.webp": {
@@ -978,12 +653,6 @@
       "Gemstone6-wm-thumb.webp": {
       },
       "Gemstone6-wm.webp": {
-      },
-      "Gemstone6.webp": {
-      },
-      "GeometricArt1-75q.webp": {
-      },
-      "GeometricArt1-preview.webp": {
       },
       "GeometricArt1-wm-75q.webp": {
       },
@@ -993,12 +662,6 @@
       },
       "GeometricArt1-wm.webp": {
       },
-      "GeometricArt1.webp": {
-      },
-      "GeometricArt2-75q.webp": {
-      },
-      "GeometricArt2-preview.webp": {
-      },
       "GeometricArt2-wm-75q.webp": {
       },
       "GeometricArt2-wm-preview.webp": {
@@ -1006,12 +669,6 @@
       "GeometricArt2-wm-thumb.webp": {
       },
       "GeometricArt2-wm.webp": {
-      },
-      "GeometricArt2.webp": {
-      },
-      "GeometricArt3-75q.webp": {
-      },
-      "GeometricArt3-preview.webp": {
       },
       "GeometricArt3-wm-75q.webp": {
       },
@@ -1021,12 +678,6 @@
       },
       "GeometricArt3-wm.webp": {
       },
-      "GeometricArt3.webp": {
-      },
-      "GeometricArt4-75q.webp": {
-      },
-      "GeometricArt4-preview.webp": {
-      },
       "GeometricArt4-wm-75q.webp": {
       },
       "GeometricArt4-wm-preview.webp": {
@@ -1034,12 +685,6 @@
       "GeometricArt4-wm-thumb.webp": {
       },
       "GeometricArt4-wm.webp": {
-      },
-      "GeometricArt4.webp": {
-      },
-      "GoodShoe-75q.webp": {
-      },
-      "GoodShoe-preview.webp": {
       },
       "GoodShoe-wm-75q.webp": {
       },
@@ -1049,12 +694,6 @@
       },
       "GoodShoe-wm.webp": {
       },
-      "GoodShoe.webp": {
-      },
-      "Green-WhiteParticles1-75q.webp": {
-      },
-      "Green-WhiteParticles1-preview.webp": {
-      },
       "Green-WhiteParticles1-wm-75q.webp": {
       },
       "Green-WhiteParticles1-wm-preview.webp": {
@@ -1062,12 +701,6 @@
       "Green-WhiteParticles1-wm-thumb.webp": {
       },
       "Green-WhiteParticles1-wm.webp": {
-      },
-      "Green-WhiteParticles1.webp": {
-      },
-      "Green-WhiteParticles2-75q.webp": {
-      },
-      "Green-WhiteParticles2-preview.webp": {
       },
       "Green-WhiteParticles2-wm-75q.webp": {
       },
@@ -1077,12 +710,6 @@
       },
       "Green-WhiteParticles2-wm.webp": {
       },
-      "Green-WhiteParticles2.webp": {
-      },
-      "HackJA - Different colors-75q.webp": {
-      },
-      "HackJA - Different colors-preview.webp": {
-      },
       "HackJA - Different colors-wm-75q.webp": {
       },
       "HackJA - Different colors-wm-preview.webp": {
@@ -1090,12 +717,6 @@
       "HackJA - Different colors-wm-thumb.webp": {
       },
       "HackJA - Different colors-wm.webp": {
-      },
-      "HackJA - Different colors.webp": {
-      },
-      "HackJA - Info PopUp Template(layer4)-75q.webp": {
-      },
-      "HackJA - Info PopUp Template(layer4)-preview.webp": {
       },
       "HackJA - Info PopUp Template(layer4)-wm-75q.webp": {
       },
@@ -1105,12 +726,6 @@
       },
       "HackJA - Info PopUp Template(layer4)-wm.webp": {
       },
-      "HackJA - Info PopUp Template(layer4).webp": {
-      },
-      "HackJA - NewApproach(OrangeRight)(wideGrey)-75q.webp": {
-      },
-      "HackJA - NewApproach(OrangeRight)(wideGrey)-preview.webp": {
-      },
       "HackJA - NewApproach(OrangeRight)(wideGrey)-wm-75q.webp": {
       },
       "HackJA - NewApproach(OrangeRight)(wideGrey)-wm-preview.webp": {
@@ -1118,12 +733,6 @@
       "HackJA - NewApproach(OrangeRight)(wideGrey)-wm-thumb.webp": {
       },
       "HackJA - NewApproach(OrangeRight)(wideGrey)-wm.webp": {
-      },
-      "HackJA - NewApproach(OrangeRight)(wideGrey).webp": {
-      },
-      "HackJA - NewApproach(OrangeRight)-75q.webp": {
-      },
-      "HackJA - NewApproach(OrangeRight)-preview.webp": {
       },
       "HackJA - NewApproach(OrangeRight)-wm-75q.webp": {
       },
@@ -1133,12 +742,6 @@
       },
       "HackJA - NewApproach(OrangeRight)-wm.webp": {
       },
-      "HackJA - NewApproach(OrangeRight).webp": {
-      },
-      "HackJA - NewApproach-75q.webp": {
-      },
-      "HackJA - NewApproach-preview.webp": {
-      },
       "HackJA - NewApproach-wm-75q.webp": {
       },
       "HackJA - NewApproach-wm-preview.webp": {
@@ -1146,12 +749,6 @@
       "HackJA - NewApproach-wm-thumb.webp": {
       },
       "HackJA - NewApproach-wm.webp": {
-      },
-      "HackJA - NewApproach.webp": {
-      },
-      "HackJA1(2)-75q.webp": {
-      },
-      "HackJA1(2)-preview.webp": {
       },
       "HackJA1(2)-wm-75q.webp": {
       },
@@ -1161,12 +758,6 @@
       },
       "HackJA1(2)-wm.webp": {
       },
-      "HackJA1(2).webp": {
-      },
-      "HackJA1-75q.webp": {
-      },
-      "HackJA1-preview.webp": {
-      },
       "HackJA1-wm-75q.webp": {
       },
       "HackJA1-wm-preview.webp": {
@@ -1174,12 +765,6 @@
       "HackJA1-wm-thumb.webp": {
       },
       "HackJA1-wm.webp": {
-      },
-      "HackJA1.webp": {
-      },
-      "HackJA2-75q.webp": {
-      },
-      "HackJA2-preview.webp": {
       },
       "HackJA2-wm-75q.webp": {
       },
@@ -1189,12 +774,6 @@
       },
       "HackJA2-wm.webp": {
       },
-      "HackJA2.webp": {
-      },
-      "HackJA3png-75q.webp": {
-      },
-      "HackJA3png-preview.webp": {
-      },
       "HackJA3png-wm-75q.webp": {
       },
       "HackJA3png-wm-preview.webp": {
@@ -1202,12 +781,6 @@
       "HackJA3png-wm-thumb.webp": {
       },
       "HackJA3png-wm.webp": {
-      },
-      "HackJA3png.webp": {
-      },
-      "HackJA_Monitor1-75q.webp": {
-      },
-      "HackJA_Monitor1-preview.webp": {
       },
       "HackJA_Monitor1-wm-75q.webp": {
       },
@@ -1217,12 +790,6 @@
       },
       "HackJA_Monitor1-wm.webp": {
       },
-      "HackJA_Monitor1.webp": {
-      },
-      "HackJA_Monitor2-75q.webp": {
-      },
-      "HackJA_Monitor2-preview.webp": {
-      },
       "HackJA_Monitor2-wm-75q.webp": {
       },
       "HackJA_Monitor2-wm-preview.webp": {
@@ -1231,12 +798,6 @@
       },
       "HackJA_Monitor2-wm.webp": {
       },
-      "HackJA_Monitor2.webp": {
-      },
-      "HexHouse(1)-75q.webp": {
-      },
-      "HexHouse(1)-preview.webp": {
-      },
       "HexHouse(1)-wm-75q.webp": {
       },
       "HexHouse(1)-wm-preview.webp": {
@@ -1244,8 +805,6 @@
       "HexHouse(1)-wm-thumb.webp": {
       },
       "HexHouse(1)-wm.webp": {
-      },
-      "HexHouse(1).webp": {
       },
       "HiggsGraphOffCenter-wm-thumb.webp": {
       },
@@ -1263,10 +822,6 @@
       },
       "HiggsGraphOnCenterPerspective-wm.webp": {
       },
-      "HoloDeskCenterView-Backlight-75q.webp": {
-      },
-      "HoloDeskCenterView-Backlight-preview.webp": {
-      },
       "HoloDeskCenterView-Backlight-wm-75q.webp": {
       },
       "HoloDeskCenterView-Backlight-wm-preview.webp": {
@@ -1274,12 +829,6 @@
       "HoloDeskCenterView-Backlight-wm-thumb.webp": {
       },
       "HoloDeskCenterView-Backlight-wm.webp": {
-      },
-      "HoloDeskCenterView-Backlight.webp": {
-      },
-      "HoloDeskWoodFloor-1000Sample-75q.webp": {
-      },
-      "HoloDeskWoodFloor-1000Sample-preview.webp": {
       },
       "HoloDeskWoodFloor-1000Sample-wm-75q.webp": {
       },
@@ -1289,12 +838,6 @@
       },
       "HoloDeskWoodFloor-1000Sample-wm.webp": {
       },
-      "HoloDeskWoodFloor-1000Sample.webp": {
-      },
-      "HoloDeskWoodFloor-Backlight-75q.webp": {
-      },
-      "HoloDeskWoodFloor-Backlight-preview.webp": {
-      },
       "HoloDeskWoodFloor-Backlight-wm-75q.webp": {
       },
       "HoloDeskWoodFloor-Backlight-wm-preview.webp": {
@@ -1303,12 +846,6 @@
       },
       "HoloDeskWoodFloor-Backlight-wm.webp": {
       },
-      "HoloDeskWoodFloor-Backlight.webp": {
-      },
-      "Holotable1-75q.webp": {
-      },
-      "Holotable1-preview.webp": {
-      },
       "Holotable1-wm-75q.webp": {
       },
       "Holotable1-wm-preview.webp": {
@@ -1316,8 +853,6 @@
       "Holotable1-wm-thumb.webp": {
       },
       "Holotable1-wm.webp": {
-      },
-      "Holotable1.webp": {
       },
       "House-Final-Colortexture-School_work2-wm-thumb.webp": {
       },
@@ -1347,10 +882,6 @@
       },
       "JP-Blender-two-wm.webp": {
       },
-      "JP_Logo_UP_inspired-75q.webp": {
-      },
-      "JP_Logo_UP_inspired-preview.webp": {
-      },
       "JP_Logo_UP_inspired-wm-75q.webp": {
       },
       "JP_Logo_UP_inspired-wm-preview.webp": {
@@ -1358,12 +889,6 @@
       "JP_Logo_UP_inspired-wm-thumb.webp": {
       },
       "JP_Logo_UP_inspired-wm.webp": {
-      },
-      "JP_Logo_UP_inspired.webp": {
-      },
-      "JP_Logo_UP_inspired_centered-75q.webp": {
-      },
-      "JP_Logo_UP_inspired_centered-preview.webp": {
       },
       "JP_Logo_UP_inspired_centered-wm-75q.webp": {
       },
@@ -1373,12 +898,6 @@
       },
       "JP_Logo_UP_inspired_centered-wm.webp": {
       },
-      "JP_Logo_UP_inspired_centered.webp": {
-      },
-      "JP_Logo_UP_inspired_largehole-75q.webp": {
-      },
-      "JP_Logo_UP_inspired_largehole-preview.webp": {
-      },
       "JP_Logo_UP_inspired_largehole-wm-75q.webp": {
       },
       "JP_Logo_UP_inspired_largehole-wm-preview.webp": {
@@ -1386,12 +905,6 @@
       "JP_Logo_UP_inspired_largehole-wm-thumb.webp": {
       },
       "JP_Logo_UP_inspired_largehole-wm.webp": {
-      },
-      "JP_Logo_UP_inspired_largehole.webp": {
-      },
-      "JP_Logo_UP_inspired_letters_colored-75q.webp": {
-      },
-      "JP_Logo_UP_inspired_letters_colored-preview.webp": {
       },
       "JP_Logo_UP_inspired_letters_colored-wm-75q.webp": {
       },
@@ -1401,12 +914,6 @@
       },
       "JP_Logo_UP_inspired_letters_colored-wm.webp": {
       },
-      "JP_Logo_UP_inspired_letters_colored.webp": {
-      },
-      "JP_Logo_UP_inspired_zoomed-75q.webp": {
-      },
-      "JP_Logo_UP_inspired_zoomed-preview.webp": {
-      },
       "JP_Logo_UP_inspired_zoomed-wm-75q.webp": {
       },
       "JP_Logo_UP_inspired_zoomed-wm-preview.webp": {
@@ -1414,12 +921,6 @@
       "JP_Logo_UP_inspired_zoomed-wm-thumb.webp": {
       },
       "JP_Logo_UP_inspired_zoomed-wm.webp": {
-      },
-      "JP_Logo_UP_inspired_zoomed.webp": {
-      },
-      "JP_Logo_UP_inspired_zoomed_freestyle-75q.webp": {
-      },
-      "JP_Logo_UP_inspired_zoomed_freestyle-preview.webp": {
       },
       "JP_Logo_UP_inspired_zoomed_freestyle-wm-75q.webp": {
       },
@@ -1429,12 +930,6 @@
       },
       "JP_Logo_UP_inspired_zoomed_freestyle-wm.webp": {
       },
-      "JP_Logo_UP_inspired_zoomed_freestyle.webp": {
-      },
-      "JustWantedToTrySomethingNew-75q.webp": {
-      },
-      "JustWantedToTrySomethingNew-preview.webp": {
-      },
       "JustWantedToTrySomethingNew-wm-75q.webp": {
       },
       "JustWantedToTrySomethingNew-wm-preview.webp": {
@@ -1442,12 +937,6 @@
       "JustWantedToTrySomethingNew-wm-thumb.webp": {
       },
       "JustWantedToTrySomethingNew-wm.webp": {
-      },
-      "JustWantedToTrySomethingNew.webp": {
-      },
-      "KitchenIsland - Gimp Edit-75q.webp": {
-      },
-      "KitchenIsland - Gimp Edit-preview.webp": {
       },
       "KitchenIsland - Gimp Edit-wm-75q.webp": {
       },
@@ -1457,12 +946,6 @@
       },
       "KitchenIsland - Gimp Edit-wm.webp": {
       },
-      "KitchenIsland - Gimp Edit.webp": {
-      },
-      "KitchenIsland - Gimp Edit1.5-75q.webp": {
-      },
-      "KitchenIsland - Gimp Edit1.5-preview.webp": {
-      },
       "KitchenIsland - Gimp Edit1.5-wm-75q.webp": {
       },
       "KitchenIsland - Gimp Edit1.5-wm-preview.webp": {
@@ -1470,12 +953,6 @@
       "KitchenIsland - Gimp Edit1.5-wm-thumb.webp": {
       },
       "KitchenIsland - Gimp Edit1.5-wm.webp": {
-      },
-      "KitchenIsland - Gimp Edit1.5.webp": {
-      },
-      "KitchenIsland-75q.webp": {
-      },
-      "KitchenIsland-preview.webp": {
       },
       "KitchenIsland-wm-75q.webp": {
       },
@@ -1485,12 +962,6 @@
       },
       "KitchenIsland-wm.webp": {
       },
-      "KitchenIsland.webp": {
-      },
-      "KyloRenSaber-75q.webp": {
-      },
-      "KyloRenSaber-preview.webp": {
-      },
       "KyloRenSaber-wm-75q.webp": {
       },
       "KyloRenSaber-wm-preview.webp": {
@@ -1498,12 +969,6 @@
       "KyloRenSaber-wm-thumb.webp": {
       },
       "KyloRenSaber-wm.webp": {
-      },
-      "KyloRenSaber.webp": {
-      },
-      "LaserDisk-75q.webp": {
-      },
-      "LaserDisk-preview.webp": {
       },
       "LaserDisk-wm-75q.webp": {
       },
@@ -1513,12 +978,6 @@
       },
       "LaserDisk-wm.webp": {
       },
-      "LaserDisk.webp": {
-      },
-      "LavaBall-75q.webp": {
-      },
-      "LavaBall-preview.webp": {
-      },
       "LavaBall-wm-75q.webp": {
       },
       "LavaBall-wm-preview.webp": {
@@ -1526,12 +985,6 @@
       "LavaBall-wm-thumb.webp": {
       },
       "LavaBall-wm.webp": {
-      },
-      "LavaBall.webp": {
-      },
-      "LightBeams1(GimpEditOne)-75q.webp": {
-      },
-      "LightBeams1(GimpEditOne)-preview.webp": {
       },
       "LightBeams1(GimpEditOne)-wm-75q.webp": {
       },
@@ -1541,12 +994,6 @@
       },
       "LightBeams1(GimpEditOne)-wm.webp": {
       },
-      "LightBeams1(GimpEditOne).webp": {
-      },
-      "LightBeams1-75q.webp": {
-      },
-      "LightBeams1-preview.webp": {
-      },
       "LightBeams1-wm-75q.webp": {
       },
       "LightBeams1-wm-preview.webp": {
@@ -1554,18 +1001,6 @@
       "LightBeams1-wm-thumb.webp": {
       },
       "LightBeams1-wm.webp": {
-      },
-      "LightBeams1.webp": {
-      },
-      "MCA-75q.webp": {
-      },
-      "MCA-Color-top-75q.webp": {
-      },
-      "MCA-Color-top-preview.webp": {
-      },
-      "MCA-Color-top-roof1-75q.webp": {
-      },
-      "MCA-Color-top-roof1-preview.webp": {
       },
       "MCA-Color-top-roof1-wm-75q.webp": {
       },
@@ -1575,12 +1010,6 @@
       },
       "MCA-Color-top-roof1-wm.webp": {
       },
-      "MCA-Color-top-roof1.webp": {
-      },
-      "MCA-Color-top-roof2-75q.webp": {
-      },
-      "MCA-Color-top-roof2-preview.webp": {
-      },
       "MCA-Color-top-roof2-wm-75q.webp": {
       },
       "MCA-Color-top-roof2-wm-preview.webp": {
@@ -1588,8 +1017,6 @@
       "MCA-Color-top-roof2-wm-thumb.webp": {
       },
       "MCA-Color-top-roof2-wm.webp": {
-      },
-      "MCA-Color-top-roof2.webp": {
       },
       "MCA-Color-top-wm-75q.webp": {
       },
@@ -1599,10 +1026,6 @@
       },
       "MCA-Color-top-wm.webp": {
       },
-      "MCA-Color-top.webp": {
-      },
-      "MCA-preview.webp": {
-      },
       "MCA-wm-75q.webp": {
       },
       "MCA-wm-preview.webp": {
@@ -1610,12 +1033,6 @@
       "MCA-wm-thumb.webp": {
       },
       "MCA-wm.webp": {
-      },
-      "MCA.webp": {
-      },
-      "MONKEY-75q.webp": {
-      },
-      "MONKEY-preview.webp": {
       },
       "MONKEY-wm-75q.webp": {
       },
@@ -1625,12 +1042,6 @@
       },
       "MONKEY-wm.webp": {
       },
-      "MONKEY.webp": {
-      },
-      "MicroEconomics Social Media Page01-75q.webp": {
-      },
-      "MicroEconomics Social Media Page01-preview.webp": {
-      },
       "MicroEconomics Social Media Page01-wm-75q.webp": {
       },
       "MicroEconomics Social Media Page01-wm-preview.webp": {
@@ -1638,12 +1049,6 @@
       "MicroEconomics Social Media Page01-wm-thumb.webp": {
       },
       "MicroEconomics Social Media Page01-wm.webp": {
-      },
-      "MicroEconomics Social Media Page01.webp": {
-      },
-      "MicroEconomics Social Media Page02-75q.webp": {
-      },
-      "MicroEconomics Social Media Page02-preview.webp": {
       },
       "MicroEconomics Social Media Page02-wm-75q.webp": {
       },
@@ -1653,12 +1058,6 @@
       },
       "MicroEconomics Social Media Page02-wm.webp": {
       },
-      "MicroEconomics Social Media Page02.webp": {
-      },
-      "MicroEconomics Social Media Page03-75q.webp": {
-      },
-      "MicroEconomics Social Media Page03-preview.webp": {
-      },
       "MicroEconomics Social Media Page03-wm-75q.webp": {
       },
       "MicroEconomics Social Media Page03-wm-preview.webp": {
@@ -1666,12 +1065,6 @@
       "MicroEconomics Social Media Page03-wm-thumb.webp": {
       },
       "MicroEconomics Social Media Page03-wm.webp": {
-      },
-      "MicroEconomics Social Media Page03.webp": {
-      },
-      "MicroEconomics Social Media Page04-75q.webp": {
-      },
-      "MicroEconomics Social Media Page04-preview.webp": {
       },
       "MicroEconomics Social Media Page04-wm-75q.webp": {
       },
@@ -1681,12 +1074,6 @@
       },
       "MicroEconomics Social Media Page04-wm.webp": {
       },
-      "MicroEconomics Social Media Page04.webp": {
-      },
-      "MicroEconomics Social Media Page05-75q.webp": {
-      },
-      "MicroEconomics Social Media Page05-preview.webp": {
-      },
       "MicroEconomics Social Media Page05-wm-75q.webp": {
       },
       "MicroEconomics Social Media Page05-wm-preview.webp": {
@@ -1694,12 +1081,6 @@
       "MicroEconomics Social Media Page05-wm-thumb.webp": {
       },
       "MicroEconomics Social Media Page05-wm.webp": {
-      },
-      "MicroEconomics Social Media Page05.webp": {
-      },
-      "MicroEconomics Social Media Page06-75q.webp": {
-      },
-      "MicroEconomics Social Media Page06-preview.webp": {
       },
       "MicroEconomics Social Media Page06-wm-75q.webp": {
       },
@@ -1709,12 +1090,6 @@
       },
       "MicroEconomics Social Media Page06-wm.webp": {
       },
-      "MicroEconomics Social Media Page06.webp": {
-      },
-      "Mug-75q.webp": {
-      },
-      "Mug-preview.webp": {
-      },
       "Mug-wm-75q.webp": {
       },
       "Mug-wm-preview.webp": {
@@ -1722,12 +1097,6 @@
       "Mug-wm-thumb.webp": {
       },
       "Mug-wm.webp": {
-      },
-      "Mug.webp": {
-      },
-      "MyRoom-ColorAndChari(0.3)(Imported Monitors & Keyboard)-75q.webp": {
-      },
-      "MyRoom-ColorAndChari(0.3)(Imported Monitors & Keyboard)-preview.webp": {
       },
       "MyRoom-ColorAndChari(0.3)(Imported Monitors & Keyboard)-wm-75q.webp": {
       },
@@ -1737,12 +1106,6 @@
       },
       "MyRoom-ColorAndChari(0.3)(Imported Monitors & Keyboard)-wm.webp": {
       },
-      "MyRoom-ColorAndChari(0.3)(Imported Monitors & Keyboard).webp": {
-      },
-      "MyRoomAccurate1-75q.webp": {
-      },
-      "MyRoomAccurate1-preview.webp": {
-      },
       "MyRoomAccurate1-wm-75q.webp": {
       },
       "MyRoomAccurate1-wm-preview.webp": {
@@ -1750,12 +1113,6 @@
       "MyRoomAccurate1-wm-thumb.webp": {
       },
       "MyRoomAccurate1-wm.webp": {
-      },
-      "MyRoomAccurate1.webp": {
-      },
-      "MyRoomColor1-75q.webp": {
-      },
-      "MyRoomColor1-preview.webp": {
       },
       "MyRoomColor1-wm-75q.webp": {
       },
@@ -1765,12 +1122,6 @@
       },
       "MyRoomColor1-wm.webp": {
       },
-      "MyRoomColor1.webp": {
-      },
-      "MyRoomColor2-75q.webp": {
-      },
-      "MyRoomColor2-preview.webp": {
-      },
       "MyRoomColor2-wm-75q.webp": {
       },
       "MyRoomColor2-wm-preview.webp": {
@@ -1778,12 +1129,6 @@
       "MyRoomColor2-wm-thumb.webp": {
       },
       "MyRoomColor2-wm.webp": {
-      },
-      "MyRoomColor2.webp": {
-      },
-      "MyRoomColor3-75q.webp": {
-      },
-      "MyRoomColor3-preview.webp": {
       },
       "MyRoomColor3-wm-75q.webp": {
       },
@@ -1793,12 +1138,6 @@
       },
       "MyRoomColor3-wm.webp": {
       },
-      "MyRoomColor3.webp": {
-      },
-      "MyRoomColor4(concept)-75q.webp": {
-      },
-      "MyRoomColor4(concept)-preview.webp": {
-      },
       "MyRoomColor4(concept)-wm-75q.webp": {
       },
       "MyRoomColor4(concept)-wm-preview.webp": {
@@ -1806,12 +1145,6 @@
       "MyRoomColor4(concept)-wm-thumb.webp": {
       },
       "MyRoomColor4(concept)-wm.webp": {
-      },
-      "MyRoomColor4(concept).webp": {
-      },
-      "MyRoomColor4-75q.webp": {
-      },
-      "MyRoomColor4-preview.webp": {
       },
       "MyRoomColor4-wm-75q.webp": {
       },
@@ -1821,12 +1154,6 @@
       },
       "MyRoomColor4-wm.webp": {
       },
-      "MyRoomColor4.webp": {
-      },
-      "MyRoomColor4HDR-75q.webp": {
-      },
-      "MyRoomColor4HDR-preview.webp": {
-      },
       "MyRoomColor4HDR-wm-75q.webp": {
       },
       "MyRoomColor4HDR-wm-preview.webp": {
@@ -1834,12 +1161,6 @@
       "MyRoomColor4HDR-wm-thumb.webp": {
       },
       "MyRoomColor4HDR-wm.webp": {
-      },
-      "MyRoomColor4HDR.webp": {
-      },
-      "NowTheresAnIdea.....-75q.webp": {
-      },
-      "NowTheresAnIdea.....-preview.webp": {
       },
       "NowTheresAnIdea.....-wm-75q.webp": {
       },
@@ -1849,119 +1170,61 @@
       },
       "NowTheresAnIdea.....-wm.webp": {
       },
-      "NowTheresAnIdea......webp": {
-      },
-      "Orb-1024p4096s-DENOISE(3-B2.90)-thumb.webp": {
-      },
       "Orb-1024p4096s-DENOISE(3-B2.90)-wm-thumb.webp": {
       },
       "Orb-1024p4096s-DENOISE(3-B2.90)-wm.webp": {
-      },
-      "Orb-1024p4096s-DENOISE(3-B2.90).webp": {
-      },
-      "Orb-1024p4096s-DENOISE-thumb.webp": {
       },
       "Orb-1024p4096s-DENOISE-wm-thumb.webp": {
       },
       "Orb-1024p4096s-DENOISE-wm.webp": {
       },
-      "Orb-1024p4096s-DENOISE.webp": {
-      },
-      "Orb-1024p4096s-NO_DENOISE-thumb.webp": {
-      },
       "Orb-1024p4096s-NO_DENOISE-wm-thumb.webp": {
       },
       "Orb-1024p4096s-NO_DENOISE-wm.webp": {
-      },
-      "Orb-1024p4096s-NO_DENOISE.webp": {
-      },
-      "Orb-1024p512s-DENOISE-thumb.webp": {
       },
       "Orb-1024p512s-DENOISE-wm-thumb.webp": {
       },
       "Orb-1024p512s-DENOISE-wm.webp": {
       },
-      "Orb-1024p512s-DENOISE.webp": {
-      },
-      "Orb-4096p1024s-DENOISE(4-B2.90)-thumb.webp": {
-      },
       "Orb-4096p1024s-DENOISE(4-B2.90)-wm-thumb.webp": {
       },
       "Orb-4096p1024s-DENOISE(4-B2.90)-wm.webp": {
-      },
-      "Orb-4096p1024s-DENOISE(4-B2.90).webp": {
-      },
-      "Orb1-thumb.webp": {
       },
       "Orb1-wm-thumb.webp": {
       },
       "Orb1-wm.webp": {
       },
-      "Orb1.webp": {
-      },
-      "Orb2-thumb.webp": {
-      },
       "Orb2-wm-thumb.webp": {
       },
       "Orb2-wm.webp": {
-      },
-      "Orb2.webp": {
-      },
-      "Orb3-thumb.webp": {
       },
       "Orb3-wm-thumb.webp": {
       },
       "Orb3-wm.webp": {
       },
-      "Orb3.webp": {
-      },
-      "Orb4-thumb.webp": {
-      },
       "Orb4-wm-thumb.webp": {
       },
       "Orb4-wm.webp": {
-      },
-      "Orb4.webp": {
-      },
-      "Orb5-thumb.webp": {
       },
       "Orb5-wm-thumb.webp": {
       },
       "Orb5-wm.webp": {
       },
-      "Orb5.webp": {
-      },
-      "Orb6-thumb.webp": {
-      },
       "Orb6-wm-thumb.webp": {
       },
       "Orb6-wm.webp": {
-      },
-      "Orb6.webp": {
-      },
-      "Orb7-thumb.webp": {
       },
       "Orb7-wm-thumb.webp": {
       },
       "Orb7-wm.webp": {
       },
-      "Orb7.webp": {
-      },
-      "Orb8-thumb.webp": {
-      },
       "Orb8-wm-thumb.webp": {
       },
       "Orb8-wm.webp": {
       },
-      "Orb8.webp": {
-      },
-      "Orb9(HQ)-thumb.webp": {
-      },
       "Orb9(HQ)-wm-thumb.webp": {
       },
       "Orb9(HQ)-wm.webp": {
-      },
-      "Orb9(HQ).webp": {
       },
       "OrbTest-Scroll+Orb+Flame-2048p1024s-wm-thumb.webp": {
       },
@@ -1973,6 +1236,8 @@
       },
       "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-wm-thumb.webp": {
       },
+      "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-wm.jpg": {
+      },
       "OrbText-Vials+Scroll+Orb+Flame-4k2160p2048s(v1.1)-wm.webp": {
       },
       "OrbText-Vials+Scroll+Orb+Flame-4k2160p512s(v1.1)-wm-thumb.webp": {
@@ -1983,10 +1248,6 @@
       },
       "OrbText-Vials+Scroll+Orb+Flame-4k2160p512s-wm.webp": {
       },
-      "Plane - inProgress - 1-75q.webp": {
-      },
-      "Plane - inProgress - 1-preview.webp": {
-      },
       "Plane - inProgress - 1-wm-75q.webp": {
       },
       "Plane - inProgress - 1-wm-preview.webp": {
@@ -1994,12 +1255,6 @@
       "Plane - inProgress - 1-wm-thumb.webp": {
       },
       "Plane - inProgress - 1-wm.webp": {
-      },
-      "Plane - inProgress - 1.webp": {
-      },
-      "RGB SquareInCircle-75q.webp": {
-      },
-      "RGB SquareInCircle-preview.webp": {
       },
       "RGB SquareInCircle-wm-75q.webp": {
       },
@@ -2009,12 +1264,6 @@
       },
       "RGB SquareInCircle-wm.webp": {
       },
-      "RGB SquareInCircle.webp": {
-      },
-      "RGB SquareInCircle2-75q.webp": {
-      },
-      "RGB SquareInCircle2-preview.webp": {
-      },
       "RGB SquareInCircle2-wm-75q.webp": {
       },
       "RGB SquareInCircle2-wm-preview.webp": {
@@ -2022,12 +1271,6 @@
       "RGB SquareInCircle2-wm-thumb.webp": {
       },
       "RGB SquareInCircle2-wm.webp": {
-      },
-      "RGB SquareInCircle2.webp": {
-      },
-      "RIG V2-75q.webp": {
-      },
-      "RIG V2-preview.webp": {
       },
       "RIG V2-wm-75q.webp": {
       },
@@ -2037,10 +1280,6 @@
       },
       "RIG V2-wm.webp": {
       },
-      "RIG V2.1-75q.webp": {
-      },
-      "RIG V2.1-preview.webp": {
-      },
       "RIG V2.1-wm-75q.webp": {
       },
       "RIG V2.1-wm-preview.webp": {
@@ -2048,12 +1287,6 @@
       "RIG V2.1-wm-thumb.webp": {
       },
       "RIG V2.1-wm.webp": {
-      },
-      "RIG V2.1.webp": {
-      },
-      "RIG V2.2-75q.webp": {
-      },
-      "RIG V2.2-preview.webp": {
       },
       "RIG V2.2-wm-75q.webp": {
       },
@@ -2063,10 +1296,6 @@
       },
       "RIG V2.2-wm.webp": {
       },
-      "RIG V2.2.1-75q.webp": {
-      },
-      "RIG V2.2.1-preview.webp": {
-      },
       "RIG V2.2.1-wm-75q.webp": {
       },
       "RIG V2.2.1-wm-preview.webp": {
@@ -2074,16 +1303,6 @@
       "RIG V2.2.1-wm-thumb.webp": {
       },
       "RIG V2.2.1-wm.webp": {
-      },
-      "RIG V2.2.1.webp": {
-      },
-      "RIG V2.2.webp": {
-      },
-      "RIG V2.webp": {
-      },
-      "Room1-HighResImage-75q.webp": {
-      },
-      "Room1-HighResImage-preview.webp": {
       },
       "Room1-HighResImage-wm-75q.webp": {
       },
@@ -2093,12 +1312,6 @@
       },
       "Room1-HighResImage-wm.webp": {
       },
-      "Room1-HighResImage.webp": {
-      },
-      "RoomRender2-75q.webp": {
-      },
-      "RoomRender2-preview.webp": {
-      },
       "RoomRender2-wm-75q.webp": {
       },
       "RoomRender2-wm-preview.webp": {
@@ -2106,12 +1319,6 @@
       "RoomRender2-wm-thumb.webp": {
       },
       "RoomRender2-wm.webp": {
-      },
-      "RoomRender2.webp": {
-      },
-      "SSM1 - meh xD-75q.webp": {
-      },
-      "SSM1 - meh xD-preview.webp": {
       },
       "SSM1 - meh xD-wm-75q.webp": {
       },
@@ -2121,12 +1328,6 @@
       },
       "SSM1 - meh xD-wm.webp": {
       },
-      "SSM1 - meh xD.webp": {
-      },
-      "SSM1-75q.webp": {
-      },
-      "SSM1-preview.webp": {
-      },
       "SSM1-wm-75q.webp": {
       },
       "SSM1-wm-preview.webp": {
@@ -2134,12 +1335,6 @@
       "SSM1-wm-thumb.webp": {
       },
       "SSM1-wm.webp": {
-      },
-      "SSM1.webp": {
-      },
-      "SSM2-75q.webp": {
-      },
-      "SSM2-preview.webp": {
       },
       "SSM2-wm-75q.webp": {
       },
@@ -2149,12 +1344,6 @@
       },
       "SSM2-wm.webp": {
       },
-      "SSM2.webp": {
-      },
-      "SSM3-75q.webp": {
-      },
-      "SSM3-preview.webp": {
-      },
       "SSM3-wm-75q.webp": {
       },
       "SSM3-wm-preview.webp": {
@@ -2162,12 +1351,6 @@
       "SSM3-wm-thumb.webp": {
       },
       "SSM3-wm.webp": {
-      },
-      "SSM3.webp": {
-      },
-      "SSMRandom-75q.webp": {
-      },
-      "SSMRandom-preview.webp": {
       },
       "SSMRandom-wm-75q.webp": {
       },
@@ -2177,12 +1360,6 @@
       },
       "SSMRandom-wm.webp": {
       },
-      "SSMRandom.webp": {
-      },
-      "ShedRenovation1-75q.webp": {
-      },
-      "ShedRenovation1-preview.webp": {
-      },
       "ShedRenovation1-wm-75q.webp": {
       },
       "ShedRenovation1-wm-preview.webp": {
@@ -2190,12 +1367,6 @@
       "ShedRenovation1-wm-thumb.webp": {
       },
       "ShedRenovation1-wm.webp": {
-      },
-      "ShedRenovation1.webp": {
-      },
-      "ShedRenovation1referencetable-75q.webp": {
-      },
-      "ShedRenovation1referencetable-preview.webp": {
       },
       "ShedRenovation1referencetable-wm-75q.webp": {
       },
@@ -2205,12 +1376,6 @@
       },
       "ShedRenovation1referencetable-wm.webp": {
       },
-      "ShedRenovation1referencetable.webp": {
-      },
-      "SpaceShuttle - Unfinished-75q.webp": {
-      },
-      "SpaceShuttle - Unfinished-preview.webp": {
-      },
       "SpaceShuttle - Unfinished-wm-75q.webp": {
       },
       "SpaceShuttle - Unfinished-wm-preview.webp": {
@@ -2218,12 +1383,6 @@
       "SpaceShuttle - Unfinished-wm-thumb.webp": {
       },
       "SpaceShuttle - Unfinished-wm.webp": {
-      },
-      "SpaceShuttle - Unfinished.webp": {
-      },
-      "SparkParticles-75q.webp": {
-      },
-      "SparkParticles-preview.webp": {
       },
       "SparkParticles-wm-75q.webp": {
       },
@@ -2233,8 +1392,6 @@
       },
       "SparkParticles-wm.webp": {
       },
-      "SparkParticles.webp": {
-      },
       "StandardModel1-wm-thumb.webp": {
       },
       "StandardModel1-wm.webp": {
@@ -2242,10 +1399,6 @@
       "StandardModel2-wm-thumb.webp": {
       },
       "StandardModel2-wm.webp": {
-      },
-      "Startups Club Bright-75q.webp": {
-      },
-      "Startups Club Bright-preview.webp": {
       },
       "Startups Club Bright-wm-75q.webp": {
       },
@@ -2255,12 +1408,6 @@
       },
       "Startups Club Bright-wm.webp": {
       },
-      "Startups Club Bright.webp": {
-      },
-      "Startups PPT logo-75q.webp": {
-      },
-      "Startups PPT logo-preview.webp": {
-      },
       "Startups PPT logo-wm-75q.webp": {
       },
       "Startups PPT logo-wm-preview.webp": {
@@ -2268,12 +1415,6 @@
       "Startups PPT logo-wm-thumb.webp": {
       },
       "Startups PPT logo-wm.webp": {
-      },
-      "Startups PPT logo.webp": {
-      },
-      "StartupsClub1(med)-75q.webp": {
-      },
-      "StartupsClub1(med)-preview.webp": {
       },
       "StartupsClub1(med)-wm-75q.webp": {
       },
@@ -2283,12 +1424,6 @@
       },
       "StartupsClub1(med)-wm.webp": {
       },
-      "StartupsClub1(med).webp": {
-      },
-      "StartupsClub1(small)-75q.webp": {
-      },
-      "StartupsClub1(small)-preview.webp": {
-      },
       "StartupsClub1(small)-wm-75q.webp": {
       },
       "StartupsClub1(small)-wm-preview.webp": {
@@ -2296,12 +1431,6 @@
       "StartupsClub1(small)-wm-thumb.webp": {
       },
       "StartupsClub1(small)-wm.webp": {
-      },
-      "StartupsClub1(small).webp": {
-      },
-      "StartupsClub1-75q.webp": {
-      },
-      "StartupsClub1-preview.webp": {
       },
       "StartupsClub1-wm-75q.webp": {
       },
@@ -2311,12 +1440,6 @@
       },
       "StartupsClub1-wm.webp": {
       },
-      "StartupsClub1.webp": {
-      },
-      "StartupsClubBackgroundBG-NewLighting-75q.webp": {
-      },
-      "StartupsClubBackgroundBG-NewLighting-preview.webp": {
-      },
       "StartupsClubBackgroundBG-NewLighting-wm-75q.webp": {
       },
       "StartupsClubBackgroundBG-NewLighting-wm-preview.webp": {
@@ -2324,12 +1447,6 @@
       "StartupsClubBackgroundBG-NewLighting-wm-thumb.webp": {
       },
       "StartupsClubBackgroundBG-NewLighting-wm.webp": {
-      },
-      "StartupsClubBackgroundBG-NewLighting.webp": {
-      },
-      "StartupsClubBlackBG-75q.webp": {
-      },
-      "StartupsClubBlackBG-preview.webp": {
       },
       "StartupsClubBlackBG-wm-75q.webp": {
       },
@@ -2339,12 +1456,6 @@
       },
       "StartupsClubBlackBG-wm.webp": {
       },
-      "StartupsClubBlackBG.webp": {
-      },
-      "StartupsClubDiffuseRandomBG-75q.webp": {
-      },
-      "StartupsClubDiffuseRandomBG-preview.webp": {
-      },
       "StartupsClubDiffuseRandomBG-wm-75q.webp": {
       },
       "StartupsClubDiffuseRandomBG-wm-preview.webp": {
@@ -2352,12 +1463,6 @@
       "StartupsClubDiffuseRandomBG-wm-thumb.webp": {
       },
       "StartupsClubDiffuseRandomBG-wm.webp": {
-      },
-      "StartupsClubDiffuseRandomBG.webp": {
-      },
-      "StartupsClubNoBorder1-75q.webp": {
-      },
-      "StartupsClubNoBorder1-preview.webp": {
       },
       "StartupsClubNoBorder1-wm-75q.webp": {
       },
@@ -2367,12 +1472,6 @@
       },
       "StartupsClubNoBorder1-wm.webp": {
       },
-      "StartupsClubNoBorder1.webp": {
-      },
-      "StartupsClubNoBorderRoundedLight1-75q.webp": {
-      },
-      "StartupsClubNoBorderRoundedLight1-preview.webp": {
-      },
       "StartupsClubNoBorderRoundedLight1-wm-75q.webp": {
       },
       "StartupsClubNoBorderRoundedLight1-wm-preview.webp": {
@@ -2380,12 +1479,6 @@
       "StartupsClubNoBorderRoundedLight1-wm-thumb.webp": {
       },
       "StartupsClubNoBorderRoundedLight1-wm.webp": {
-      },
-      "StartupsClubNoBorderRoundedLight1.webp": {
-      },
-      "StartupsClubRandom1-75q.webp": {
-      },
-      "StartupsClubRandom1-preview.webp": {
       },
       "StartupsClubRandom1-wm-75q.webp": {
       },
@@ -2395,12 +1488,6 @@
       },
       "StartupsClubRandom1-wm.webp": {
       },
-      "StartupsClubRandom1.webp": {
-      },
-      "StartupsClubRandom2-75q.webp": {
-      },
-      "StartupsClubRandom2-preview.webp": {
-      },
       "StartupsClubRandom2-wm-75q.webp": {
       },
       "StartupsClubRandom2-wm-preview.webp": {
@@ -2408,12 +1495,6 @@
       "StartupsClubRandom2-wm-thumb.webp": {
       },
       "StartupsClubRandom2-wm.webp": {
-      },
-      "StartupsClubRandom2.webp": {
-      },
-      "StartupsClubRandomBlack1-75q.webp": {
-      },
-      "StartupsClubRandomBlack1-preview.webp": {
       },
       "StartupsClubRandomBlack1-wm-75q.webp": {
       },
@@ -2423,12 +1504,6 @@
       },
       "StartupsClubRandomBlack1-wm.webp": {
       },
-      "StartupsClubRandomBlack1.webp": {
-      },
-      "StartupsClubRandomBlack2-75q.webp": {
-      },
-      "StartupsClubRandomBlack2-preview.webp": {
-      },
       "StartupsClubRandomBlack2-wm-75q.webp": {
       },
       "StartupsClubRandomBlack2-wm-preview.webp": {
@@ -2436,12 +1511,6 @@
       "StartupsClubRandomBlack2-wm-thumb.webp": {
       },
       "StartupsClubRandomBlack2-wm.webp": {
-      },
-      "StartupsClubRandomBlack2.webp": {
-      },
-      "StartupsClubRandomBlack3-75q.webp": {
-      },
-      "StartupsClubRandomBlack3-preview.webp": {
       },
       "StartupsClubRandomBlack3-wm-75q.webp": {
       },
@@ -2451,12 +1520,6 @@
       },
       "StartupsClubRandomBlack3-wm.webp": {
       },
-      "StartupsClubRandomBlack3.webp": {
-      },
-      "StartupsClubRandomBlack4-lighter yellow-75q.webp": {
-      },
-      "StartupsClubRandomBlack4-lighter yellow-preview.webp": {
-      },
       "StartupsClubRandomBlack4-lighter yellow-wm-75q.webp": {
       },
       "StartupsClubRandomBlack4-lighter yellow-wm-preview.webp": {
@@ -2464,12 +1527,6 @@
       "StartupsClubRandomBlack4-lighter yellow-wm-thumb.webp": {
       },
       "StartupsClubRandomBlack4-lighter yellow-wm.webp": {
-      },
-      "StartupsClubRandomBlack4-lighter yellow.webp": {
-      },
-      "StartupsClubvelvetBG-75q.webp": {
-      },
-      "StartupsClubvelvetBG-preview.webp": {
       },
       "StartupsClubvelvetBG-wm-75q.webp": {
       },
@@ -2479,12 +1536,6 @@
       },
       "StartupsClubvelvetBG-wm.webp": {
       },
-      "StartupsClubvelvetBG.webp": {
-      },
-      "Sword2 - 4k - Smooth Hilt-75q.webp": {
-      },
-      "Sword2 - 4k - Smooth Hilt-preview.webp": {
-      },
       "Sword2 - 4k - Smooth Hilt-wm-75q.webp": {
       },
       "Sword2 - 4k - Smooth Hilt-wm-preview.webp": {
@@ -2492,12 +1543,6 @@
       "Sword2 - 4k - Smooth Hilt-wm-thumb.webp": {
       },
       "Sword2 - 4k - Smooth Hilt-wm.webp": {
-      },
-      "Sword2 - 4k - Smooth Hilt.webp": {
-      },
-      "Sword2 - 4k-75q.webp": {
-      },
-      "Sword2 - 4k-preview.webp": {
       },
       "Sword2 - 4k-wm-75q.webp": {
       },
@@ -2507,12 +1552,6 @@
       },
       "Sword2 - 4k-wm.webp": {
       },
-      "Sword2 - 4k.webp": {
-      },
-      "Sword2-75q.webp": {
-      },
-      "Sword2-preview.webp": {
-      },
       "Sword2-wm-75q.webp": {
       },
       "Sword2-wm-preview.webp": {
@@ -2521,15 +1560,9 @@
       },
       "Sword2-wm.webp": {
       },
-      "Sword2.webp": {
-      },
       "Tesseract-rounded-wm-thumb.webp": {
       },
       "Tesseract-rounded-wm.webp": {
-      },
-      "UM Logo no back shadow-75q.webp": {
-      },
-      "UM Logo no back shadow-preview.webp": {
       },
       "UM Logo no back shadow-wm-75q.webp": {
       },
@@ -2539,12 +1572,6 @@
       },
       "UM Logo no back shadow-wm.webp": {
       },
-      "UM Logo no back shadow.webp": {
-      },
-      "UMLogo1(bright)-75q.webp": {
-      },
-      "UMLogo1(bright)-preview.webp": {
-      },
       "UMLogo1(bright)-wm-75q.webp": {
       },
       "UMLogo1(bright)-wm-preview.webp": {
@@ -2552,12 +1579,6 @@
       "UMLogo1(bright)-wm-thumb.webp": {
       },
       "UMLogo1(bright)-wm.webp": {
-      },
-      "UMLogo1(bright).webp": {
-      },
-      "UMLogo1-75q.webp": {
-      },
-      "UMLogo1-preview.webp": {
       },
       "UMLogo1-wm-75q.webp": {
       },
@@ -2567,12 +1588,6 @@
       },
       "UMLogo1-wm.webp": {
       },
-      "UMLogo1.webp": {
-      },
-      "UniversalMedical - Facebook Banner-75q.webp": {
-      },
-      "UniversalMedical - Facebook Banner-preview.webp": {
-      },
       "UniversalMedical - Facebook Banner-wm-75q.webp": {
       },
       "UniversalMedical - Facebook Banner-wm-preview.webp": {
@@ -2580,12 +1595,6 @@
       "UniversalMedical - Facebook Banner-wm-thumb.webp": {
       },
       "UniversalMedical - Facebook Banner-wm.webp": {
-      },
-      "UniversalMedical - Facebook Banner.webp": {
-      },
-      "UniversalMedical Flier1 v0.1(redText)-75q.webp": {
-      },
-      "UniversalMedical Flier1 v0.1(redText)-preview.webp": {
       },
       "UniversalMedical Flier1 v0.1(redText)-wm-75q.webp": {
       },
@@ -2595,12 +1604,6 @@
       },
       "UniversalMedical Flier1 v0.1(redText)-wm.webp": {
       },
-      "UniversalMedical Flier1 v0.1(redText).webp": {
-      },
-      "UniversalMedical Flier1 v0.1-75q.webp": {
-      },
-      "UniversalMedical Flier1 v0.1-preview.webp": {
-      },
       "UniversalMedical Flier1 v0.1-wm-75q.webp": {
       },
       "UniversalMedical Flier1 v0.1-wm-preview.webp": {
@@ -2608,12 +1611,6 @@
       "UniversalMedical Flier1 v0.1-wm-thumb.webp": {
       },
       "UniversalMedical Flier1 v0.1-wm.webp": {
-      },
-      "UniversalMedical Flier1 v0.1.webp": {
-      },
-      "UniversalMedical Flier2 v1.0-75q.webp": {
-      },
-      "UniversalMedical Flier2 v1.0-preview.webp": {
       },
       "UniversalMedical Flier2 v1.0-wm-75q.webp": {
       },
@@ -2623,12 +1620,6 @@
       },
       "UniversalMedical Flier2 v1.0-wm.webp": {
       },
-      "UniversalMedical Flier2 v1.0.webp": {
-      },
-      "Variable Height Desk Ideas1-75q.webp": {
-      },
-      "Variable Height Desk Ideas1-preview.webp": {
-      },
       "Variable Height Desk Ideas1-wm-75q.webp": {
       },
       "Variable Height Desk Ideas1-wm-preview.webp": {
@@ -2636,14 +1627,6 @@
       "Variable Height Desk Ideas1-wm-thumb.webp": {
       },
       "Variable Height Desk Ideas1-wm.webp": {
-      },
-      "Variable Height Desk Ideas1.webp": {
-      },
-      "WarHammer-75q.webp": {
-      },
-      "WarHammer-Gems-75q.webp": {
-      },
-      "WarHammer-Gems-preview.webp": {
       },
       "WarHammer-Gems-wm-75q.webp": {
       },
@@ -2653,12 +1636,6 @@
       },
       "WarHammer-Gems-wm.webp": {
       },
-      "WarHammer-Gems.webp": {
-      },
-      "WarHammer-HighRes-75q.webp": {
-      },
-      "WarHammer-HighRes-preview.webp": {
-      },
       "WarHammer-HighRes-wm-75q.webp": {
       },
       "WarHammer-HighRes-wm-preview.webp": {
@@ -2666,10 +1643,6 @@
       "WarHammer-HighRes-wm-thumb.webp": {
       },
       "WarHammer-HighRes-wm.webp": {
-      },
-      "WarHammer-HighRes.webp": {
-      },
-      "WarHammer-preview.webp": {
       },
       "WarHammer-wm-75q.webp": {
       },
@@ -2679,15 +1652,9 @@
       },
       "WarHammer-wm.webp": {
       },
-      "WarHammer.webp": {
-      },
       "Watersim1-wm-thumb.webp": {
       },
       "Watersim1-wm.webp": {
-      },
-      "Website Design 1 (Ortho)-75q.webp": {
-      },
-      "Website Design 1 (Ortho)-preview.webp": {
       },
       "Website Design 1 (Ortho)-wm-75q.webp": {
       },
@@ -2697,12 +1664,6 @@
       },
       "Website Design 1 (Ortho)-wm.webp": {
       },
-      "Website Design 1 (Ortho).webp": {
-      },
-      "Website Design 1 (Rounded) (Ortho)-75q.webp": {
-      },
-      "Website Design 1 (Rounded) (Ortho)-preview.webp": {
-      },
       "Website Design 1 (Rounded) (Ortho)-wm-75q.webp": {
       },
       "Website Design 1 (Rounded) (Ortho)-wm-preview.webp": {
@@ -2710,12 +1671,6 @@
       "Website Design 1 (Rounded) (Ortho)-wm-thumb.webp": {
       },
       "Website Design 1 (Rounded) (Ortho)-wm.webp": {
-      },
-      "Website Design 1 (Rounded) (Ortho).webp": {
-      },
-      "Website Design 1 (Rounded) (Same Z all) (Ortho)-75q.webp": {
-      },
-      "Website Design 1 (Rounded) (Same Z all) (Ortho)-preview.webp": {
       },
       "Website Design 1 (Rounded) (Same Z all) (Ortho)-wm-75q.webp": {
       },
@@ -2725,12 +1680,6 @@
       },
       "Website Design 1 (Rounded) (Same Z all) (Ortho)-wm.webp": {
       },
-      "Website Design 1 (Rounded) (Same Z all) (Ortho).webp": {
-      },
-      "Website Design 1 (Rounded)-75q.webp": {
-      },
-      "Website Design 1 (Rounded)-preview.webp": {
-      },
       "Website Design 1 (Rounded)-wm-75q.webp": {
       },
       "Website Design 1 (Rounded)-wm-preview.webp": {
@@ -2738,12 +1687,6 @@
       "Website Design 1 (Rounded)-wm-thumb.webp": {
       },
       "Website Design 1 (Rounded)-wm.webp": {
-      },
-      "Website Design 1 (Rounded).webp": {
-      },
-      "Website Design 1-75q.webp": {
-      },
-      "Website Design 1-preview.webp": {
       },
       "Website Design 1-wm-75q.webp": {
       },
@@ -2753,12 +1696,6 @@
       },
       "Website Design 1-wm.webp": {
       },
-      "Website Design 1.webp": {
-      },
-      "WeirdBowl - Messing with stuff-75q.webp": {
-      },
-      "WeirdBowl - Messing with stuff-preview.webp": {
-      },
       "WeirdBowl - Messing with stuff-wm-75q.webp": {
       },
       "WeirdBowl - Messing with stuff-wm-preview.webp": {
@@ -2766,12 +1703,6 @@
       "WeirdBowl - Messing with stuff-wm-thumb.webp": {
       },
       "WeirdBowl - Messing with stuff-wm.webp": {
-      },
-      "WeirdBowl - Messing with stuff.webp": {
-      },
-      "WeirdBowl-75q.webp": {
-      },
-      "WeirdBowl-preview.webp": {
       },
       "WeirdBowl-wm-75q.webp": {
       },
@@ -2781,13 +1712,7 @@
       },
       "WeirdBowl-wm.webp": {
       },
-      "WeirdBowl.webp": {
-      },
       "_stats.json": {
-      },
-      "airBaloon1-1-75q.webp": {
-      },
-      "airBaloon1-1-preview.webp": {
       },
       "airBaloon1-1-wm-75q.webp": {
       },
@@ -2797,12 +1722,6 @@
       },
       "airBaloon1-1-wm.webp": {
       },
-      "airBaloon1-1.webp": {
-      },
-      "airBaloon1-75q.webp": {
-      },
-      "airBaloon1-preview.webp": {
-      },
       "airBaloon1-wm-75q.webp": {
       },
       "airBaloon1-wm-preview.webp": {
@@ -2810,12 +1729,6 @@
       "airBaloon1-wm-thumb.webp": {
       },
       "airBaloon1-wm.webp": {
-      },
-      "airBaloon1.webp": {
-      },
-      "airBaloon2-75q.webp": {
-      },
-      "airBaloon2-preview.webp": {
       },
       "airBaloon2-wm-75q.webp": {
       },
@@ -2825,12 +1738,6 @@
       },
       "airBaloon2-wm.webp": {
       },
-      "airBaloon2.webp": {
-      },
-      "basictank1-75q.webp": {
-      },
-      "basictank1-preview.webp": {
-      },
       "basictank1-wm-75q.webp": {
       },
       "basictank1-wm-preview.webp": {
@@ -2838,12 +1745,6 @@
       "basictank1-wm-thumb.webp": {
       },
       "basictank1-wm.webp": {
-      },
-      "basictank1.webp": {
-      },
-      "basictank2-75q.webp": {
-      },
-      "basictank2-preview.webp": {
       },
       "basictank2-wm-75q.webp": {
       },
@@ -2853,12 +1754,6 @@
       },
       "basictank2-wm.webp": {
       },
-      "basictank2.webp": {
-      },
-      "cardTest-75q.webp": {
-      },
-      "cardTest-preview.webp": {
-      },
       "cardTest-wm-75q.webp": {
       },
       "cardTest-wm-preview.webp": {
@@ -2867,15 +1762,9 @@
       },
       "cardTest-wm.webp": {
       },
-      "cardTest.webp": {
-      },
       "colorful inverted square thing-wm-thumb.webp": {
       },
       "colorful inverted square thing-wm.webp": {
-      },
-      "elixium1-75q.webp": {
-      },
-      "elixium1-preview.webp": {
       },
       "elixium1-wm-75q.webp": {
       },
@@ -2885,12 +1774,6 @@
       },
       "elixium1-wm.webp": {
       },
-      "elixium1.webp": {
-      },
-      "floatCrystal-75q.webp": {
-      },
-      "floatCrystal-preview.webp": {
-      },
       "floatCrystal-wm-75q.webp": {
       },
       "floatCrystal-wm-preview.webp": {
@@ -2898,12 +1781,6 @@
       "floatCrystal-wm-thumb.webp": {
       },
       "floatCrystal-wm.webp": {
-      },
-      "floatCrystal.webp": {
-      },
-      "floatCrystal0-75q.webp": {
-      },
-      "floatCrystal0-preview.webp": {
       },
       "floatCrystal0-wm-75q.webp": {
       },
@@ -2913,12 +1790,6 @@
       },
       "floatCrystal0-wm.webp": {
       },
-      "floatCrystal0.webp": {
-      },
-      "floatCrystal1-75q.webp": {
-      },
-      "floatCrystal1-preview.webp": {
-      },
       "floatCrystal1-wm-75q.webp": {
       },
       "floatCrystal1-wm-preview.webp": {
@@ -2926,12 +1797,6 @@
       "floatCrystal1-wm-thumb.webp": {
       },
       "floatCrystal1-wm.webp": {
-      },
-      "floatCrystal1.webp": {
-      },
-      "haloEnergySword(2d)-75q.webp": {
-      },
-      "haloEnergySword(2d)-preview.webp": {
       },
       "haloEnergySword(2d)-wm-75q.webp": {
       },
@@ -2941,12 +1806,6 @@
       },
       "haloEnergySword(2d)-wm.webp": {
       },
-      "haloEnergySword(2d).webp": {
-      },
-      "hammerRandom-75q.webp": {
-      },
-      "hammerRandom-preview.webp": {
-      },
       "hammerRandom-wm-75q.webp": {
       },
       "hammerRandom-wm-preview.webp": {
@@ -2954,12 +1813,6 @@
       "hammerRandom-wm-thumb.webp": {
       },
       "hammerRandom-wm.webp": {
-      },
-      "hammerRandom.webp": {
-      },
-      "holoDesk-75q.webp": {
-      },
-      "holoDesk-preview.webp": {
       },
       "holoDesk-wm-75q.webp": {
       },
@@ -2969,10 +1822,6 @@
       },
       "holoDesk-wm.webp": {
       },
-      "holoDesk-woodFloor-75q.webp": {
-      },
-      "holoDesk-woodFloor-preview.webp": {
-      },
       "holoDesk-woodFloor-wm-75q.webp": {
       },
       "holoDesk-woodFloor-wm-preview.webp": {
@@ -2980,14 +1829,6 @@
       "holoDesk-woodFloor-wm-thumb.webp": {
       },
       "holoDesk-woodFloor-wm.webp": {
-      },
-      "holoDesk-woodFloor.webp": {
-      },
-      "holoDesk.webp": {
-      },
-      "iPartyMC - 1-75q.webp": {
-      },
-      "iPartyMC - 1-preview.webp": {
       },
       "iPartyMC - 1-wm-75q.webp": {
       },
@@ -2997,12 +1838,6 @@
       },
       "iPartyMC - 1-wm.webp": {
       },
-      "iPartyMC - 1.webp": {
-      },
-      "icoSphere - Glass-75q.webp": {
-      },
-      "icoSphere - Glass-preview.webp": {
-      },
       "icoSphere - Glass-wm-75q.webp": {
       },
       "icoSphere - Glass-wm-preview.webp": {
@@ -3010,12 +1845,6 @@
       "icoSphere - Glass-wm-thumb.webp": {
       },
       "icoSphere - Glass-wm.webp": {
-      },
-      "icoSphere - Glass.webp": {
-      },
-      "icoSphere-v2-1-75q.webp": {
-      },
-      "icoSphere-v2-1-preview.webp": {
       },
       "icoSphere-v2-1-wm-75q.webp": {
       },
@@ -3025,12 +1854,6 @@
       },
       "icoSphere-v2-1-wm.webp": {
       },
-      "icoSphere-v2-1.webp": {
-      },
-      "icoSphere-v2-2-75q.webp": {
-      },
-      "icoSphere-v2-2-preview.webp": {
-      },
       "icoSphere-v2-2-wm-75q.webp": {
       },
       "icoSphere-v2-2-wm-preview.webp": {
@@ -3038,12 +1861,6 @@
       "icoSphere-v2-2-wm-thumb.webp": {
       },
       "icoSphere-v2-2-wm.webp": {
-      },
-      "icoSphere-v2-2.webp": {
-      },
-      "icoSphere-v2-3-75q.webp": {
-      },
-      "icoSphere-v2-3-preview.webp": {
       },
       "icoSphere-v2-3-wm-75q.webp": {
       },
@@ -3053,12 +1870,6 @@
       },
       "icoSphere-v2-3-wm.webp": {
       },
-      "icoSphere-v2-3.webp": {
-      },
-      "icoSphere-v2-4-75q.webp": {
-      },
-      "icoSphere-v2-4-preview.webp": {
-      },
       "icoSphere-v2-4-wm-75q.webp": {
       },
       "icoSphere-v2-4-wm-preview.webp": {
@@ -3066,12 +1877,6 @@
       "icoSphere-v2-4-wm-thumb.webp": {
       },
       "icoSphere-v2-4-wm.webp": {
-      },
-      "icoSphere-v2-4.webp": {
-      },
-      "icoSphere-v2-5-75q.webp": {
-      },
-      "icoSphere-v2-5-preview.webp": {
       },
       "icoSphere-v2-5-wm-75q.webp": {
       },
@@ -3081,12 +1886,6 @@
       },
       "icoSphere-v2-5-wm.webp": {
       },
-      "icoSphere-v2-5.webp": {
-      },
-      "icoSphere1-75q.webp": {
-      },
-      "icoSphere1-preview.webp": {
-      },
       "icoSphere1-wm-75q.webp": {
       },
       "icoSphere1-wm-preview.webp": {
@@ -3094,12 +1893,6 @@
       "icoSphere1-wm-thumb.webp": {
       },
       "icoSphere1-wm.webp": {
-      },
-      "icoSphere1.webp": {
-      },
-      "icoSphere2-75q.webp": {
-      },
-      "icoSphere2-preview.webp": {
       },
       "icoSphere2-wm-75q.webp": {
       },
@@ -3109,12 +1902,6 @@
       },
       "icoSphere2-wm.webp": {
       },
-      "icoSphere2.webp": {
-      },
-      "icoSphere3-75q.webp": {
-      },
-      "icoSphere3-preview.webp": {
-      },
       "icoSphere3-wm-75q.webp": {
       },
       "icoSphere3-wm-preview.webp": {
@@ -3122,12 +1909,6 @@
       "icoSphere3-wm-thumb.webp": {
       },
       "icoSphere3-wm.webp": {
-      },
-      "icoSphere3.webp": {
-      },
-      "icoSphere4-75q.webp": {
-      },
-      "icoSphere4-preview.webp": {
       },
       "icoSphere4-wm-75q.webp": {
       },
@@ -3137,12 +1918,6 @@
       },
       "icoSphere4-wm.webp": {
       },
-      "icoSphere4.webp": {
-      },
-      "icoSphere5-75q.webp": {
-      },
-      "icoSphere5-preview.webp": {
-      },
       "icoSphere5-wm-75q.webp": {
       },
       "icoSphere5-wm-preview.webp": {
@@ -3151,12 +1926,6 @@
       },
       "icoSphere5-wm.webp": {
       },
-      "icoSphere5.webp": {
-      },
-      "icoSphere6-75q.webp": {
-      },
-      "icoSphere6-preview.webp": {
-      },
       "icoSphere6-wm-75q.webp": {
       },
       "icoSphere6-wm-preview.webp": {
@@ -3164,22 +1933,6 @@
       "icoSphere6-wm-thumb.webp": {
       },
       "icoSphere6-wm.webp": {
-      },
-      "icoSphere6.webp": {
-      },
-      "joseph, wake me up-75q.webp": {
-      },
-      "joseph, wake me up-preview.webp": {
-      },
-      "joseph, wake me up-wm-75q.webp": {
-      },
-      "joseph, wake me up-wm-preview.webp": {
-      },
-      "joseph, wake me up-wm-thumb.webp": {
-      },
-      "joseph, wake me up-wm.webp": {
-      },
-      "joseph, wake me up.webp": {
       },
       "jp-logo-hex-GradientOnBlack-wm-thumb.webp": {
       },
@@ -3201,10 +1954,6 @@
       },
       "jp-logo-hex-whiteOnGradient-wm.webp": {
       },
-      "junkSword (2)-75q.webp": {
-      },
-      "junkSword (2)-preview.webp": {
-      },
       "junkSword (2)-wm-75q.webp": {
       },
       "junkSword (2)-wm-preview.webp": {
@@ -3212,12 +1961,6 @@
       "junkSword (2)-wm-thumb.webp": {
       },
       "junkSword (2)-wm.webp": {
-      },
-      "junkSword (2).webp": {
-      },
-      "lightsaber-75q.webp": {
-      },
-      "lightsaber-preview.webp": {
       },
       "lightsaber-wm-75q.webp": {
       },
@@ -3227,12 +1970,6 @@
       },
       "lightsaber-wm.webp": {
       },
-      "lightsaber.webp": {
-      },
-      "magneticsparks1-75q.webp": {
-      },
-      "magneticsparks1-preview.webp": {
-      },
       "magneticsparks1-wm-75q.webp": {
       },
       "magneticsparks1-wm-preview.webp": {
@@ -3240,12 +1977,6 @@
       "magneticsparks1-wm-thumb.webp": {
       },
       "magneticsparks1-wm.webp": {
-      },
-      "magneticsparks1.webp": {
-      },
-      "magneticsparks2-75q.webp": {
-      },
-      "magneticsparks2-preview.webp": {
       },
       "magneticsparks2-wm-75q.webp": {
       },
@@ -3255,12 +1986,6 @@
       },
       "magneticsparks2-wm.webp": {
       },
-      "magneticsparks2.webp": {
-      },
-      "magneticsparks3-75q.webp": {
-      },
-      "magneticsparks3-preview.webp": {
-      },
       "magneticsparks3-wm-75q.webp": {
       },
       "magneticsparks3-wm-preview.webp": {
@@ -3268,12 +1993,6 @@
       "magneticsparks3-wm-thumb.webp": {
       },
       "magneticsparks3-wm.webp": {
-      },
-      "magneticsparks3.webp": {
-      },
-      "physicsmodel1(school1)-75q.webp": {
-      },
-      "physicsmodel1(school1)-preview.webp": {
       },
       "physicsmodel1(school1)-wm-75q.webp": {
       },
@@ -3283,15 +2002,9 @@
       },
       "physicsmodel1(school1)-wm.webp": {
       },
-      "physicsmodel1(school1).webp": {
-      },
       "randomwaterimage-wm-thumb.webp": {
       },
       "randomwaterimage-wm.webp": {
-      },
-      "robotHead-Attempt1-75q.webp": {
-      },
-      "robotHead-Attempt1-preview.webp": {
       },
       "robotHead-Attempt1-wm-75q.webp": {
       },
@@ -3301,12 +2014,6 @@
       },
       "robotHead-Attempt1-wm.webp": {
       },
-      "robotHead-Attempt1.webp": {
-      },
-      "schoolTimeline2-75q.webp": {
-      },
-      "schoolTimeline2-preview.webp": {
-      },
       "schoolTimeline2-wm-75q.webp": {
       },
       "schoolTimeline2-wm-preview.webp": {
@@ -3314,12 +2021,6 @@
       "schoolTimeline2-wm-thumb.webp": {
       },
       "schoolTimeline2-wm.webp": {
-      },
-      "schoolTimeline2.webp": {
-      },
-      "shedwallcolorimg1-75q.webp": {
-      },
-      "shedwallcolorimg1-preview.webp": {
       },
       "shedwallcolorimg1-wm-75q.webp": {
       },
@@ -3329,12 +2030,6 @@
       },
       "shedwallcolorimg1-wm.webp": {
       },
-      "shedwallcolorimg1.webp": {
-      },
-      "shedwallcolorimg2-75q.webp": {
-      },
-      "shedwallcolorimg2-preview.webp": {
-      },
       "shedwallcolorimg2-wm-75q.webp": {
       },
       "shedwallcolorimg2-wm-preview.webp": {
@@ -3342,12 +2037,6 @@
       "shedwallcolorimg2-wm-thumb.webp": {
       },
       "shedwallcolorimg2-wm.webp": {
-      },
-      "shedwallcolorimg2.webp": {
-      },
-      "shedwallcolorimg3-75q.webp": {
-      },
-      "shedwallcolorimg3-preview.webp": {
       },
       "shedwallcolorimg3-wm-75q.webp": {
       },
@@ -3357,12 +2046,6 @@
       },
       "shedwallcolorimg3-wm.webp": {
       },
-      "shedwallcolorimg3.webp": {
-      },
-      "shedwallcolorimg4-75q.webp": {
-      },
-      "shedwallcolorimg4-preview.webp": {
-      },
       "shedwallcolorimg4-wm-75q.webp": {
       },
       "shedwallcolorimg4-wm-preview.webp": {
@@ -3370,12 +2053,6 @@
       "shedwallcolorimg4-wm-thumb.webp": {
       },
       "shedwallcolorimg4-wm.webp": {
-      },
-      "shedwallcolorimg4.webp": {
-      },
-      "shedwallcolorimg5-75q.webp": {
-      },
-      "shedwallcolorimg5-preview.webp": {
       },
       "shedwallcolorimg5-wm-75q.webp": {
       },
@@ -3385,12 +2062,6 @@
       },
       "shedwallcolorimg5-wm.webp": {
       },
-      "shedwallcolorimg5.webp": {
-      },
-      "stoppingForNowbcItsTooLate(UniversalMedical)-75q.webp": {
-      },
-      "stoppingForNowbcItsTooLate(UniversalMedical)-preview.webp": {
-      },
       "stoppingForNowbcItsTooLate(UniversalMedical)-wm-75q.webp": {
       },
       "stoppingForNowbcItsTooLate(UniversalMedical)-wm-preview.webp": {
@@ -3398,12 +2069,6 @@
       "stoppingForNowbcItsTooLate(UniversalMedical)-wm-thumb.webp": {
       },
       "stoppingForNowbcItsTooLate(UniversalMedical)-wm.webp": {
-      },
-      "stoppingForNowbcItsTooLate(UniversalMedical).webp": {
-      },
-      "tesseractstill1png-75q.webp": {
-      },
-      "tesseractstill1png-preview.webp": {
       },
       "tesseractstill1png-wm-75q.webp": {
       },
@@ -3413,12 +2078,6 @@
       },
       "tesseractstill1png-wm.webp": {
       },
-      "tesseractstill1png.webp": {
-      },
-      "tesseractstill2png-75q.webp": {
-      },
-      "tesseractstill2png-preview.webp": {
-      },
       "tesseractstill2png-wm-75q.webp": {
       },
       "tesseractstill2png-wm-preview.webp": {
@@ -3427,12 +2086,6 @@
       },
       "tesseractstill2png-wm.webp": {
       },
-      "tesseractstill2png.webp": {
-      },
-      "untitled-75q.webp": {
-      },
-      "untitled-preview.webp": {
-      },
       "untitled-wm-75q.webp": {
       },
       "untitled-wm-preview.webp": {
@@ -3440,8 +2093,6 @@
       "untitled-wm-thumb.webp": {
       },
       "untitled-wm.webp": {
-      },
-      "untitled.webp": {
       },
       "untitsdasdasdasled-wm-thumb.webp": {
       },
@@ -3506,6 +2157,12 @@
     },
     "dnd": {
       "ian-oota": {
+        ".vs": {
+          "slnx.sqlite": {
+          },
+          "slnx.sqlite-journal": {
+          }
+        },
         "a-wild-fraz-appears.png": {
         },
         "a-wild-fraz-appears.webp": {
@@ -3514,6 +2171,14 @@
         },
         "atlan+red_mage.webp": {
         },
+        "blue-dragon-skele-chamber.png": {
+        },
+        "blue-dragon-skele-chamber.webp": {
+        },
+        "chasm-bridges.png": {
+        },
+        "chasm-bridges.webp": {
+        },
         "don+blue_dragonborn_lady.png": {
         },
         "don+blue_dragonborn_lady.webp": {
@@ -3521,10 +2186,44 @@
         "don-double-nat-1-fraz.png": {
         },
         "don-double-nat-1-fraz.webp": {
+        },
+        "necalli+harry-potter.png": {
+        },
+        "necalli+harry-potter.webp": {
+        },
+        "stoneweavers-hall.png": {
+        },
+        "stoneweavers-hall.webp": {
+        },
+        "webpage_preview.png": {
+        },
+        "webpage_preview.webp": {
+        },
+        "wyrmwrithings-lizardfolk-battlefield.png": {
+        },
+        "wyrmwrithings-lizardfolk-battlefield.webp": {
+        }
+      },
+      "jp-icewind": {
+        "map-1.10-cauldron-player.jpg": {
+        },
+        "map-poster-1024.webp": {
+        },
+        "map-poster-2048.webp": {
+        },
+        "map-poster.jpg": {
+        },
+        "map-poster.webp": {
         }
       }
     },
     "icon": {
+      "curseforge.svg": {
+      },
+      "discord.svg": {
+      },
+      "fabricmc.png": {
+      },
       "github.svg": {
       },
       "jp-hex-2.svg": {
@@ -3534,6 +2233,10 @@
       "ko-fi.svg": {
       },
       "patreon.svg": {
+      },
+      "paypal.svg": {
+      },
+      "twitter.svg": {
       }
     },
     "jp-log-hex-32x32.png": {
@@ -3573,12 +2276,18 @@
     "patreon_brand_kit.zip": {
     },
     "stone_of_galore.webp": {
+    },
+    "uncategorized": {
+      "fabricord_banner.webp": {
+      }
     }
   },
   "js": {
     "(ign)palette_light_dark_OLD.js": {
     },
     "copyright_text.js": {
+    },
+    "dnd-tooltips.js": {
     },
     "drag-drop-file.js": {
     },
@@ -3590,6 +2299,8 @@
     },
     "multi-palette.min.js": {
     },
+    "multi-palette.min.old.js": {
+    },
     "palette_light_dark.js": {
     },
     "pixi.min.js": {
@@ -3599,16 +2310,44 @@
     "resizable.js": {
     }
   },
+  "minecraft": {
+    "fabric-mods": {
+      "widgets": {
+      }
+    }
+  },
   "temp": {
     "cg_spring_2021_bronze_info.html": {
     },
     "desmos_collisions.html": {
+    },
+    "essential_commands-0.15.0-mc1.17+20210731233446.jar": {
+    },
+    "essential_commands-0.7.2-beta-mc1.17.jar": {
+    },
+    "essential_commands-0.7.3-beta-mc1.17.jar": {
+    },
+    "heyjp.py": {
     },
     "jp-logo-hex.eps": {
     },
     "jp-logo-hex.svg": {
     },
     "jp-logo-hex.webp": {
+    },
+    "linktest": {
+    },
+    "linktest.txt": {
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    "sample.pdf": {
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    "surader-server-perms-v1.txt": {
     }
   }
 }
