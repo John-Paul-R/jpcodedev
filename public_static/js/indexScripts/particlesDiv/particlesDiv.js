@@ -1,5 +1,10 @@
 const containerDiv = document.getElementById("advanced_particles-container");
 
+let baseColor = mpal.currentPalette.text[0] ?? '#ffffff';
+mpal.onPaletteChange((palette) => {
+    baseColor = palette.text[0];
+});
+
 function d2h(d) {
     var s = (+d).toString(16);
     if (s.length < 2) {
@@ -10,7 +15,7 @@ function d2h(d) {
 
 const roundToNearest = (x, n) => Math.round(x / n) * n
 const floatToGrayColor = (num) =>
-    '#' + 'ffffff' + d2h(roundToNearest(num * 255, 1))
+    baseColor + d2h(roundToNearest(num * 255, 1))
 
 //'#' + d2h(roundToNearest(num * 255, 1)).repeat(3)// + roundToNearest(num * 255, 1)
 
@@ -65,7 +70,8 @@ ctx.canvas.width = width;
 ctx.canvas.height = height;
 
 const debugDisplay = document.getElementById('debug_info');
-const renderCallback = (info) => {
+
+const renderCallback = (info, settings) => {
     // let outText = "";
     // for (const [key, value] of Object.entries(info)) {
     // outText += `<div>${key}:</div><div>${value.toFixed(3)}</div>`
@@ -73,6 +79,9 @@ const renderCallback = (info) => {
     // debugDisplay.innerHTML = outText;
     // -- variable things
 
+    return {
+        ...settings,
+    };
 }
 
 advancedparticles.nextFrame({ ctx, settings, state: startState, renderCallback });
