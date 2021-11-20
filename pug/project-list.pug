@@ -75,7 +75,7 @@ block body
                             div(id=project.id)
                         if (project.scripts)
                             each scr in project.scripts
-                                script(src=scr) 
+                                script(src=scr defer) 
     hr
     a.button.glow(href="https://www.jpcode.dev/certs") View my certifications 
     #dnd
