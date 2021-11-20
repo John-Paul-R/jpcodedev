@@ -64,6 +64,15 @@
                 "img": "https://static.jpcode.dev/img/ColorPaletteCardImg-transparent-512p.webp",
                 "link": "https://github.com/John-Paul-R/multi-palette-js",
                 "desc": "Some animations that react to your cursor."
+            },{
+                "name": "advanced-particles",
+                "id": "advanced_particles-container",
+                "scripts": [
+                    "https://static.jpcode.dev/js/indexScripts/particlesDiv/advanced-particles.min.js",
+                    "https://static.jpcode.dev/js/indexScripts/particlesDiv/particlesDiv.js"
+                ],
+                "link": "https://github.com/John-Paul-R/AdvancedParticles",
+                "desc": "Interactive, configurable, animated particle systems."
             }
         ]
     }
