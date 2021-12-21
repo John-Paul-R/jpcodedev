@@ -1,3 +1,4 @@
+
 const containerDiv = document.getElementById("advanced_particles-container");
 
 let baseColor = mpal.currentPalette.text[0] ?? '#ffffff';
@@ -17,17 +18,20 @@ const roundToNearest = (x, n) => Math.round(x / n) * n
 const floatToGrayColor = (num) =>
     baseColor + d2h(roundToNearest(num * 255, 1))
 
+const floatToAccentColor = (num) =>
+    mpal.currentPalette.accent1[0] + d2h(roundToNearest(num * 255, 5))
+
 //'#' + d2h(roundToNearest(num * 255, 1)).repeat(3)// + roundToNearest(num * 255, 1)
 
 
 advancedparticles.init();
 containerDiv.style.height = '100%';
 containerDiv.style.width = '100%';
-const { x: containerX, y: containerY, width, height } = containerDiv.getBoundingClientRect();
+var containerRect = containerDiv.getBoundingClientRect();
 const distToCursor = (x, y) =>
-    Math.sqrt((cursorPosition.x - containerX - x) ** 2 + (cursorPosition.y - containerY - y) ** 2);
+    Math.sqrt((cursorPosition.x - containerRect.x - x) ** 2 + (cursorPosition.y - containerRect.y - y) ** 2);
 
-console.log(width, height);
+console.log(containerRect.width, containerRect.height);
 let cursorPosition = { x: 0, y: 0 };
 document.addEventListener('mousemove', (e) => {
     cursorPosition = { x: e.clientX, y: e.clientY };
@@ -37,7 +41,7 @@ const particleDensity = 0.001;
 const colorNums = [];
 const maxLineRange = 60;
 const settings = {
-    particleCount: width * height * particleDensity,
+    particleCount: containerRect.width * containerRect.height * particleDensity,
     sizeSupplier: (state) => {
         const dist = distToCursor(state.x, state.y);
         return Math.max(Math.min(750 / dist, 7), 1);
@@ -49,10 +53,10 @@ const settings = {
         }
         return Math.max(Math.min(250 / dist, 8), 0.5);
     },
-    bounds: { x1: 0, y1: 0, x2: width, y2: height },
+    bounds: { x1: 0, y1: 0, x2: containerRect.width, y2: containerRect.height },
     colorSupplier: (state) => {
         const dist = distToCursor(state.x, state.y);
-        return floatToGrayColor(Math.max(0, -(1 / (350)) * dist + 1));
+        return floatToAccentColor(Math.max(0, -(1 / (350)) * dist + 1));
     },
     maxLineRange,
     circleMode: "fill",
@@ -66,8 +70,8 @@ const settings = {
 };
 const startState = advancedparticles.generateInitialState(settings);
 const ctx = document.getElementById("advanced_particles-container").firstElementChild.getContext('2d');
-ctx.canvas.width = width;
-ctx.canvas.height = height;
+ctx.canvas.width = containerRect.width;
+ctx.canvas.height = containerRect.height;
 
 const debugDisplay = document.getElementById('debug_info');
 
@@ -78,6 +82,7 @@ const renderCallback = (info, settings) => {
     // }
     // debugDisplay.innerHTML = outText;
     // -- variable things
+    containerRect = containerDiv.getBoundingClientRect();
 
     return {
         ...settings,
