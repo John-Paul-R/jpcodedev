@@ -13,7 +13,9 @@ import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
 import * as imgDir from "./img_dir";
 import { IncomingHttpHeaders } from "http";
+import { getDirReportFiles } from "./json-dir-index";
 
+// TODO: .env.<environment-type> files (public data)
 //  Load ArgV
 const optionDefinitions = [
     { name: "key", alias: "k", type: String },
@@ -194,6 +196,15 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 
+// Initialize dnd/ian-theros Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "dnd/ian-theros/widgets"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "dnd/ian-theros",
+    plugins: ["dnd-api"],
+});
+
 // Init file manager
 fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 fm.load(exec_path);
@@ -256,7 +267,10 @@ const dirIndexPug = widgets.getPugTemplate("dir_list");
 /**
  * Request Handler / Response Generator
  */
-function respond(stream: ServerHttp2Stream, headers: IncomingHttpHeaders) {
+async function respond(
+    stream: ServerHttp2Stream,
+    headers: IncomingHttpHeaders
+) {
     stream.setTimeout(3000, () => {
         stream.destroy();
     });
@@ -272,6 +286,21 @@ function respond(stream: ServerHttp2Stream, headers: IncomingHttpHeaders) {
     const query = reqUrl.search;
     const socket = stream.session.socket;
     const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
+
+    if (path.includes("dotnet/files.json")) {
+        stream.respond({
+            "content-type": "application/json; charset=utf-8",
+            ":status": 200,
+        });
+
+        const reportFiles = await getDirReportFiles(
+            `${exec_path}/benchmarks/dotnet`
+        );
+
+        stream.end(JSON.stringify(reportFiles));
+
+        return 0;
+    }
 
     const requestedFile = fm.getFile(path);
     // Set content length header, if requested file is found by file manager.
@@ -298,6 +327,7 @@ function respond(stream: ServerHttp2Stream, headers: IncomingHttpHeaders) {
             logger.error(error);
         }
     }
+
     // TODO Add watermark to all images in a certain dir automatically.
     // @body atm I have local scripts to add them to files before uploading them to server.
     if (!requestedFile) {
