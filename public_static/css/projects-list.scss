@@ -155,7 +155,9 @@
 }
 
 .actions_container .button {
-	height: 24px;
+        --btn-height: 24px;
+	height: var(--btn-height);
+	line-height: var(--btn-height);
 	transition: all 0.1s;
 }
 

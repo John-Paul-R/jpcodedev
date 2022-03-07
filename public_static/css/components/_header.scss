@@ -67,6 +67,9 @@ header > #navbar {
 header #title {
     margin-left: 8px;
     display: inline-flex;
+    --title-height: 24px;
+    height: var(--title-height);
+    line-height: var(--title-height);
 }
 header > #navbar > .end {
     // margin-left:auto;
