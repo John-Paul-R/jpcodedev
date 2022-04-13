@@ -33,6 +33,14 @@
                     {
                         "link": "https://www.jpcode.dev/dnd/jp-icewind",
                         "text": "Icewind Dale (JP)"
+                    },
+                    {
+                        "link": "https://www.jpcode.dev/dnd/ian-theros",
+                        "text": "Theros (Ian)"
+                    },
+                    {
+                        "link": "https://www.jpcode.dev/dnd/caillen-wildweirdwest",
+                        "text": "Wild Weird West (Caillen)"
                     }
                 ]
             },{

@@ -205,6 +205,15 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 
+// Initialize dnd/ian-theros Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "dnd/caillen-wildweirdwest/widgets"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "dnd/caillen-wildweirdwest",
+    plugins: ["dnd-api"],
+});
+
 // Init file manager
 fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 fm.load(exec_path);
