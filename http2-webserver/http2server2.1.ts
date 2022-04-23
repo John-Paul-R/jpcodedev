@@ -1,5 +1,6 @@
 import http2, {
     Http2Session,
+    OutgoingHttpHeaders,
     SecureServerOptions,
     ServerHttp2Stream,
 } from "http2";
@@ -8,6 +9,7 @@ import Path from "path";
 import log4js from "log4js";
 import commandLineArgs from "command-line-args";
 import pug from "pug";
+import cors from "cors";
 
 import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
@@ -70,6 +72,21 @@ const { host: websiteRoot, pubpath: exec_path } = runOpts;
 const FILENAME = Path.basename(__filename);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
 const URL_ROOT = `https://${websiteRoot}`;
+
+const {
+    HTTP2_HEADER_METHOD,
+    HTTP2_HEADER_PATH,
+    // HTTP2_HEADER_STATUS,
+    // HTTP2_HEADER_CONTENT_TYPE,
+    // HTTP2_HEADER_LINK,
+    HTTP2_HEADER_ACCEPT_ENCODING,
+    HTTP2_HEADER_CONTENT_LENGTH,
+    // HTTP2_HEADER_LAST_MODIFIED,
+    // HTTP2_HEADER_CACHE_CONTROL,
+    // HTTP2_HEADER_CONTENT_ENCODING,
+    HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
+} = http2.constants;
+
 const DEFAULT_HEADERS = {
     link: [
         '<https://static.jpcode.dev/css/core_style.css>; rel="preload"; as="style"',
@@ -92,20 +109,6 @@ const consts = {
     URL_ROOT,
     DEFAULT_HEADERS,
 } as JPServerConsts;
-
-const {
-    HTTP2_HEADER_METHOD,
-    HTTP2_HEADER_PATH,
-    // HTTP2_HEADER_STATUS,
-    // HTTP2_HEADER_CONTENT_TYPE,
-    // HTTP2_HEADER_LINK,
-    HTTP2_HEADER_ACCEPT_ENCODING,
-    HTTP2_HEADER_CONTENT_LENGTH,
-    // HTTP2_HEADER_LAST_MODIFIED,
-    // HTTP2_HEADER_CACHE_CONTROL,
-    // HTTP2_HEADER_CONTENT_ENCODING,
-    HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
-} = http2.constants;
 
 // Init logger
 const logger = log4js.getLogger();
@@ -208,7 +211,10 @@ widgets.init({
 
 // Initialize dnd/ian-theros Notes Widgets
 widgets.init({
-    widget_directory: Path.join(runOpts.pubpath, "dnd/caillen-wildweirdwest/widgets"),
+    widget_directory: Path.join(
+        runOpts.pubpath,
+        "dnd/caillen-wildweirdwest/widgets"
+    ),
     preload_widgets: true,
     lazy_load_allowed: true,
     web_root: "dnd/caillen-wildweirdwest",
@@ -297,12 +303,15 @@ async function respond(
     const socket = stream.session.socket;
     const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
+    const resHeaders: OutgoingHttpHeaders = {
+        "content-type": "text/html; charset=utf-8",
+        ":status": 200,
+    };
+    if (websiteRoot === "static.jpcode.dev") {
+        resHeaders[HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN] = "*";
+    }
     if (path.includes("dotnet/files.json")) {
-        stream.respond({
-            "content-type": "application/json; charset=utf-8",
-            ":status": 200,
-            [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: '*',
-        });
+        stream.respond(resHeaders);
 
         const reportFiles = await getDirReportFiles(
             `${exec_path}/benchmarks/dotnet`
@@ -362,10 +371,7 @@ async function respond(
                         };
                     }),
                 };
-                stream.respond({
-                    "content-type": "text/html; charset=utf-8",
-                    ":status": 200,
-                });
+                stream.respond(resHeaders);
                 stream.write(dirIndexPug(opts));
                 stream.end();
                 return 0;
@@ -379,6 +385,9 @@ async function respond(
     if (requestedFile) {
         const resHeaders = requestedFile.headers;
         resHeaders[":status"] = 200;
+        if (websiteRoot === "static.jpcode.dev") {
+            resHeaders[HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN] = "*";
+        }
 
         stream.respond(resHeaders);
         stream.end(requestedFile.data);
