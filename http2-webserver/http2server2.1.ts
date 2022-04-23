@@ -104,6 +104,7 @@ const {
     // HTTP2_HEADER_LAST_MODIFIED,
     // HTTP2_HEADER_CACHE_CONTROL,
     // HTTP2_HEADER_CONTENT_ENCODING,
+    HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
 } = http2.constants;
 
 // Init logger
@@ -300,6 +301,7 @@ async function respond(
         stream.respond({
             "content-type": "application/json; charset=utf-8",
             ":status": 200,
+            [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: '*',
         });
 
         const reportFiles = await getDirReportFiles(
