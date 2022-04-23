@@ -219,7 +219,7 @@ function getFile(reqPath: string) {
         out = null;
     }
 
-    function logErr(err: Error) {
+    function logErr(err: any) {
         logger.error("Error retrieving file: " + adjustedPath);
         logger.error(err);
     }
