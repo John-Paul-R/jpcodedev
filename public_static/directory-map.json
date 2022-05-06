@@ -1,6 +1,34 @@
 {
   "aliases.json": {
   },
+  "benchmarks": {
+    "dotnet": {
+      "Bench_AttributeAccess.Bench-report.csv": {
+      },
+      "Bench_Closures.Bench-report.csv": {
+      },
+      "Bench_Dictionaries.Bench-measurements.csv": {
+      },
+      "Bench_Dictionaries.Bench-report.csv": {
+      },
+      "Bench_ListVsSet.Bench-report.csv": {
+      },
+      "Bench_PropertyAccessors.Bench-report.csv": {
+      },
+      "Bench_PropertyAccessors.Bench-report.csv.old": {
+      },
+      "Bench_PropertyAccessors.Bench-report.csv.old2": {
+      },
+      "Bench_SplitBy.Bench-report.csv": {
+      },
+      "Bench_SplitBy_Top3.Bench-report.csv": {
+      },
+      "Bench_SplitBy_Top4.Bench-report.ignore.csv": {
+      },
+      "Bench_ToStringSelect.Bench-report.csv": {
+      }
+    }
+  },
   "css": {
     "_button_glow.scss": {
     },
@@ -96,7 +124,15 @@
     }
   },
   "dnd": {
+    "caillen-wildweirdwest": {
+      "widgets": {
+      }
+    },
     "ian-oota": {
+      "widgets": {
+      }
+    },
+    "ian-theros": {
       "widgets": {
       }
     },
@@ -112,7 +148,7 @@
   "fibermc": {
     "motd.json": {
       "headers": {
-        "Access-Control-Allow-Origin": "*"
+        "access-control-allow-origin": "*"
       }
     },
     "set_theme_green.js": {
@@ -130,6 +166,12 @@
     "john-paul-r-resume-2021-5-9.pdf": {
     },
     "john-paul-r-resume-2021-6-4.pdf": {
+    },
+    "john-paul-r-resume-2022-1-19.pdf": {
+    },
+    "john-paul-r-resume-2022-1-21.pdf": {
+    },
+    "readonly-dictionary-benchmarks.md": {
     }
   },
   "fonts": {
@@ -2145,6 +2187,10 @@
     },
     "ccby.webp": {
     },
+    "chart": {
+      "csharp-dictionaries.html": {
+      }
+    },
     "chrome_9ZEIuumdPW.webp": {
     },
     "circles_cursor_anim-square.png": {
@@ -2295,11 +2341,21 @@
     },
     "footer.js": {
     },
+    "indexScripts": {
+      "particlesDiv": {
+        "advanced-particles.min.js": {
+        },
+        "particlesDiv.js": {
+        }
+      }
+    },
     "md_table_of_contents.js": {
     },
     "multi-palette.min.js": {
     },
     "multi-palette.min.old.js": {
+    },
+    "multi-palette.min.old2.js": {
     },
     "palette_light_dark.js": {
     },
@@ -2339,12 +2395,12 @@
     },
     "linktest.txt": {
       "headers": {
-        "Access-Control-Allow-Origin": "*"
+        "access-control-allow-origin": "*"
       }
     },
     "sample.pdf": {
       "headers": {
-        "Access-Control-Allow-Origin": "*"
+        "access-control-allow-origin": "*"
       }
     },
     "surader-server-perms-v1.txt": {

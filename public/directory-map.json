@@ -50,6 +50,10 @@
         },
         "index.html": {
         }
+      },
+      "particlesDiv": {
+        "particlesDiv.js": {
+        }
       }
     }
   },
@@ -57,6 +61,22 @@
   },
   "dnd": {
     "bhs_message_encoder.html": {
+    },
+    "caillen-wildweirdwest": {
+      "widgets": {
+        "config.json": {
+        },
+        "content": {
+          "2022-04-11.json": {
+          },
+          "2022-04-11.md": {
+          },
+          "Background_Information.json": {
+          },
+          "Background_Information.md": {
+          }
+        }
+      }
     },
     "dnd.html": {
     },
@@ -90,6 +110,32 @@
           "2021-10-10.json": {
           },
           "2021-10-10.md": {
+          },
+          "2021-10-17.json": {
+          },
+          "2021-10-17.md": {
+          },
+          "2021-10-31.json": {
+          },
+          "2021-10-31.md": {
+          },
+          "2021-11-28.json": {
+          },
+          "2021-11-28.md": {
+          },
+          "2021-11-7.json": {
+          },
+          "2021-11-7.md": {
+          },
+          "2021-12-12 copy.md": {
+          },
+          "2021-12-12.json": {
+          },
+          "2021-12-12.md": {
+          },
+          "2021-12-5.json": {
+          },
+          "2021-12-5.md": {
           },
           "2021-4-11.json": {
           },
@@ -161,11 +207,27 @@
           },
           "2021-9-5.md": {
           },
+          "2022-1-9.json": {
+          },
+          "2022-1-9.md": {
+          },
           "Skris.json": {
           },
           "Skris.md": {
           },
           "_order.json": {
+          }
+        }
+      }
+    },
+    "ian-theros": {
+      "widgets": {
+        "config.json": {
+        },
+        "content": {
+          "gods-intro.json": {
+          },
+          "gods-intro.md": {
           }
         }
       }
@@ -245,6 +307,28 @@
     "my_art": {
       "my_art.pug.json": {
       }
+    }
+  },
+  "dotnetperf": {
+    "build": {
+      "bundle.css": {
+      },
+      "bundle.js": {
+      },
+      "bundle.js.map": {
+      }
+    },
+    "bundle.css": {
+    },
+    "bundle.js": {
+    },
+    "bundle.js.map": {
+    },
+    "favicon.png": {
+    },
+    "global.css": {
+    },
+    "index.html": {
     }
   },
   "essentialcommands": {

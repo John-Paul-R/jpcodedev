@@ -383,13 +383,29 @@ async function respond(
 
     // Send successful response
     if (requestedFile) {
-        const resHeaders = requestedFile.headers;
-        resHeaders[":status"] = 200;
-        if (websiteRoot === "static.jpcode.dev") {
-            resHeaders[HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN] = "*";
-        }
+        const resHeaders2 =
+            websiteRoot === "static.jpcode.dev"
+                ? {
+                      // This is absolutely cursed. For some incomprehensable
+                      // reason, explicitly setting the access control header
+                      // below results in "*, *" if the requestedFile.headers
+                      // already has "*" set. This filter will exclude the
+                      // requestedFile value... in theory.
+                      // Ah, I think it has to do with case sensitivity.
+                      //   ...Object.fromEntries(
+                      //       Object.entries(requestedFile.headers).filter(
+                      //           ([k, v]) =>
+                      //               k.toLowerCase() ===
+                      //               HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN.toLowerCase()
+                      //       )
+                      //   ),
+                      ...requestedFile.headers,
+                      ":status": 200,
+                      [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: "*",
+                  }
+                : requestedFile.headers;
 
-        stream.respond(resHeaders);
+        stream.respond(resHeaders2);
         stream.end(requestedFile.data);
         return 0;
     }
