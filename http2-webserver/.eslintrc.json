@@ -19,7 +19,8 @@
     },
     "plugins": ["@typescript-eslint"],
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["warn", 4],
+        "offsetTernaryExpressions": true,
         "linebreak-style": ["warn", "unix"],
         "semi": ["error", "always"],
         "no-unused-vars": ["off"]
