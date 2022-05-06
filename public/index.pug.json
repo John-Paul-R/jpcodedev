@@ -6,14 +6,16 @@
                 "name": "GitHub",
                 "icon": "https://static.jpcode.dev/img/icon/github.svg",
                 "link": "https://github.com/John-Paul-R"
-            },{
+            },
+            {
                 "name": "Twitter",
                 "icon": "https://static.jpcode.dev/img/icon/twitter.svg",
                 "link": "https://twitter.com/john_paul_r"
-            },{
+            },
+            {
                 "name": "Discord",
                 "icon": "https://static.jpcode.dev/img/icon/discord.svg",
-                "link": "https://discord.gg/dwh9y7D"
+                "link": "https://discord.jpcode.dev/"
             }
         ],
         "projects": [
@@ -27,7 +29,8 @@
                 "tags": ["Web", "Interactable", "Render 2D"],
                 "frontend": "Custom GUI created using PixiJS 2D graphics library.",
                 "backend":"Node.js webserver, routed via HAProxy. Static site content (spritesheets, data files) packaged and updated via Python scripts."
-            },{
+            },
+            {
                 "name": "FiberMC",
                 "id": "fibermc",
                 "icon": "https://www.fibermc.com/favicon.ico",
@@ -37,14 +40,16 @@
                 "tags": ["Web", "API", "Database"],
                 "frontend": "Component-based searchable list generated from API data.",
                 "backend": "Node.js webserver, routed via HAProxy. PostgreSQL database managed & updated by service written in Python."
-            },{
+            },
+            {
                 "name": "Beyond Dark",
                 "id": "beyonddark",
                 "desc": "A dark mode <a href=\"https://https://www.tampermonkey.net/\">Tampermonkey</a> script for for <a href=\"https://www.dndbeyond.com/\">DnDBeyond</a>.",
                 "website": "https://greasyfork.org/en/scripts/424610-beyond-dark",
                 "github": "https://github.com/John-Paul-R/ddbdark",
                 "tags": ["Theme", "CSS", "JavaScript"]
-            },{
+            },
+            {
                 "name": "opggdark",
                 "id": "opggdark",
                 "desc": "A dark theme for <a href=\"https://op.gg/\">OP.GG</a>. Used with any UserCSS extension (e.g. <a href=\"https://github.com/openstyles/stylus\">Stylus</a>).",
@@ -59,12 +64,14 @@
                 "img": "https://static.jpcode.dev/img/circles_cursor_anim-square.webp",
                 "link": "https://www.jpcode.dev/playground/circles_cursor_anim",
                 "desc": "CSS/JS color palette manager for websites."
-            },{
+            },
+            {
                 "name": "multi-palette-js",
                 "img": "https://static.jpcode.dev/img/ColorPaletteCardImg-transparent-512p.webp",
                 "link": "https://github.com/John-Paul-R/multi-palette-js",
                 "desc": "Some animations that react to your cursor."
-            },{
+            },
+            {
                 "name": "advanced-particles",
                 "id": "advanced_particles-container",
                 "scripts": [
