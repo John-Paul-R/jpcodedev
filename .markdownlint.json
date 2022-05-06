@@ -3,5 +3,6 @@
     "line-length": {
         "heading_line_length": 48,
         "code_block_line_length": 120
-    }    
+    },
+    "no-trailing-punctuation": false
 }
