@@ -76,14 +76,8 @@ const URL_ROOT = `https://${websiteRoot}`;
 const {
     HTTP2_HEADER_METHOD,
     HTTP2_HEADER_PATH,
-    // HTTP2_HEADER_STATUS,
-    // HTTP2_HEADER_CONTENT_TYPE,
-    // HTTP2_HEADER_LINK,
     HTTP2_HEADER_ACCEPT_ENCODING,
     HTTP2_HEADER_CONTENT_LENGTH,
-    // HTTP2_HEADER_LAST_MODIFIED,
-    // HTTP2_HEADER_CACHE_CONTROL,
-    // HTTP2_HEADER_CONTENT_ENCODING,
     HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
 } = http2.constants;
 
@@ -175,6 +169,9 @@ const pugOptions = {
     basedir: "../pug",
     globals: ["linkify"],
 } as pug.Options & pug.LocalsObject;
+
+const supportedTimelineNotesRootFragments: string[] = ["dnd", "thoughts"];
+
 // Initialize dnd/ian-oota Notes Widgets
 widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"),
@@ -209,7 +206,7 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 
-// Initialize dnd/ian-theros Notes Widgets
+// Initialize dnd/caillen-wildweirdwest Notes Widgets
 widgets.init({
     widget_directory: Path.join(
         runOpts.pubpath,
@@ -219,6 +216,15 @@ widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/caillen-wildweirdwest",
     plugins: ["dnd-api"],
+});
+
+// Initialize `thoughts/software` Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "thoughts/software/widgets"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "thoughts/software",
+    plugins: [],
 });
 
 // Init file manager
@@ -331,7 +337,11 @@ async function respond(
         );
     //Try widget
     if (!requestedFile) {
-        const successCode = widgets.handleRequest(stream, headers);
+        const successCode = widgets.handleRequest(
+            stream,
+            headers,
+            supportedTimelineNotesRootFragments
+        );
         if (successCode === 0) return 0;
     }
     if (!requestedFile && path.startsWith("/3d")) {

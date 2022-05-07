@@ -1,0 +1,35 @@
+extends standalone-base.pug
+
+block head
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    if (ogPreview)
+        meta(property="og:title", content=`${ogPreview.title}`)
+        //- meta(property="og:description", content=`${ogPreview.description}`)
+        meta(property="og:url", content=`${ogPreview.url}`)
+        meta(property="og:image", content=`${ogPreview.image}`)
+
+    title #{title}
+
+block titlemixin 
+    include mixins/dnd_head_title.mixin.pug
+    
+
+block body
+    .widget_container
+        h1 #{title}
+        hr
+        div.widget_content_list#widget_content
+            table.gh
+                thead
+                    tr
+                        each headerString in columnHeaders
+                            th #{headerString}
+                        
+                tbody
+                    each [key, widget] of widgets
+                        tr(data-session-date=widget["session-date"])
+                            td 
+                                a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}
+                            
+                            each value in widget.columns
+                                td #{value}

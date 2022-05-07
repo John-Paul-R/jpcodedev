@@ -1,0 +1,21 @@
+{
+    "thoughts": {
+        "topic": "Software",
+        "author": "JP",
+        "type": "notes",
+        "columns": [
+            {
+                "displayName": "Title (Link)",
+                "key": "title"
+            },
+            {
+                "displayName": "Created",
+                "key": "date_created"
+            },
+            {
+                "displayName": "Modified",
+                "key": "date_modified"
+            }
+        ]
+    }
+}

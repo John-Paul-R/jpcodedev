@@ -7,16 +7,46 @@ import { Converter as MdConverter } from "showdown";
 import * as dndPlugin from "./dnd-plugin";
 import { trimTrailingSlash } from "./utils.js";
 import { Dirent } from "fs";
+import e from "cors";
 
 type WidgetsDirectoryConfig = {
     dnd?: DndDirectoryOptions;
+    thoughts?: ThoughtsDirectoryOptions;
 };
 
-type DndDirectoryOptions = {
-    campaign_title: string;
-    dungeon_master: string;
+/**
+ * Configuration options for a directory `timeline-notes` content/source
+ * directory.
+ *
+ * Many of these properties will affect how the content is parsed and eventually
+ * rendered, as well as what properties are available to the content .json
+ * files.
+ */
+type SharedDirectoryOptions = {
     type: "notes" | "other";
     ogPreview?: OpenGraphProperties;
+    columns: ColumnConfig[];
+};
+
+type ColumnConfig = {
+    /**
+     * The display name to use for the column when rendering the table
+     */
+    displayName: string;
+    /**
+     * The key that content .json files will use to populate this value
+     */
+    key: string | number;
+};
+
+type DndDirectoryOptions = SharedDirectoryOptions & {
+    campaign_title: string;
+    dungeon_master: string;
+};
+
+type ThoughtsDirectoryOptions = SharedDirectoryOptions & {
+    topic: string;
+    author: string;
 };
 
 type OpenGraphProperties = {
@@ -35,6 +65,14 @@ type DndNoteMemCache = {
     content: string | Buffer;
 } & DndNoteMetadata;
 
+type ContentFIleMetadata = {
+    [key: string]: string;
+};
+
+type ContentFileMemCache = {
+    content: string | Buffer;
+} & ContentFIleMetadata;
+
 const converter = new MdConverter({
     tables: true,
     strikethrough: true,
@@ -43,7 +81,7 @@ const converter = new MdConverter({
 const { HTTP2_HEADER_PATH } = http2.constants;
 const baseUrl = "https://www.jpcode.dev/";
 
-const _widgets_data: { [key: string]: Map<string, DndNoteMemCache> } = {};
+const _widgets_data: { [key: string]: Map<string, ContentFileMemCache> } = {};
 const _templates: { [key: string]: pug.compileTemplate } = {};
 const _markdown: { [key: string]: { [key: string]: string | Buffer } } = {};
 const _config: { [key: string]: { [key: string]: {} } } = {};
@@ -72,7 +110,7 @@ function init(
     const widget_paths = getFilePathsRecursive(options.widget_directory);
 
     const templates: { [key: string]: pug.compileTemplate } = {};
-    const widgets: { [key: string]: DndNoteMemCache } = {};
+    const widgets: { [key: string]: ContentFileMemCache } = {};
     const markdown: { [key: string]: string | Buffer } = {};
     const config: { [key: string]: {} } = {};
 
@@ -130,7 +168,7 @@ function init(
     _config[options.web_root] = config;
     _dir_config[options.web_root] = dirConfig;
     if (dirConfig && dirConfig.dnd && dirConfig.dnd.type == "notes") {
-        const n_widgets = new Map<string, DndNoteMemCache>();
+        const n_widgets = new Map<string, ContentFileMemCache>();
         for (const [key, value] of Object.entries(widgets).sort(
             (a, b) =>
                 new Date(b[1]["session-date"]).getTime() -
@@ -140,7 +178,27 @@ function init(
         }
         _widgets_data[options.web_root] = n_widgets;
     } else {
-        _widgets_data[options.web_root] = new Map<string, DndNoteMemCache>(
+        _widgets_data[options.web_root] = new Map<string, ContentFileMemCache>(
+            Object.entries(widgets)
+        );
+    }
+    if (dirConfig && dirConfig.thoughts && dirConfig.thoughts.type == "notes") {
+        const n_widgets = new Map<string, ContentFileMemCache>();
+        const colKeys = dirConfig.thoughts.columns.map((col) => col.key);
+        for (const key of colKeys) {
+            const sortedWidgetEntries = Object.entries(widgets).sort(
+                (a, b) =>
+                    new Date(b[1][key]).getTime() -
+                    new Date(a[1][key]).getTime()
+            );
+            for (const [key, value] of sortedWidgetEntries) {
+                n_widgets.set(key, value);
+            }
+        }
+
+        _widgets_data[options.web_root] = n_widgets;
+    } else {
+        _widgets_data[options.web_root] = new Map<string, ContentFileMemCache>(
             Object.entries(widgets)
         );
     }
@@ -170,31 +228,76 @@ function respond(
 
 function handleRequest(
     stream: ServerHttp2Stream,
-    headers: IncomingHttpHeaders
+    headers: IncomingHttpHeaders,
+    supportedBasePaths: string[]
 ) {
     const reqPath = headers[HTTP2_HEADER_PATH] as string;
     console.log(`reqPath: ${reqPath}`);
     const reqPathOnly = trimTrailingSlash(new URL(reqPath, baseUrl).pathname);
     const pathFrags = reqPathOnly.split("/");
 
-    if (pathFrags[1] !== "dnd") return -1;
+    // timeline notes will ignore ALL paths that do not start with one of the
+    // specified fragments.
+    if (!supportedBasePaths.includes(pathFrags[1])) return -1;
 
     const rpath = reqPath.replace(/^\/+/, "");
     for (const webroot of webroots) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot);
             if (pathFrags.length < 4 || pathFrags[3] === "list") {
-                const dirConfig = dndDirConfig(webroot);
-                return respond(
-                    stream,
-                    "text/html",
-                    _templates["list"]({
-                        widgets: _widgets_data[webroot].entries(),
-                        title: dirConfig.title,
-                        webroot: webroot,
-                        ogPreview: dirConfig.ogPreview,
-                    })
-                );
+                const rawDirConfig = _dir_config[webroot];
+                const dirConfig = parseDirConfig(webroot);
+                if (rawDirConfig.dnd) {
+                    // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                    return respond(
+                        stream,
+                        "text/html",
+                        _templates["list"]({
+                            widgets: _widgets_data[webroot].entries(),
+                            title: dirConfig.title,
+                            webroot: webroot,
+                            ogPreview: dirConfig.ogPreview,
+                        })
+                    );
+                } else if (rawDirConfig.thoughts) {
+                    // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                    const thoughtsDirConfig = rawDirConfig.thoughts!;
+                    const colKeys =
+                        thoughtsDirConfig.columns.map((col) => col.key) ?? [];
+
+                    var widgetMetadata = [
+                        // for each widget
+                        ..._widgets_data[webroot].entries(),
+                    ].map(([widgetKey, widgetMeta]) => [
+                        widgetKey,
+                        {
+                            ...widgetMeta,
+                            columns: [] as string[],
+                        },
+                    ]);
+
+                    // slice since title is provided explicitly, so it can be linked.
+                    const colKeysToIncludeInWidgetMetadata = colKeys.slice(1);
+                    widgetMetadata.forEach(([widgetKey, widgetMeta]) => {
+                        colKeysToIncludeInWidgetMetadata.forEach((key) =>
+                            // @ts-expect-error
+                            widgetMeta.columns.push(widgetMeta[key])
+                        );
+                    });
+
+                    return respond(
+                        stream,
+                        "text/html",
+                        _templates["list_dynamic"]({
+                            widgets: widgetMetadata,
+                            columnHeaders: thoughtsDirConfig.columns.map(
+                                (col) => col.displayName
+                            ),
+                            title: dirConfig.title,
+                            webroot: webroot,
+                        })
+                    );
+                }
             } else if (pathFrags[3] === "list-json") {
                 return respond(
                     stream,
@@ -205,15 +308,36 @@ function handleRequest(
                 try {
                     const frag = pathFrags.slice(3);
                     const widgetContents = _markdown[webroot][frag[0]];
-                    const widgetTitle = _widgets_data[webroot].get(
-                        frag[0]
-                    )?.title;
 
-                    const dirConfig = dndDirConfig(webroot);
+                    const widgetMetadata = _widgets_data[webroot].get(frag[0]);
+                    if (!widgetContents || !widgetMetadata) {
+                        return -2;
+                    }
+                    const widgetTitle = widgetMetadata.title;
 
+                    const rawDirConfig = _dir_config[webroot];
+
+                    const dirConfig = parseDirConfig(webroot);
                     console.log(widgetTitle);
-                    // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
-                    if (widgetContents) {
+
+                    if (rawDirConfig.dnd) {
+                        // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                        if (widgetContents) {
+                            return respond(
+                                stream,
+                                "text/html",
+                                _templates["dnd_summary_note"]({
+                                    widgetContents: widgetContents,
+                                    title: widgetTitle,
+                                    dirTitle: dirConfig.title,
+                                    webroot: webroot,
+                                })
+                            );
+                        }
+                    } else if (rawDirConfig.thoughts) {
+                        // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
+                        const thoughtsDirConfig = rawDirConfig.thoughts;
+
                         return respond(
                             stream,
                             "text/html",
@@ -224,8 +348,6 @@ function handleRequest(
                                 webroot: webroot,
                             })
                         );
-                    } else {
-                        return -2;
                     }
                 } catch (err) {
                     console.warn(err);
@@ -244,6 +366,7 @@ function handleRequest(
                         templates: Object.keys(_templates).sort(),
                         widgets: Object.keys(_widgets_data).sort(),
                         markdown: Object.keys(_markdown).sort(),
+                        dir_configs: Object.entries(_dir_config).sort(),
                     },
                     null,
                     4
@@ -258,20 +381,33 @@ function handleRequest(
     return 0;
 }
 
-function dndDirConfig(webroot: string) {
+type DirRenderConfig = {
+    title: string;
+    ogPreview: OpenGraphProperties | null | undefined;
+};
+
+function parseDirConfig(webroot: string): DirRenderConfig {
     const dirConfig = _dir_config[webroot];
-    let dirTitle = `${Path.basename(webroot)} notes`;
-    let ogPreview = null;
-    if (dirConfig && dirConfig.dnd && dirConfig.dnd.campaign_title) {
-        dirTitle = `Campaign Notes: ${Path.basename(
-            dirConfig.dnd.campaign_title
-        )}`;
-        ogPreview = dirConfig.dnd.ogPreview;
+    if (!dirConfig) {
+        throw new Error(
+            `${__filename}: dirConfig was not defined for webroot '${webroot}'`
+        );
     }
-    return {
-        title: dirTitle,
-        ogPreview: ogPreview,
-    };
+    if (dirConfig.dnd) {
+        return {
+            title: `Campaign Notes: ${dirConfig.dnd.campaign_title}`,
+            ogPreview: dirConfig.dnd.ogPreview,
+        };
+    }
+    if (dirConfig.thoughts) {
+        return {
+            title: `thoughts/${dirConfig.thoughts.topic}`,
+            ogPreview: dirConfig.thoughts.ogPreview,
+        };
+    }
+    throw new Error(
+        `${__filename}: dirConfig did not have one of [thoughts, dnd] defined for webroot '${webroot}'`
+    );
 }
 
 function getWidget(reqPath: string, pathFrags: string) {
