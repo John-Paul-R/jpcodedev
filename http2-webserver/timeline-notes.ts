@@ -8,6 +8,7 @@ import * as dndPlugin from "./dnd-plugin";
 import { trimTrailingSlash } from "./utils.js";
 import { Dirent } from "fs";
 import e from "cors";
+import { URL_ROOT } from "./http2server2.1";
 
 type WidgetsDirectoryConfig = {
     dnd?: DndDirectoryOptions;
@@ -25,8 +26,9 @@ type WidgetsDirectoryConfig = {
 type SharedDirectoryOptions = {
     type: "notes" | "other";
     ogPreview?: OpenGraphProperties;
-    columns: ColumnConfig[];
 };
+
+type ColumnKey = string | number;
 
 type ColumnConfig = {
     /**
@@ -36,7 +38,7 @@ type ColumnConfig = {
     /**
      * The key that content .json files will use to populate this value
      */
-    key: string | number;
+    key: ColumnKey;
 };
 
 type DndDirectoryOptions = SharedDirectoryOptions & {
@@ -47,6 +49,8 @@ type DndDirectoryOptions = SharedDirectoryOptions & {
 type ThoughtsDirectoryOptions = SharedDirectoryOptions & {
     topic: string;
     author: string;
+    columns: ColumnConfig[];
+    sortColumnKey: ColumnKey;
 };
 
 type OpenGraphProperties = {
@@ -88,6 +92,7 @@ const _markdown: { [key: string]: { [key: string]: string | Buffer } } = {};
 const _config: { [key: string]: { [key: string]: {} } } = {};
 const _dir_config: { [key: string]: WidgetsDirectoryConfig } = {};
 const webroots: string[] = [];
+const webrootToWidgetDirectory: Record<string, string> = {};
 
 /**
  *
@@ -109,6 +114,7 @@ function init(
 ) {
     fs.ensureDirSync(options.widget_directory);
     const widget_paths = getFilePathsRecursive(options.widget_directory);
+    webrootToWidgetDirectory[options.web_root] = options.widget_directory;
 
     const templates: { [key: string]: pug.compileTemplate } = {};
     const widgets: { [key: string]: ContentFileMemCache } = {};
@@ -227,6 +233,12 @@ function respond(
     return statusCode === 200 ? 0 : -1;
 }
 
+function respondRedirect(stream: ServerHttp2Stream, to: string) {
+    stream.respond({ Location: to, ":status": 301 });
+    stream.end();
+    return 0;
+}
+
 function handleRequest(
     stream: ServerHttp2Stream,
     headers: IncomingHttpHeaders,
@@ -245,6 +257,27 @@ function handleRequest(
     for (const webroot of webroots) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot);
+            const srcUrlPath =
+                "/" +
+                Path.join(
+                    ...webrootToWidgetDirectory[webroot].split("/").slice(2)
+                );
+            if (
+                !reqPath.startsWith(srcUrlPath) &&
+                pathFrags[pathFrags.length - 1].endsWith(".md")
+            ) {
+                return respondRedirect(
+                    stream,
+                    "https://" +
+                        Path.join(
+                            URL_ROOT,
+                            srcUrlPath,
+                            "content",
+                            pathFrags[pathFrags.length - 1]
+                        )
+                );
+            }
+
             if (pathFrags.length < 4 || pathFrags[3] === "list") {
                 const rawDirConfig = _dir_config[webroot];
                 const dirConfig = parseDirConfig(webroot);
