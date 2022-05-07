@@ -220,7 +220,7 @@ widgets.init({
 
 // Initialize `thoughts/software` Notes Widgets
 widgets.init({
-    widget_directory: Path.join(runOpts.pubpath, "thoughts/software/widgets"),
+    widget_directory: Path.join(runOpts.pubpath, "thoughts/software/src"),
     preload_widgets: true,
     lazy_load_allowed: true,
     web_root: "thoughts/software",
