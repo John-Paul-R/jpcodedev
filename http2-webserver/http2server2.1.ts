@@ -71,10 +71,7 @@ const { host: websiteRoot, pubpath: exec_path } = runOpts;
 
 const FILENAME = Path.basename(__filename);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
-export const URL_ROOT = `https://${Path.relative(
-    runOpts.host === "www.jpcode.dev" ? "public" : "public_static",
-    websiteRoot
-)}`;
+export const URL_ROOT = `https://${websiteRoot}`;
 
 const {
     HTTP2_HEADER_METHOD,

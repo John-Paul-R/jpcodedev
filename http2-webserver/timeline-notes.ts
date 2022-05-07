@@ -270,7 +270,7 @@ function handleRequest(
                     stream,
                     "https://" +
                         Path.join(
-                            URL_ROOT,
+                            URL_ROOT.substring("https://".length),
                             srcUrlPath,
                             "content",
                             pathFrags[pathFrags.length - 1]
