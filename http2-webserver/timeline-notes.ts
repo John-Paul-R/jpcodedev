@@ -76,6 +76,7 @@ type ContentFileMemCache = {
 const converter = new MdConverter({
     tables: true,
     strikethrough: true,
+    disableForced4SpacesIndentedSublists: true,
 });
 
 const { HTTP2_HEADER_PATH } = http2.constants;
