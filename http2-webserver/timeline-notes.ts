@@ -378,6 +378,7 @@ function handleRequest(
                             _templates["thoughts_software_content"]({
                                 widgetContents: widgetContents,
                                 title: widgetTitle,
+                                contentFile: widgetMetadata["content-file"],
                                 dirTitle: dirConfig.title,
                                 webroot: webroot,
                             })

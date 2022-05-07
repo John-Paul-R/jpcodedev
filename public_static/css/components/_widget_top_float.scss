@@ -21,4 +21,13 @@ div.widget_container.note {
     &:hover {
         text-decoration: underline;
     }
+
+    &.right {
+        left: unset;
+        right: 1px;
+        top: 0;
+        bottom: unset;
+        border: none;
+        padding: 0.425rem 0.7rem;
+    }
 }

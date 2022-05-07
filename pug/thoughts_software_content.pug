@@ -14,6 +14,8 @@ block titlemixin
 block body
     .widget_container.resizable.note
         a.widget_top_float(href=`https://www.jpcode.dev/${webroot}`) #{dirTitle}
+        a.widget_top_float.right(href=`https://www.jpcode.dev/${webroot}/${contentFile}`) View Raw
         div.widget_content.markdown
             p !{widgetContents}
+        
     script(src="https://static.jpcode.dev/js/md_table_of_contents.js") 

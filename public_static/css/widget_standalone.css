@@ -60,6 +60,14 @@ div.widget_container.note {
 .widget_top_float:hover {
   text-decoration: underline;
 }
+.widget_top_float.right {
+  left: unset;
+  right: 1px;
+  top: 0;
+  bottom: unset;
+  border: none;
+  padding: 0.425rem 0.7rem;
+}
 
 .md_table_of_contents-wrapper {
   position: sticky;
