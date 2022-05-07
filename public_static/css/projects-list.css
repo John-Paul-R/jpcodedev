@@ -94,7 +94,7 @@
 .icon_container {
   --size: calc(var(--project-item-height) * 0.8);
   position: absolute;
-  left: calc(-1 * var(--size));
+  left: calc(-1*var(--size));
   top: 50%;
   transform: translate(calc(var(--size) - 2rem), -50%);
   width: var(--size);
