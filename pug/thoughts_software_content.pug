@@ -1,0 +1,19 @@
+extends standalone-base.pug
+
+block head
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
+    style a.button {margin: 8px;}
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/resizable.css")
+    script(src="https://static.jpcode.dev/js/resizable.js")             
+    title thoughts/#{title}
+
+block titlemixin 
+    include mixins/main_head_title.mixin.pug
+    
+
+block body
+    .widget_container.resizable.note
+        a.widget_top_float(href=`https://www.jpcode.dev/${webroot}`) #{dirTitle}
+        div.widget_content.markdown
+            p !{widgetContents}
+    script(src="https://static.jpcode.dev/js/md_table_of_contents.js") 

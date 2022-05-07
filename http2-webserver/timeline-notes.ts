@@ -341,7 +341,7 @@ function handleRequest(
                         return respond(
                             stream,
                             "text/html",
-                            _templates["dnd_summary_note"]({
+                            _templates["thoughts_software_content"]({
                                 widgetContents: widgetContents,
                                 title: widgetTitle,
                                 dirTitle: dirConfig.title,
