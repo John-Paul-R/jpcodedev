@@ -54,7 +54,7 @@ function initResize() {
 
     function doDrag(e) {
         let newWidth = startWidth + (e.clientX - startX)*2;
-        element.style.width = `clamp(50ch, ${newWidth}px, 100vw)`;
+        element.style.width = `clamp(50ch, ${newWidth}px, 100%)`;
         storeWidth(newWidth);
     }
     
