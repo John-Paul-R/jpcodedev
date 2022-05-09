@@ -3,9 +3,7 @@ var scriptTags = document.getElementsByTagName('script');
 var scriptTag = scriptTags[scriptTags.length - 1];
 
 var parentElem = scriptTag.parentElement;
-window.onload = function() {
-    initResize();
-  };
+window.addEventListener('DOMContentLoaded', initResize);
 const STORAGE_KEY = 'preferred_reader_width';
 
 // Borrowed ideas from https://codepen.io/jkasun/pen/QrLjXP by Janith
