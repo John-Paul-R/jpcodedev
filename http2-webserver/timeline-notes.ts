@@ -7,7 +7,6 @@ import { Converter as MdConverter } from "showdown";
 import * as dndPlugin from "./dnd-plugin";
 import { trimTrailingSlash } from "./utils.js";
 import { Dirent } from "fs";
-import e from "cors";
 import { URL_ROOT } from "./http2server2.1";
 
 type WidgetsDirectoryConfig = {

@@ -9,7 +9,6 @@ import Path from "path";
 import log4js from "log4js";
 import commandLineArgs from "command-line-args";
 import pug from "pug";
-import cors from "cors";
 
 import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
