@@ -31,7 +31,6 @@
     // scroll to those elements
     document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
         const frag = window.location.hash;
-        console.log(frag);
         if (frag) {
             const el = document.getElementById(frag.substring(1));
             el.scrollIntoView({ block: "start" })
