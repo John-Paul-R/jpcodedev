@@ -316,7 +316,7 @@ async function respond(
         resHeaders[HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN] = "*";
     }
     if (path.includes("dotnet/files.json")) {
-        stream.respond(resHeaders);
+        stream.respond({ ...resHeaders, "cache-control": "max-age=900" });
 
         const reportFiles = await getDirReportFiles(
             `${exec_path}/benchmarks/dotnet`
