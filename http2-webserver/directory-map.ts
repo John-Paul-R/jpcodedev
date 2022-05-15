@@ -4,15 +4,18 @@ import dirUtil from "node-dir";
 import stringify from "json-stable-stringify";
 import { FormatInputPathObject } from "path/win32";
 import { OutgoingHttpHeader } from "http";
+import { OutgoingHttpHeaders } from "http2";
 
 type AliasesEntry = {
     urls: string[];
     destination: string;
 };
 
-type DirectoryMapEntry = {
-    headers?: OutgoingHttpHeader[];
-};
+// This type is only accurate for leaf nodes.
+type DirectoryMapEntry = OutgoingHttpHeaders;
+// {
+//     headers?: OutgoingHttpHeader[];
+// };
 
 export default class DirectoryMap {
     static map_filename = "directory-map.json";
@@ -146,7 +149,9 @@ export default class DirectoryMap {
         const idx = this._urls.get(Path.format(requestPath));
         if (idx === undefined) {
             console.error(
-                `ERR, directory-map failed to retrieve data for requested path ${requestPath}`
+                `ERR, directory-map failed to retrieve data for requested path ${requestPath} (${Path.format(
+                    requestPath
+                )})`
             );
             return undefined;
         }
@@ -163,7 +168,9 @@ export default class DirectoryMap {
                 Path.format(requestPath).split(Path.sep).slice(1)
             );
             // console.log("GETMETHOD", dir, requestPath.base, dir[requestPath.base], Path.format(requestPath));
-            return dir[requestPath.base] || dir;
+            return (dir[requestPath.base] || (dir as unknown)) as
+                | DirectoryMapEntry
+                | undefined;
         } catch (err) {
             console.warn(requestPath);
             console.warn(err);

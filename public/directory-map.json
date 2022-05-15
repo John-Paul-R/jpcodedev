@@ -312,23 +312,24 @@
   "dotnetperf": {
     "build": {
       "bundle.css": {
+        "cache-control": "max-age=14400",
+        "jp-test": "testing"
       },
       "bundle.js": {
+        "cache-control": "max-age=14400"
       },
       "bundle.js.map": {
+        "cache-control": "max-age=14400"
       }
     },
-    "bundle.css": {
-    },
-    "bundle.js": {
-    },
-    "bundle.js.map": {
-    },
     "favicon.png": {
+      "cache-control": "max-age=86400"
     },
     "global.css": {
+      "cache-control": "max-age=86400"
     },
     "index.html": {
+      "cache-control": "max-age=86400"
     }
   },
   "essentialcommands": {
@@ -404,6 +405,42 @@
   "temp_reirei.html": {
   },
   "test.html": {
+  },
+  "thoughts": {
+    "software": {
+      "src": {
+        "config.json": {
+        },
+        "content": {
+          "ef-anitpatterns.json": {
+          },
+          "ef-anitpatterns.md": {
+          },
+          "ef-antipatterns.json": {
+          },
+          "ef-antipatterns.md": {
+          },
+          "initial-doc.json": {
+          },
+          "initial-doc.md": {
+          }
+        }
+      },
+      "widgets": {
+        "config.json": {
+        },
+        "content": {
+          "ef-anitpatterns.json": {
+          },
+          "ef-anitpatterns.md": {
+          },
+          "initial-doc.json": {
+          },
+          "initial-doc.md": {
+          }
+        }
+      }
+    }
   },
   "whisperroulette": {
     "supported_mc_versions.json": {

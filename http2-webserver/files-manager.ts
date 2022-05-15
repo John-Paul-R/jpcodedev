@@ -197,7 +197,20 @@ function getFile(reqPath: string) {
     if (fileObj) {
         const headers = fileObj.headers;
         if (fileInfo) {
-            const headerOverrides = fileInfo.headers;
+            const headerOverrides = fileInfo;
+            console.log(
+                fileObj.fileName,
+                JSON.stringify({ ...fileObj, data: undefined }),
+                JSON.stringify(fileInfo)
+            );
+
+            if (fileObj.fileName.startsWith("bundle")) {
+                console.log(
+                    fileObj.fileName,
+                    JSON.stringify({ ...fileObj, data: undefined }),
+                    JSON.stringify(fileInfo)
+                );
+            }
             if (headerOverrides) {
                 for (const key in headerOverrides) {
                     headers[key] = headerOverrides[key];
@@ -211,9 +224,9 @@ function getFile(reqPath: string) {
         };
         // console.log("OUT", out);
         if (runOpts.maxAge) {
-            out.headers[
-                HTTP2_HEADER_CACHE_CONTROL
-            ] = `max-age=${runOpts.maxAge}`;
+            out.headers[HTTP2_HEADER_CACHE_CONTROL] =
+                out.headers[HTTP2_HEADER_CACHE_CONTROL] ??
+                `max-age=${runOpts.maxAge}`;
         }
     } else {
         out = null;
