@@ -24,9 +24,14 @@ block body
                     tr
                         th Title (Link)
                         th Session Date
-                tbody
+                tbody#notes_table_body
                     each [key, widget] of widgets
                         tr(data-session-date=widget["session-date"])
                             td 
                                 a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}
                             td #{widget['session-date']}
+    script.
+        (function(){
+            const tbody = document.getElementById('notes_table_body');
+            [...tbody.children].sort((a, b) => new Date(b.dataset.sessionDate) - new Date(a.dataset.sessionDate)).forEach(el => tbody.appendChild(el));
+        })();
