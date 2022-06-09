@@ -4,7 +4,10 @@ block head
     link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
     style a.button {margin: 8px;}
     link(rel="stylesheet", href="https://static.jpcode.dev/css/resizable.css")
-    script(src="https://static.jpcode.dev/js/resizable.js")             
+    script(src="https://static.jpcode.dev/js/resizable.js")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/highlightjs/a11y-light.css" id="light-code-stylesheet" crossorigin="anonymous")
+    link(rel="stylesheet", href="https://static.jpcode.dev/css/highlightjs/a11y-dark.css" id="dark-code-stylesheet" crossorigin="anonymous")
+
     title thoughts/#{title}
 
 block titlemixin 
@@ -19,3 +22,56 @@ block body
             p !{widgetContents}
         
     script(src="https://static.jpcode.dev/js/md_table_of_contents.js") 
+    script.
+        (function() {
+            const rgbToHexRegex = /rgb\((\d.+),\s?(\d.+),\s?(\d.+)\)/;
+            const rgbToHexStr = (rgbStr) => {
+                const [r, g, b] = rgbToHexRegex.exec(rgbStr).slice(1, 4).map(numAsStr => Number(numAsStr).toString(16));
+                return `#${r}${g}${b}`;
+            }
+            var brightnessDist = (hex1, hex2) => {
+                const hexToBrightness = (hex) => hex.substring(1).match(/.{1,2}/g).map(h => parseInt(h, 16)).reduce((a, b) => a + b, 0) / 3;
+                const b1 = hexToBrightness(hex1);
+                const b2 = hexToBrightness(hex2);
+
+                return Math.abs(b1 - b2);
+            }
+            mpal.onPaletteChange(p => {
+                const paletteTextColor = p.text[0];
+
+                const lightTextColor = rgbToHexStr(getSheetTextColor(idToSheetObj['light'].sheet));
+                const lightTextDist = brightnessDist(paletteTextColor, lightTextColor);
+
+                const darkTextColor = rgbToHexStr(getSheetTextColor(idToSheetObj['dark'].sheet));
+                const darkTextDist = brightnessDist(paletteTextColor, darkTextColor);
+            
+                setStylesheetById(lightTextDist > darkTextDist ? 'dark' : 'light');
+            });
+
+                const lightCodeSheetLinkElem = document.getElementById('light-code-stylesheet');
+                const darkCodeSheetLinkElem = document.getElementById('dark-code-stylesheet');
+
+                const allStylesheets = [...document.styleSheets];
+            
+                const sheetElems = [lightCodeSheetLinkElem, darkCodeSheetLinkElem];
+                
+                const stylesheets = sheetElems.map(el => ({
+                    elem: el,
+                    sheet: allStylesheets.filter(sheet => sheet.ownerNode === el)[0]
+                }));
+                
+                const idToSheetObj = {
+                    light: stylesheets[0],
+                    dark: stylesheets[1],
+                }
+
+                const setStylesheetById = (styleSheetId) => {
+                    const { elem, sheet } = idToSheetObj[styleSheetId];
+                    elem.disabled = undefined;
+                    sheetElems.filter(s => s !== elem).forEach(s => s.disabled = true);
+                }
+
+                const getSheetTextColor = (sheet) => {
+                    return [...sheet.cssRules].filter(rule => rule.selectorText === '.hljs')[0].style['color'];
+                }
+            })()
