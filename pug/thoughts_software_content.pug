@@ -36,7 +36,7 @@ block body
 
                 return Math.abs(b1 - b2);
             }
-            mpal.onPaletteChange(p => {
+            const handlePaletteChange = p => {
                 const paletteTextColor = p.text[0];
 
                 const lightTextColor = rgbToHexStr(getSheetTextColor(idToSheetObj['light'].sheet));
@@ -46,7 +46,8 @@ block body
                 const darkTextDist = brightnessDist(paletteTextColor, darkTextColor);
             
                 setStylesheetById(lightTextDist > darkTextDist ? 'dark' : 'light');
-            });
+            };
+            mpal.onPaletteChange(handlePaletteChange);
 
                 const lightCodeSheetLinkElem = document.getElementById('light-code-stylesheet');
                 const darkCodeSheetLinkElem = document.getElementById('dark-code-stylesheet');
@@ -74,4 +75,6 @@ block body
                 const getSheetTextColor = (sheet) => {
                     return [...sheet.cssRules].filter(rule => rule.selectorText === '.hljs')[0].style['color'];
                 }
+            handlePaletteChange(mpal.currentPalette);
+
             })()
