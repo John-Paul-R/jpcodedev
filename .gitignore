@@ -1,28 +1,27 @@
 
-node_modules
+node_modules/
 *.log
 *.log.*.gz
 (ign)*
-credentials
+credentials/
 *.csr
 *.key
 *.pem
 .vscode
 
-public_static/temp
+public_static/temp/
 
-public/**/widgets/content/*
-public_static/img/*
-public_static/files/*
-public_static/discord-themes/*
-public/debug/*
+public/**/widgets/content/
+public_static/img/
+public_static/files/
+public_static/discord-themes/
+public/debug/
 public/dnd/grid_aligner/*.jpg
-public_static/benchmarks/dotnet/*
-public/dotnetperf/build*
-public/thoughts/software/src/content/*
+public_static/benchmarks/dotnet/
+public/dotnetperf/build/
+public/thoughts/software/src/content/
 
-http2-webserver/foreign-api-cache
-
-http2-webserver/ts_output/*
-
-.ports
+http2-webserver/foreign-api-cache/
+http2-webserver/log/
+http2-webserver/ts_output/
+http2-webserver/.ports
