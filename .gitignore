@@ -17,6 +17,9 @@ public_static/files/*
 public_static/discord-themes/*
 public/debug/*
 public/dnd/grid_aligner/*.jpg
+public_static/benchmarks/dotnet/*
+public/dotnetperf/build*
+public/thoughts/software/src/content/*
 
 http2-webserver/foreign-api-cache
 
