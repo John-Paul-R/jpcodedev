@@ -23,4 +23,6 @@ public/thoughts/software/src/content/*
 
 http2-webserver/foreign-api-cache
 
+http2-webserver/ts_output/*
+
 .ports
