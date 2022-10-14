@@ -33,22 +33,19 @@
     var isHoverPaletteActive = false;
 
     const debounce = (callback, delay, ...args) => {
-        const timerClear = () => clear = true;
-        var clear = true;
+        var handle;
         return event => {
-            if (clear) {
-                clear = false;
-                setTimeout(timerClear, delay);
-                callback(event, ...args);
-            }
+            clearTimeout(handle);
+            handle = setTimeout(callback, delay, event, ...args);
         }
     }
+
 
     const temporarilyForceTransitionOnAll = () => {
         document.body.classList.add('hover_mpal_transition_all_elems');
         debounce(() => {
             document.body.classList.remove('hover_mpal_transition_all_elems')
-        }, 600);
+        }, 600)();
         // The above delay amt should be similar to the value defined below for
         // transition duration for `hover_mpal_transition_all_elems`
     };
