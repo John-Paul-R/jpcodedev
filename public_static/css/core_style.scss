@@ -33,6 +33,7 @@ body #page_container {
     grid-template-rows: [header-start]32px[header-end mid-start]1fr[mid-end footer-start]16px[footer-end];
     width: 100vw;
     height: 100vh;
+    background-color: var(--color-background);
 }
 header {
     grid-row: header-start / header-end;

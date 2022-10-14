@@ -67,6 +67,10 @@
             },
             {
                 "name": "multi-palette-js",
+                "id": "multi-palette-js-container",
+                "scripts": [
+                    "https://static.jpcode.dev/js/indexScripts/hover-multi-palette-div.js"
+                ],
                 "img": "https://static.jpcode.dev/img/ColorPaletteCardImg-transparent-512p.webp",
                 "link": "https://github.com/John-Paul-R/multi-palette-js",
                 "desc": "Some animations that react to your cursor."

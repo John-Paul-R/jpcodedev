@@ -69,10 +69,12 @@ block body
             for project of mini_projects 
                 a.project_card.card(href=project.link)
                         h3 #{project.name}
-                        if (project.img)
-                            img.preview(src=project.img, alt="View Project")
                         if (project.id)
                             div(id=project.id)
+                                if (project.img)
+                                    img.preview(src=project.img, alt="View Project")
+                        else if (project.img)
+                            img.preview(src=project.img, alt="View Project")
                         if (project.scripts)
                             each scr in project.scripts
                                 script(src=scr defer) 
