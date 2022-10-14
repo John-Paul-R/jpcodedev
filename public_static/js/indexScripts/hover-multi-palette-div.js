@@ -42,7 +42,6 @@
     const setPalette = (paletteIndex) => {
         temporarilyForceTransitionOnAll();
         if (!isHoverPaletteActive) {
-            console.log(mpal, mpal.currentPaletteIndex)
             originalPalette = mpal.currentPaletteIndex;
         }
         mpal.setPalette(paletteIndex);
@@ -98,7 +97,8 @@
                 background-color: var(--color) !important;
             }`);
             sheet.insertRule(`.hover_mpal_transition_all_elems * {
-                transition: all 0.5s !important;
+                transition-property: color, background-color, border-color, box-shadow, filter, background !important;
+                transition-duration: 0.5s !important;
             }`);
         }
 
