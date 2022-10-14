@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import Path from "path";
 import pug from "pug";
 import { Converter as MdConverter } from "showdown";
+import showdownHighlight from "showdown-highlight";
 
 import * as dndPlugin from "./dnd-plugin";
 import { trimTrailingSlash } from "./utils.js";
@@ -80,6 +81,11 @@ const converter = new MdConverter({
     tables: true,
     strikethrough: true,
     disableForced4SpacesIndentedSublists: true,
+    extensions: [
+        showdownHighlight({
+            pre: true,
+        }),
+    ],
 });
 
 const { HTTP2_HEADER_PATH } = http2.constants;
