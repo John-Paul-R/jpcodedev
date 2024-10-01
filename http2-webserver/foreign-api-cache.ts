@@ -1,26 +1,26 @@
 import fs from "fs";
 import path from "path";
 
-type CachedResponseData = {
+type CachedResponseData<T> = {
     id: string;
-    data?: {};
+    data?: T;
 };
 
-type BaseApi = {
-    get: (str: string) => {};
-    list: () => {};
+type BaseApi<T> = {
+    get: (str: string) => Promise<T>;
+    list: () => Promise<T[]>;
 };
 
-export default class ApiWrapper<SourceApi extends BaseApi> {
+export default class ApiWrapper<T> {
     static cacheDir = path.join(__dirname, "foreign-api-cache");
-    getter: SourceApi;
+    getter: BaseApi<T>;
     cacheFile: string;
-    cacheMap: { [key: string]: CachedResponseData };
-    constructor(getter: SourceApi, apiName: string) {
+    cacheMap: { [key: string]: CachedResponseData<T> };
+    constructor(getter: BaseApi<T>, apiName: string) {
         this.getter = getter;
         this.cacheFile = path.join(ApiWrapper.cacheDir, `${apiName}.json`);
         try {
-            fs.mkdirSync(ApiWrapper.cacheDir);
+            fs.mkdirSync(ApiWrapper.cacheDir, { recursive: true });
         } catch (error) {
             console.warn(error);
         }
@@ -37,7 +37,7 @@ export default class ApiWrapper<SourceApi extends BaseApi> {
         }
     }
 
-    async get(queryStr: string) {
+    async get(queryStr: string): Promise<T | null> {
         queryStr = queryStr.toLowerCase();
         return this.cacheMap[queryStr]?.data ?? (await this._get(queryStr));
     }
@@ -51,8 +51,8 @@ export default class ApiWrapper<SourceApi extends BaseApi> {
      * @param {string} queryStr
      * @returns {ResponseData}
      */
-    async _get(queryStr: string) {
-        let data = null;
+    async _get(queryStr: string): Promise<T | null> {
+        let data: T | null = null;
         try {
             data = await this.getter.get(queryStr);
             this.cacheMap[queryStr] = {

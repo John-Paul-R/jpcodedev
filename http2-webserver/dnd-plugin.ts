@@ -1,8 +1,54 @@
 /* eslint-disable indent */
-import { spellInfo, Spells as spells } from "dnd-api";
+import { SpellService } from "dnd_api_helper";
 import ApiWrapper from "./foreign-api-cache";
 
-const spellsWrapper = new ApiWrapper(spells, "dnd-api-spells");
+const BASE_URL = "https://www.dnd5eapi.co";
+
+type APIReference = {
+    index?: string;
+    level?: number;
+    name: string;
+    url?: string;
+  };
+  
+  type AreaOfEffect = {
+    size?: number;
+    type?: 'sphere' | 'cone' | 'cylinder' | 'line' | 'cube';
+  };
+  
+  type SpellResponse = {
+    index?: string;
+    level: number;
+    name: string;
+    url?: string;
+    desc?: string[];
+    higher_level?: string[];
+    range?: string;
+    components?: Array<'V' | 'S' | 'M'>;
+    material?: string;
+    area_of_effect?: AreaOfEffect;
+    ritual?: boolean;
+    duration?: string;
+    concentration?: boolean;
+    casting_time?: string;
+    attack_type?: string;
+    damage?: unknown; // The structure of 'damage' is not specified in the provided description
+    school: APIReference;
+    classes?: APIReference[];
+    subclasses?: APIReference[];
+  };
+export async function getSpell(spellName: string): Promise<SpellResponse> {
+  return fetch(BASE_URL + "/api/spells/" + spellName).then((response) => response.json());
+}
+export async function getAllSpells(): Promise<SpellResponse[]> {
+    return fetch(BASE_URL + "/api/spells").then((response) => response.json());
+  }
+  
+  
+const spellsWrapper = new ApiWrapper({
+    get: getSpell,
+    list: getAllSpells,
+}, "dnd-api-spells");
 
 function replaceRange(
     s: string,
@@ -96,8 +142,11 @@ async function createSpellTooltip(match: string) {
     let outData = null;
 
     try {
-        const data = (await spellsWrapper.get(match)) as spellInfo;
-        console.log(data.name);
+        const data = await spellsWrapper.get(match);
+        console.log(data?.name);
+        if (data === null) {
+            throw new Error(`Failed to resolve spell '${id}'`);
+        }
         // console.log(data)
         // out = `<b class="spell">${match}</b>`
         const descId = id; // + "-desc";

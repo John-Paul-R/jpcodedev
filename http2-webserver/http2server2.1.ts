@@ -125,7 +125,7 @@ logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
 // Set Logging Format based on runOpts
 let logStream: (
     headers: IncomingHttpHeaders,
-    socket: Http2Session["socket"]
+    socket: Http2Session["socket"] | undefined
 ) => void;
 if (runOpts.log === "simple") {
     logStream = (headers: IncomingHttpHeaders) => {
@@ -142,10 +142,10 @@ if (runOpts.log === "simple") {
 } else if (runOpts.log === "verbose") {
     logStream = (
         headers: IncomingHttpHeaders,
-        socket: Http2Session["socket"]
+        socket: Http2Session["socket"] | undefined
     ) => {
         logger.info(
-            `${socket.remoteFamily}, ${socket.remoteAddress}, ${socket.remotePort
+            `${socket?.remoteFamily}, ${socket?.remoteAddress}, ${socket?.remotePort
             }, ${headers[HTTP2_HEADER_METHOD]} '${headers[HTTP2_HEADER_PATH]
             }', ${headers[http2.constants.HTTP2_HEADER_REFERER]}, '${headers[http2.constants.HTTP2_HEADER_USER_AGENT]
             }'`
@@ -248,7 +248,7 @@ fm.load(exec_path);
 // Img Dir
 imgDir.init(widgets.getPugTemplate("img_dir"), consts, logger);
 
-const port = runOpts.port || 8080;
+const port = runOpts.port || 8089;
 
 const serverOpts = {
     allowHTTP1: runOpts.allowHTTP1 as boolean,
@@ -282,7 +282,7 @@ server.on("error", (err) => logger.error(err));
 
 //  Handle streams (requests are streams)
 server.on("stream", (stream, headers) => {
-    logStream(headers, stream.session.socket);
+    logStream(headers, stream.session?.socket);
     try {
         const successCode = respond(stream, headers);
     } catch (err) {
@@ -318,7 +318,7 @@ async function respond(
     const reqUrl = new URL(headers[HTTP2_HEADER_PATH] as string, URL_ROOT);
     const path = decodeURIComponent(reqUrl.pathname);
     const query = reqUrl.search;
-    const socket = stream.session.socket;
+    const socket = stream.session?.socket;
     const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
     const resHeaders: OutgoingHttpHeaders = {
