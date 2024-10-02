@@ -131,12 +131,12 @@ if (runOpts.log === "simple") {
     logStream = (headers: IncomingHttpHeaders) => {
         logger.info(
             "Req: " +
-                JSON.stringify([
-                    headers[HTTP2_HEADER_METHOD],
-                    headers[HTTP2_HEADER_PATH],
-                    headers[http2.constants.HTTP2_HEADER_REFERER],
-                    headers[http2.constants.HTTP2_HEADER_USER_AGENT],
-                ])
+            JSON.stringify([
+                headers[HTTP2_HEADER_METHOD],
+                headers[HTTP2_HEADER_PATH],
+                headers[http2.constants.HTTP2_HEADER_REFERER],
+                headers[http2.constants.HTTP2_HEADER_USER_AGENT],
+            ])
         );
     };
 } else if (runOpts.log === "verbose") {
@@ -145,19 +145,16 @@ if (runOpts.log === "simple") {
         socket: Http2Session["socket"]
     ) => {
         logger.info(
-            `${socket.remoteFamily}, ${socket.remoteAddress}, ${
-                socket.remotePort
-            }, ${headers[HTTP2_HEADER_METHOD]} '${
-                headers[HTTP2_HEADER_PATH]
-            }', ${headers[http2.constants.HTTP2_HEADER_REFERER]}, '${
-                headers[http2.constants.HTTP2_HEADER_USER_AGENT]
+            `${socket.remoteFamily}, ${socket.remoteAddress}, ${socket.remotePort
+            }, ${headers[HTTP2_HEADER_METHOD]} '${headers[HTTP2_HEADER_PATH]
+            }', ${headers[http2.constants.HTTP2_HEADER_REFERER]}, '${headers[http2.constants.HTTP2_HEADER_USER_AGENT]
             }'`
         );
     };
     // + headers[http2.constants.HTTP2_HEADER]
     // +` - pushList[reqPath]: ${pushList[reqPath]}`
 } else {
-    logStream = () => {};
+    logStream = () => { };
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -217,12 +214,30 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 
+// Initialize dnd/ian-strahd Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "dnd/ian-strahd/widgets"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "dnd/ian-strahd",
+    plugins: ["dnd-api"],
+});
+
 // Initialize `thoughts/software` Notes Widgets
 widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "thoughts/software/src"),
     preload_widgets: true,
     lazy_load_allowed: true,
     web_root: "thoughts/software",
+    plugins: [],
+});
+
+// Initialize `thoughts/politics` Notes Widgets
+widgets.init({
+    widget_directory: Path.join(runOpts.pubpath, "thoughts/politics/src"),
+    preload_widgets: true,
+    lazy_load_allowed: true,
+    web_root: "thoughts/politics",
     plugins: [],
 });
 
@@ -249,10 +264,8 @@ if (runOpts.key && runOpts.cert) {
     logger.info("Key and Cert Loaded. Running server with encryption enabled.");
 } else if (runOpts.key || runOpts.cert) {
     logger.warn(
-        `CommandLineArguments Error: A ${
-            runOpts.key ? "key" : "cert"
-        } was specified, but a ${
-            runOpts.key ? "cert" : "key"
+        `CommandLineArguments Error: A ${runOpts.key ? "key" : "cert"
+        } was specified, but a ${runOpts.key ? "cert" : "key"
         } was not. In order to enable SSL/TLS, both must be specified. Starting server without SSL/TLS.`
     );
 } else {
@@ -395,23 +408,23 @@ async function respond(
         const resHeaders2 =
             websiteRoot === "static.jpcode.dev"
                 ? {
-                      // This is absolutely cursed. For some incomprehensable
-                      // reason, explicitly setting the access control header
-                      // below results in "*, *" if the requestedFile.headers
-                      // already has "*" set. This filter will exclude the
-                      // requestedFile value... in theory.
-                      // Ah, I think it has to do with case sensitivity.
-                      //   ...Object.fromEntries(
-                      //       Object.entries(requestedFile.headers).filter(
-                      //           ([k, v]) =>
-                      //               k.toLowerCase() ===
-                      //               HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN.toLowerCase()
-                      //       )
-                      //   ),
-                      ...requestedFile.headers,
-                      ":status": 200,
-                      [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: "*",
-                  }
+                    // This is absolutely cursed. For some incomprehensable
+                    // reason, explicitly setting the access control header
+                    // below results in "*, *" if the requestedFile.headers
+                    // already has "*" set. This filter will exclude the
+                    // requestedFile value... in theory.
+                    // Ah, I think it has to do with case sensitivity.
+                    //   ...Object.fromEntries(
+                    //       Object.entries(requestedFile.headers).filter(
+                    //           ([k, v]) =>
+                    //               k.toLowerCase() ===
+                    //               HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN.toLowerCase()
+                    //       )
+                    //   ),
+                    ...requestedFile.headers,
+                    ":status": 200,
+                    [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: "*",
+                }
                 : requestedFile.headers;
 
         stream.respond(resHeaders2);
