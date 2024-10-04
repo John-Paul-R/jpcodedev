@@ -25,3 +25,4 @@ http2-webserver/foreign-api-cache/
 http2-webserver/log/
 http2-webserver/ts_output/
 http2-webserver/.ports
+http2-webserver/certs/*

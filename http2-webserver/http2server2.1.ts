@@ -3,7 +3,7 @@ import http2, {
     OutgoingHttpHeaders,
     SecureServerOptions,
     ServerHttp2Stream,
-} from "http2";
+} from "node:http2";
 import fs, { PathLike } from "fs";
 import Path from "path";
 import log4js from "log4js";
@@ -256,11 +256,11 @@ const serverOpts = {
 } as SecureServerOptions;
 
 // Whether or not to use HTTPS on webserver
-let useSecure = false;
-if (runOpts.key && runOpts.cert) {
+const useSecure = runOpts.key && runOpts.cert;
+
+if (useSecure) {
     serverOpts.key = fs.readFileSync(runOpts.key);
     serverOpts.cert = fs.readFileSync(runOpts.cert);
-    useSecure = true;
     logger.info("Key and Cert Loaded. Running server with encryption enabled.");
 } else if (runOpts.key || runOpts.cert) {
     logger.warn(
@@ -273,6 +273,12 @@ if (runOpts.key && runOpts.cert) {
 }
 
 //  Create server
+
+// NOTE WELL:
+// - You MUST have a key+cert for browsers to accept these http2 connections at
+//   all!
+// - Even for cURL, you must specify a special flag to signal that it's http2!
+//   like so: `curl -D - --http2-prior-knowledge http://localhost:8443`
 const server = useSecure
     ? http2.createSecureServer(serverOpts)
     : http2.createServer(serverOpts);
