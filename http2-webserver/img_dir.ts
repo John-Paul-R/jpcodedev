@@ -1,25 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Path from "path";
 import fs from "fs";
 import { request } from "https";
 import pug from "pug";
 
 import { JPServerConsts } from "./http2server2.1";
-import { Logger } from "log4js";
+import { getLogger } from "log4js";
 import { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
+import { readJson } from "fs-extra";
+import { promisify } from "util";
 
 let imgDirPug: pug.compileTemplate;
 let consts: JPServerConsts;
-let logger;
+const logger = getLogger("img_dir");
 let IMG_DIR: string;
 let files: { curatedConfig: any; stats: any };
+const readdir = promisify(fs.readdir);
 
-const getImageFiles = (source: string) => {
+function assertIsStringIndexableObject(v: unknown): asserts v is Record<string, unknown> {
+    if (typeof v !== 'object') {
+        throw new Error("Expected an 'object', got a " + typeof v);
+    }
+}
+
+const getImageFiles = async (source: string) => {
     const file_end_len = "-thumb.webp".length;
-    const statsFile = JSON.parse(
-        fs.readFileSync(Path.join(source, "_stats.json")).toString()
-    );
-    let out = fs
-        .readdirSync(source, { withFileTypes: true })
+    const statsFile = await readJson(Path.join(source, "_stats.json"));
+    assertIsStringIndexableObject(statsFile);
+
+    const dirEntries = await readdir(source, { withFileTypes: true });
+    return  dirEntries
         .filter(
             (dirent) =>
                 dirent.isFile() && dirent.name.endsWith("-wm-thumb.webp")
@@ -37,23 +47,18 @@ const getImageFiles = (source: string) => {
                 ),
                 dateModified: statsFile[baseName],
             };
-        });
-
-    out = out.sort((a, b) => b.dateModified - a.dateModified);
-
-    return out;
+        })
+        .sort((a, b) => b.dateModified - a.dateModified);
 };
 
 function init(
     pugFunction: pug.compileTemplate,
     constants: JPServerConsts,
-    lgr: Logger
 ) {
     imgDirPug = pugFunction;
     consts = constants;
     IMG_DIR = Path.join(consts.exec_path, "/img/3d");
     console.log("IMG_DIR", IMG_DIR);
-    logger = lgr;
 
     if (consts.websiteRoot.startsWith("www.")) {
         const baseDir = Path.join(consts.exec_path, "3d");
@@ -71,11 +76,11 @@ const stripTrailingSlash = (str: string) => {
     return str.endsWith("/") ? str.slice(0, -1) : str;
 };
 
-function handleRequest(
+async function handleRequest(
     stream: ServerHttp2Stream,
     headers: IncomingHttpHeaders,
     path: string,
-    query: string
+    _query: string
 ) {
     const isStatic = consts.websiteRoot.startsWith("static.");
     const validPaths = ["/3d", "/3d/all"];
@@ -86,7 +91,9 @@ function handleRequest(
         if (!isStatic) {
             if (validPaths.includes(parsedPath)) reverseProxy(stream, path);
         } else {
-            if (parsedPath === "/3d/all") viewAll(stream);
+            if (parsedPath === "/3d/all") {
+                await viewAll(stream);
+            }
         }
     }
 
@@ -94,7 +101,7 @@ function handleRequest(
 }
 
 function reverseProxy(stream: ServerHttp2Stream, path: string) {
-    console.log("pinging static server...");
+    logger.log("pinging static server...");
     const req = request(
         {
             hostname: "static.jpcode.dev",
@@ -125,8 +132,8 @@ function reverseProxy(stream: ServerHttp2Stream, path: string) {
     req.end();
 }
 
-function viewAll(stream: ServerHttp2Stream) {
-    const imgFiles = getImageFiles(IMG_DIR);
+async function viewAll(stream: ServerHttp2Stream) {
+    const imgFiles = await getImageFiles(IMG_DIR);
     const images = [];
     for (const imgFile of imgFiles) {
         const base = Path.join("img/3d", imgFile.fileName);

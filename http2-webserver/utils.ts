@@ -1,6 +1,6 @@
 import fs from "fs";
 
-export async function runWith(
+export function runWith(
     fileDescriptor: number,
     func: (fileDescriptor: number) => void
 ) {

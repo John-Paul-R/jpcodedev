@@ -1,14 +1,18 @@
-import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import fs from "fs-extra";
+import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
 import Path from "path";
 import pug from "pug";
 import { Converter as MdConverter } from "showdown";
 import showdownHighlight from "showdown-highlight";
 
+import { getLogger } from "log4js";
 import * as dndPlugin from "./dnd-plugin";
-import { trimTrailingSlash } from "./utils.js";
-import { Dirent } from "fs";
 import { URL_ROOT } from "./http2server2.1";
+import { trimTrailingSlash } from "./utils.js";
+
+const logger = getLogger("timeline-notes");
 
 type WidgetsDirectoryConfig = {
     dnd?: DndDirectoryOptions;
@@ -39,6 +43,11 @@ type ColumnConfig = {
      * The key that content .json files will use to populate this value
      */
     key: ColumnKey;
+    /**
+     * The type of cell to render (a sort of preset, supported by the pug template).
+     * - 'title': notably, has a link to the note
+     */
+    cell_type?: 'title' | undefined;
 };
 
 type DndDirectoryOptions = SharedDirectoryOptions & {
@@ -58,16 +67,6 @@ type OpenGraphProperties = {
     image?: string;
     url?: string;
 };
-
-type DndNoteMetadata = {
-    title: string;
-    "content-file": string;
-    "session-date": string;
-};
-
-type DndNoteMemCache = {
-    content: string | Buffer;
-} & DndNoteMetadata;
 
 type ContentFIleMetadata = {
     [key: string]: string;
@@ -89,13 +88,19 @@ const converter = new MdConverter({
 });
 
 const { HTTP2_HEADER_PATH } = http2.constants;
-const baseUrl = "https://www.jpcode.dev/";
+const baseUrl = "https://localhost:8082"; //"https://www.jpcode.dev/";
 
 const _widgets_data: { [key: string]: Map<string, ContentFileMemCache> } = {};
 const _templates: { [key: string]: pug.compileTemplate } = {};
 const _markdown: { [key: string]: { [key: string]: string | Buffer } } = {};
-const _config: { [key: string]: { [key: string]: {} } } = {};
+const _config: { [key: string]: { [key: string]: any } } = {};
 const _dir_config: { [key: string]: WidgetsDirectoryConfig } = {};
+/**
+ * a list of registered "root" path fragments
+ *
+ * e.g. in `https://example.com/fun/games/and/stuff`, `fun` would be considered
+ * the 'webroot'
+ */
 const webroots: string[] = [];
 const webrootToWidgetDirectory: Record<string, string> = {};
 
@@ -108,7 +113,7 @@ const webrootToWidgetDirectory: Record<string, string> = {};
  * @param {string}  options.web_root
  * @param {string[]} options.plugins
  */
-function init(
+async function init(
     options = {
         widget_directory: Path.join(__dirname, "widgets"),
         preload_widgets: true,
@@ -118,13 +123,13 @@ function init(
     }
 ) {
     fs.ensureDirSync(options.widget_directory);
-    const widget_paths = getFilePathsRecursive(options.widget_directory);
+    const widget_paths = await getFilePathsRecursive(options.widget_directory);
     webrootToWidgetDirectory[options.web_root] = options.widget_directory;
 
     const templates: { [key: string]: pug.compileTemplate } = {};
     const widgets: { [key: string]: ContentFileMemCache } = {};
     const markdown: { [key: string]: string | Buffer } = {};
-    const config: { [key: string]: {} } = {};
+    const config: { [key: string]: any } = {};
 
     let dirConfig: WidgetsDirectoryConfig = {};
     const dirConfigPath = Path.join(
@@ -163,7 +168,8 @@ function init(
                                 '<a noreferrer target="_blank" href'
                             )
                     )
-                    .then((htmlStr: string) => (markdown[file_name] = htmlStr));
+                    .then((htmlStr: string) => (markdown[file_name] = htmlStr))
+                    .catch((err) => logger.warn("failed to fill tooltup", err));
             } else {
                 console.warn(
                     "Ignoring file, not a .pug widget or a content .json: " +
@@ -300,29 +306,21 @@ function handleRequest(
                     );
                 } else if (rawDirConfig.thoughts) {
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
-                    const thoughtsDirConfig = rawDirConfig.thoughts!;
-                    const colKeys =
-                        thoughtsDirConfig.columns.map((col) => col.key) ?? [];
-
-                    var widgetMetadata = [
+                    const thoughtsDirConfig = rawDirConfig.thoughts;
+                    // The fields available to each row in the table
+                    const widgetMetadata = [
                         // for each widget
                         ..._widgets_data[webroot].entries(),
                     ].map(([widgetKey, widgetMeta]) => [
                         widgetKey,
                         {
                             ...widgetMeta,
-                            columns: [] as string[],
+                            columns: thoughtsDirConfig.columns.map(col => ({ 
+                                value: widgetMeta[col.key],
+                                cell_type: col.cell_type
+                            })) ?? [],
                         },
                     ]);
-
-                    // slice since title is provided explicitly, so it can be linked.
-                    const colKeysToIncludeInWidgetMetadata = colKeys.slice(1);
-                    widgetMetadata.forEach(([widgetKey, widgetMeta]) => {
-                        colKeysToIncludeInWidgetMetadata.forEach((key) =>
-                            // @ts-expect-error
-                            widgetMeta.columns.push(widgetMeta[key])
-                        );
-                    });
 
                     return respond(
                         stream,
@@ -333,6 +331,7 @@ function handleRequest(
                                 (col) => col.displayName
                             ),
                             title: dirConfig.title,
+                            baseUrl,
                             webroot: webroot,
                         })
                     );
@@ -374,9 +373,6 @@ function handleRequest(
                             );
                         }
                     } else if (rawDirConfig.thoughts) {
-                        // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
-                        const thoughtsDirConfig = rawDirConfig.thoughts;
-
                         return respond(
                             stream,
                             "text/html",
@@ -476,40 +472,42 @@ function getWidget(reqPath: string, pathFrags: string) {
     return out;
 }
 
-function getFilePathsRecursive(
+
+async function getFilePathsRecursive(directory_path: string): Promise<string[]> {
+    const result_dirents: string[] = [];
+    await getFilePathsRecursiveImpl(directory_path, result_dirents);
+    return result_dirents;
+}
+async function getFilePathsRecursiveImpl(
     directory_path: string,
-    dirent_arr: string[] & Dirent[] = []
-) {
-    const dir = fs.opendirSync(directory_path);
-    const widget_dirents = dirent_arr;
+    result_dirents: string[]
+): Promise<void> {
     const subdir_dirents = [];
-    let lastDirent = null;
-    do {
-        const dirent = dir.readSync();
+    const dirents = await fs.readdir(directory_path, { withFileTypes: true });
+
+    for (const dirent of dirents) {
         if (dirent === null) break;
         const dirent_path = Path.join(directory_path, dirent.name);
         if (dirent.isFile()) {
-            widget_dirents.push(dirent_path);
+            result_dirents.push(dirent_path);
         } else if (dirent.isDirectory()) {
             subdir_dirents.push(dirent_path);
         }
-        lastDirent = dirent;
-    } while (lastDirent !== null);
-    dir.close();
-    for (const subdir of subdir_dirents) {
-        widget_dirents.concat(getFilePathsRecursive(subdir, dirent_arr));
     }
-    return widget_dirents;
+        
+    await Promise.all(subdir_dirents.map(async subdir => {
+        await getFilePathsRecursiveImpl(subdir, result_dirents)
+    }));
 }
 
-function loadTemplates(dir: string) {
+async function loadTemplates(dir: string) {
     const templates: { [key: string]: pug.compileTemplate } = {};
-    const paths = getFilePathsRecursive(dir);
+    const paths = await getFilePathsRecursive(dir);
     for (const file_path of paths) {
         let file_name = Path.basename(file_path);
         file_name = file_name.substr(0, file_name.lastIndexOf("."));
         const ext = Path.extname(file_path);
-        const data = fs.readFileSync(file_path, { encoding: "utf-8" });
+        const data = await fs.readFile(file_path, { encoding: "utf-8" });
         if (ext === ".pug") {
             templates[file_name] = pug.compile(data, {
                 filename: file_path,
@@ -526,9 +524,7 @@ function loadTemplates(dir: string) {
 const getPugTemplate = (templateName: string) => _templates[templateName];
 
 export {
-    init,
-    handleRequest,
-    loadTemplates,
-    _templates as templates,
-    getPugTemplate,
+    getPugTemplate, handleRequest, init, loadTemplates,
+    _templates as templates
 };
+

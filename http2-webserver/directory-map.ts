@@ -1,9 +1,8 @@
-import fs from "fs-extra";
+import fs, { readJson } from "fs-extra";
 import Path, { ParsedPath } from "path";
 import dirUtil from "node-dir";
 import stringify from "json-stable-stringify";
 import { FormatInputPathObject } from "path/win32";
-import { OutgoingHttpHeader } from "http";
 import { OutgoingHttpHeaders } from "http2";
 
 type AliasesEntry = {
@@ -11,12 +10,11 @@ type AliasesEntry = {
     destination: string;
 };
 
-// This type is only accurate for leaf nodes.
-type DirectoryMapEntry = OutgoingHttpHeaders;
-// {
-//     headers?: OutgoingHttpHeader[];
-// };
+type DirEntry = { [key: string]: DirectoryMapEntry };
+type FileEntry = { headers: OutgoingHttpHeaders } & { [key in string]?: unknown }
+type DirectoryMapEntry = DirEntry | FileEntry;
 
+export { DirectoryMap };
 export default class DirectoryMap {
     static map_filename = "directory-map.json";
     static aliases_filename = "aliases.json";
@@ -25,8 +23,7 @@ export default class DirectoryMap {
     private _urls: Map<string, number>;
     private _destinations: string[];
     loaded: boolean;
-    private _dirmap: {};
-    config: any;
+    private _dirmap: DirEntry;
     constructor(map_path: string, arrIgnoreTerms: string[]) {
         this.map_path = map_path;
         this.ignoreTerms = arrIgnoreTerms;
@@ -36,7 +33,7 @@ export default class DirectoryMap {
         this._dirmap = {};
     }
 
-    load() {
+    async load() {
         const config_file_path = Path.join(
             this.map_path,
             DirectoryMap.aliases_filename
@@ -44,9 +41,7 @@ export default class DirectoryMap {
         fs.ensureFileSync(config_file_path);
         let configRaw: AliasesEntry[];
         try {
-            configRaw = JSON.parse(
-                fs.readFileSync(config_file_path).toString()
-            );
+            configRaw = await readJson(config_file_path);
         } catch (err) {
             console.warn(`Could not load aliases file: ${config_file_path}`);
             console.error(err);
@@ -68,16 +63,14 @@ export default class DirectoryMap {
         this._destinations = destinations;
         this.loaded = true;
     }
-    loadDirmap() {
+    async loadDirmap() {
         const dirmapFilePath = Path.join(
             this.map_path,
             DirectoryMap.map_filename
         );
-        let existingDirmap: {};
+        let existingDirmap: DirEntry;
         try {
-            existingDirmap = JSON.parse(
-                fs.readFileSync(dirmapFilePath).toString()
-            );
+            existingDirmap = await readJson(dirmapFilePath);
         } catch (err) {
             existingDirmap = {};
             console.warn(
@@ -146,12 +139,11 @@ export default class DirectoryMap {
         });
     }
     _get(requestPath: FormatInputPathObject) {
-        const idx = this._urls.get(Path.format(requestPath));
+        const path = Path.format(requestPath);
+        const idx = this._urls.get(path);
         if (idx === undefined) {
             console.error(
-                `ERR, directory-map failed to retrieve data for requested path ${requestPath} (${Path.format(
-                    requestPath
-                )})`
+                `ERR, directory-map failed to retrieve data for requested path '${path}')`
             );
             return undefined;
         }
@@ -203,12 +195,13 @@ function filterIgnore(path: string, ignoreTerms: string[]) {
 }
 
 function dirmapResolvePath(
-    cDirObj: { [key: string]: {} },
+    cDirObj: DirectoryMapEntry,
     subdirs: string[]
-): { [key: string]: {} } {
-    const nDirObj = cDirObj[subdirs[0]];
+): DirectoryMapEntry {
+    // TODO! Not strictly correct, should add a discriminator so we can know the
+    // right type.
+    const nDirObj = (cDirObj as DirEntry)[subdirs[0]];
     if (nDirObj) return dirmapResolvePath(nDirObj, subdirs.slice(1));
     else return cDirObj;
 }
-exports.DirectoryMap = DirectoryMap;
 // TODO Purge files that no longer exist from dirmap on load.

@@ -1,9 +1,6 @@
-import Path from "path";
-import fs from "fs";
 import dirUtil from "node-dir";
 
 export const getDirReportFiles = async (sourceDirPath: string) => {
-    let retVal: string[] = [];
     const files = await dirUtil.promiseFiles(sourceDirPath);
 
     if (!files) {
@@ -14,7 +11,7 @@ export const getDirReportFiles = async (sourceDirPath: string) => {
     }
 
     // const files = objPaths.files;
-    retVal = files
+    return files
         .filter((p) => p.endsWith(".Bench-report.csv"))
         .map((p) =>
             p.substring(
@@ -22,6 +19,4 @@ export const getDirReportFiles = async (sourceDirPath: string) => {
                 p.lastIndexOf(".Bench-report.csv")
             )
         );
-
-    return retVal;
 };

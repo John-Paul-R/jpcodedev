@@ -1,5 +1,9 @@
 import fs from "fs";
+import { readJson, writeJson } from "fs-extra";
+import { getLogger } from "log4js";
 import path from "path";
+
+const logger = getLogger("foreign-api-cache");
 
 type CachedResponseData<T> = {
     id: string;
@@ -29,9 +33,7 @@ export default class ApiWrapper<T> {
 
     async loadCache() {
         try {
-            this.cacheMap = JSON.parse(
-                fs.readFileSync(this.cacheFile).toString()
-            );
+            this.cacheMap = await readJson(this.cacheFile);
         } catch (error) {
             console.error(error);
         }
@@ -59,15 +61,16 @@ export default class ApiWrapper<T> {
                 id: queryStr,
                 data: data,
             };
-            this.saveCache();
+            this.saveCache()
+                .catch(err => logger.error("Failed to save foreign-api-cache!", err));
         } catch (error) {
             console.error(error);
         }
         return data;
     }
 
-    async saveCache() {
-        fs.writeFileSync(this.cacheFile, JSON.stringify(this.cacheMap), {
+    saveCache(): Promise<void> {
+        return writeJson(this.cacheFile, this.cacheMap, {
             encoding: "utf8",
             flag: "w",
         });

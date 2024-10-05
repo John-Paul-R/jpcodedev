@@ -6,7 +6,8 @@
         "columns": [
             {
                 "displayName": "Title (Link)",
-                "key": "title"
+                "key": "title",
+                "cell_type": "title"
             },
             {
                 "displayName": "Created",

@@ -7,7 +7,7 @@ import pug from "pug";
 import DirectoryMap from "./directory-map";
 import { JPServerOptions } from "./http2server2.1";
 import * as widgets from "./timeline-notes";
-import { Logger } from "./node_modules/log4js/types/log4js";
+import { Logger } from "log4js";
 
 const {
     // HTTP2_HEADER_METHOD,
@@ -56,7 +56,7 @@ function loadFiles(dir_path: PathLike) {
     const files = new Map<string, FileInfo>();
     logger.info("Load Site Files..");
     const dirPath = dir_path.toString();
-    dir.files(dirPath.toString(), (err: any, arrFilePaths: string[]) => {
+    dir.files(dirPath.toString(), (_err: unknown, arrFilePaths: string[]) => {
         if (arrFilePaths) {
             arrFilePaths.forEach(preloadFiles);
         } else {
@@ -232,7 +232,7 @@ function getFile(reqPath: string) {
         out = null;
     }
 
-    function logErr(err: any) {
+    function logErr(err: unknown) {
         logger.error("Error retrieving file: " + adjustedPath);
         logger.error(err);
     }
@@ -243,12 +243,12 @@ function getFile(reqPath: string) {
 /**
  * @param {string} root_dir The directory to index / load files from
  */
-function load(root_dir: string) {
+async function load(root_dir: string) {
     _files = loadFiles(root_dir);
     directory_map = new DirectoryMap(root_dir, [".git", ".well-known"]);
-    directory_map.loadDirmap();
-    directory_map.load();
-    console.log(directory_map);
+    await directory_map.loadDirmap();
+    await directory_map.load();
+    // console.log(directory_map);
 }
 
 export { init, load, getFile };

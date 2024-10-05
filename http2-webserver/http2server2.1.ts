@@ -1,20 +1,20 @@
+import commandLineArgs from "command-line-args";
+import fs, { PathLike } from "fs";
+import log4js from "log4js";
 import http2, {
     Http2Session,
+    IncomingHttpHeaders,
     OutgoingHttpHeaders,
     SecureServerOptions,
     ServerHttp2Stream,
 } from "node:http2";
-import fs, { PathLike } from "fs";
 import Path from "path";
-import log4js from "log4js";
-import commandLineArgs from "command-line-args";
 import pug from "pug";
 
-import * as widgets from "./timeline-notes";
 import * as fm from "./files-manager";
 import * as imgDir from "./img_dir";
-import { IncomingHttpHeaders } from "http";
 import { getDirReportFiles } from "./json-dir-index";
+import * as widgets from "./timeline-notes";
 
 // TODO: .env.<environment-type> files (public data)
 //  Load ArgV
@@ -75,7 +75,6 @@ export const URL_ROOT = `https://${websiteRoot}`;
 const {
     HTTP2_HEADER_METHOD,
     HTTP2_HEADER_PATH,
-    HTTP2_HEADER_ACCEPT_ENCODING,
     HTTP2_HEADER_CONTENT_LENGTH,
     HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
 } = http2.constants;
@@ -146,8 +145,8 @@ if (runOpts.log === "simple") {
     ) => {
         logger.info(
             `${socket?.remoteFamily}, ${socket?.remoteAddress}, ${socket?.remotePort
-            }, ${headers[HTTP2_HEADER_METHOD]} '${headers[HTTP2_HEADER_PATH]
-            }', ${headers[http2.constants.HTTP2_HEADER_REFERER]}, '${headers[http2.constants.HTTP2_HEADER_USER_AGENT]
+            }, ${headers[':method']} '${headers[':path']
+            }', ${headers['referer']}, '${headers['user-agent']
             }'`
         );
     };
@@ -157,10 +156,8 @@ if (runOpts.log === "simple") {
     logStream = () => { };
 }
 
-// eslint-disable-next-line no-unused-vars
-const linkify = (pathend: string) => `https://${websiteRoot}/${pathend}`;
 // Load Pug Templates
-widgets.loadTemplates("../pug");
+await widgets.loadTemplates("../pug");
 const pugOptions = {
     basedir: "../pug",
     globals: ["linkify"],
@@ -169,7 +166,7 @@ const pugOptions = {
 const supportedTimelineNotesRootFragments: string[] = ["dnd", "thoughts"];
 
 // Initialize dnd/ian-oota Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/ian-oota/widgets"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -177,7 +174,7 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 // Initialize dnd/jay-waterdeep Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/jay-waterdeep/widgets"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -185,7 +182,7 @@ widgets.init({
     plugins: ["dnd-api"],
 });
 // Initialize dnd/jp-icewind Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/jp-icewind/widgets"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -194,7 +191,7 @@ widgets.init({
 });
 
 // Initialize dnd/ian-theros Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/ian-theros/widgets"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -203,7 +200,7 @@ widgets.init({
 });
 
 // Initialize dnd/caillen-wildweirdwest Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(
         runOpts.pubpath,
         "dnd/caillen-wildweirdwest/widgets"
@@ -215,7 +212,7 @@ widgets.init({
 });
 
 // Initialize dnd/ian-strahd Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "dnd/ian-strahd/widgets"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -224,7 +221,7 @@ widgets.init({
 });
 
 // Initialize `thoughts/software` Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "thoughts/software/src"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -233,7 +230,7 @@ widgets.init({
 });
 
 // Initialize `thoughts/politics` Notes Widgets
-widgets.init({
+await widgets.init({
     widget_directory: Path.join(runOpts.pubpath, "thoughts/politics/src"),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -243,7 +240,7 @@ widgets.init({
 
 // Init file manager
 fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
-fm.load(exec_path);
+await fm.load(exec_path);
 
 // Img Dir
 imgDir.init(widgets.getPugTemplate("img_dir"), consts, logger);
@@ -251,7 +248,7 @@ imgDir.init(widgets.getPugTemplate("img_dir"), consts, logger);
 const port = runOpts.port || 8089;
 
 const serverOpts = {
-    allowHTTP1: runOpts.allowHTTP1 as boolean,
+    allowHTTP1: runOpts.allowHTTP1,
     timeout: 3000,
 } as SecureServerOptions;
 
@@ -286,14 +283,17 @@ const server = useSecure
 //  Handle Errors
 server.on("error", (err) => logger.error(err));
 
+enum ResponseExitCode {
+    Success,
+    UnsupportedMethod,
+    NotFound_NoHandler,
+}
+
 //  Handle streams (requests are streams)
 server.on("stream", (stream, headers) => {
     logStream(headers, stream.session?.socket);
-    try {
-        const successCode = respond(stream, headers);
-    } catch (err) {
-        logger.error(err);
-    }
+    respond(stream, headers)
+        .catch(err => logger.error("Critical unhandled request exception", err));
 });
 
 const getDirectoriesOrHtml = (source: PathLike) =>
@@ -310,7 +310,7 @@ const dirIndexPug = widgets.getPugTemplate("dir_list");
 async function respond(
     stream: ServerHttp2Stream,
     headers: IncomingHttpHeaders
-) {
+): Promise<ResponseExitCode> {
     stream.setTimeout(3000, () => {
         stream.destroy();
     });
@@ -319,13 +319,11 @@ async function respond(
     if (method != http2.constants.HTTP2_METHOD_GET) {
         stream.respond({ status: 404 });
         stream.end();
-        return;
+        return ResponseExitCode.UnsupportedMethod;
     }
     const reqUrl = new URL(headers[HTTP2_HEADER_PATH] as string, URL_ROOT);
     const path = decodeURIComponent(reqUrl.pathname);
     const query = reqUrl.search;
-    const socket = stream.session?.socket;
-    const encodings = headers[HTTP2_HEADER_ACCEPT_ENCODING];
 
     const resHeaders: OutgoingHttpHeaders = {
         "content-type": "text/html; charset=utf-8",
@@ -343,34 +341,40 @@ async function respond(
 
         stream.end(JSON.stringify(reportFiles));
 
-        return 0;
+        return ResponseExitCode.Success;
     }
 
     const requestedFile = fm.getFile(path);
     // Set content length header, if requested file is found by file manager.
-    if (requestedFile)
+    if (requestedFile) {
         requestedFile.headers[HTTP2_HEADER_CONTENT_LENGTH] = Buffer.byteLength(
             requestedFile.data,
             "utf8"
         );
-    //Try widget
+    }
+
+    // Try widget
     if (!requestedFile) {
         const successCode = widgets.handleRequest(
             stream,
             headers,
             supportedTimelineNotesRootFragments
         );
-        if (successCode === 0) return 0;
+        if (successCode === 0) {
+            return ResponseExitCode.Success;
+        }
     }
     if (!requestedFile && path.startsWith("/3d")) {
         try {
-            const successCode = imgDir.handleRequest(
+            const successCode = await imgDir.handleRequest(
                 stream,
                 headers,
                 path,
                 query
             );
-            if (successCode === 0) return 0;
+            if (successCode === 0) {
+                return ResponseExitCode.Success;
+            }
         } catch (error) {
             logger.error(error);
         }
@@ -402,7 +406,7 @@ async function respond(
                 stream.respond(resHeaders);
                 stream.write(dirIndexPug(opts));
                 stream.end();
-                return 0;
+                return ResponseExitCode.Success;
             }
         } catch (error) {
             logger.warn(error);
@@ -435,13 +439,13 @@ async function respond(
 
         stream.respond(resHeaders2);
         stream.end(requestedFile.data);
-        return 0;
+        return ResponseExitCode.Success;
     }
 
     // Handle 404
     logger.warn(`404 Not Found: ${path}`);
     handle404(stream);
-    return -1;
+    return ResponseExitCode.NotFound_NoHandler;
 }
 
 const pug404 = widgets.getPugTemplate("404")();

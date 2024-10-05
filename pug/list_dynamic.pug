@@ -27,9 +27,10 @@ block body
                         
                 tbody
                     each [key, widget] of widgets
-                        tr(data-session-date=widget["session-date"])
-                            td 
-                                a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}
-                            
+                        tr(data-session-date=widget["session-date"])                            
                             each value in widget.columns
-                                td #{value}
+                                if (value.cell_type === 'title')
+                                    td
+                                        a.note(href=`${baseUrl}/${webroot}/${key}`) #{value.value}
+                                else
+                                    td #{value.value}
