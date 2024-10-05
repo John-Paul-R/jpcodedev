@@ -1,13 +1,14 @@
 import http2, { OutgoingHttpHeaders } from "node:http2";
-import fs, { PathLike } from "node:fs";
+import fs, { fdatasync, PathLike } from "node:fs";
 import Mime from "mime";
-import dir from "node-dir";
 import Path from "node:path";
 import pug from "pug";
 import DirectoryMap from "./directory-map.ts";
 import type { JPServerOptions } from "./http2server2.1.ts";
 import * as widgets from "./timeline-notes.ts";
 import { Logger } from "log4js";
+import { walk } from "@std/fs/walk";
+import { JsonParseStream } from "@std/json/parse-stream";
 
 const {
     // HTTP2_HEADER_METHOD,
@@ -42,52 +43,51 @@ const init = (
 
 type JpPugConfig = {
     template: string;
-    data: object;
+    data: Record<string, unknown>;
 };
 
 type FileInfo = {
     absPath: PathLike;
-    data: string | Buffer;
+    data: Uint8Array | string;
     fileName: string;
     headers: OutgoingHttpHeaders;
 };
 
-function loadFiles(dir_path: PathLike) {
+async function loadFiles(dir_path: PathLike) {
+    const textDecoder = new TextDecoder();
     const files = new Map<string, FileInfo>();
     logger.info("Load Site Files..");
     const dirPath = dir_path.toString();
-    dir.files(dirPath.toString(), (_err: unknown, arrFilePaths: string[]) => {
-        if (arrFilePaths) {
-            arrFilePaths.forEach(preloadFiles);
-        } else {
-            logger.warn(
-                `No files found in pubpath '${dirPath}'. Ensure that the path to the directory is correct and that the directory is not empty.`
-            );
-        }
-    });
+    for await (const entry of walk(dirPath)) {
+        await preloadFiles(entry.path);
+    }
 
     /**
      * Load files into memory
      */
-    function preloadFiles(filePath: string) {
+    async function preloadFiles(filePath: string) {
         if (filePath.includes(".git")) return;
 
         const tempPath = Path.parse("/" + Path.relative(dirPath, filePath));
         const relFilePath = Path.format(tempPath);
 
-        const fileDescriptor = fs.openSync(filePath, "r");
-        const fileStats = fs.fstatSync(fileDescriptor);
-        let fileContents: Buffer | string = fs.readFileSync(fileDescriptor, {
-            flag: "r",
-        });
-        fs.closeSync(fileDescriptor);
+        const fileDescriptor = await Deno.open(filePath, {read: true});
+        const fileStats = await fileDescriptor.stat();
+        if (fileStats.isDirectory) {
+            fileDescriptor.close();
+            return; // we're recursing dirs, so skip
+        }
+        
+        // let fileContents: Uint8Array | string = new Uint8Array(fileStats.size);
+        // await fileDescriptor.readable.(fileContents);
+
 
         const contentType = Mime.getType(relFilePath);
         if (isLogVerbose) console.log(tempPath.base, contentType);
 
         let headers = {
             [HTTP2_HEADER_CONTENT_LENGTH]: fileStats.size,
-            [HTTP2_HEADER_LAST_MODIFIED]: fileStats.mtime.toUTCString(),
+            [HTTP2_HEADER_LAST_MODIFIED]: fileStats.mtime?.toUTCString(),
             [HTTP2_HEADER_CONTENT_TYPE]: contentType ?? "text/raw",
         } as OutgoingHttpHeaders;
 
@@ -96,14 +96,19 @@ function loadFiles(dir_path: PathLike) {
             return template(jsonContents.data);
         }
 
+        let fileContents: string | undefined;
         let shouldOverwiteDefaultHeaders = false;
         if (filePath.endsWith(".html")) {
             Object.assign(headers, defaultHeaders);
         } else if (filePath.endsWith(".pug.json")) {
             // Data files to be inserted into pug templates. (My thing)
-            const jsonContents = JSON.parse(
-                fileContents.toString()
-            ) as JpPugConfig;
+            const jsonContents = (await Array.fromAsync(
+                fileDescriptor.readable
+                    .pipeThrough(new TextDecoderStream())
+                    .pipeThrough(new JsonParseStream())
+            ))[0] as JpPugConfig;
+            // fileDescriptor.close();
+
             try {
                 fileContents = pugCompileJson(jsonContents);
             } catch (err) {
@@ -112,7 +117,13 @@ function loadFiles(dir_path: PathLike) {
             }
             shouldOverwiteDefaultHeaders = true;
         } else if (filePath.endsWith(".pug")) {
-            fileContents = pug.render(fileContents.toString(), pugOptions);
+            const textContent = (await Array.fromAsync(
+                fileDescriptor.readable
+                    .pipeThrough(new TextDecoderStream())
+            ))[0] as string;
+            // fileDescriptor.close();
+
+            fileContents = pug.render(textContent, pugOptions);
             shouldOverwiteDefaultHeaders = true;
         }
 
@@ -122,6 +133,14 @@ function loadFiles(dir_path: PathLike) {
             resHeaders[HTTP2_HEADER_LAST_MODIFIED] =
                 headers[HTTP2_HEADER_LAST_MODIFIED];
             headers = resHeaders;
+        }
+
+        if (fileContents === undefined) {
+            fileContents = (await Array.fromAsync(
+                fileDescriptor.readable
+                    .pipeThrough(new TextDecoderStream())
+            ))[0] as string;
+            // fileDescriptor.close();
         }
 
         files.set(`${relFilePath}`, {
@@ -244,7 +263,7 @@ function getFile(reqPath: string) {
  * @param {string} root_dir The directory to index / load files from
  */
 async function load(root_dir: string) {
-    _files = loadFiles(root_dir);
+    _files = await loadFiles(root_dir);
     directory_map = new DirectoryMap(root_dir, [".git", ".well-known"]);
     await directory_map.loadDirmap();
     await directory_map.load();

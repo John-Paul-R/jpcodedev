@@ -4,6 +4,7 @@ import stringify from "json-stable-stringify";
 import dirUtil from "node-dir";
 import { OutgoingHttpHeaders } from "node:http2";
 import Path, { FormatInputPathObject, ParsedPath } from "node:path";
+import {walk} from "@std/fs/walk"
 
 type AliasesEntry = {
     urls: string[];
@@ -80,64 +81,60 @@ export default class DirectoryMap {
         }
 
         const dirmap = {};
-        dirUtil.paths(this.map_path, (err, objPaths) => {
-            console.info("--- LOAD DIRMAP START ---");
-            if (!objPaths) {
-                console.warn(
-                    `No files found in pubpath '${this.map_path}'. Ensure that the path to the directory is correct and that the directory is not empty.`
-                );
-                return;
-            }
-
-            // Handle/Initialize directories
-            const dirs = objPaths.dirs;
-            if (dirs) {
-                for (const dirPath of dirs) {
-                    if (filterIgnore(dirPath, this.ignoreTerms)) {
-                        const dirPathFrags = Path.relative(
-                            this.map_path,
-                            Path.dirname(dirPath)
-                        ).split(Path.sep);
-                        const name = Path.basename(dirPath);
-                        const dir = dirmapResolvePath(
-                            existingDirmap,
-                            dirPathFrags
-                        );
-                        const newDir = dirmapResolvePath(dirmap, dirPathFrags);
-                        newDir[name] = dir[name] || {};
-                    }
-                }
-            }
-
-            const files = objPaths.files;
-            for (const filePath of files) {
-                const relPath = Path.parse(
-                    Path.relative(this.map_path, filePath)
-                );
-                const dirPathFrags = relPath.dir.split(Path.sep);
-
-                const dir = dirmapResolvePath(existingDirmap, dirPathFrags);
-
-                // Add file to directory entry if not already there
-                const newDir = dirmapResolvePath(dirmap, dirPathFrags);
-                newDir[relPath.base] = dir[relPath.base] || {};
-            }
-
-            this._dirmap = dirmap;
-            console.info(`Writing dirmap to ${dirmapFilePath}...`);
-            fs.writeFileSync(
-                dirmapFilePath,
-                stringify(dirmap, {
-                    space: 2,
-                }),
-                {
-                    encoding: "utf8",
-                    flag: "w+",
-                }
+        
+        console.info("--- LOAD DIRMAP START ---");
+        if (!(await Deno.stat(this.map_path)).isDirectory) {
+            console.warn(
+                `No directory found at pubpath '${this.map_path}'. Ensure that the path to the directory is correct and that the directory is not empty.`
             );
-            console.info("--- LOAD DIRMAP END ---");
-        });
+            return;
+        }
+        for await (const dirEntry of walk(this.map_path, {includeDirs: true, includeFiles: false})) {
+            // Handle/Initialize directories
+            if (filterIgnore(dirEntry.path, this.ignoreTerms)) {
+                const dirPathFrags = Path.relative(
+                    this.map_path,
+                    Path.dirname(dirEntry.path)
+                ).split(Path.sep);
+                const name = Path.basename(dirEntry.path);
+                const dir = dirmapResolvePath(
+                    existingDirmap,
+                    dirPathFrags
+                );
+                const newDir = dirmapResolvePath(dirmap, dirPathFrags);
+                newDir[name] = dir[name] || {};
+            }
+        }
+
+        for await (const fileEntry of walk(this.map_path, {includeFiles: true, includeDirs: false})) {
+
+            const relPath = Path.parse(
+                Path.relative(this.map_path, fileEntry.path)
+            );
+            const dirPathFrags = relPath.dir.split(Path.sep);
+
+            const dir = dirmapResolvePath(existingDirmap, dirPathFrags);
+
+            // Add file to directory entry if not already there
+            const newDir = dirmapResolvePath(dirmap, dirPathFrags);
+            newDir[relPath.base] = dir[relPath.base] || {};        
+        }
+
+        this._dirmap = dirmap;
+        console.info(`Writing dirmap to ${dirmapFilePath}...`);
+        Deno.writeTextFileSync(
+            dirmapFilePath,
+            stringify(dirmap, {
+                space: 2,
+            }),
+            {
+                create: true,
+                append: false,
+            }
+        );
+        console.info("--- LOAD DIRMAP END ---");
     }
+
     _get(requestPath: FormatInputPathObject) {
         const path = Path.format(requestPath);
         const idx = this._urls.get(path);
@@ -155,9 +152,13 @@ export default class DirectoryMap {
      */
     get(requestPath: ParsedPath): DirectoryMapEntry | undefined {
         try {
+            const frags = Path.format(requestPath).split(Path.sep).slice(1);
+            // if (frags.length === 0) {
+            //     return this._dirmap;
+            // }
             const dir = dirmapResolvePath(
                 this._dirmap,
-                Path.format(requestPath).split(Path.sep).slice(1)
+                frags
             );
             // console.log("GETMETHOD", dir, requestPath.base, dir[requestPath.base], Path.format(requestPath));
             return (dir[requestPath.base] || (dir as unknown)) as

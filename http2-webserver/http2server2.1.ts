@@ -1,22 +1,21 @@
 import commandLineArgs from "command-line-args";
 import fs, { PathLike } from "node:fs";
 import log4js from "log4js";
-import http2, {
-    Http2Session,
-    IncomingHttpHeaders,
-    OutgoingHttpHeaders,
-    SecureServerOptions,
-    ServerHttp2Stream,
-    createSecureServer
-} from "node:http2";
 import Path from "node:path";
 import pug from "pug";
 import __ from '@x/dirname';
+import { ok } from '@http/response/ok';
+import {HEADER, Header as HeaderKey} from "@std/http/unstable-header";
+import { serveFile } from "@std/http";
 
 import * as fm from "./files-manager.ts";
 import * as imgDir from "./img_dir.ts";
 import { getDirReportFiles } from "./json-dir-index.ts";
 import * as widgets from "./timeline-notes.ts";
+import { Buffer } from "node:buffer";
+import { url } from "node:inspector";
+import { request } from "node:http";
+import { notFound } from "@http/response/not-found";
 
 // TODO: .env.<environment-type> files (public data)
 //  Load ArgV
@@ -40,7 +39,7 @@ const optionDefinitions = [
     { name: "maxAge", type: String },
     { name: "static", type: Boolean, defaultValue: false },
     {
-        name: "host",
+        name: "urlAuthority",
         type: String,
         multiple: false,
         defaultValue: "www.jpcode.dev",
@@ -63,24 +62,18 @@ export type JPServerOptions = {
     use_br_if_available: string;
     maxAge: string;
     static: boolean;
-    host: string;
+    urlAuthority: string;
 };
 
 const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
 
-const { host: websiteRoot, pubpath: exec_path } = runOpts;
+runOpts.pubpath = Path.resolve(runOpts.pubpath);
+const { urlAuthority: websiteRoot, pubpath: exec_path } = runOpts;
 
 const { __filename } = __(import.meta);
 const FILENAME = Path.basename(__filename);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
 export const URL_ROOT = `https://${websiteRoot}`;
-
-const {
-    HTTP2_HEADER_METHOD,
-    HTTP2_HEADER_PATH,
-    HTTP2_HEADER_CONTENT_LENGTH,
-    HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN,
-} = http2.constants;
 
 const DEFAULT_HEADERS = {
     link: [
@@ -246,21 +239,25 @@ fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 await fm.load(exec_path);
 
 // Img Dir
-imgDir.init(widgets.getPugTemplate("img_dir"), consts, logger);
+imgDir.init(widgets.getPugTemplate("img_dir"), consts);
 
 const port = runOpts.port || 8089;
 
-const serverOpts = {
-    allowHTTP1: runOpts.allowHTTP1,
-    timeout: 3000,
-} as SecureServerOptions;
-
+type DenoServeOpts = (Deno.ServeTcpOptions | (Deno.ServeTcpOptions & Deno.TlsCertifiedKeyPem))
+    & Deno.ServeInit<Deno.NetAddr>;
 // Whether or not to use HTTPS on webserver
 const useSecure = runOpts.key && runOpts.cert;
 
+const serverTslOpts: Deno.TlsCertifiedKeyPem | undefined = useSecure
+    ? await (async () => {
+        const keyPromise = Deno.readTextFile(runOpts.key);
+        const certPromise = Deno.readTextFile(runOpts.cert);
+        const [key, cert] = await Promise.all([keyPromise, certPromise]);
+        return { key, cert };
+    })()
+    : undefined;
+
 if (useSecure) {
-    serverOpts.key = fs.readFileSync(runOpts.key);
-    serverOpts.cert = fs.readFileSync(runOpts.cert);
     logger.info("Key and Cert Loaded. Running server with encryption enabled.");
 } else if (runOpts.key || runOpts.cert) {
     logger.warn(
@@ -272,32 +269,20 @@ if (useSecure) {
     logger.info("Key and Cert Unspecified. Running server without encryption.");
 }
 
-//  Create server
-
-// NOTE WELL:
-// - You MUST have a key+cert for browsers to accept these http2 connections at
-//   all!
-// - Even for cURL, you must specify a special flag to signal that it's http2!
-//   like so: `curl -D - --http2-prior-knowledge http://localhost:8443`
-const server = useSecure
-    ? http2.createServer(serverOpts)
-    : http2.createServer(serverOpts);
-
-//  Handle Errors
-server.on("error", (err) => logger.error(err));
-
-enum ResponseExitCode {
-    Success,
-    UnsupportedMethod,
-    NotFound_NoHandler,
-}
-
-//  Handle streams (requests are streams)
-server.on("stream", (stream, headers) => {
-    logStream(headers, stream.session?.socket);
-    respond(stream, headers)
-        .catch(err => logger.error("Critical unhandled request exception", err));
-});
+Deno.serve({
+    ...serverTslOpts,
+    port,
+    onListen: (addr) => logger.info("Listening on %s:%s (%s)", addr.hostname, addr.port, addr.transport),
+    onError: (err) => {
+        logger.error(err);
+        return new Response("An unexpected server error occurred.", {
+            status: 500,
+        })
+    },
+    handler: (req, _info) => {
+        return respond(req);
+    }
+})
 
 const getDirectoriesOrHtml = (source: PathLike) =>
     fs
@@ -307,50 +292,54 @@ const getDirectoriesOrHtml = (source: PathLike) =>
 
 const dirIndexPug = widgets.getPugTemplate("dir_list");
 
+// function response(status: number, )
+
+enum RequestMethod
+{
+    GET = 'GET',
+    POST = 'POST',
+    PATCH = 'PATCH',
+    DELETE = 'DELETE',
+    PUT = 'PUT',
+}
+
 /**
  * Request Handler / Response Generator
  */
 async function respond(
-    stream: ServerHttp2Stream,
-    headers: IncomingHttpHeaders
-): Promise<ResponseExitCode> {
-    stream.setTimeout(3000, () => {
-        stream.destroy();
-    });
-    // stream is a Duplex
-    const method = headers[HTTP2_HEADER_METHOD];
-    if (method != http2.constants.HTTP2_METHOD_GET) {
-        stream.respond({ status: 404 });
-        stream.end();
-        return ResponseExitCode.UnsupportedMethod;
+    req: Request,
+): Promise<Response> {
+    if (req.method !== RequestMethod.GET) {
+        return new Response("Not Found", { status: 404 });
     }
-    const reqUrl = new URL(headers[HTTP2_HEADER_PATH] as string, URL_ROOT);
+    const reqUrl = new URL(req.url, URL_ROOT);
     const path = decodeURIComponent(reqUrl.pathname);
     const query = reqUrl.search;
 
-    const resHeaders: OutgoingHttpHeaders = {
-        "content-type": "text/html; charset=utf-8",
-        ":status": 200,
+    const resHeaders: { [key in HeaderKey]?: string } = {
+        "Content-Type": "text/html; charset=utf-8",
     };
-    if (websiteRoot === "static.jpcode.dev") {
-        resHeaders[HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN] = "*";
-    }
-    if (path.includes("dotnet/files.json")) {
-        stream.respond({ ...resHeaders, "cache-control": "max-age=900" });
 
+    if (websiteRoot === "static.jpcode.dev") {
+        resHeaders['Access-Control-Allow-Origin'] = '*';
+    } 
+
+    if (path.includes("dotnet/files.json")) {
         const reportFiles = await getDirReportFiles(
             `${exec_path}/benchmarks/dotnet`
         );
 
-        stream.end(JSON.stringify(reportFiles));
-
-        return ResponseExitCode.Success;
+        resHeaders['Cache-Control'] = "max-age=900";
+        return ok(
+            JSON.stringify(reportFiles),
+            resHeaders
+        );
     }
 
     const requestedFile = fm.getFile(path);
     // Set content length header, if requested file is found by file manager.
     if (requestedFile) {
-        requestedFile.headers[HTTP2_HEADER_CONTENT_LENGTH] = Buffer.byteLength(
+        requestedFile.headers['content-length'] = Buffer.byteLength(
             requestedFile.data,
             "utf8"
         );
@@ -358,25 +347,23 @@ async function respond(
 
     // Try widget
     if (!requestedFile) {
-        const successCode = widgets.handleRequest(
-            stream,
-            headers,
+        const response = widgets.handleRequest(
+            req,
             supportedTimelineNotesRootFragments
         );
-        if (successCode === 0) {
-            return ResponseExitCode.Success;
+        if (response) {
+            return response;
         }
     }
     if (!requestedFile && path.startsWith("/3d")) {
         try {
-            const successCode = await imgDir.handleRequest(
-                stream,
-                headers,
-                path,
-                query
+            const url = new URL(req.url);
+            const response = await imgDir.handleRequest(
+                url.pathname,
+                url.search
             );
-            if (successCode === 0) {
-                return ResponseExitCode.Success;
+            if (response) {
+                return response;
             }
         } catch (error) {
             logger.error(error);
@@ -388,13 +375,10 @@ async function respond(
     if (!requestedFile) {
         try {
             const fpath = Path.join(exec_path, path);
-            const fd = fs.openSync(fpath, "r");
-            if (fs.fstatSync(fd).isFile()) {
-                stream.respondWithFD(fd);
-                stream.on("close", () => fs.closeSync(fd));
-                return 0;
-            } else if (fs.fstatSync(fd).isDirectory()) {
-                fs.closeSync(fd);
+            const fileStat = (await Deno.stat(fpath));
+            if (fileStat.isFile) {
+                return await serveFile(req, fpath)
+            } else if (fileStat.isDirectory) {
                 // DO directory index things
                 const opts = {
                     dir: Path.basename(path),
@@ -406,10 +390,10 @@ async function respond(
                         };
                     }),
                 };
-                stream.respond(resHeaders);
-                stream.write(dirIndexPug(opts));
-                stream.end();
-                return ResponseExitCode.Success;
+                return ok(
+                    dirIndexPug(opts),
+                    resHeaders
+                )
             }
         } catch (error) {
             logger.warn(error);
@@ -435,40 +419,26 @@ async function respond(
                     //       )
                     //   ),
                     ...requestedFile.headers,
-                    ":status": 200,
-                    [HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN]: "*",
+                    'Access-Control-Allow-Origin': "*",
                 }
                 : requestedFile.headers;
 
-        stream.respond(resHeaders2);
-        stream.end(requestedFile.data);
-        return ResponseExitCode.Success;
+            return ok(requestedFile.data, resHeaders2 as any)
     }
 
     // Handle 404
-    logger.warn(`404 Not Found: ${path}`);
-    handle404(stream);
-    return ResponseExitCode.NotFound_NoHandler;
+    return handle404(req.url);
 }
 
 const pug404 = widgets.getPugTemplate("404")();
-function handle404(stream: ServerHttp2Stream) {
+function handle404(url: string) {
+    logger.warn(`404 Not Found: ${url}`);
     if (runOpts.static) {
-        stream.respond({
-            ":status": 404,
-        });
-        stream.end();
+        return notFound();
     } else {
-        stream.respond({
-            "content-type": "text/html; charset=utf-8",
-            ":status": 404,
-        });
-
-        stream.end(pug404);
+        return notFound(
+            pug404,
+            // {'Content-Type': "text/html; charset=utf-8"}
+        )
     }
-
-    return -1;
 }
-
-// Start Server
-logger.info(`'${FILENAME}' is listening on port ${port}`);

@@ -3,12 +3,15 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
+    "@http/response": "jsr:@http/response@^0.23.0",
     "@std/assert": "jsr:@std/assert@1",
     "@std/fs": "jsr:@std/fs@^1.0.4",
+    "@std/http": "jsr:@std/http@^1.0.7",
+    "@std/json": "jsr:@std/json@^1.0.0",
     "@std/path": "jsr:@std/path@^1.0.6",
+    "@x/dirname": "https://deno.land/x/dirname@1.1.2/mod.ts",
     "@x/jsonfile": "https://deno.land/x/jsonfile@1.0.0/mod.ts",
-    "@x/pug": "https://deno.land/x/pug@v0.1.6/mod.ts",
-    "@x/dirname": "https://deno.land/x/dirname@1.1.2/mod.ts"
+    "@x/pug": "https://deno.land/x/pug@v0.1.6/mod.ts"
   },
   "compilerOptions": {
     "allowJs": false,

@@ -9,6 +9,9 @@ import log4js from "npm:log4js";
 import { IncomingHttpHeaders, ServerHttp2Stream } from "node:http2";
 import { readJson } from "@x/jsonfile";
 import { promisify } from "node:util";
+import { ok } from "@http/response/ok";
+import { notFound } from "@http/response/not-found";
+import { Buffer } from "node:buffer";
 
 let imgDirPug: pug.compileTemplate;
 let consts: JPServerConsts;
@@ -77,62 +80,69 @@ const stripTrailingSlash = (str: string) => {
 };
 
 async function handleRequest(
-    stream: ServerHttp2Stream,
-    headers: IncomingHttpHeaders,
     path: string,
     _query: string
-) {
+): Promise<Response | undefined> {
     const isStatic = consts.websiteRoot.startsWith("static.");
     const validPaths = ["/3d", "/3d/all"];
     const parsedPath = stripTrailingSlash(path);
     if (parsedPath === "/3d") {
-        viewSpecified(stream, path);
+        return viewSpecified(path);
     } else {
         if (!isStatic) {
-            if (validPaths.includes(parsedPath)) reverseProxy(stream, path);
+            if (validPaths.includes(parsedPath)) {
+                return await reverseProxy(path);
+            }
         } else {
             if (parsedPath === "/3d/all") {
-                await viewAll(stream);
+                await viewAll();
             }
         }
     }
-
-    return 0;
+    return undefined;
 }
 
-function reverseProxy(stream: ServerHttp2Stream, path: string) {
-    logger.log("pinging static server...");
-    const req = request(
-        {
-            hostname: "static.jpcode.dev",
-            path: path,
-            port: 443,
-            protocol: "https:",
-            method: "GET",
-        },
-        (res) => {
-            res.setEncoding("utf8");
-            const headers = {
-                "content-type": "text/html; charset=utf-8",
-                ":status": 200,
-            };
-            Object.assign(headers, consts.DEFAULT_HEADERS);
-
-            stream.respond(headers);
-
-            console.log(`STATUS: ${res.statusCode}`);
-            res.on("data", (chunk) => {
-                stream.write(chunk);
+// FIXME @jp: oh, this is going to be... ew.. without streams access
+function reverseProxy(path: string): Promise<Response> {
+    logger.log("pinging static server...");    
+    return fetch(`https://static.jpcode.dev:443/${path}`)
+        .then((rb) => {
+            const reader = rb.body?.getReader();
+            if (reader === undefined) {
+                return undefined;
+            }
+        
+            return new ReadableStream({
+                start(controller) {
+                    // The following function handles each data chunk
+                    function push() {
+                        // "done" is a Boolean and value a "Uint8Array"
+                        reader!.read().then(({ done, value }) => {
+                            // If there is no more data to read
+                            if (done) {
+                            console.log("done", done);
+                            controller.close();
+                            return;
+                            }
+                            // Get the data and send it to the browser via the controller
+                            controller.enqueue(value);
+                            // Check chunks by logging to the console
+                            console.log(done, value);
+                            push();
+                        });
+                    }
+            
+                    push();
+                },
             });
-            res.on("end", () => {
-                stream.end();
-            });
-        }
-    );
-    req.end();
+        })
+        .then((stream) => stream === undefined
+            ? notFound()
+            : new Response(stream, { headers: { "Content-Type": "text/html" } }),
+        )
 }
 
-async function viewAll(stream: ServerHttp2Stream) {
+async function viewAll(): Promise<Response> {
     const imgFiles = await getImageFiles(IMG_DIR);
     const images = [];
     for (const imgFile of imgFiles) {
@@ -147,8 +157,7 @@ async function viewAll(stream: ServerHttp2Stream) {
         });
     }
 
-    stream.write(imgDirPug({ cards: images }));
-    stream.end();
+    return ok(imgDirPug({ cards: images }))
 }
 
 /**
@@ -156,7 +165,7 @@ async function viewAll(stream: ServerHttp2Stream) {
  * @param {import('http2').Http2Stream} stream
  * @param {*} path
  */
-function viewSpecified(stream: ServerHttp2Stream, path: string) {
+function viewSpecified(path: string) {
     console.log("View Specified");
     const configData = files.curatedConfig;
     const fileStats = files.stats;
@@ -178,12 +187,10 @@ function viewSpecified(stream: ServerHttp2Stream, path: string) {
     const data = imgDirPug({ cards: images });
     const headers = {
         "content-type": "text/html; charset=utf-8",
-        "content-length": Buffer.byteLength(data),
-        ":status": 200,
+        "content-length": Buffer.byteLength(data).toString(),
     };
     Object.assign(headers, consts.DEFAULT_HEADERS);
-    stream.respond(headers);
-    stream.end(data);
+    return ok(data, headers);
 }
 
 export { init, handleRequest };

@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import fs from "fs-extra";
-import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "node:http2";
-import Path from "node:path";
 import * as pug from "@x/pug";
+import fs from "fs-extra";
+import http2 from "node:http2";
+import Path from "node:path";
 
 import showdown from "npm:showdown";
 import showdownHighlight from "npm:showdown-highlight";
 
 import log4js from "log4js";
+import type { Buffer } from "node:buffer";
 import * as dndPlugin from "./dnd-plugin.ts";
 import { URL_ROOT } from "./http2server2.1.ts";
-import { trimTrailingSlash } from "./utils.ts"
+import { trimTrailingSlash } from "./utils.ts";
 
 const logger = log4js.getLogger("timeline-notes");
 
@@ -88,7 +89,6 @@ const converter = new showdown.Converter({
     ],
 });
 
-const { HTTP2_HEADER_PATH } = http2.constants;
 const baseUrl = "https://localhost:8082"; //"https://www.jpcode.dev/";
 
 const _widgets_data: { [key: string]: Map<string, ContentFileMemCache> } = {};
@@ -230,40 +230,43 @@ async function init(
 }
 
 function respond(
-    stream: ServerHttp2Stream,
     contentType: string,
     content: any,
     statusCode = 200
-) {
+): Response {
     const content_type = contentType ?? "text/raw";
-    stream.respond({
-        "content-type": `${content_type}; charset=utf-8`,
-        ":status": statusCode,
+    return new Response(
+        content,
+        {
+            status: statusCode,
+            headers: {
+            "content-type": `${content_type}; charset=utf-8`,
+        }
     });
-    stream.write(content);
-    stream.end();
-    return statusCode === 200 ? 0 : -1;
 }
 
-function respondRedirect(stream: ServerHttp2Stream, to: string) {
-    stream.respond({ Location: to, ":status": 301 });
-    stream.end();
-    return 0;
+function respondRedirect(to: string): Response {
+    return new Response(null, {
+        status: 301,
+        headers: { 'Location' : to }
+    })
 }
 
 function handleRequest(
-    stream: ServerHttp2Stream,
-    headers: IncomingHttpHeaders,
+    request: Request,
     supportedBasePaths: string[]
-) {
-    const reqPath = headers[HTTP2_HEADER_PATH] as string;
+): Response | undefined | null {
+    const url = new URL(request.url);
+    const reqPath = url.pathname;
     console.log(`reqPath: ${reqPath}`);
-    const reqPathOnly = trimTrailingSlash(new URL(reqPath, baseUrl).pathname);
+    const reqPathOnly = trimTrailingSlash(url.pathname);
     const pathFrags = reqPathOnly.split("/");
 
     // timeline notes will ignore ALL paths that do not start with one of the
     // specified fragments.
-    if (!supportedBasePaths.includes(pathFrags[1])) return -1;
+    if (!supportedBasePaths.includes(pathFrags[1])) {
+        return undefined;
+    }
 
     const rpath = reqPath.replace(/^\/+/, "");
     for (const webroot of webroots) {
@@ -279,7 +282,6 @@ function handleRequest(
                 pathFrags[pathFrags.length - 1].endsWith(".md")
             ) {
                 return respondRedirect(
-                    stream,
                     "https://" +
                         Path.join(
                             URL_ROOT.substring("https://".length),
@@ -296,7 +298,6 @@ function handleRequest(
                 if (rawDirConfig.dnd) {
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                     return respond(
-                        stream,
                         "text/html",
                         _templates["list"]({
                             widgets: _widgets_data[webroot].entries(),
@@ -324,7 +325,6 @@ function handleRequest(
                     ]);
 
                     return respond(
-                        stream,
                         "text/html",
                         _templates["list_dynamic"]({
                             widgets: widgetMetadata,
@@ -339,7 +339,6 @@ function handleRequest(
                 }
             } else if (pathFrags[3] === "list-json") {
                 return respond(
-                    stream,
                     "application/json",
                     JSON.stringify(Object.keys(_widgets_data))
                 );
@@ -350,7 +349,7 @@ function handleRequest(
 
                     const widgetMetadata = _widgets_data[webroot].get(frag[0]);
                     if (!widgetContents || !widgetMetadata) {
-                        return -2;
+                        return null;
                     }
                     const widgetTitle = widgetMetadata.title;
 
@@ -363,7 +362,6 @@ function handleRequest(
                         // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
                         if (widgetContents) {
                             return respond(
-                                stream,
                                 "text/html",
                                 _templates["dnd_summary_note"]({
                                     widgetContents: widgetContents,
@@ -375,7 +373,6 @@ function handleRequest(
                         }
                     } else if (rawDirConfig.thoughts) {
                         return respond(
-                            stream,
                             "text/html",
                             _templates["thoughts_software_content"]({
                                 widgetContents: widgetContents,
@@ -388,7 +385,7 @@ function handleRequest(
                     }
                 } catch (err) {
                     console.warn(err);
-                    return -2;
+                    return null;
                 }
             }
         }
@@ -396,7 +393,6 @@ function handleRequest(
     if (pathFrags[1] === "dnd" && pathFrags.length > 2) {
         if (pathFrags[2] === "debug-widgets") {
             return respond(
-                stream,
                 "application/json",
                 JSON.stringify(
                     {
@@ -410,12 +406,11 @@ function handleRequest(
                 )
             );
         } else {
-            return -1;
+            return undefined;
         }
     } else {
-        return -1;
+        return undefined;
     }
-    return 0;
 }
 
 type DirRenderConfig = {
