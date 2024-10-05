@@ -65,7 +65,6 @@ export type JPServerOptions = {
 
 const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
 
-runOpts.pubpath = Path.resolve(runOpts.pubpath);
 const { 
     urlAuthority: websiteRoot,
     pubpath: exec_path
