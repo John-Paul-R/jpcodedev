@@ -1,5 +1,5 @@
 import commandLineArgs from "command-line-args";
-import fs, { PathLike } from "fs";
+import fs, { PathLike } from "node:fs";
 import log4js from "log4js";
 import http2, {
     Http2Session,
@@ -7,14 +7,16 @@ import http2, {
     OutgoingHttpHeaders,
     SecureServerOptions,
     ServerHttp2Stream,
+    createSecureServer
 } from "node:http2";
-import Path from "path";
+import Path from "node:path";
 import pug from "pug";
+import __ from '@x/dirname';
 
-import * as fm from "./files-manager";
-import * as imgDir from "./img_dir";
-import { getDirReportFiles } from "./json-dir-index";
-import * as widgets from "./timeline-notes";
+import * as fm from "./files-manager.ts";
+import * as imgDir from "./img_dir.ts";
+import { getDirReportFiles } from "./json-dir-index.ts";
+import * as widgets from "./timeline-notes.ts";
 
 // TODO: .env.<environment-type> files (public data)
 //  Load ArgV
@@ -68,6 +70,7 @@ const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
 
 const { host: websiteRoot, pubpath: exec_path } = runOpts;
 
+const { __filename } = __(import.meta);
 const FILENAME = Path.basename(__filename);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
 export const URL_ROOT = `https://${websiteRoot}`;
@@ -277,7 +280,7 @@ if (useSecure) {
 // - Even for cURL, you must specify a special flag to signal that it's http2!
 //   like so: `curl -D - --http2-prior-knowledge http://localhost:8443`
 const server = useSecure
-    ? http2.createSecureServer(serverOpts)
+    ? http2.createServer(serverOpts)
     : http2.createServer(serverOpts);
 
 //  Handle Errors
@@ -468,5 +471,4 @@ function handle404(stream: ServerHttp2Stream) {
 }
 
 // Start Server
-server.listen(port);
 logger.info(`'${FILENAME}' is listening on port ${port}`);

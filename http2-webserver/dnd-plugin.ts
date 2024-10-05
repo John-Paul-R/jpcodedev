@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import ApiWrapper from "./foreign-api-cache";
+import ApiWrapper from "./foreign-api-cache.ts";
 
 const BASE_URL = "https://www.dnd5eapi.co";
 

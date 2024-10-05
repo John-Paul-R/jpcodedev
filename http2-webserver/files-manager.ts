@@ -1,12 +1,12 @@
-import http2, { OutgoingHttpHeaders } from "http2";
-import fs, { PathLike } from "fs";
+import http2, { OutgoingHttpHeaders } from "node:http2";
+import fs, { PathLike } from "node:fs";
 import Mime from "mime";
 import dir from "node-dir";
-import Path from "path";
+import Path from "node:path";
 import pug from "pug";
-import DirectoryMap from "./directory-map";
-import { JPServerOptions } from "./http2server2.1";
-import * as widgets from "./timeline-notes";
+import DirectoryMap from "./directory-map.ts";
+import type { JPServerOptions } from "./http2server2.1.ts";
+import * as widgets from "./timeline-notes.ts";
 import { Logger } from "log4js";
 
 const {

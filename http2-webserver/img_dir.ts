@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import Path from "path";
-import fs from "fs";
-import { request } from "https";
+import Path from "node:path";
+import fs from "node:fs";
+import { request } from "node:https";
 import pug from "pug";
 
-import { JPServerConsts } from "./http2server2.1";
-import { getLogger } from "log4js";
-import { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
-import { readJson } from "fs-extra";
-import { promisify } from "util";
+import { JPServerConsts } from "./http2server2.1.ts";
+import log4js from "npm:log4js";
+import { IncomingHttpHeaders, ServerHttp2Stream } from "node:http2";
+import { readJson } from "@x/jsonfile";
+import { promisify } from "node:util";
 
 let imgDirPug: pug.compileTemplate;
 let consts: JPServerConsts;
-const logger = getLogger("img_dir");
+const logger = log4js.getLogger("img_dir");
 let IMG_DIR: string;
 let files: { curatedConfig: any; stats: any };
 const readdir = promisify(fs.readdir);

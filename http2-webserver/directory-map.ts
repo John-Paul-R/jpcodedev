@@ -1,9 +1,9 @@
-import fs, { readJson } from "fs-extra";
-import Path, { ParsedPath } from "path";
-import dirUtil from "node-dir";
+import { readJson } from "@x/jsonfile";
+import { ensureFile } from "@std/fs";
 import stringify from "json-stable-stringify";
-import { FormatInputPathObject } from "path/win32";
-import { OutgoingHttpHeaders } from "http2";
+import dirUtil from "node-dir";
+import { OutgoingHttpHeaders } from "node:http2";
+import Path, { FormatInputPathObject, ParsedPath } from "node:path";
 
 type AliasesEntry = {
     urls: string[];
@@ -38,7 +38,7 @@ export default class DirectoryMap {
             this.map_path,
             DirectoryMap.aliases_filename
         );
-        fs.ensureFileSync(config_file_path);
+        await ensureFile(config_file_path);
         let configRaw: AliasesEntry[];
         try {
             configRaw = await readJson(config_file_path);

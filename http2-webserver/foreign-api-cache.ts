@@ -1,9 +1,9 @@
-import fs from "fs";
-import { readJson, writeJson } from "fs-extra";
-import { getLogger } from "log4js";
-import path from "path";
+import fs from "node:fs";
+import { readJson, writeJson } from "@x/jsonfile";
+import log4js from "npm:log4js";
+import path from "node:path";
 
-const logger = getLogger("foreign-api-cache");
+const logger = log4js.getLogger("foreign-api-cache");
 
 type CachedResponseData<T> = {
     id: string;
@@ -15,8 +15,15 @@ type BaseApi<T> = {
     list: () => Promise<T[]>;
 };
 
+function getDirname(): string {
+    const __dirname = import.meta.dirname;
+    if (!__dirname) {
+        throw new Error("Failed to resolve __dirname");
+    }
+    return __dirname;
+}
 export default class ApiWrapper<T> {
-    static cacheDir = path.join(__dirname, "foreign-api-cache");
+    static cacheDir = path.join(getDirname(), "foreign-api-cache");
     getter: BaseApi<T>;
     cacheFile: string;
     cacheMap: { [key: string]: CachedResponseData<T> };

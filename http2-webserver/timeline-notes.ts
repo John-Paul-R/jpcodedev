@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import fs from "fs-extra";
-import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "http2";
-import Path from "path";
-import pug from "pug";
-import { Converter as MdConverter } from "showdown";
-import showdownHighlight from "showdown-highlight";
+import http2, { IncomingHttpHeaders, ServerHttp2Stream } from "node:http2";
+import Path from "node:path";
+import * as pug from "@x/pug";
 
-import { getLogger } from "log4js";
-import * as dndPlugin from "./dnd-plugin";
-import { URL_ROOT } from "./http2server2.1";
-import { trimTrailingSlash } from "./utils.js";
+import showdown from "npm:showdown";
+import showdownHighlight from "npm:showdown-highlight";
 
-const logger = getLogger("timeline-notes");
+import log4js from "log4js";
+import * as dndPlugin from "./dnd-plugin.ts";
+import { URL_ROOT } from "./http2server2.1.ts";
+import { trimTrailingSlash } from "./utils.ts"
+
+const logger = log4js.getLogger("timeline-notes");
 
 type WidgetsDirectoryConfig = {
     dnd?: DndDirectoryOptions;
@@ -76,7 +77,7 @@ type ContentFileMemCache = {
     content: string | Buffer;
 } & ContentFIleMetadata;
 
-const converter = new MdConverter({
+const converter = new showdown.Converter({
     tables: true,
     strikethrough: true,
     disableForced4SpacesIndentedSublists: true,
