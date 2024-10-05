@@ -84,7 +84,7 @@ async function loadFiles(dir_path: PathLike) {
             return template({...pugOptions, ...jsonContents.data });
         }
 
-        let fileContents: string | undefined;
+        let fileContents: Uint8Array | string | undefined;
         let shouldOverwiteDefaultHeaders = false;
         if (filePath.endsWith(".html")) {
             Object.assign(headers, defaultHeaders);
@@ -121,10 +121,13 @@ async function loadFiles(dir_path: PathLike) {
         }
 
         if (fileContents === undefined) {
-            fileContents = (await Array.fromAsync(
-                fileDescriptor.readable
-                    .pipeThrough(new TextDecoderStream())
-            ))[0] as string;
+            const content = new Uint8Array(fileStats.size);
+            fileDescriptor.read(content)
+            fileContents = content;
+            // (await Array.fromAsync(
+            //     fileDescriptor.readable
+            //         .pipeThrough(new TextDecoderStream())
+            // ))[0] as string;
         }
 
         files.set(`${relFilePath}`, {

@@ -10,6 +10,7 @@ import { Buffer } from "node:buffer";
 import { promisify } from "node:util";
 import log4js from "npm:log4js";
 import { JPServerConsts } from "./http2server2.1.ts";
+import type { OutgoingHeaders } from "./files-manager.ts";
 
 let imgDirPug: pug.compileTemplate;
 let consts: JPServerConsts;
@@ -178,11 +179,12 @@ function viewSpecified(path: string) {
         });
     }
     const data = imgDirPug({ cards: images });
-    const headers = {
-        "content-type": "text/html; charset=utf-8",
-        "content-length": Buffer.byteLength(data).toString(),
+    const headers: OutgoingHeaders = {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": Buffer.byteLength(data).toString(),
     };
     Object.assign(headers, consts.DEFAULT_HEADERS);
+    // @ts-expect-error holy hell these types are from hell
     return ok(data, headers);
 }
 

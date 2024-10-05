@@ -357,10 +357,10 @@ async function respond(
     const requestedFile = fm.getFile(path);
     // Set content length header, if requested file is found by file manager.
     if (requestedFile) {
-        requestedFile.headers['content-length'] = Buffer.byteLength(
+        requestedFile.headers['Content-Length'] = Buffer.byteLength(
             requestedFile.data,
             "utf8"
-        );
+        ).toString();
     }
 
     // Try widget
