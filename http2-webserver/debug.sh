@@ -2,29 +2,44 @@
 
 . .ports
 
+set -m
+cleanup() {
+    echo "Cleaning up..."
+    echo "$(jobs -p)"
+    kill $(jobs -p)
+    exit
+}
+# Set up trap to call cleanup function on script exit
+trap cleanup EXIT
+
 run_www() {
-    nodemon -L --inspect \
-        -w ../public -w ./ -w ../pug \
-        -x "deno run --allow-all --inspect-brk" \
-        ./src/http2server2.1.ts \
+    # --inspect-brk
+    deno run --inspect --allow-all \
+         ./src/http2server2.1.ts \
         -p $www --debug --pubpath ../public --log simple --maxAge 0 --urlAuthority "localhost:$www" \
         -k ./certs/localhost-privkey.pem \
         -c ./certs/localhost-cert.pem
 }
 
 run_static() {
-    #--inspect 
-    nodemon -L -w ../public_static -w ./ -w ../pug \
-    -x "deno run --allow-all" \
-    ./src/http2server2.1.ts \
-    -p $static --debug --pubpath ../public_static --maxAge 0 --log simple --urlAuthority "localhost:$static" \
-    -k ./certs/localhost-privkey.pem \
-    -c ./certs/localhost-cert.pem
+    deno run --allow-all \
+         ./src/http2server2.1.ts \
+        -p $static --debug --pubpath ../public_static --maxAge 0 --log simple --urlAuthority "localhost:$static" \
+        -k ./certs/localhost-privkey.pem \
+        -c ./certs/localhost-cert.pem
 }
 
-run_www &
+# Run processes in background and capture their PIDs
+run_www & pid1=$!
+run_static & pid2=$!
 
-run_static &
+echo "PIDS $pid1 $pid2"
 
-wait
-wait
+# Wait for either process to finish
+wait -fn $pid1 $pid2 || true
+
+echo "DONE WAITING"
+
+# If we get here, one of the processes has finished, so we exit
+# This will trigger the cleanup function due to the trap
+exit

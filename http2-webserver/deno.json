@@ -14,7 +14,6 @@
     "@x/pug": "https://deno.land/x/pug@v0.1.6/mod.ts"
   },
   "compilerOptions": {
-    "allowJs": false,
     "checkJs": false,
     "strict": true,
     "noUnusedLocals": false,

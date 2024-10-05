@@ -1,4 +1,3 @@
-
+#!/bin/bash
 . .ports
-fuser -k $www/tcp
-fuser -k $static/tcp
+fuser -k $www/tcp $static/tcp

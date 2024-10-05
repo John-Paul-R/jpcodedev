@@ -51,7 +51,6 @@
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.1.0",
-    "nodemon": "^3.1.7",
     "typescript": "^4.9.5",
     "typescript-eslint": "^8.8.0"
   },
@@ -61,10 +60,12 @@
       "(ign)*"
     ],
     "watch": [
-      "./",
+      "./**",
+      "../public",
+      "../public_static",
       "../pug"
     ],
-    "ext": "js,html,css,pug,pug.json",
+    "ext": "js,ts,html,css,pug,pug.json",
     "signal": "SIGHUP",
     "delay": 0.5,
     "autoAttachChildProcesses": true
