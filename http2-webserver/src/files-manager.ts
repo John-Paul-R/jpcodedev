@@ -1,4 +1,3 @@
-import http2, { OutgoingHttpHeaders } from "node:http2";
 import { PathLike } from "node:fs";
 import Mime from "mime";
 import Path from "node:path";
@@ -9,29 +8,17 @@ import * as widgets from "./timeline-notes.ts";
 import { Logger } from "log4js";
 import { walk } from "@std/fs/walk";
 import { JsonParseStream } from "@std/json/parse-stream";
-
-const {
-    // HTTP2_HEADER_METHOD,
-    // HTTP2_HEADER_PATH,
-    // HTTP2_HEADER_STATUS,
-    HTTP2_HEADER_CONTENT_TYPE,
-    // HTTP2_HEADER_LINK,
-    // HTTP2_HEADER_ACCEPT_ENCODING,
-    HTTP2_HEADER_CONTENT_LENGTH,
-    HTTP2_HEADER_LAST_MODIFIED,
-    HTTP2_HEADER_CACHE_CONTROL,
-    // HTTP2_HEADER_CONTENT_ENCODING,
-} = http2.constants;
+import type { Header } from "@std/http/unstable-header";
 
 let logger: Logger;
 let runOpts: JPServerOptions;
 let pugOptions: pug.Options & pug.LocalsObject;
-let defaultHeaders: OutgoingHttpHeaders;
+let defaultHeaders: OutgoingHeaders;
 let isLogVerbose = false;
 const init = (
     rOpts: JPServerOptions,
     pugOpts: pug.Options & pug.LocalsObject,
-    defHeaders: OutgoingHttpHeaders,
+    defHeaders: OutgoingHeaders,
     lgr: Logger
 ) => {
     runOpts = rOpts;
@@ -46,11 +33,13 @@ type JpPugConfig = {
     data: Record<string, unknown>;
 };
 
+export type OutgoingHeaders = { [key in Header]?: string } & Partial<Record<string, string>>;
+
 type FileInfo = {
     absPath: PathLike;
     data: Uint8Array | string;
     fileName: string;
-    headers: OutgoingHttpHeaders;
+    headers: OutgoingHeaders;
 };
 
 async function loadFiles(dir_path: PathLike) {
@@ -84,11 +73,11 @@ async function loadFiles(dir_path: PathLike) {
         const contentType = Mime.getType(relFilePath);
         if (isLogVerbose) console.log(tempPath.base, contentType);
 
-        let headers = {
-            [HTTP2_HEADER_CONTENT_LENGTH]: fileStats.size,
-            [HTTP2_HEADER_LAST_MODIFIED]: fileStats.mtime?.toUTCString(),
-            [HTTP2_HEADER_CONTENT_TYPE]: contentType ?? "text/raw",
-        } as OutgoingHttpHeaders;
+        let headers: OutgoingHeaders = {
+            "Content-Length": fileStats.size.toString(),
+            "Last-Modified": fileStats.mtime?.toUTCString(),
+            "Content-Type": contentType ?? "text/raw",
+        };
 
         function pugCompileJson(jsonContents: JpPugConfig) {
             const template = widgets.getPugTemplate(jsonContents.template);
@@ -106,7 +95,6 @@ async function loadFiles(dir_path: PathLike) {
                     .pipeThrough(new TextDecoderStream())
                     .pipeThrough(new JsonParseStream())
             ))[0] as JpPugConfig;
-            // fileDescriptor.close();
 
             try {
                 fileContents = pugCompileJson(jsonContents);
@@ -120,17 +108,15 @@ async function loadFiles(dir_path: PathLike) {
                 fileDescriptor.readable
                     .pipeThrough(new TextDecoderStream())
             ))[0] as string;
-            // fileDescriptor.close();
 
             fileContents = pug.render(textContent, pugOptions);
             shouldOverwiteDefaultHeaders = true;
         }
 
         if (shouldOverwiteDefaultHeaders) {
-            const resHeaders = { ...defaultHeaders } as OutgoingHttpHeaders;
-            resHeaders[HTTP2_HEADER_CONTENT_TYPE] = "text/html; charset=utf-8";
-            resHeaders[HTTP2_HEADER_LAST_MODIFIED] =
-                headers[HTTP2_HEADER_LAST_MODIFIED];
+            const resHeaders: OutgoingHeaders = { ...defaultHeaders };
+            resHeaders['Content-Type'] = "text/html; charset=utf-8";
+            resHeaders["Last-Modified"] = headers["Last-Modified"];
             headers = resHeaders;
         }
 
@@ -139,7 +125,6 @@ async function loadFiles(dir_path: PathLike) {
                 fileDescriptor.readable
                     .pipeThrough(new TextDecoderStream())
             ))[0] as string;
-            // fileDescriptor.close();
         }
 
         files.set(`${relFilePath}`, {
@@ -242,8 +227,8 @@ function getFile(reqPath: string) {
         };
         // console.log("OUT", out);
         if (runOpts.maxAge) {
-            out.headers[HTTP2_HEADER_CACHE_CONTROL] =
-                out.headers[HTTP2_HEADER_CACHE_CONTROL] ??
+            out.headers['Cache-Control'] =
+                out.headers['Cache-Control'] ??
                 `max-age=${runOpts.maxAge}`;
         }
     } else {
