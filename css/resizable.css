@@ -1,7 +1,7 @@
 
 .resizable {
     position: relative;
-    width: clamp(50ch, var(--resizble-width), 100%);
+    width: clamp(50ch, var(--resizable-width), 100%);
 }
 .resizer-right {
     width: 5px;
