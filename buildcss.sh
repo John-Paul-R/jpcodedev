@@ -12,4 +12,4 @@ runSass "dnd_art_browse"
 runSass "core_style"
 
 # Rsync any already-compiled CSS files
-rsync -av --include='*.css' --exclude='*' css/ public_static/css/
+rsync -rv --include='*.css' --exclude='*.scss' css/ public_static/css/
