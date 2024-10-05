@@ -179,7 +179,7 @@ function createSectionLink(sectionId: string): Promise<ReplaceInstruction> {
     });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// deno-lint-ignore no-unused-vars
 function escapeHtmlArr(unsafe: string[]) {
     let out = "";
     for (const str of unsafe) {

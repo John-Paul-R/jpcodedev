@@ -1,5 +1,5 @@
 import http2, { OutgoingHttpHeaders } from "node:http2";
-import fs, { fdatasync, PathLike } from "node:fs";
+import { PathLike } from "node:fs";
 import Mime from "mime";
 import Path from "node:path";
 import pug from "pug";
@@ -54,7 +54,6 @@ type FileInfo = {
 };
 
 async function loadFiles(dir_path: PathLike) {
-    const textDecoder = new TextDecoder();
     const files = new Map<string, FileInfo>();
     logger.info("Load Site Files..");
     const dirPath = dir_path.toString();

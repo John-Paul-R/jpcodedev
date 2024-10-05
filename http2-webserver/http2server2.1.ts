@@ -1,21 +1,19 @@
+import { ok } from '@http/response/ok';
+import { serveFile } from "@std/http";
+import { Header as HeaderKey } from "@std/http/unstable-header";
+import __ from '@x/dirname';
 import commandLineArgs from "command-line-args";
-import fs, { PathLike } from "node:fs";
 import log4js from "log4js";
+import fs, { PathLike } from "node:fs";
 import Path from "node:path";
 import pug from "pug";
-import __ from '@x/dirname';
-import { ok } from '@http/response/ok';
-import {HEADER, Header as HeaderKey} from "@std/http/unstable-header";
-import { serveFile } from "@std/http";
 
+import { notFound } from "@http/response/not-found";
+import { Buffer } from "node:buffer";
 import * as fm from "./files-manager.ts";
 import * as imgDir from "./img_dir.ts";
 import { getDirReportFiles } from "./json-dir-index.ts";
 import * as widgets from "./timeline-notes.ts";
-import { Buffer } from "node:buffer";
-import { url } from "node:inspector";
-import { request } from "node:http";
-import { notFound } from "@http/response/not-found";
 
 // TODO: .env.<environment-type> files (public data)
 //  Load ArgV
@@ -370,10 +368,9 @@ async function respond(
     }
     if (!requestedFile && path.startsWith("/3d")) {
         try {
-            const url = new URL(req.url);
             const response = await imgDir.handleRequest(
-                url.pathname,
-                url.search
+                reqUrl.pathname,
+                reqUrl.search
             );
             if (response) {
                 return response;

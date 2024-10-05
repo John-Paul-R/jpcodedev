@@ -1,10 +1,9 @@
 import { readJson } from "@x/jsonfile";
 import { ensureFile } from "@std/fs";
 import stringify from "json-stable-stringify";
-import dirUtil from "node-dir";
-import { OutgoingHttpHeaders } from "node:http2";
 import Path, { FormatInputPathObject, ParsedPath } from "node:path";
 import {walk} from "@std/fs/walk"
+import type { Header } from "@std/http/unstable-header";
 
 type AliasesEntry = {
     urls: string[];
@@ -12,7 +11,7 @@ type AliasesEntry = {
 };
 
 type DirEntry = { [key: string]: DirectoryMapEntry };
-type FileEntry = { headers: OutgoingHttpHeaders } & { [key in string]?: unknown }
+type FileEntry = { headers: Record<Header, string> } & { [key in string]?: unknown }
 type DirectoryMapEntry = DirEntry | FileEntry;
 
 export { DirectoryMap };

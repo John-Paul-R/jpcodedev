@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import Path from "node:path";
 import fs from "node:fs";
-import { request } from "node:https";
+import Path from "node:path";
 import pug from "pug";
 
-import { JPServerConsts } from "./http2server2.1.ts";
-import log4js from "npm:log4js";
-import { IncomingHttpHeaders, ServerHttp2Stream } from "node:http2";
-import { readJson } from "@x/jsonfile";
-import { promisify } from "node:util";
-import { ok } from "@http/response/ok";
 import { notFound } from "@http/response/not-found";
+import { ok } from "@http/response/ok";
+import { readJson } from "@x/jsonfile";
 import { Buffer } from "node:buffer";
+import { promisify } from "node:util";
+import log4js from "npm:log4js";
+import { JPServerConsts } from "./http2server2.1.ts";
 
 let imgDirPug: pug.compileTemplate;
 let consts: JPServerConsts;
@@ -160,11 +158,6 @@ async function viewAll(): Promise<Response> {
     return ok(imgDirPug({ cards: images }))
 }
 
-/**
- *
- * @param {import('http2').Http2Stream} stream
- * @param {*} path
- */
 function viewSpecified(path: string) {
     console.log("View Specified");
     const configData = files.curatedConfig;
@@ -193,4 +186,5 @@ function viewSpecified(path: string) {
     return ok(data, headers);
 }
 
-export { init, handleRequest };
+export { handleRequest, init };
+

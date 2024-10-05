@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as pug from "@x/pug";
 import fs from "fs-extra";
-import http2 from "node:http2";
 import Path from "node:path";
 
 import showdown from "npm:showdown";
