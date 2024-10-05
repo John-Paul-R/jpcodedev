@@ -6,6 +6,11 @@ var parentElem = scriptTag.parentElement;
 window.addEventListener('DOMContentLoaded', initResize);
 const STORAGE_KEY = 'preferred_reader_width';
 
+const originallyStoredSize = window.localStorage.getItem(STORAGE_KEY);
+if (originallyStoredSize !== null) {
+  window.document.documentElement.style.setProperty('--resizble-width', originallyStoredSize + 'px');
+}
+
 // Borrowed ideas from https://codepen.io/jkasun/pen/QrLjXP by Janith
 
 function initResize() {
@@ -18,7 +23,7 @@ function initResize() {
 
         var el = elems[i];
         if (storedWidth)
-            el.style.width = `clamp(50ch, ${storedWidth}px, 100%)`;
+            el.style.setProperty('--resizble-width', `${storedWidth}px`);
 
         var right = document.createElement("div");
         right.className = "resizer-right";
