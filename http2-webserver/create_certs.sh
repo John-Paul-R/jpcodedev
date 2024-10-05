@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Handles creation of development certificates (more relevant when this only
+# supported http2)
+
 mkdir -p ./certs
 
 cd ./certs

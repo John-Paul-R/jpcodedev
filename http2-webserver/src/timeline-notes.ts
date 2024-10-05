@@ -11,6 +11,7 @@ import * as dndPlugin from "./dnd-plugin.ts";
 import { URL_ROOT } from "./http2server2.1.ts";
 import { trimTrailingSlash } from "./utils.ts";
 import { readJson } from "@x/jsonfile";
+import { ensureDir } from "@std/fs/ensure-dir";
 
 const logger = log4js.getLogger("timeline-notes");
 
@@ -122,7 +123,7 @@ async function init(
         pugVariables: {} 
     }
 ) {
-    fs.ensureDirSync(options.widget_directory);
+    await ensureDir(options.widget_directory);
     const widget_paths = await getFilePathsRecursive(options.widget_directory);
     webrootToWidgetDirectory[options.web_root] = options.widget_directory;
     webrootToPugVariables[options.web_root] = options.pugVariables;

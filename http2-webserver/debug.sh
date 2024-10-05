@@ -6,7 +6,7 @@ run_www() {
     nodemon -L --inspect \
         -w ../public -w ./ -w ../pug \
         -x "deno run --allow-all --inspect-brk" \
-        http2server2.1.ts \
+        ./src/http2server2.1.ts \
         -p $www --debug --pubpath ../public --log simple --maxAge 0 --urlAuthority "localhost:$www" \
         -k ./certs/localhost-privkey.pem \
         -c ./certs/localhost-cert.pem
@@ -16,7 +16,7 @@ run_static() {
     #--inspect 
     nodemon -L -w ../public_static -w ./ -w ../pug \
     -x "deno run --allow-all" \
-    http2server2.1.ts \
+    ./src/http2server2.1.ts \
     -p $static --debug --pubpath ../public_static --maxAge 0 --log simple --urlAuthority "localhost:$static" \
     -k ./certs/localhost-privkey.pem \
     -c ./certs/localhost-cert.pem
