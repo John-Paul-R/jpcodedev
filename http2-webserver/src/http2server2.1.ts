@@ -446,9 +446,11 @@ function handle404(url: string) {
     if (runOpts.static) {
         return notFound();
     } else {
-        return notFound(
-            pug404,
-            // {'Content-Type': "text/html; charset=utf-8"}
-        )
+        return new Response(pug404, {
+            status: 404,
+            headers: {
+                'Content-Type': "text/html; charset=utf-8"
+            },
+          });
     }
 }
