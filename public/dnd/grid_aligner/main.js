@@ -37,17 +37,17 @@ function buildPrompt() {
     return container;
 }
 function promptForCellCount() {
-    
+
 }
 
 function getCellWidth(h, w, cellsX, cellsY) {
-    let cellHeight = h/cellsY;
-    let cellWidth = w/cellsX;
+    let cellHeight = h / cellsY;
+    let cellWidth = w / cellsX;
     return cellHeight;
 }
 
 function calcBrightness(c) {
-    return (c[0] + c[1] + c[2]) /3 /255;
+    return (c[0] + c[1] + c[2]) / 3 / 255;
 }
 
 class BrightnessSpike {
@@ -58,6 +58,7 @@ class BrightnessSpike {
     }
 }
 var canvas = document.createElement('canvas');
+canvas.crossOrigin = "anonymous";
 function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, numLines) {
     let lenX = lengthRatio * img.width;
     let lenY = lengthRatio * img.height;
@@ -75,10 +76,10 @@ function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, nu
         let prevBrightness = calcBrightness(prevData);
         let length = imageStripData.length / 4;
         for (let i = 1; i < length; i++) {
-            let pixelData = imageStripData.slice(i*4, i*4+4);
+            let pixelData = imageStripData.slice(i * 4, i * 4 + 4);
             let brightness = calcBrightness(pixelData);
             let brightnessDelta = brightness - prevBrightness;
-            spikes.push(new BrightnessSpike(startWidth+i, brightnessDelta, brightness));
+            spikes.push(new BrightnessSpike(startWidth + i, brightnessDelta, brightness));
             prevData = pixelData;
             prevBrightness = brightness;
         }
@@ -88,7 +89,7 @@ function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, nu
     let distTally = {};
     function findModeDistance(spikesIn, distTally) {
         let prevPos = 0
-        let spikes = spikesIn.sort((a, b) =>  a.position - b.position);
+        let spikes = spikesIn.sort((a, b) => a.position - b.position);
         for (let i = 0; i < spikes.length; i++) {
             let cDist = spikes[i].position - prevPos;
             if (distTally[cDist])
@@ -101,21 +102,21 @@ function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, nu
     }
     let spikesList = [];
     for (let i = 0; i < numLines; i++) {
-        let linePosX = startWidth+((img.width-startWidth)/numLines)*i;
+        let linePosX = startWidth + ((img.width - startWidth) / numLines) * i;
         let spikesX = getLineBrightnessSpikes(ctx.getImageData(linePosX, 0, 1, img.width).data, spikeStorecount);
         spikesList.push(spikesX);
-        let linePosY = startWidth+((img.height-startWidth)/numLines)*i;
+        let linePosY = startWidth + ((img.height - startWidth) / numLines) * i;
         let spikesY = getLineBrightnessSpikes(ctx.getImageData(0, linePosY, img.width, 1).data, spikeStorecount);
         spikesList.push(spikesY);
-        
+
         ctx.fillStyle = "#ff00ff";
         for (let i = 0; i < spikeStorecount; i++) {
             ctx.fillRect(linePosX, spikesX[i].position, 2, 2);
             ctx.fillRect(spikesY[i].position, linePosY, 2, 2);
         }
         ctx.fillStyle = "#ff0000";
-        ctx.fillRect(linePosX, startWidth+lenX, 2, 2);
-        ctx.fillRect(startWidth+lenY, linePosY, 2, 2);
+        ctx.fillRect(linePosX, startWidth + lenX, 2, 2);
+        ctx.fillRect(startWidth + lenY, linePosY, 2, 2);
         findModeDistance(spikesX, distTally);
         findModeDistance(spikesY, distTally);
     }
@@ -139,14 +140,14 @@ function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, nu
         cellWidth = bimodal.mode;
         cellWidth = approxCellWidth(cellWidth, img.width);
     } else {
-        cellWidth = approxCellWidth(squareWidth+lineWidth, img.width);
+        cellWidth = approxCellWidth(squareWidth + lineWidth, img.width);
     }
     console.log(`Mode: ${squareWidth}`);
-    console.log(`Cell Width: ${squareWidth+lineWidth}`);
+    console.log(`Cell Width: ${squareWidth + lineWidth}`);
 
     function approxCellWidth(cellWidth, dimensionLength) {
-        let approxCellCount = Math.round(dimensionLength/cellWidth);
-        return (dimensionLength/approxCellCount);
+        let approxCellCount = Math.round(dimensionLength / cellWidth);
+        return (dimensionLength / approxCellCount);
     }
     console.log(`approx cell count X: ${cellWidth}`);
     drawLines(img, ctx, cellWidth);
@@ -158,10 +159,10 @@ function getCellWidthFromImage(img, startWidth, lengthRatio, spikeStorecount, nu
         cellWidth: cellWidth,
     };
 }
-function mode(obj, min, ignoreKey=null) {
+function mode(obj, min, ignoreKey = null) {
     let maxKey = null;
     let maxVal = 0;
-    for(const key of Object.keys(obj)) {
+    for (const key of Object.keys(obj)) {
         const val = obj[key];
         if (val > maxVal && key > min && key != ignoreKey) {
             maxKey = key;
@@ -177,8 +178,8 @@ function mode(obj, min, ignoreKey=null) {
  * @param {*} cellWidth 
  */
 function drawLines(img, ctx, cellWidth) {
-    const linesX = img.width/cellWidth;
-    const linesY = img.height/cellWidth;
+    const linesX = img.width / cellWidth;
+    const linesY = img.height / cellWidth;
     ctx.strokeStyle = "#ff00ff";
     ctx.globalAlpha = 0.6;
     ctx.lineWidth = 1;
@@ -189,36 +190,37 @@ function drawLines(img, ctx, cellWidth) {
         ctx.stroke();
         ctx.closePath();
     };
-    for (let i = 1; i < linesX+1; i++) {
-        drawLine(cellWidth*i, 0, cellWidth*i, img.height)
+    for (let i = 1; i < linesX + 1; i++) {
+        drawLine(cellWidth * i, 0, cellWidth * i, img.height)
     }
 
-    for (let i = 1; i < linesY+1; i++) {
-        drawLine(0, cellWidth*i, img.width, cellWidth*i)
+    for (let i = 1; i < linesY + 1; i++) {
+        drawLine(0, cellWidth * i, img.width, cellWidth * i)
     }
 
 }
 
 
 // console.log(getCellWidthFromImage(10, 150, 20));
-var img = new Image();
+var img = document.createElement('img');
+img.crossOrigin = "anonymous"
 
-const onload = () => { 
+const onload = () => {
     var result = getCellWidthFromImage(img, 10, 1, 40, 45);
     document.getElementById("height").textContent = result.height;
     document.getElementById("width").textContent = result.width;
     document.getElementById("cell_width").textContent = result.cellWidth;
- }
- img.onload = onload;
+}
+img.onload = onload;
 img.src = "./GKYoHhR.jpg";
 
 
 const inputElement = document.getElementById("file_input");
 inputElement.addEventListener("change", handleFiles, false);
 function handleFiles() {
-  const fileList = this.files; /* now you can work with the file list */
+    const fileList = this.files; /* now you can work with the file list */
 
-  const imgFile = fileList[0];
+    const imgFile = fileList[0];
     img.src = URL.createObjectURL(this.files[0]);
     console.log(img.src);
 
@@ -226,7 +228,7 @@ function handleFiles() {
 
 function isBimodal(distTally, modeKey) {
     let secondMode = mode(distTally, 10, modeKey);
-    if (distTally[secondMode]/distTally[modeKey] > 0.5) {
+    if (distTally[secondMode] / distTally[modeKey] > 0.5) {
         // Find true cellWidth
         return { bimodal: true, mode: Math.max(secondMode, modeKey) };
     }
