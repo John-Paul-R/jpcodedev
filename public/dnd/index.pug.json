@@ -23,27 +23,27 @@
                 "icon_markup": "<i class=\"material-icons\">public</i>",
                 "items": [
                     {
-                        "link": "https://www.jpcode.dev/dnd/ian-oota",
+                        "link": "/dnd/ian-oota",
                         "text": "Out of the Abyss (Ian)"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/jay-waterdeep",
+                        "link": "/dnd/jay-waterdeep",
                         "text": "Waterdeep (Jay)"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/jp-icewind",
+                        "link": "/dnd/jp-icewind",
                         "text": "Icewind Dale (JP)"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/ian-theros",
+                        "link": "/dnd/ian-theros",
                         "text": "Theros (Ian)"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/caillen-wildweirdwest",
+                        "link": "/dnd/caillen-wildweirdwest",
                         "text": "Wild Weird West (Caillen)"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/ian-strahd",
+                        "link": "/dnd/ian-strahd",
                         "text": "Curse of Strahd (Ian)"
                     }
                 ]
@@ -56,7 +56,7 @@
                         "text": "DnDBeyond Dark Theme"
                     },
                     {
-                        "link": "https://www.jpcode.dev/dnd/grid_aligner",
+                        "link": "/dnd/grid_aligner",
                         "text": "Battlemap Grid Aligner"
                     },
                     {

@@ -29,7 +29,7 @@ block titlemixin
 
 block nav_end 
     a#resume_btn.button(href="https://static.jpcode.dev/resume", role="menuitem") #[span.text Resumé] #[span.material-icons description] 
-    a#contact_btn.button(href="https://www.jpcode.dev/contact", role="menuitem") #[span.text Contact] #[span.material-icons email]
+    a#contact_btn.button(href=linkify("/contact"), role="menuitem") #[span.text Contact] #[span.material-icons email]
 
 
 block body
@@ -79,11 +79,13 @@ block body
                             each scr in project.scripts
                                 script(src=scr defer) 
     hr
-    a.button.glow(href="https://www.jpcode.dev/certs") View my certifications 
+    a.button.glow(href=linkify("/certs")) View my certifications 
     #dnd
         |<b>Looking for my <span style="color: crimson">D&D</span> projects?</b>
         .content 
-            |<a href="https://www.jpcode.dev/dnd" class="button glow" aria-label="Click here to view my D and D projects.">Click Here</a> to view them.
+            a.button.glow(href=linkify("/dnd") aria-label="Click here to view my D and D projects.") Click Here
+            to view them.
+            //- |<a href=linkify("/dnd") class="button glow" aria-label="Click here to view my D and D projects.">Click Here</a> to view them.
 
 block eof
     #eof_scripts 

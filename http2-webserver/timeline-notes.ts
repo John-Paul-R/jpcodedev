@@ -13,6 +13,7 @@ import type { Buffer } from "node:buffer";
 import * as dndPlugin from "./dnd-plugin.ts";
 import { URL_ROOT } from "./http2server2.1.ts";
 import { trimTrailingSlash } from "./utils.ts";
+import { readJson } from "@x/jsonfile";
 
 const logger = log4js.getLogger("timeline-notes");
 
@@ -89,8 +90,6 @@ const converter = new showdown.Converter({
     ],
 });
 
-const baseUrl = "https://localhost:8082"; //"https://www.jpcode.dev/";
-
 const _widgets_data: { [key: string]: Map<string, ContentFileMemCache> } = {};
 const _templates: { [key: string]: pug.compileTemplate } = {};
 const _markdown: { [key: string]: { [key: string]: string | Buffer } } = {};
@@ -104,6 +103,7 @@ const _dir_config: { [key: string]: WidgetsDirectoryConfig } = {};
  */
 const webroots: string[] = [];
 const webrootToWidgetDirectory: Record<string, string> = {};
+const webrootToPugVariables: Record<string, any> = {};
 
 /**
  *
@@ -113,6 +113,7 @@ const webrootToWidgetDirectory: Record<string, string> = {};
  * @param {boolean} options.lazy_load_allowed Whether the service is allowed to check for widgets on disk during runtime (after startup) (if not found in memory)
  * @param {string}  options.web_root
  * @param {string[]} options.plugins
+ * @param {Record<string, any>} options.pugVariables
  */
 async function init(
     options = {
@@ -121,11 +122,13 @@ async function init(
         lazy_load_allowed: true,
         web_root: "widgets",
         plugins: [] as string[],
+        pugVariables: {} 
     }
 ) {
     fs.ensureDirSync(options.widget_directory);
     const widget_paths = await getFilePathsRecursive(options.widget_directory);
     webrootToWidgetDirectory[options.web_root] = options.widget_directory;
+    webrootToPugVariables[options.web_root] = options.pugVariables;
 
     const templates: { [key: string]: pug.compileTemplate } = {};
     const widgets: { [key: string]: ContentFileMemCache } = {};
@@ -139,7 +142,7 @@ async function init(
     );
 
     if (fs.existsSync(dirConfigPath)) {
-        dirConfig = JSON.parse(fs.readFileSync(dirConfigPath).toString());
+        dirConfig = await readJson(dirConfigPath) as any;
     }
 
     if (options.preload_widgets) {
@@ -277,6 +280,7 @@ function handleRequest(
                 Path.join(
                     ...webrootToWidgetDirectory[webroot].split("/").slice(2)
                 );
+            const pugVars = webrootToPugVariables[webroot];
             if (
                 !reqPath.startsWith(srcUrlPath) &&
                 pathFrags[pathFrags.length - 1].endsWith(".md")
@@ -300,6 +304,7 @@ function handleRequest(
                     return respond(
                         "text/html",
                         _templates["list"]({
+                            ...pugVars,
                             widgets: _widgets_data[webroot].entries(),
                             title: dirConfig.title,
                             webroot: webroot,
@@ -327,12 +332,12 @@ function handleRequest(
                     return respond(
                         "text/html",
                         _templates["list_dynamic"]({
+                            ...pugVars,
                             widgets: widgetMetadata,
                             columnHeaders: thoughtsDirConfig.columns.map(
                                 (col) => col.displayName
                             ),
                             title: dirConfig.title,
-                            baseUrl,
                             webroot: webroot,
                         })
                     );
@@ -364,6 +369,7 @@ function handleRequest(
                             return respond(
                                 "text/html",
                                 _templates["dnd_summary_note"]({
+                                    ...pugVars,
                                     widgetContents: widgetContents,
                                     title: widgetTitle,
                                     dirTitle: dirConfig.title,
@@ -375,6 +381,7 @@ function handleRequest(
                         return respond(
                             "text/html",
                             _templates["thoughts_software_content"]({
+                                ...pugVars,
                                 widgetContents: widgetContents,
                                 title: widgetTitle,
                                 contentFile: widgetMetadata["content-file"],

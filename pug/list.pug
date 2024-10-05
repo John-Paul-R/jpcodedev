@@ -28,7 +28,7 @@ block body
                     each [key, widget] of widgets
                         tr(data-session-date=widget["session-date"])
                             td 
-                                a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}
+                                a.note(href=linkify(`/${webroot}/${key}`)) #{widget.title}
                             td #{widget['session-date']}
     script.
         (function(){

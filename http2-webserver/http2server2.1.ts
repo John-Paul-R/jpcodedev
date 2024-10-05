@@ -152,11 +152,16 @@ if (runOpts.log === "simple") {
     logStream = () => { };
 }
 
+const linkify = (path: string) => path.startsWith('https://') || path.startsWith('http://')
+    ? path
+    : `https://${websiteRoot}${path}`;
+
 // Load Pug Templates
 await widgets.loadTemplates("../pug");
 const pugOptions = {
     basedir: "../pug",
-    globals: ["linkify"],
+    // globals: ["linkify"],
+    linkify,
 } as pug.Options & pug.LocalsObject;
 
 const supportedTimelineNotesRootFragments: string[] = ["dnd", "thoughts"];
@@ -168,6 +173,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/ian-oota",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 // Initialize dnd/jay-waterdeep Notes Widgets
 await widgets.init({
@@ -176,6 +182,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/jay-waterdeep",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 // Initialize dnd/jp-icewind Notes Widgets
 await widgets.init({
@@ -184,6 +191,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/jp-icewind",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 
 // Initialize dnd/ian-theros Notes Widgets
@@ -193,6 +201,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/ian-theros",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 
 // Initialize dnd/caillen-wildweirdwest Notes Widgets
@@ -205,6 +214,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/caillen-wildweirdwest",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 
 // Initialize dnd/ian-strahd Notes Widgets
@@ -214,6 +224,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "dnd/ian-strahd",
     plugins: ["dnd-api"],
+    pugVariables: pugOptions,
 });
 
 // Initialize `thoughts/software` Notes Widgets
@@ -223,6 +234,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "thoughts/software",
     plugins: [],
+    pugVariables: pugOptions,
 });
 
 // Initialize `thoughts/politics` Notes Widgets
@@ -232,6 +244,7 @@ await widgets.init({
     lazy_load_allowed: true,
     web_root: "thoughts/politics",
     plugins: [],
+    pugVariables: pugOptions,
 });
 
 // Init file manager
@@ -430,7 +443,7 @@ async function respond(
     return handle404(req.url);
 }
 
-const pug404 = widgets.getPugTemplate("404")();
+const pug404 = widgets.getPugTemplate("404")(pugOptions);
 function handle404(url: string) {
     logger.warn(`404 Not Found: ${url}`);
     if (runOpts.static) {

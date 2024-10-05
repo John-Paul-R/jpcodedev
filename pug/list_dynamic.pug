@@ -31,6 +31,6 @@ block body
                             each value in widget.columns
                                 if (value.cell_type === 'title')
                                     td
-                                        a.note(href=`${baseUrl}/${webroot}/${key}`) #{value.value}
+                                        a.note(href=linkify(`/${webroot}/${key}`)) #{value.value}
                                 else
                                     td #{value.value}

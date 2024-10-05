@@ -33,7 +33,7 @@ block body
                             td #[a(href=`${mod.github}`) #{mod.github ? "GitHub" : null}]
                             td #[a(href=`${mod.modrinth}`) #{mod.modrinth ? "Modrinth" : null}]
                             td #[a(href=`${mod.curseforge}`) #{mod.curseforge ? "CurseForge" : null}]
-                                //- a.note(href=`https://www.jpcode.dev/${webroot}/${key}`) #{widget.title}
+                                //- a.note(href=linkify(`/${webroot}/${key}`)) #{widget.title}
     .smalltext.right
         |The Fabric logo is licensed by the 
         a(href="https://fabricmc.net/") Fabric Project

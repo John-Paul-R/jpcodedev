@@ -20,6 +20,6 @@ block body
                     hr.accent
                     .category_content 
                         for item of category.items 
-                            a.project_item(href=item.link) #{item.text}
+                            a.project_item(href=linkify(item.link)) #{item.text}
                     if category.smalltext 
                         p.smalltext.right !{category.smalltext}

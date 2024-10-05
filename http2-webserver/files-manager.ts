@@ -93,7 +93,7 @@ async function loadFiles(dir_path: PathLike) {
 
         function pugCompileJson(jsonContents: JpPugConfig) {
             const template = widgets.getPugTemplate(jsonContents.template);
-            return template(jsonContents.data);
+            return template({...pugOptions, ...jsonContents.data });
         }
 
         let fileContents: string | undefined;
