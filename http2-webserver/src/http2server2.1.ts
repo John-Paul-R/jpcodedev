@@ -257,7 +257,10 @@ fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 await fm.load(exec_path);
 
 // Img Dir
-imgDir.init(widgets.getPugTemplate("img_dir"), consts);
+imgDir.init((() => {
+    const pugFn = widgets.getPugTemplate("img_dir");
+    return (args?: pug.LocalsObject) => pugFn({pugOptions, ...args})
+})(), consts);
 
 const port = runOpts.port || 8089;
 
