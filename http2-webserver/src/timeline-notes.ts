@@ -12,7 +12,9 @@ import { URL_ROOT } from "./http2server2.1.ts";
 import { trimTrailingSlash } from "./utils.ts";
 import { readJson } from "@x/jsonfile";
 import { ensureDir } from "@std/fs/ensure-dir";
+import __ from "@x/dirname"
 
+const { __filename } = __(import.meta);
 const logger = log4js.getLogger("timeline-notes");
 
 type WidgetsDirectoryConfig = {
