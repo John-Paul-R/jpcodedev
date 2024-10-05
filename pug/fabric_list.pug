@@ -1,7 +1,7 @@
 extends standalone-base.pug
 
 block head
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
+    link(rel="stylesheet", href=linkifyStatic("/css/widget_standalone.css"))      
     if (ogPreview)
         meta(property="og:title", content=`${ogPreview.title}`)
         //- meta(property="og:description", content=`${ogPreview.description}`)

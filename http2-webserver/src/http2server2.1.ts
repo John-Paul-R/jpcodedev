@@ -66,7 +66,13 @@ export type JPServerOptions = {
 const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
 
 runOpts.pubpath = Path.resolve(runOpts.pubpath);
-const { urlAuthority: websiteRoot, pubpath: exec_path } = runOpts;
+const { 
+    urlAuthority: websiteRoot,
+    pubpath: exec_path
+} = runOpts;
+const staticServerUrlAuthority = websiteRoot.includes('localhost')
+    ? 'localhost:8083'
+    : 'static.jpcode.dev';
 
 const { __filename } = __(import.meta);
 const FILENAME = Path.basename(__filename);
@@ -154,12 +160,14 @@ const linkify = (path: string) => path.startsWith('https://') || path.startsWith
     ? path
     : `https://${websiteRoot}${path}`;
 
+const linkifyStatic = (path: string) => `https://${staticServerUrlAuthority}${path}`;
+
 // Load Pug Templates
 await widgets.loadTemplates("../pug");
 const pugOptions = {
     basedir: "../pug",
-    // globals: ["linkify"],
     linkify,
+    linkifyStatic,
 } as pug.Options & pug.LocalsObject;
 
 const supportedTimelineNotesRootFragments: string[] = ["dnd", "thoughts"];

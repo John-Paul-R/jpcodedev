@@ -2,8 +2,8 @@
 extends standalone-base.pug
 
 block head
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/dnd_index.css")
+    link(rel="stylesheet", href=linkifyStatic("/css/widget_standalone.css"))
+    link(rel="stylesheet", href=linkifyStatic("/css/dnd_index.css"))
     //- Todo: remove widget_standalone.css? I think it might be redundant here.
     
     if (ogPreview)

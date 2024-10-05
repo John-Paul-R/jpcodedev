@@ -2,8 +2,8 @@ extends standalone-base.pug
 
 block head
     meta(name="description", content="A repository of Dungeons and Dragons (D&D) projects by John Paul R.")
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")      
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/dnd_art_browse.css")
+    link(rel="stylesheet", href=linkifyStatic("/css/widget_standalone.css"))      
+    link(rel="stylesheet", href=linkifyStatic("/css/dnd_art_browse.css"))
 
     style.
         .card h2 {

@@ -1,10 +1,10 @@
 extends standalone-base.pug
 
 block head
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/widget_standalone.css")
+    link(rel="stylesheet", href=linkifyStatic("/css/widget_standalone.css"))
     style a.button {margin: 8px;}
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/resizable.css")
-    script(src="https://static.jpcode.dev/js/resizable.js")             
+    link(rel="stylesheet", href=linkifyStatic("/css/resizable.css"))
+    script(src=linkifyStatic("/js/resizable.js"))             
     title #{title} - D&D Notes
 
 block titlemixin 
@@ -16,4 +16,4 @@ block body
         a.widget_top_float(href=linkify('/'+webroot)) #{dirTitle}
         div.widget_content.markdown
             p !{widgetContents}
-    script(src="https://static.jpcode.dev/js/md_table_of_contents.js") 
+    script(src=linkifyStatic("/js/md_table_of_contents.js")) 

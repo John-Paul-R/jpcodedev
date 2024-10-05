@@ -4,7 +4,7 @@ extends standalone-base.pug
 block head
     meta(name="description", content="A repository of development projects by John Paul Rutigliano.")
     meta(name="keywords", content="jp, code, jpcodedev, jpcode, john paul rutigliano, John-Paul-R, full stack, developer, dev")
-    link(rel="stylesheet", href="https://static.jpcode.dev/css/projects-list.css")
+    link(rel="stylesheet", href=linkifyStatic("/css/projects-list.css"))
 
     title Certifications - JPCode.Dev
 
@@ -13,7 +13,7 @@ block titlemixin
     
 
 block nav_end 
-    a#resume_btn.button(href="https://static.jpcode.dev/resume", role="menuitem") #[span.text Resumé] #[span.material-icons description] 
+    a#resume_btn.button(href=linkifyStatic("/resume"), role="menuitem") #[span.text Resumé] #[span.material-icons description] 
     a#contact_btn.button(href=linkify('/contact'), role="menuitem") #[span.text Contact] #[span.material-icons email]
 
 
