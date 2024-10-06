@@ -1,7 +1,6 @@
-import dirUtil from "node-dir";
 
 export const getDirReportFiles = async (sourceDirPath: string) => {
-    const files = await dirUtil.promiseFiles(sourceDirPath);
+    const files = await Array.fromAsync(Deno.readDir(sourceDirPath));
 
     if (!files) {
         console.warn(
@@ -12,11 +11,11 @@ export const getDirReportFiles = async (sourceDirPath: string) => {
 
     // const files = objPaths.files;
     return files
-        .filter((p) => p.endsWith(".Bench-report.csv"))
-        .map((p) =>
-            p.substring(
-                p.lastIndexOf("/") + 1,
-                p.lastIndexOf(".Bench-report.csv")
+        .filter((dirEnt) => dirEnt.name.endsWith(".Bench-report.csv"))
+        .map((dirEnt) =>
+            dirEnt.name.substring(
+                dirEnt.name.lastIndexOf("/") + 1,
+                dirEnt.name.lastIndexOf(".Bench-report.csv")
             )
         );
 };
