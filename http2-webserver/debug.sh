@@ -13,8 +13,7 @@ cleanup() {
 trap cleanup EXIT
 
 run_www() {
-    # --inspect-brk
-    deno run --inspect --allow-all \
+    deno run --inspect-brk --allow-all \
          ./src/http2server2.1.ts \
         -p $www --debug --pubpath ../public --log simple --maxAge 0 --urlAuthority "localhost:$www" \
         -k ./certs/localhost-privkey.pem \

@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "kill servers by port",
+            "type": "process",
+            "command": "${workspaceFolder}/http2-webserver/killServers.sh",
+            "options": {"cwd": "${workspaceFolder}/http2-webserver"},
+            "promptOnClose": false,
+            "hide": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        }
+    ]
+}

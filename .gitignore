@@ -7,7 +7,6 @@ credentials/
 *.csr
 *.key
 *.pem
-.vscode
 
 public_static/temp/
 
