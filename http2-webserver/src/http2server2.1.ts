@@ -73,6 +73,8 @@ const staticServerUrlAuthority = websiteRoot.includes('localhost')
     ? 'localhost:8083'
     : 'static.jpcode.dev';
 
+const isApplicationServer = !runOpts.static;
+
 const { __filename } = __(import.meta);
 const FILENAME = Path.basename(__filename);
 const execModeString = runOpts.debug ? "DEBUG" : "PRODUCTION";
@@ -92,6 +94,7 @@ export type JPServerConsts = {
     DEFAULT_HEADERS: {
         link: string[];
     };
+    isApplicationServer: boolean;
 };
 
 const consts = {
@@ -99,6 +102,7 @@ const consts = {
     websiteRoot,
     URL_ROOT,
     DEFAULT_HEADERS,
+    isApplicationServer,
 } as JPServerConsts;
 
 // Init logger

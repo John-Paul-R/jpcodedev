@@ -62,7 +62,7 @@ function init(
     IMG_DIR = Path.join(consts.exec_path, "/img/3d");
     console.log("IMG_DIR", IMG_DIR);
 
-    if (consts.websiteRoot.startsWith("www.")) {
+    if (consts.isApplicationServer) {
         const baseDir = Path.join(consts.exec_path, "3d");
         files = {
             stats: JSON.parse(
