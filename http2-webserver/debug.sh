@@ -15,7 +15,8 @@ trap cleanup EXIT
 run_www() {
     deno run --inspect-brk --allow-all \
          ./src/http2server2.1.ts \
-        -p $www --debug --pubpath ../public --log simple --maxAge 0 --urlAuthority "localhost:$www" \
+        -p $www --debug --pubpath ../public --log simple --maxAge 0 \
+        --urlAuthority "localhost:$www" \
         -k ./certs/localhost-privkey.pem \
         -c ./certs/localhost-cert.pem
 }
@@ -23,7 +24,9 @@ run_www() {
 run_static() {
     deno run --allow-all \
          ./src/http2server2.1.ts \
-        -p $static --debug --pubpath ../public_static --maxAge 0 --log simple --urlAuthority "localhost:$static" \
+        -p $static --debug --pubpath ../public_static --maxAge 0 --log simple \
+        --urlAuthority "localhost:$static" \
+        --static \
         -k ./certs/localhost-privkey.pem \
         -c ./certs/localhost-cert.pem
 }

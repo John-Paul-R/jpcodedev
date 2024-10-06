@@ -2,7 +2,6 @@ import { ok } from '@http/response/ok';
 import { serveFile } from "@std/http";
 import { Header as HeaderKey } from "@std/http/unstable-header";
 import __ from '@x/dirname';
-import commandLineArgs from "command-line-args";
 import log4js from "log4js";
 import fs, { PathLike } from "node:fs";
 import Path from "node:path";
@@ -15,34 +14,25 @@ import * as imgDir from "./img_dir.ts";
 import { getDirReportFiles } from "./json-dir-index.ts";
 import * as widgets from "./timeline-notes.ts";
 
-// TODO: .env.<environment-type> files (public data)
-//  Load ArgV
-const optionDefinitions = [
-    { name: "key", alias: "k", type: String },
-    { name: "cert", alias: "c", type: String },
-    { name: "debug", alias: "d", type: Boolean },
-    {
-        name: "pubpath",
-        type: String,
-        multiple: false,
-        defaultOption: true,
-        defaultValue: "../public",
-    },
-    { name: "port", alias: "p", type: Number },
-    { name: "server-push", type: Boolean },
-    { name: "early-hints", type: Boolean },
-    { name: "allowHTTP1", type: Boolean, defaultValue: false },
-    { name: "log", type: String },
-    { name: "use-br-if-available", type: String, defaultValue: false },
-    { name: "maxAge", type: String },
-    { name: "static", type: Boolean, defaultValue: false },
-    {
-        name: "urlAuthority",
-        type: String,
-        multiple: false,
-        defaultValue: "www.jpcode.dev",
-    },
-];
+import { parseFlags } from "https://deno.land/x/cliffy@v1.0.0-rc.4/flags/mod.ts";
+
+const { flags } = parseFlags(Deno.args, {
+    flags: [
+        { name: "key", aliases: ["k"], type: "string" },
+        { name: "cert", aliases: ["c"], type: "string" },
+        { name: "debug", aliases: ["d"] },
+        { name: "pubpath", type: "string", default: "../public" },
+        { name: "port", aliases: ["p"], type: "number" },
+        { name: "server-push" },
+        { name: "early-hints" },
+        { name: "allowHTTP1", default: false },
+        { name: "log", type: "string" },
+        { name: "use-br-if-available" },
+        { name: "maxAge", type: "string" },
+        { name: "static" },
+        { name: "urlAuthority", type: "string", default: "www.jpcode.dev" },
+    ],
+});
 
 // todo Config should be done in external, json file
 //   @body (ex: widgets should be defined in external config file that is then passed via start args to this js program)
@@ -63,7 +53,7 @@ export type JPServerOptions = {
     urlAuthority: string;
 };
 
-const runOpts = commandLineArgs(optionDefinitions) as JPServerOptions;
+const runOpts = flags as JPServerOptions;
 
 const { 
     urlAuthority: websiteRoot,
@@ -73,6 +63,7 @@ const staticServerUrlAuthority = websiteRoot.includes('localhost')
     ? 'localhost:8083'
     : 'static.jpcode.dev';
 
+    console.log(runOpts)
 const isApplicationServer = !runOpts.static;
 
 const { __filename } = __(import.meta);
@@ -122,7 +113,7 @@ log4js.configure({
         default: { appenders: ["logfile", "console"], level: "INFO" },
     },
 });
-logger.info(`Starting ${FILENAME} in ${execModeString} mode.`);
+logger.info(`Starting ${FILENAME} (${isApplicationServer ? 'Application' : 'Static'}) in ${execModeString} mode.`);
 
 // Set Logging Format based on runOpts
 let logStream: (
@@ -297,7 +288,12 @@ if (useSecure) {
 Deno.serve({
     ...serverTslOpts,
     port,
-    onListen: (addr) => logger.info("Listening on %s:%s (%s)", addr.hostname, addr.port, addr.transport),
+    onListen: (addr) => logger.info(
+        "Server '%s' listening on %s:%s (%s)",
+        isApplicationServer ? 'Application' : 'Static',
+        addr.hostname,
+        addr.port,
+        addr.transport),
     onError: (err) => {
         logger.error(err);
         return new Response("An unexpected server error occurred.", {
