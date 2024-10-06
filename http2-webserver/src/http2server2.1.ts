@@ -73,8 +73,9 @@ export const URL_ROOT = `https://${websiteRoot}`;
 
 const DEFAULT_HEADERS = {
     link: [
-        '<https://static.jpcode.dev/css/core_style.css>; rel="preload"; as="style"',
-        '<https://static.jpcode.dev/js/multi-palette.min.js>; rel="preload"; as="script"',
+        `<https://${staticServerUrlAuthority}/css/core_style.css>; rel="preload"; as="style"`,
+        `<https://${staticServerUrlAuthority}/js/multi-palette.min.js>; rel="preload"; as="script"`,
+        `<https://${staticServerUrlAuthority}/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin`,
     ],
 };
 
@@ -341,7 +342,7 @@ async function respond(
         "Content-Type": "text/html; charset=utf-8",
     };
 
-    if (websiteRoot === "static.jpcode.dev") {
+    if (runOpts.static) {
         resHeaders['Access-Control-Allow-Origin'] = '*';
     } 
 
@@ -423,7 +424,7 @@ async function respond(
     // Send successful response
     if (requestedFile) {
         const resHeaders2 =
-            websiteRoot === "static.jpcode.dev"
+            runOpts.static
                 ? {
                     // This is absolutely cursed. For some incomprehensable
                     // reason, explicitly setting the access control header
