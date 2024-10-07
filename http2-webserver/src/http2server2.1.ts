@@ -15,6 +15,7 @@ import { getDirReportFiles } from "./json-dir-index.ts";
 import * as widgets from "./timeline-notes.ts";
 
 import { parseFlags } from "https://deno.land/x/cliffy@v1.0.0-rc.4/flags/mod.ts";
+import type { LocalsObject } from "@x/pug";
 
 const { flags } = parseFlags(Deno.args, {
     flags: [
@@ -306,15 +307,14 @@ Deno.serve({
     }
 })
 
-const getDirectoriesOrHtml = (source: PathLike) =>
-    fs
-        .readdirSync(source, { withFileTypes: true })
-        // .filter(dirent => dirent.isDirectory() || dirent.name.endsWith(".html"))
+const getDirectoryEntryNames = async (source: string | URL) =>
+    (await Array.fromAsync(Deno.readDir(source)))
         .map((dirent) => dirent.name);
 
-const dirIndexPug = widgets.getPugTemplate("dir_list");
-
-// function response(status: number, )
+const dirIndexPug = (pugLocals?: LocalsObject) => widgets.getPugTemplate("dir_list")({
+    ...pugOptions,
+    ...pugLocals,
+});
 
 enum RequestMethod
 {
@@ -403,7 +403,7 @@ async function respond(
                 // DO directory index things
                 const opts = {
                     dir: Path.basename(path),
-                    widgets: getDirectoriesOrHtml(fpath).map((name) => {
+                    widgets: (await getDirectoryEntryNames(fpath)).map((name) => {
                         return {
                             name: name,
                             link:
