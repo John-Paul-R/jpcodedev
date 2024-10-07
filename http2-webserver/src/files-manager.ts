@@ -9,26 +9,32 @@ import { Logger } from "log4js";
 import { walk } from "@std/fs/walk";
 import { JsonParseStream } from "@std/json/parse-stream";
 import type { Header } from "@std/http/unstable-header";
+import { toText, toJson } from "@std/streams";
 
 let logger: Logger;
 let runOpts: JPServerOptions;
 let pugOptions: pug.Options & pug.LocalsObject;
-let defaultHeaders: OutgoingHeaders;
+let DefaultJpCodeDevHtmlPageHeaders: OutgoingHeaders;
 let isLogVerbose = false;
+const CONTENT_TYPE_HTML = "text/html; charset=utf-8";
+
 const init = (
     rOpts: JPServerOptions,
     pugOpts: pug.Options & pug.LocalsObject,
-    defHeaders: OutgoingHeaders,
+    defaultJpCodeDevHtmlPageHeaders: OutgoingHeaders,
     lgr: Logger,
 ) => {
     runOpts = rOpts;
     logger = lgr;
     pugOptions = pugOpts;
-    defaultHeaders = defHeaders;
+    DefaultJpCodeDevHtmlPageHeaders = defaultJpCodeDevHtmlPageHeaders;
     isLogVerbose = runOpts.log === "verbose";
 };
 
 type JpPugConfig = {
+    /**
+     * The name of the template to use to render the thing
+     */
     template: string;
     data: Record<string, unknown>;
 };
@@ -68,13 +74,10 @@ async function loadFiles(dir_path: PathLike) {
             return; // we're recursing dirs, so skip
         }
 
-        // let fileContents: Uint8Array | string = new Uint8Array(fileStats.size);
-        // await fileDescriptor.readable.(fileContents);
-
         const contentType = Mime.getType(relFilePath);
         if (isLogVerbose) console.log(tempPath.base, contentType);
 
-        let headers: OutgoingHeaders = {
+        const headers: OutgoingHeaders = {
             "Content-Length": fileStats.size.toString(),
             "Last-Modified": fileStats.mtime?.toUTCString(),
             "Content-Type": contentType ?? "text/raw",
@@ -86,16 +89,11 @@ async function loadFiles(dir_path: PathLike) {
         }
 
         let fileContents: Uint8Array | string | undefined;
-        let shouldOverwiteDefaultHeaders = false;
         if (filePath.endsWith(".html")) {
-            Object.assign(headers, defaultHeaders);
+            Object.assign(headers, DefaultJpCodeDevHtmlPageHeaders);
         } else if (filePath.endsWith(".pug.json")) {
             // Data files to be inserted into pug templates. (My thing)
-            const jsonContents = (await Array.fromAsync(
-                fileDescriptor.readable
-                    .pipeThrough(new TextDecoderStream())
-                    .pipeThrough(new JsonParseStream()),
-            ))[0] as JpPugConfig;
+            const jsonContents = await toJson(fileDescriptor.readable) as JpPugConfig;
 
             try {
                 fileContents = pugCompileJson(jsonContents);
@@ -103,35 +101,23 @@ async function loadFiles(dir_path: PathLike) {
                 logger.error(err);
                 return null;
             }
-            shouldOverwiteDefaultHeaders = true;
+            Object.assign(headers, DefaultJpCodeDevHtmlPageHeaders);
+            headers["Content-Type"] = CONTENT_TYPE_HTML;
         } else if (filePath.endsWith(".pug")) {
-            const textContent = (await Array.fromAsync(
-                fileDescriptor.readable
-                    .pipeThrough(new TextDecoderStream()),
-            ))[0] as string;
+            const textContent = await toText(fileDescriptor.readable);
 
             fileContents = pug.render(textContent, pugOptions);
-            shouldOverwiteDefaultHeaders = true;
-        }
-
-        if (shouldOverwiteDefaultHeaders) {
-            const resHeaders: OutgoingHeaders = { ...defaultHeaders };
-            resHeaders["Content-Type"] = "text/html; charset=utf-8";
-            resHeaders["Last-Modified"] = headers["Last-Modified"];
-            headers = resHeaders;
+            Object.assign(headers, DefaultJpCodeDevHtmlPageHeaders);
+            headers["Content-Type"] = CONTENT_TYPE_HTML;
         }
 
         if (fileContents === undefined) {
             const content = new Uint8Array(fileStats.size);
             fileDescriptor.read(content);
             fileContents = content;
-            // (await Array.fromAsync(
-            //     fileDescriptor.readable
-            //         .pipeThrough(new TextDecoderStream())
-            // ))[0] as string;
         }
 
-        files.set(`${relFilePath}`, {
+        files.set(relFilePath, {
             absPath: filePath,
             data: fileContents,
             fileName: relFilePath,

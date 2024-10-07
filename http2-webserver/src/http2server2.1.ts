@@ -351,95 +351,41 @@ async function respond(
     }
     const reqUrl = new URL(req.url, URL_ROOT);
     const path = decodeURIComponent(reqUrl.pathname);
-    const query = reqUrl.search;
 
-    const resHeaders: { [key in HeaderKey]?: string } = {
-        "Content-Type": "text/html; charset=utf-8",
-    };
+    function createDefaultHeaders(): { [key in HeaderKey]?: string } {
+        const resHeaders: { [key in HeaderKey]?: string } = {
+            "Content-Type": "text/html; charset=utf-8",
+        };
 
-    if (runOpts.static) {
-        resHeaders["Access-Control-Allow-Origin"] = "*";
+        if (runOpts.static) {
+            resHeaders["Access-Control-Allow-Origin"] = "*";
+        }
+
+        return resHeaders;
     }
 
     if (path.includes("dotnet/files.json")) {
+        const headers = createDefaultHeaders();
+        headers["Cache-Control"] = "max-age=900";
+
         const reportFiles = await getDirReportFiles(
             `${exec_path}/benchmarks/dotnet`,
         );
 
-        resHeaders["Cache-Control"] = "max-age=900";
         return ok(
             JSON.stringify(reportFiles),
-            resHeaders,
+            headers,
         );
     }
 
     const requestedFile = fm.getFile(path);
-    // Set content length header, if requested file is found by file manager.
     if (requestedFile) {
+        // Set content length header, if requested file is found by file manager.
         requestedFile.headers["Content-Length"] = Buffer.byteLength(
             requestedFile.data,
             "utf8",
         ).toString();
-    }
 
-    // Try widget
-    if (!requestedFile) {
-        const response = widgets.handleRequest(
-            req,
-            supportedTimelineNotesRootFragments,
-        );
-        if (response) {
-            return response;
-        }
-    }
-    if (!requestedFile && path.startsWith("/3d")) {
-        try {
-            const response = await imgDir.handleRequest(
-                reqUrl.pathname,
-                reqUrl.search,
-            );
-            if (response) {
-                return response;
-            }
-        } catch (error) {
-            logger.error(error);
-        }
-    }
-
-    // TODO Add watermark to all images in a certain dir automatically.
-    // @body atm I have local scripts to add them to files before uploading them to server.
-    if (!requestedFile) {
-        try {
-            const fpath = Path.join(exec_path, path);
-            const fileStat = await Deno.stat(fpath);
-            if (fileStat.isFile) {
-                return await serveFile(req, fpath);
-            } else if (fileStat.isDirectory) {
-                // DO directory index things
-                const opts = {
-                    dir: Path.basename(path),
-                    widgets: (await getDirectoryEntryNames(fpath)).map(
-                        (name) => {
-                            return {
-                                name: name,
-                                link: "https://" +
-                                    Path.join(websiteRoot, path, name),
-                            };
-                        },
-                    ),
-                };
-                return ok(
-                    dirIndexPug(opts),
-                    resHeaders,
-                );
-            }
-        } catch (error) {
-            logger.warn(error);
-        }
-    }
-
-    // Send successful response
-    if (requestedFile) {
         const resHeaders2 = runOpts.static
             ? {
                 // This is absolutely cursed. For some incomprehensable
@@ -461,6 +407,62 @@ async function respond(
             : requestedFile.headers;
 
         return ok(requestedFile.data, resHeaders2 as any);
+    }
+
+    { // Try widget
+        const response = widgets.handleRequest(
+            req,
+            supportedTimelineNotesRootFragments,
+        );
+        if (response) {
+            return response;
+        }
+    }
+
+    if (path.startsWith("/3d")) {
+        try {
+            const response = await imgDir.handleRequest(
+                reqUrl.pathname,
+                reqUrl.search,
+            );
+            if (response) {
+                return response;
+            }
+        } catch (error) {
+            logger.error(error);
+        }
+    }
+
+    // TODO Add watermark to all images in a certain dir automatically.
+    // @body atm I have local scripts to add them to files before uploading them to server.
+    {
+        try {
+            const fpath = Path.join(exec_path, path);
+            const fileStat = await Deno.stat(fpath);
+            if (fileStat.isFile) {
+                return await serveFile(req, fpath);
+            } else if (fileStat.isDirectory) {
+                // DO directory index things
+                const opts = {
+                    dir: Path.basename(path),
+                    widgets: (await getDirectoryEntryNames(fpath)).map(
+                        (name) => {
+                            return {
+                                name: name,
+                                link: "https://" +
+                                    Path.join(websiteRoot, path, name),
+                            };
+                        },
+                    ),
+                };
+                return ok(
+                    dirIndexPug(opts),
+                    createDefaultHeaders(),
+                );
+            }
+        } catch (error) {
+            logger.warn(error);
+        }
     }
 
     // Handle 404
