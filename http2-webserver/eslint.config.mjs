@@ -1,8 +1,16 @@
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-    { ignores: ["ts_output", "node_modules", "log", "certs", "eslint.config.mjs"] },
+    {
+        ignores: [
+            "ts_output",
+            "node_modules",
+            "log",
+            "certs",
+            "eslint.config.mjs",
+        ],
+    },
     eslint.configs.recommended,
     ...tseslint.configs.recommendedTypeChecked,
     {
@@ -20,9 +28,9 @@ export default tseslint.config(
                 {
                     "argsIgnorePattern": "^_",
                     "varsIgnorePattern": "^_",
-                    "ignoreRestSiblings": true
-                }
-            ]
-        }
-    }
+                    "ignoreRestSiblings": true,
+                },
+            ],
+        },
+    },
 );

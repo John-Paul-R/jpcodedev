@@ -1,10 +1,9 @@
-
 export const getDirReportFiles = async (sourceDirPath: string) => {
     const files = await Array.fromAsync(Deno.readDir(sourceDirPath));
 
     if (!files) {
         console.warn(
-            `No files found in pubpath '${sourceDirPath}'. Ensure that the path to the directory is correct and that the directory is not empty.`
+            `No files found in pubpath '${sourceDirPath}'. Ensure that the path to the directory is correct and that the directory is not empty.`,
         );
         return;
     }
@@ -15,7 +14,7 @@ export const getDirReportFiles = async (sourceDirPath: string) => {
         .map((dirEnt) =>
             dirEnt.name.substring(
                 dirEnt.name.lastIndexOf("/") + 1,
-                dirEnt.name.lastIndexOf(".Bench-report.csv")
+                dirEnt.name.lastIndexOf(".Bench-report.csv"),
             )
         );
 };

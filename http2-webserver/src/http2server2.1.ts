@@ -1,7 +1,7 @@
-import { ok } from '@http/response/ok';
+import { ok } from "@http/response/ok";
 import { serveFile } from "@std/http";
 import { Header as HeaderKey } from "@std/http/unstable-header";
-import __ from '@x/dirname';
+import __ from "@x/dirname";
 import log4js from "log4js";
 import fs, { PathLike } from "node:fs";
 import Path from "node:path";
@@ -56,15 +56,15 @@ export type JPServerOptions = {
 
 const runOpts = flags as JPServerOptions;
 
-const { 
+const {
     urlAuthority: websiteRoot,
-    pubpath: exec_path
+    pubpath: exec_path,
 } = runOpts;
-const staticServerUrlAuthority = websiteRoot.includes('localhost')
-    ? 'localhost:8083'
-    : 'static.jpcode.dev';
+const staticServerUrlAuthority = websiteRoot.includes("localhost")
+    ? "localhost:8083"
+    : "static.jpcode.dev";
 
-    console.log(runOpts)
+console.log(runOpts);
 const isApplicationServer = !runOpts.static;
 
 const { __filename } = __(import.meta);
@@ -115,48 +115,55 @@ log4js.configure({
         default: { appenders: ["logfile", "console"], level: "INFO" },
     },
 });
-logger.info(`Starting ${FILENAME} (${isApplicationServer ? 'Application' : 'Static'}) in ${execModeString} mode.`);
+logger.info(
+    `Starting ${FILENAME} (${
+        isApplicationServer ? "Application" : "Static"
+    }) in ${execModeString} mode.`,
+);
 
 // Set Logging Format based on runOpts
 let logStream: (
     headers: IncomingHttpHeaders,
-    socket: Http2Session["socket"] | undefined
+    socket: Http2Session["socket"] | undefined,
 ) => void;
 if (runOpts.log === "simple") {
     logStream = (headers: IncomingHttpHeaders) => {
         logger.info(
             "Req: " +
-            JSON.stringify([
-                headers[HTTP2_HEADER_METHOD],
-                headers[HTTP2_HEADER_PATH],
-                headers[http2.constants.HTTP2_HEADER_REFERER],
-                headers[http2.constants.HTTP2_HEADER_USER_AGENT],
-            ])
+                JSON.stringify([
+                    headers[HTTP2_HEADER_METHOD],
+                    headers[HTTP2_HEADER_PATH],
+                    headers[http2.constants.HTTP2_HEADER_REFERER],
+                    headers[http2.constants.HTTP2_HEADER_USER_AGENT],
+                ]),
         );
     };
 } else if (runOpts.log === "verbose") {
     logStream = (
         headers: IncomingHttpHeaders,
-        socket: Http2Session["socket"] | undefined
+        socket: Http2Session["socket"] | undefined,
     ) => {
         logger.info(
-            `${socket?.remoteFamily}, ${socket?.remoteAddress}, ${socket?.remotePort
-            }, ${headers[':method']} '${headers[':path']
-            }', ${headers['referer']}, '${headers['user-agent']
-            }'`
+            `${socket?.remoteFamily}, ${socket?.remoteAddress}, ${socket?.remotePort}, ${
+                headers[":method"]
+            } '${headers[":path"]}', ${headers["referer"]}, '${
+                headers["user-agent"]
+            }'`,
         );
     };
     // + headers[http2.constants.HTTP2_HEADER]
     // +` - pushList[reqPath]: ${pushList[reqPath]}`
 } else {
-    logStream = () => { };
+    logStream = () => {};
 }
 
-const linkify = (path: string) => path.startsWith('https://') || path.startsWith('http://')
-    ? path
-    : `https://${websiteRoot}${path}`;
+const linkify = (path: string) =>
+    path.startsWith("https://") || path.startsWith("http://")
+        ? path
+        : `https://${websiteRoot}${path}`;
 
-const linkifyStatic = (path: string) => `https://${staticServerUrlAuthority}${path}`;
+const linkifyStatic = (path: string) =>
+    `https://${staticServerUrlAuthority}${path}`;
 
 // Load Pug Templates
 await widgets.loadTemplates("../pug");
@@ -210,7 +217,7 @@ await widgets.init({
 await widgets.init({
     widget_directory: Path.join(
         runOpts.pubpath,
-        "dnd/caillen-wildweirdwest/widgets"
+        "dnd/caillen-wildweirdwest/widgets",
     ),
     preload_widgets: true,
     lazy_load_allowed: true,
@@ -254,14 +261,18 @@ fm.init(runOpts, pugOptions, DEFAULT_HEADERS, logger);
 await fm.load(exec_path);
 
 // Img Dir
-imgDir.init((() => {
-    const pugFn = widgets.getPugTemplate("img_dir");
-    return (args?: pug.LocalsObject) => pugFn({...pugOptions, ...args})
-})(), consts);
+imgDir.init(
+    (() => {
+        const pugFn = widgets.getPugTemplate("img_dir");
+        return (args?: pug.LocalsObject) => pugFn({ ...pugOptions, ...args });
+    })(),
+    consts,
+);
 
 const port = runOpts.port || 8089;
 
-type DenoServeOpts = (Deno.ServeTcpOptions | (Deno.ServeTcpOptions & Deno.TlsCertifiedKeyPem))
+type DenoServeOpts =
+    & (Deno.ServeTcpOptions | (Deno.ServeTcpOptions & Deno.TlsCertifiedKeyPem))
     & Deno.ServeInit<Deno.NetAddr>;
 // Whether or not to use HTTPS on webserver
 const useSecure = runOpts.key && runOpts.cert;
@@ -279,9 +290,11 @@ if (useSecure) {
     logger.info("Key and Cert Loaded. Running server with encryption enabled.");
 } else if (runOpts.key || runOpts.cert) {
     logger.warn(
-        `CommandLineArguments Error: A ${runOpts.key ? "key" : "cert"
-        } was specified, but a ${runOpts.key ? "cert" : "key"
-        } was not. In order to enable SSL/TLS, both must be specified. Starting server without SSL/TLS.`
+        `CommandLineArguments Error: A ${
+            runOpts.key ? "key" : "cert"
+        } was specified, but a ${
+            runOpts.key ? "cert" : "key"
+        } was not. In order to enable SSL/TLS, both must be specified. Starting server without SSL/TLS.`,
     );
 } else {
     logger.info("Key and Cert Unspecified. Running server without encryption.");
@@ -290,39 +303,41 @@ if (useSecure) {
 Deno.serve({
     ...serverTslOpts,
     port,
-    onListen: (addr) => logger.info(
-        "Server '%s' listening on %s:%s (%s)",
-        isApplicationServer ? 'Application' : 'Static',
-        addr.hostname,
-        addr.port,
-        addr.transport),
+    onListen: (addr) =>
+        logger.info(
+            "Server '%s' listening on %s:%s (%s)",
+            isApplicationServer ? "Application" : "Static",
+            addr.hostname,
+            addr.port,
+            addr.transport,
+        ),
     onError: (err) => {
         logger.error(err);
         return new Response("An unexpected server error occurred.", {
             status: 500,
-        })
+        });
     },
     handler: (req, _info) => {
         return respond(req);
-    }
-})
+    },
+});
 
 const getDirectoryEntryNames = async (source: string | URL) =>
     (await Array.fromAsync(Deno.readDir(source)))
         .map((dirent) => dirent.name);
 
-const dirIndexPug = (pugLocals?: LocalsObject) => widgets.getPugTemplate("dir_list")({
-    ...pugOptions,
-    ...pugLocals,
-});
+const dirIndexPug = (pugLocals?: LocalsObject) =>
+    widgets.getPugTemplate("dir_list")({
+        ...pugOptions,
+        ...pugLocals,
+    });
 
-enum RequestMethod
-{
-    GET = 'GET',
-    POST = 'POST',
-    PATCH = 'PATCH',
-    DELETE = 'DELETE',
-    PUT = 'PUT',
+enum RequestMethod {
+    GET = "GET",
+    POST = "POST",
+    PATCH = "PATCH",
+    DELETE = "DELETE",
+    PUT = "PUT",
 }
 
 /**
@@ -343,27 +358,27 @@ async function respond(
     };
 
     if (runOpts.static) {
-        resHeaders['Access-Control-Allow-Origin'] = '*';
-    } 
+        resHeaders["Access-Control-Allow-Origin"] = "*";
+    }
 
     if (path.includes("dotnet/files.json")) {
         const reportFiles = await getDirReportFiles(
-            `${exec_path}/benchmarks/dotnet`
+            `${exec_path}/benchmarks/dotnet`,
         );
 
-        resHeaders['Cache-Control'] = "max-age=900";
+        resHeaders["Cache-Control"] = "max-age=900";
         return ok(
             JSON.stringify(reportFiles),
-            resHeaders
+            resHeaders,
         );
     }
 
     const requestedFile = fm.getFile(path);
     // Set content length header, if requested file is found by file manager.
     if (requestedFile) {
-        requestedFile.headers['Content-Length'] = Buffer.byteLength(
+        requestedFile.headers["Content-Length"] = Buffer.byteLength(
             requestedFile.data,
-            "utf8"
+            "utf8",
         ).toString();
     }
 
@@ -371,7 +386,7 @@ async function respond(
     if (!requestedFile) {
         const response = widgets.handleRequest(
             req,
-            supportedTimelineNotesRootFragments
+            supportedTimelineNotesRootFragments,
         );
         if (response) {
             return response;
@@ -381,7 +396,7 @@ async function respond(
         try {
             const response = await imgDir.handleRequest(
                 reqUrl.pathname,
-                reqUrl.search
+                reqUrl.search,
             );
             if (response) {
                 return response;
@@ -396,25 +411,27 @@ async function respond(
     if (!requestedFile) {
         try {
             const fpath = Path.join(exec_path, path);
-            const fileStat = (await Deno.stat(fpath));
+            const fileStat = await Deno.stat(fpath);
             if (fileStat.isFile) {
-                return await serveFile(req, fpath)
+                return await serveFile(req, fpath);
             } else if (fileStat.isDirectory) {
                 // DO directory index things
                 const opts = {
                     dir: Path.basename(path),
-                    widgets: (await getDirectoryEntryNames(fpath)).map((name) => {
-                        return {
-                            name: name,
-                            link:
-                                "https://" + Path.join(websiteRoot, path, name),
-                        };
-                    }),
+                    widgets: (await getDirectoryEntryNames(fpath)).map(
+                        (name) => {
+                            return {
+                                name: name,
+                                link: "https://" +
+                                    Path.join(websiteRoot, path, name),
+                            };
+                        },
+                    ),
                 };
                 return ok(
                     dirIndexPug(opts),
-                    resHeaders
-                )
+                    resHeaders,
+                );
             }
         } catch (error) {
             logger.warn(error);
@@ -423,28 +440,27 @@ async function respond(
 
     // Send successful response
     if (requestedFile) {
-        const resHeaders2 =
-            runOpts.static
-                ? {
-                    // This is absolutely cursed. For some incomprehensable
-                    // reason, explicitly setting the access control header
-                    // below results in "*, *" if the requestedFile.headers
-                    // already has "*" set. This filter will exclude the
-                    // requestedFile value... in theory.
-                    // Ah, I think it has to do with case sensitivity.
-                    //   ...Object.fromEntries(
-                    //       Object.entries(requestedFile.headers).filter(
-                    //           ([k, v]) =>
-                    //               k.toLowerCase() ===
-                    //               HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN.toLowerCase()
-                    //       )
-                    //   ),
-                    ...requestedFile.headers,
-                    'Access-Control-Allow-Origin': "*",
-                }
-                : requestedFile.headers;
+        const resHeaders2 = runOpts.static
+            ? {
+                // This is absolutely cursed. For some incomprehensable
+                // reason, explicitly setting the access control header
+                // below results in "*, *" if the requestedFile.headers
+                // already has "*" set. This filter will exclude the
+                // requestedFile value... in theory.
+                // Ah, I think it has to do with case sensitivity.
+                //   ...Object.fromEntries(
+                //       Object.entries(requestedFile.headers).filter(
+                //           ([k, v]) =>
+                //               k.toLowerCase() ===
+                //               HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN.toLowerCase()
+                //       )
+                //   ),
+                ...requestedFile.headers,
+                "Access-Control-Allow-Origin": "*",
+            }
+            : requestedFile.headers;
 
-            return ok(requestedFile.data, resHeaders2 as any)
+        return ok(requestedFile.data, resHeaders2 as any);
     }
 
     // Handle 404
@@ -460,8 +476,8 @@ function handle404(url: string) {
         return new Response(pug404, {
             status: 404,
             headers: {
-                'Content-Type': "text/html; charset=utf-8"
+                "Content-Type": "text/html; charset=utf-8",
             },
-          });
+        });
     }
 }

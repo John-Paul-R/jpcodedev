@@ -8,14 +8,14 @@ type APIReference = {
     level?: number;
     name: string;
     url?: string;
-  };
-  
-  type AreaOfEffect = {
+};
+
+type AreaOfEffect = {
     size?: number;
-    type?: 'sphere' | 'cone' | 'cylinder' | 'line' | 'cube';
-  };
-  
-  type SpellResponse = {
+    type?: "sphere" | "cone" | "cylinder" | "line" | "cube";
+};
+
+type SpellResponse = {
     index?: string;
     level: number;
     name: string;
@@ -23,7 +23,7 @@ type APIReference = {
     desc?: string[];
     higher_level?: string[];
     range?: string;
-    components?: Array<'V' | 'S' | 'M'>;
+    components?: Array<"V" | "S" | "M">;
     material?: string;
     area_of_effect?: AreaOfEffect;
     ritual?: boolean;
@@ -35,7 +35,7 @@ type APIReference = {
     school: APIReference;
     classes?: APIReference[];
     subclasses?: APIReference[];
-  };
+};
 export function getSpell(spellName: string): Promise<SpellResponse> {
     return fetch(BASE_URL + "/api/spells/" + spellName)
         .then((response) => response.json());
@@ -44,8 +44,7 @@ export function getAllSpells(): Promise<SpellResponse[]> {
     return fetch(BASE_URL + "/api/spells")
         .then((response) => response.json());
 }
-  
-  
+
 const spellsWrapper = new ApiWrapper({
     get: getSpell,
     list: getAllSpells,
@@ -55,7 +54,7 @@ function replaceRange(
     s: string,
     start: number,
     end: number,
-    substitute: string
+    substitute: string,
 ) {
     return s.substring(0, start) + substitute + s.substring(end);
 }
@@ -109,32 +108,33 @@ export async function insertSpellTooltips(htmlStr: string): Promise<string> {
                     htmlStr,
                     match.index,
                     match.index + match[0].length,
-                    tooltip.replacement
+                    tooltip.replacement,
                 );
             }
 
             match = htmlStr.match(regex);
         }
 
-        htmlStr +=
-            Object.keys(rawData).length > 0
-                ? `<script>var ${replacer.outVarName} = ${JSON.stringify(
-                      rawData
-                  )}</script>`
-                : "";
+        htmlStr += Object.keys(rawData).length > 0
+            ? `<script>var ${replacer.outVarName} = ${
+                JSON.stringify(
+                    rawData,
+                )
+            }</script>`
+            : "";
     }
 
     for (const elem of Object.values(tooltips)) {
         htmlStr += elem;
     }
 
-    htmlStr += `<script src="https://static.jpcode.dev/js/dnd-tooltips.js"></script>`;
+    htmlStr +=
+        `<script src="https://static.jpcode.dev/js/dnd-tooltips.js"></script>`;
 
     return htmlStr;
 }
 
 /**
- *
  * @param {String} match
  */
 async function createSpellTooltip(match: string): Promise<ReplaceInstruction> {
@@ -149,7 +149,8 @@ async function createSpellTooltip(match: string): Promise<ReplaceInstruction> {
         const descId = id; // + "-desc";
         const nameAsVo = data.name.replace(" ", "-");
         return {
-            replacement: `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${nameAsVo}" class="spell" data-desc-id="${descId}">${match}</a>`,
+            replacement:
+                `<a href="https://www.aidedd.org/dnd/sorts.php?vo=${nameAsVo}" class="spell" data-desc-id="${descId}">${match}</a>`,
             id: id,
             rawData: {
                 name: data.name,
@@ -160,7 +161,7 @@ async function createSpellTooltip(match: string): Promise<ReplaceInstruction> {
             },
         };
     } catch {
-        return  {
+        return {
             replacement: match,
             end: `<div class="spell_desc">${match}</div>`,
             id: id,
@@ -175,7 +176,9 @@ function createSectionLink(sectionId: string): Promise<ReplaceInstruction> {
     const formatted = sectionId.toLowerCase().trim();
     return Promise.resolve({
         id: formatted,
-        replacement: `<a href="#${formatted.replace(" ", "")}">${sectionId}</a>`,
+        replacement: `<a href="#${
+            formatted.replace(" ", "")
+        }">${sectionId}</a>`,
     });
 }
 

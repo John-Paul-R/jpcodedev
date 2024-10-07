@@ -19,7 +19,7 @@ const init = (
     rOpts: JPServerOptions,
     pugOpts: pug.Options & pug.LocalsObject,
     defHeaders: OutgoingHeaders,
-    lgr: Logger
+    lgr: Logger,
 ) => {
     runOpts = rOpts;
     logger = lgr;
@@ -33,7 +33,9 @@ type JpPugConfig = {
     data: Record<string, unknown>;
 };
 
-export type OutgoingHeaders = { [key in Header]?: string } & Partial<Record<string, string>>;
+export type OutgoingHeaders =
+    & { [key in Header]?: string }
+    & Partial<Record<string, string>>;
 
 type FileInfo = {
     absPath: PathLike;
@@ -59,16 +61,15 @@ async function loadFiles(dir_path: PathLike) {
         const tempPath = Path.parse("/" + Path.relative(dirPath, filePath));
         const relFilePath = Path.format(tempPath);
 
-        const fileDescriptor = await Deno.open(filePath, {read: true});
+        const fileDescriptor = await Deno.open(filePath, { read: true });
         const fileStats = await fileDescriptor.stat();
         if (fileStats.isDirectory) {
             fileDescriptor.close();
             return; // we're recursing dirs, so skip
         }
-        
+
         // let fileContents: Uint8Array | string = new Uint8Array(fileStats.size);
         // await fileDescriptor.readable.(fileContents);
-
 
         const contentType = Mime.getType(relFilePath);
         if (isLogVerbose) console.log(tempPath.base, contentType);
@@ -81,7 +82,7 @@ async function loadFiles(dir_path: PathLike) {
 
         function pugCompileJson(jsonContents: JpPugConfig) {
             const template = widgets.getPugTemplate(jsonContents.template);
-            return template({...pugOptions, ...jsonContents.data });
+            return template({ ...pugOptions, ...jsonContents.data });
         }
 
         let fileContents: Uint8Array | string | undefined;
@@ -93,7 +94,7 @@ async function loadFiles(dir_path: PathLike) {
             const jsonContents = (await Array.fromAsync(
                 fileDescriptor.readable
                     .pipeThrough(new TextDecoderStream())
-                    .pipeThrough(new JsonParseStream())
+                    .pipeThrough(new JsonParseStream()),
             ))[0] as JpPugConfig;
 
             try {
@@ -106,7 +107,7 @@ async function loadFiles(dir_path: PathLike) {
         } else if (filePath.endsWith(".pug")) {
             const textContent = (await Array.fromAsync(
                 fileDescriptor.readable
-                    .pipeThrough(new TextDecoderStream())
+                    .pipeThrough(new TextDecoderStream()),
             ))[0] as string;
 
             fileContents = pug.render(textContent, pugOptions);
@@ -115,14 +116,14 @@ async function loadFiles(dir_path: PathLike) {
 
         if (shouldOverwiteDefaultHeaders) {
             const resHeaders: OutgoingHeaders = { ...defaultHeaders };
-            resHeaders['Content-Type'] = "text/html; charset=utf-8";
+            resHeaders["Content-Type"] = "text/html; charset=utf-8";
             resHeaders["Last-Modified"] = headers["Last-Modified"];
             headers = resHeaders;
         }
 
         if (fileContents === undefined) {
             const content = new Uint8Array(fileStats.size);
-            fileDescriptor.read(content)
+            fileDescriptor.read(content);
             fileContents = content;
             // (await Array.fromAsync(
             //     fileDescriptor.readable
@@ -207,14 +208,14 @@ function getFile(reqPath: string) {
             console.log(
                 fileObj.fileName,
                 JSON.stringify({ ...fileObj, data: undefined }),
-                JSON.stringify(fileInfo)
+                JSON.stringify(fileInfo),
             );
 
             if (fileObj.fileName.startsWith("bundle")) {
                 console.log(
                     fileObj.fileName,
                     JSON.stringify({ ...fileObj, data: undefined }),
-                    JSON.stringify(fileInfo)
+                    JSON.stringify(fileInfo),
                 );
             }
             if (headerOverrides) {
@@ -230,8 +231,7 @@ function getFile(reqPath: string) {
         };
         // console.log("OUT", out);
         if (runOpts.maxAge) {
-            out.headers['Cache-Control'] =
-                out.headers['Cache-Control'] ??
+            out.headers["Cache-Control"] = out.headers["Cache-Control"] ??
                 `max-age=${runOpts.maxAge}`;
         }
     } else {
@@ -257,4 +257,4 @@ async function load(root_dir: string) {
     // console.log(directory_map);
 }
 
-export { init, load, getFile };
+export { getFile, init, load };

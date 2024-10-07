@@ -12,7 +12,7 @@ import { URL_ROOT } from "./http2server2.1.ts";
 import { trimTrailingSlash } from "./utils.ts";
 import { readJson } from "@x/jsonfile";
 import { ensureDir } from "@std/fs/ensure-dir";
-import __ from "@x/dirname"
+import __ from "@x/dirname";
 
 const { __filename } = __(import.meta);
 const logger = log4js.getLogger("timeline-notes");
@@ -50,7 +50,7 @@ type ColumnConfig = {
      * The type of cell to render (a sort of preset, supported by the pug template).
      * - 'title': notably, has a link to the note
      */
-    cell_type?: 'title' | undefined;
+    cell_type?: "title" | undefined;
 };
 
 type DndDirectoryOptions = SharedDirectoryOptions & {
@@ -106,7 +106,6 @@ const webrootToWidgetDirectory: Record<string, string> = {};
 const webrootToPugVariables: Record<string, any> = {};
 
 /**
- *
  * @param {object} options
  * @param {String}  options.widget_directory The directory to look inside for widget files
  * @param {boolean} options.preload_widgets Whether widgets should be loaded into memory at startup
@@ -122,8 +121,8 @@ async function init(
         lazy_load_allowed: true,
         web_root: "widgets",
         plugins: [] as string[],
-        pugVariables: {} 
-    }
+        pugVariables: {},
+    },
 ) {
     await ensureDir(options.widget_directory);
     const widget_paths = await getFilePathsRecursive(options.widget_directory);
@@ -138,7 +137,7 @@ async function init(
     let dirConfig: WidgetsDirectoryConfig = {};
     const dirConfigPath = Path.join(
         Path.normalize(options.widget_directory),
-        "config.json"
+        "config.json",
     );
 
     if (fs.existsSync(dirConfigPath)) {
@@ -169,15 +168,15 @@ async function init(
                             .makeHtml(data)
                             .replace(
                                 /<a\s*?href/gm,
-                                '<a noreferrer target="_blank" href'
-                            )
+                                '<a noreferrer target="_blank" href',
+                            ),
                     )
                     .then((htmlStr: string) => (markdown[file_name] = htmlStr))
                     .catch((err) => logger.warn("failed to fill tooltup", err));
             } else {
                 console.warn(
                     "Ignoring file, not a .pug widget or a content .json: " +
-                        file_path
+                        file_path,
                 );
             }
             // console.log("Loaded Widget: "+file_name);
@@ -191,17 +190,19 @@ async function init(
     _dir_config[options.web_root] = dirConfig;
     if (dirConfig && dirConfig.dnd && dirConfig.dnd.type == "notes") {
         const n_widgets = new Map<string, ContentFileMemCache>();
-        for (const [key, value] of Object.entries(widgets).sort(
-            (a, b) =>
-                new Date(b[1]["session-date"]).getTime() -
-                new Date(a[1]["session-date"]).getTime()
-        )) {
+        for (
+            const [key, value] of Object.entries(widgets).sort(
+                (a, b) =>
+                    new Date(b[1]["session-date"]).getTime() -
+                    new Date(a[1]["session-date"]).getTime(),
+            )
+        ) {
             n_widgets.set(key, value);
         }
         _widgets_data[options.web_root] = n_widgets;
     } else {
         _widgets_data[options.web_root] = new Map<string, ContentFileMemCache>(
-            Object.entries(widgets)
+            Object.entries(widgets),
         );
     }
     if (dirConfig && dirConfig.thoughts && dirConfig.thoughts.type == "notes") {
@@ -211,7 +212,7 @@ async function init(
             const sortedWidgetEntries = Object.entries(widgets).sort(
                 (a, b) =>
                     new Date(b[1][key]).getTime() -
-                    new Date(a[1][key]).getTime()
+                    new Date(a[1][key]).getTime(),
             );
             for (const [key, value] of sortedWidgetEntries) {
                 n_widgets.set(key, value);
@@ -221,7 +222,7 @@ async function init(
         _widgets_data[options.web_root] = n_widgets;
     } else {
         _widgets_data[options.web_root] = new Map<string, ContentFileMemCache>(
-            Object.entries(widgets)
+            Object.entries(widgets),
         );
     }
     for (const widget of Object.values(widgets)) {
@@ -235,7 +236,7 @@ async function init(
 function respond(
     contentType: string,
     content: any,
-    statusCode = 200
+    statusCode = 200,
 ): Response {
     const content_type = contentType ?? "text/raw";
     return new Response(
@@ -243,21 +244,22 @@ function respond(
         {
             status: statusCode,
             headers: {
-            "content-type": `${content_type}; charset=utf-8`,
-        }
-    });
+                "content-type": `${content_type}; charset=utf-8`,
+            },
+        },
+    );
 }
 
 function respondRedirect(to: string): Response {
     return new Response(null, {
         status: 301,
-        headers: { 'Location' : to }
-    })
+        headers: { "Location": to },
+    });
 }
 
 function handleRequest(
     request: Request,
-    supportedBasePaths: string[]
+    supportedBasePaths: string[],
 ): Response | undefined | null {
     const url = new URL(request.url);
     const reqPath = url.pathname;
@@ -275,10 +277,9 @@ function handleRequest(
     for (const webroot of webroots) {
         if (rpath.startsWith(webroot)) {
             console.log(webroot);
-            const srcUrlPath =
-                "/" +
+            const srcUrlPath = "/" +
                 Path.join(
-                    ...webrootToWidgetDirectory[webroot].split("/").slice(2)
+                    ...webrootToWidgetDirectory[webroot].split("/").slice(2),
                 );
             const pugVars = webrootToPugVariables[webroot];
             if (
@@ -291,8 +292,8 @@ function handleRequest(
                             URL_ROOT.substring("https://".length),
                             srcUrlPath,
                             "content",
-                            pathFrags[pathFrags.length - 1]
-                        )
+                            pathFrags[pathFrags.length - 1],
+                        ),
                 );
             }
 
@@ -309,7 +310,7 @@ function handleRequest(
                             title: dirConfig.title,
                             webroot: webroot,
                             ogPreview: dirConfig.ogPreview,
-                        })
+                        }),
                     );
                 } else if (rawDirConfig.thoughts) {
                     // TODO Properly handle responding to widgets in subdirs. (atm its reliant solely on basename, subdir has no effect)
@@ -322,9 +323,9 @@ function handleRequest(
                         widgetKey,
                         {
                             ...widgetMeta,
-                            columns: thoughtsDirConfig.columns.map(col => ({ 
+                            columns: thoughtsDirConfig.columns.map((col) => ({
                                 value: widgetMeta[col.key],
-                                cell_type: col.cell_type
+                                cell_type: col.cell_type,
                             })) ?? [],
                         },
                     ]);
@@ -335,17 +336,17 @@ function handleRequest(
                             ...pugVars,
                             widgets: widgetMetadata,
                             columnHeaders: thoughtsDirConfig.columns.map(
-                                (col) => col.displayName
+                                (col) => col.displayName,
                             ),
                             title: dirConfig.title,
                             webroot: webroot,
-                        })
+                        }),
                     );
                 }
             } else if (pathFrags[3] === "list-json") {
                 return respond(
                     "application/json",
-                    JSON.stringify(Object.keys(_widgets_data))
+                    JSON.stringify(Object.keys(_widgets_data)),
                 );
             } else {
                 try {
@@ -374,7 +375,7 @@ function handleRequest(
                                     title: widgetTitle,
                                     dirTitle: dirConfig.title,
                                     webroot: webroot,
-                                })
+                                }),
                             );
                         }
                     } else if (rawDirConfig.thoughts) {
@@ -387,7 +388,7 @@ function handleRequest(
                                 contentFile: widgetMetadata["content-file"],
                                 dirTitle: dirConfig.title,
                                 webroot: webroot,
-                            })
+                            }),
                         );
                     }
                 } catch (err) {
@@ -409,8 +410,8 @@ function handleRequest(
                         dir_configs: Object.entries(_dir_config).sort(),
                     },
                     null,
-                    4
-                )
+                    4,
+                ),
             );
         } else {
             return undefined;
@@ -429,7 +430,7 @@ function parseDirConfig(webroot: string): DirRenderConfig {
     const dirConfig = _dir_config[webroot];
     if (!dirConfig) {
         throw new Error(
-            `${__filename}: dirConfig was not defined for webroot '${webroot}'`
+            `${__filename}: dirConfig was not defined for webroot '${webroot}'`,
         );
     }
     if (dirConfig.dnd) {
@@ -445,17 +446,16 @@ function parseDirConfig(webroot: string): DirRenderConfig {
         };
     }
     throw new Error(
-        `${__filename}: dirConfig did not have one of [thoughts, dnd] defined for webroot '${webroot}'`
+        `${__filename}: dirConfig did not have one of [thoughts, dnd] defined for webroot '${webroot}'`,
     );
 }
 
 function getWidget(reqPath: string, pathFrags: string) {
     let out = null;
     Path.dirname;
-    const web_root =
-        reqPath.startsWith("/") && reqPath.length > 1
-            ? Path.dirname(reqPath).slice(1)
-            : reqPath;
+    const web_root = reqPath.startsWith("/") && reqPath.length > 1
+        ? Path.dirname(reqPath).slice(1)
+        : reqPath;
     console.log("Web Root: " + web_root);
     const pug_template = _templates[pathFrags[0]];
     console.log(pathFrags);
@@ -475,15 +475,16 @@ function getWidget(reqPath: string, pathFrags: string) {
     return out;
 }
 
-
-async function getFilePathsRecursive(directory_path: string): Promise<string[]> {
+async function getFilePathsRecursive(
+    directory_path: string,
+): Promise<string[]> {
     const result_dirents: string[] = [];
     await getFilePathsRecursiveImpl(directory_path, result_dirents);
     return result_dirents;
 }
 async function getFilePathsRecursiveImpl(
     directory_path: string,
-    result_dirents: string[]
+    result_dirents: string[],
 ): Promise<void> {
     const subdir_dirents = [];
     const dirents = await fs.readdir(directory_path, { withFileTypes: true });
@@ -497,9 +498,9 @@ async function getFilePathsRecursiveImpl(
             subdir_dirents.push(dirent_path);
         }
     }
-        
-    await Promise.all(subdir_dirents.map(async subdir => {
-        await getFilePathsRecursiveImpl(subdir, result_dirents)
+
+    await Promise.all(subdir_dirents.map(async (subdir) => {
+        await getFilePathsRecursiveImpl(subdir, result_dirents);
     }));
 }
 
@@ -517,7 +518,7 @@ async function loadTemplates(dir: string) {
             });
         } else {
             console.warn(
-                `Ignoring file, not a .pug widget or template: ${file_path}`
+                `Ignoring file, not a .pug widget or template: ${file_path}`,
             );
         }
     }
@@ -527,7 +528,9 @@ async function loadTemplates(dir: string) {
 const getPugTemplate = (templateName: string) => _templates[templateName];
 
 export {
-    getPugTemplate, handleRequest, init, loadTemplates,
-    _templates as templates
+    _templates as templates,
+    getPugTemplate,
+    handleRequest,
+    init,
+    loadTemplates,
 };
-

@@ -69,7 +69,9 @@ export default class ApiWrapper<T> {
                 data: data,
             };
             this.saveCache()
-                .catch(err => logger.error("Failed to save foreign-api-cache!", err));
+                .catch((err) =>
+                    logger.error("Failed to save foreign-api-cache!", err)
+                );
         } catch (error) {
             console.error(error);
         }

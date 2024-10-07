@@ -2,7 +2,7 @@ import fs from "node:fs";
 
 export function runWith(
     fileDescriptor: number,
-    func: (fileDescriptor: number) => void
+    func: (fileDescriptor: number) => void,
 ) {
     try {
         func(fileDescriptor);

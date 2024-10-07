@@ -19,8 +19,10 @@ let IMG_DIR: string;
 let files: { curatedConfig: any; stats: any };
 const readdir = promisify(fs.readdir);
 
-function assertIsStringIndexableObject(v: unknown): asserts v is Record<string, unknown> {
-    if (typeof v !== 'object') {
+function assertIsStringIndexableObject(
+    v: unknown,
+): asserts v is Record<string, unknown> {
+    if (typeof v !== "object") {
         throw new Error("Expected an 'object', got a " + typeof v);
     }
 }
@@ -31,21 +33,21 @@ const getImageFiles = async (source: string) => {
     assertIsStringIndexableObject(statsFile);
 
     const dirEntries = await readdir(source, { withFileTypes: true });
-    return  dirEntries
+    return dirEntries
         .filter(
             (dirent) =>
-                dirent.isFile() && dirent.name.endsWith("-wm-thumb.webp")
+                dirent.isFile() && dirent.name.endsWith("-wm-thumb.webp"),
         )
         .map((dirent) => {
             const baseName = dirent.name.slice(
                 0,
-                dirent.name.length - file_end_len - 3
+                dirent.name.length - file_end_len - 3,
             );
             return {
                 name: baseName,
                 fileName: dirent.name.slice(
                     0,
-                    dirent.name.length - file_end_len
+                    dirent.name.length - file_end_len,
                 ),
                 dateModified: statsFile[baseName],
             };
@@ -66,10 +68,11 @@ function init(
         const baseDir = Path.join(consts.exec_path, "3d");
         files = {
             stats: JSON.parse(
-                fs.readFileSync(Path.join(baseDir, "_stats.json")).toString()
+                fs.readFileSync(Path.join(baseDir, "_stats.json")).toString(),
             ),
             curatedConfig: JSON.parse(
-                fs.readFileSync(Path.join(baseDir, "index.pug.json")).toString()
+                fs.readFileSync(Path.join(baseDir, "index.pug.json"))
+                    .toString(),
             ),
         };
     }
@@ -80,7 +83,7 @@ const stripTrailingSlash = (str: string) => {
 
 async function handleRequest(
     path: string,
-    _query: string
+    _query: string,
 ): Promise<Response | undefined> {
     const isStatic = consts.websiteRoot.startsWith("static.");
     const validPaths = ["/3d", "/3d/all"];
@@ -103,14 +106,14 @@ async function handleRequest(
 
 // FIXME @jp: oh, this is going to be... ew.. without streams access
 function reverseProxy(path: string): Promise<Response> {
-    logger.log("pinging static server...");    
+    logger.log("pinging static server...");
     return fetch(`https://static.jpcode.dev:443/${path}`)
         .then((rb) => {
             const reader = rb.body?.getReader();
             if (reader === undefined) {
                 return undefined;
             }
-        
+
             return new ReadableStream({
                 start(controller) {
                     // The following function handles each data chunk
@@ -119,9 +122,9 @@ function reverseProxy(path: string): Promise<Response> {
                         reader!.read().then(({ done, value }) => {
                             // If there is no more data to read
                             if (done) {
-                            console.log("done", done);
-                            controller.close();
-                            return;
+                                console.log("done", done);
+                                controller.close();
+                                return;
                             }
                             // Get the data and send it to the browser via the controller
                             controller.enqueue(value);
@@ -130,15 +133,16 @@ function reverseProxy(path: string): Promise<Response> {
                             push();
                         });
                     }
-            
+
                     push();
                 },
             });
         })
-        .then((stream) => stream === undefined
-            ? notFound()
-            : new Response(stream, { headers: { "Content-Type": "text/html" } }),
-        )
+        .then((stream) =>
+            stream === undefined ? notFound() : new Response(stream, {
+                headers: { "Content-Type": "text/html" },
+            })
+        );
 }
 
 async function viewAll(): Promise<Response> {
@@ -156,7 +160,7 @@ async function viewAll(): Promise<Response> {
         });
     }
 
-    return ok(imgDirPug({ cards: images }))
+    return ok(imgDirPug({ cards: images }));
 }
 
 function viewSpecified(path: string) {
@@ -189,4 +193,3 @@ function viewSpecified(path: string) {
 }
 
 export { handleRequest, init };
-
