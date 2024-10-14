@@ -441,7 +441,7 @@ async function respond(
             const fileStat = await Deno.stat(fpath);
             if (fileStat.isFile) {
                 return await serveFile(req, fpath);
-            } else if (fileStat.isDirectory) {
+            } else if (fileStat.isDirectory && !fpath.includes('unindexed')) {
                 // DO directory index things
                 const opts = {
                     dir: Path.basename(path),
