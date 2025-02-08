@@ -13,6 +13,7 @@ type CachedResponseData<T> = {
 type BaseApi<T> = {
     get: (str: string) => Promise<T>;
     list: () => Promise<T[]>;
+    normalizeKey: (key: string) => string;
 };
 
 function getDirname(): string {
@@ -47,7 +48,7 @@ export default class ApiWrapper<T> {
     }
 
     async get(queryStr: string): Promise<T | null> {
-        queryStr = queryStr.toLowerCase();
+        queryStr = this.getter.normalizeKey(queryStr);
         return this.cacheMap[queryStr]?.data ?? (await this._get(queryStr));
     }
 
@@ -73,7 +74,7 @@ export default class ApiWrapper<T> {
                     logger.error("Failed to save foreign-api-cache!", err)
                 );
         } catch (error) {
-            console.error(error);
+            console.error(error,  queryStr, data);
         }
         return data;
     }

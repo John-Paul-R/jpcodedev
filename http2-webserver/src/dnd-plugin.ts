@@ -36,18 +36,29 @@ type SpellResponse = {
     classes?: APIReference[];
     subclasses?: APIReference[];
 };
+const debug = false; 
+const jsonResponseParser: (res: Response) => any = debug
+    ? async (response) => {
+        const text = await response.text();
+        console.log(text);
+        return JSON.parse(text);
+    }
+    : (response) => response.json();
+
 export function getSpell(spellName: string): Promise<SpellResponse> {
-    return fetch(BASE_URL + "/api/spells/" + spellName)
-        .then((response) => response.json());
+    const cleanedName = spellName.toLowerCase().replace(/\s+/g, '-')
+    return fetch(BASE_URL + "/api/spells/" + cleanedName)
+        .then(jsonResponseParser);
 }
 export function getAllSpells(): Promise<SpellResponse[]> {
     return fetch(BASE_URL + "/api/spells")
-        .then((response) => response.json());
+        .then(jsonResponseParser);
 }
 
 const spellsWrapper = new ApiWrapper({
     get: getSpell,
     list: getAllSpells,
+    normalizeKey: (spellName) => spellName.toLowerCase().replace(/\s+/g, '-'),
 }, "dnd-api-spells");
 
 function replaceRange(
