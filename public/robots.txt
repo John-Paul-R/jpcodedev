@@ -2,9 +2,13 @@
 User-agent: Googlebot
 Disallow: /nocrawl/
 Disallow: /dnd/jp-icewind/
+Disallow: /dnd/ian-theros/
+Disallow: /dnd/
 
 # Group 2
 User-agent: *
 Allow: /
 Disallow: /nocrawl/
 Disallow: /dnd/jp-icewind/
+Disallow: /dnd/ian-theros/
+Disallow: /dnd/
