@@ -2,9 +2,6 @@ import * as pug from "@x/pug";
 import fs from "fs-extra";
 import Path from "node:path";
 
-import showdown from "npm:showdown";
-import showdownHighlight from "npm:showdown-highlight";
-
 import log4js from "log4js";
 import type { Buffer } from "node:buffer";
 import * as dndPlugin from "./dnd-plugin.ts";
@@ -13,6 +10,7 @@ import { trimTrailingSlash } from "./utils.ts";
 import { readJson } from "@x/jsonfile";
 import { ensureDir } from "@std/fs/ensure-dir";
 import __ from "@x/dirname";
+import { MdToHtmlConverter } from "./md-to-html-converter.ts";
 
 const { __filename } = __(import.meta);
 const logger = log4js.getLogger("timeline-notes");
@@ -79,16 +77,9 @@ type ContentFileMemCache = {
     content: string | Buffer;
 } & ContentFIleMetadata;
 
-const converter = new showdown.Converter({
-    tables: true,
-    strikethrough: true,
-    disableForced4SpacesIndentedSublists: true,
-    extensions: [
-        showdownHighlight({
-            pre: true,
-        }),
-    ],
-});
+
+const converter = new MdToHtmlConverter();
+
 
 const _widgets_data: { [key: string]: Map<string, ContentFileMemCache> } = {};
 const _templates: { [key: string]: pug.compileTemplate } = {};
@@ -162,10 +153,11 @@ async function init(
                 }
                 widgets[file_name] = JSON.parse(data);
             } else if (ext === ".md") {
+                const dir_path = options.web_root;
                 dndPlugin
                     .insertSpellTooltips(
                         converter
-                            .makeHtml(data)
+                            .makeHtml(data, { imagePath: `/img/${dir_path}/` })
                             .replace(
                                 /<a\s*?href/gm,
                                 '<a noreferrer target="_blank" href',
