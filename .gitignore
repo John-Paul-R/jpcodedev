@@ -20,6 +20,7 @@ public/dnd/grid_aligner/*.jpg
 public_static/benchmarks/dotnet/
 public/dotnetperf/build/
 public/thoughts/software/src/content/
+public/resume*
 
 http2-webserver/foreign-api-cache/
 http2-webserver/log/
