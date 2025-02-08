@@ -1,4 +1,3 @@
-
 const spells = document.getElementsByClassName("spell");
 
 class DescElem {
@@ -46,35 +45,62 @@ for (const spell of spells) {
     const id = spell.getAttribute("data-desc-id");
     // const descElem = document.getElementById(id);
     // const descSize = sizeFromRect(descElem.getBoundingClientRect());
-    const moveListenter = (e) => {
+    const moveListener = (e) => {
         const textRect = e.target.getBoundingClientRect();
         const descRect = descElem.getBoundingClientRect();
         const bodyRect = document.body.getBoundingClientRect();
-        const directionNum = chooseDir((textRect.left + textRect.right) / 2, descRect.width, bodyRect.width)
-        const newLeft = (directionNum > 0 ? e.clientX + "px" : (e.clientX - descRect.width) + 'px');
-        descElem.style.left = newLeft;
+        const leftFn = positionFromPointer((textRect.left + textRect.right) / 2, descRect.width, bodyRect.width);
+        descElem.style.left = leftFn(e.clientX)
     };
     spell.addEventListener("pointerover", (e) => {
         descElem.classList.add('open');
+        descObj.fillData(id);
+
         const textRect = e.target.getBoundingClientRect();
         const descRect = descElem.getBoundingClientRect();
         const bodyRect = document.body.getBoundingClientRect();
 
         const directionNum = chooseDir((textRect.top + textRect.bottom) / 2, descRect.height, bodyRect.height);
 
-        const newTop = (directionNum > 0 ? textRect.bottom + "px" : (textRect.top - descRect.height) + 'px');
+        if (directionNum > 0) {
+            descElem.style.top = textRect.bottom + 'px';
+            descElem.style.bottom = null;
+        } else {
+            descElem.style.top = null;
+            descElem.style.bottom = (bodyRect.height - textRect.top) + 'px';
+        }
 
-        descElem.style.top = newTop;
+        descElem.style.maxHeight = (directionNum > 0 ? bodyRect.bottom - textRect.bottom - 25 : textRect.top) + 'px';
 
-        descElem.style.left = (e.clientX) + 'px';
-        e.target.addEventListener('pointermove', moveListenter);
-        descObj.fillData(id);
+        const leftFn = positionFromPointer((textRect.left + textRect.right) / 2, descRect.width, bodyRect.width);
+        descElem.style.left = leftFn(e.clientX)
+
+        e.target.addEventListener('pointermove', moveListener);
     })
 
-    spell.addEventListener("pointerout", (e) => {
-        descElem.classList.remove('open');
-        e.target.removeEventListener('pointermove', moveListenter);
-    })
+    const createPopupHandler = (trigger, popup) => {
+        let isPopupBound = false;
+        const handler = (e) => {
+            const otherElement = e.target === trigger ? popup : trigger;
+            const isInOtherElement = isInBounds(e, otherElement);
+            if (!isInOtherElement) {
+                // Cleanup all listeners and close
+                popup.classList.remove('open');
+                trigger.removeEventListener('pointermove', moveListener);
+                popup.removeEventListener('pointerout', handler);
+                descElem.style.top = 'unset';
+                descElem.style.maxHeight = 'unset';
+                isPopupBound = false;
+            } else if (isInBounds(e, popup) && !isPopupBound) {
+                popup.addEventListener('pointerleave', handler)
+                isPopupBound = true;
+            }
+        };
+
+        return handler;
+    };
+
+    spell.addEventListener("pointerout", createPopupHandler(spell, descElem))
 }
 
 // choose direction that has least amount cut off.
@@ -92,7 +118,20 @@ function chooseDir(pos, size, upperBound) {
 
     // Smaller overlap should be chosen
     return (overlapBot > overlapTop) ? -1 : 1;
-
+}
+/**
+ * 
+ * @param {number} pos midpoint of source elem 
+ * @param {number} size size of desc box
+ * @param {number} upperBound viewport size in this dimension
+ * @returns {number} -1 for towards top, 1 for towards bottom.
+ */
+function positionFromPointer(pos, size, upperBound) {
+    const dir = chooseDir(pos, size, upperBound)
+    const toAdd = (dir < 0) ? -size : 0
+    const offset = 25;
+    // const newLeft = (directionNum > 0 ? e.clientX + "px" : (e.clientX - descRect.width) + 'px');
+    return (pos) => dir * (pos + toAdd + (-dir * offset)) + 'px'
 }
 
 // expand in certain direction if absolutely necessary.
@@ -102,4 +141,13 @@ function sizeFromRect(rect) {
         height: rect.height,
         width: rect.width
     };
+}
+function isInBounds(event, element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom
+    );
 }

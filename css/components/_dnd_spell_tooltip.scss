@@ -28,6 +28,7 @@
     padding: 0.5rem;
     z-index: 10;
     box-shadow: var(--bs-md);
+    box-sizing: border-box;
 
     &.open {
         visibility: visible;
@@ -53,5 +54,8 @@
             font-weight: 600;
             content: "Cast Time: ";
         }
+    }
+    .desc {
+        overflow-y: auto;
     }
 }
