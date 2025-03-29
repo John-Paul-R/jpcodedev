@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="index.css" />
+        <title>CSS Features: Expermentation!</title>
+    </head>
+    <body class="page_wrapper">
+        <div class="content">
+            <div class="sidebar">
+                <nav class="nav">
+                    <ul class="list">
+                        <li class="feature_page_link">
+                            <a href="#css-nesting" class="link">CSS Nesting</a>
+                        </li>
+                        <li class="feature_page_link">
+                            <a href="#styling-select" class="link"
+                                >Styling Select</a
+                            >
+                        </li>
+                        <li class="feature_page_link">
+                            <a href="#todo" class="link">TODO</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <header class="header">
+                <h1 class="title">CSS Features: Expermentation!</h1>
+            </header>
+            <main class="main">
+                <section class="page css-nesting">
+                    <h2 class="subtitle">CSS Nesting</h2>
+                    <p class="paragraph">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Sed non risus. Suspendisse lectus tortor, dignissim sit
+                        amet, adipiscing nec, ultricies sed, dolor. Cras
+                        elementum ultrices diam. Maecenas ligula massa, varius
+                        a, semper congue, euismod non, mi.
+                    </p>
+                </section>
+
+                <section class="page styling-select">
+                    <h2 class="subtitle">Styling Native Select</h2>
+                    <select>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                    <p class="paragraph">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Sed non risus. Suspendisse lectus tortor, dignissim sit
+                        amet, adipiscing nec, ultricies sed, dolor. Cras
+                        elementum ultrices diam. Maecenas ligula massa, varius
+                        a, semper congue, euismod non, mi.
+                    </p>
+                </section>
+
+                <section class="page todo">
+                    <h2 class="subtitle">TODO</h2>
+                    <p class="paragraph">
+                        More filler text! Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit. Sed non risus. Suspendisse
+                        lectus tortor, dignissim sit amet, adipiscing nec,
+                        ultricies sed, dolor. Cras elementum ultrices diam.
+                        Maecenas ligula massa, varius a, semper congue, euismod
+                        non, mi.
+                    </p>
+                </section>
+            </main>
+        </div>
+        <script>
+            const html = document.body.parentNode;
+            function setPageByHash(pageName) {
+                html.setAttribute("data-jp-page", pageName.slice(1));
+            }
+
+            window.addEventListener(
+                "hashchange",
+                function () {
+                    console.log("Hash changed to: " + window.location.hash);
+
+                    setPageByHash(window.location.hash);
+                },
+                false,
+            );
+
+            document.addEventListener("DOMContentLoaded", function () {
+                setPageByHash(window.location.hash);
+            });
+        </script>
+    </body>
+</html>
