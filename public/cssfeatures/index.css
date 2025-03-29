@@ -1,5 +1,7 @@
 body {
     background-color: #f5f5f5;
+    margin-left: 12px;
+    margin-right: 18px;
 }
 
 .content {
@@ -14,7 +16,7 @@ body {
         grid-area: sidebar;
     }
 
-    & header {
+    & .header {
         grid-area: header;
         text-align: center;
     }
@@ -28,20 +30,55 @@ body {
     display: none;
 }
 
-html[data-jp-page="css-nesting"] {
-    & .page.css-nesting {
-        display: block;
+html[data-jp-page="css-nesting"] .page.css-nesting,
+html[data-jp-page="styling-select"] .page.styling-select,
+html[data-jp-page="todo"] .page.todo {
+    display: block;
+}
+
+/* CSS Nesting Demo */
+
+.demo.content {
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas:
+        "header header"
+        "main sidebar";
+
+    & > * {
+        text-align: center;
+    }
+    & .sidebar {
+        border: 2px solid lightskyblue;
+    }
+
+    & .header {
+        border: 2px solid lightgreen;
+        height: 64px;
+    }
+
+    & .main {
+        border: 2px solid lightseagreen;
+        height: 256px;
     }
 }
 
-html[data-jp-page="styling-select"] {
-    & .page.styling-select {
-        display: block;
-    }
+/* pre */
+pre {
+    background-color: #efefef;
+    border-radius: 8px;
+    border: 2px solid #dadada;
+    /* padding: 8px; */
+    width: clamp(30%, 512px, 100%);
 }
 
-html[data-jp-page="todo"] {
-    & .page.todo {
-        display: block;
-    }
+h3 span.colored {
+    color: seagreen;
+}
+
+code {
+    font-size: 1.3em;
+    background-color: #eaeaea;
+    border: 1px solid #dadada;
+    padding-inline: 2px;
+    border-radius: 4px;
 }

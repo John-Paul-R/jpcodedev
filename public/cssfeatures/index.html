@@ -4,6 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="index.css" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/@speed-highlight/core/dist/themes/github-light.css"
+        />
         <title>CSS Features: Expermentation!</title>
     </head>
     <body class="page_wrapper">
@@ -32,12 +36,81 @@
                 <section class="page css-nesting">
                     <h2 class="subtitle">CSS Nesting</h2>
                     <p class="paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed non risus. Suspendisse lectus tortor, dignissim sit
-                        amet, adipiscing nec, ultricies sed, dolor. Cras
-                        elementum ultrices diam. Maecenas ligula massa, varius
-                        a, semper congue, euismod non, mi.
+                        CSS Nesting is live! Gone are the days when
+                        <code>&</code> required a CSS preprocessor!
                     </p>
+
+                    <ul>
+                        <li>
+                            <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Using_CSS_nesting"
+                                >MDN - Using CSS nesting</a
+                            >
+                        </li>
+                        <li>
+                            <a href="https://caniuse.com/css-nesting"
+                                >Can I Use - CSS Nesting</a
+                            >
+                        </li>
+                    </ul>
+
+                    <h3>Layout Overrides with Nested Selectors Demo</h3>
+                    <div class="content demo">
+                        <div class="sidebar">sidebar</div>
+                        <div class="header">header</div>
+                        <div class="main">main</div>
+                    </div>
+                    <h3>Main Page Styles</h3>
+                    <pre class="shj-lang-css">
+.content {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar main";
+
+    & .sidebar {
+        grid-area: sidebar;
+    }
+
+    & .header {
+        grid-area: header;
+        text-align: center;
+    }
+
+    & .main {
+        grid-area: main;
+    }
+}</pre
+                    >
+                    <h3><span class="colored">Colored</span> Demo Styles</h3>
+                    <pre class="shj-lang-css">
+.demo.content {
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas:
+        "header header"
+        "main sidebar";
+
+        & > * {
+        text-align: center;
+    }
+
+    & .sidebar {
+        border: 2px solid lightskyblue;
+    }
+
+    & .header {
+        border: 2px solid lightgreen;
+        height: 64px;
+    }
+
+    & .main {
+        border: 2px solid lightseagreen;
+        height: 256px;
+    }
+}</pre
+                    >
                 </section>
 
                 <section class="page styling-select">
@@ -88,6 +161,10 @@
             document.addEventListener("DOMContentLoaded", function () {
                 setPageByHash(window.location.hash);
             });
+        </script>
+        <script type="module">
+            import { highlightAll } from "https://unpkg.com/@speed-highlight/core/dist/index.js";
+            highlightAll();
         </script>
     </body>
 </html>
